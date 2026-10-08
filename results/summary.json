@@ -1,0 +1,42 @@
+{
+  "baseline": {
+    "students": 2796,
+    "idle_hours_per_student_week": 0.36,
+    "idle_hours_std": 0.82,
+    "idle_hours_max": 5.62,
+    "students_with_3h_plus_idle_per_week": 77,
+    "days_on_campus_per_student_week": 4.02,
+    "peak_students_on_campus": 1160,
+    "weekday_hourly_load_std": 380.3,
+    "evening_or_saturday_class_hours_per_student_week": 0.46,
+    "student_clash_hours": 0
+  },
+  "optimized": {
+    "students": 2796,
+    "idle_hours_per_student_week": 0.24,
+    "idle_hours_std": 0.72,
+    "idle_hours_max": 4.62,
+    "students_with_3h_plus_idle_per_week": 68,
+    "days_on_campus_per_student_week": 3.95,
+    "peak_students_on_campus": 1020,
+    "weekday_hourly_load_std": 374.6,
+    "evening_or_saturday_class_hours_per_student_week": 0.27,
+    "student_clash_hours": 0
+  },
+  "double_booked_hours": {
+    "room_hours_in_real_data": 117,
+    "room_hours_introduced": 0,
+    "room_hours_resolved": 0,
+    "instructor_hours_in_real_data": 227,
+    "instructor_hours_introduced": 0,
+    "instructor_hours_resolved": 13
+  },
+  "weights": {
+    "peak": 3,
+    "fairness": 50,
+    "late": 1
+  },
+  "block_size": 12,
+  "blocks": 279,
+  "time_limit_per_stage_s": 300.0
+}
