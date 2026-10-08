@@ -1,0 +1,105 @@
+college,major,english,students,estimated_students,courses
+College of Business,BBA Accountancy,GE1401,132,140,GE1401 CB2100 CB2201 CB2300 CB2601
+College of Business,BBA Accountancy,LC0200A,60,60,LC0200A CB2100 CB2201 CB2300 CB2601
+College of Business,BBA Finance,GE1401,105,112,GE1401 CB2400 CB2201 CB2100
+College of Business,BBA Finance,LC0200A,48,48,LC0200A CB2400 CB2201 CB2100
+College of Business,BBA Business Economics,GE1401,46,49,GE1401 CB2201 CB2400 CB2500
+College of Business,BBA Business Economics,LC0200A,21,21,LC0200A CB2201 CB2400 CB2500
+College of Business,BBA Marketing,GE1401,72,77,GE1401 CB2601 CB2201 CB2400
+College of Business,BBA Marketing,LC0200A,33,33,LC0200A CB2601 CB2201 CB2400
+College of Business,BBA Management,GE1401,59,63,GE1401 CB2201 CB2601 CB2400
+College of Business,BBA Management,LC0200A,27,27,LC0200A CB2201 CB2601 CB2400
+College of Business,BBA Global Business,GE1401,39,42,GE1401 CB2100 CB2601
+College of Business,BBA Global Business,LC0200A,18,18,LC0200A CB2100 CB2601
+College of Business,BBA Global Business Systems Management,GE1401,59,63,GE1401 CB2201 CB2500 CB2300
+College of Business,BBA Global Business Systems Management,LC0200A,27,27,LC0200A CB2201 CB2500 CB2300
+College of Business,BBA Artificial Intelligence in Business,GE1401,33,35,GE1401 CB2201 CB2500 CB2400
+College of Business,BBA Artificial Intelligence in Business,LC0200A,15,15,LC0200A CB2201 CB2500 CB2400
+College of Business,BBA Business Decision Analytics,GE1401,39,42,GE1401 CB2201 CB2400 CB2500
+College of Business,BBA Business Decision Analytics,LC0200A,18,18,LC0200A CB2201 CB2400 CB2500
+College of Business,BBA Global Operations Management,GE1401,33,35,GE1401 CB2201 CB2400 CB2500
+College of Business,BBA Global Operations Management,LC0200A,15,15,LC0200A CB2201 CB2400 CB2500
+College of Business,BSc Computational Finance and Financial Technology,GE1401,39,42,GE1401 CB2400 CS1102 MA1300
+College of Business,BSc Computational Finance and Financial Technology,LC0200A,18,18,LC0200A CB2400 CS1102 MA1300
+College of Computing,BSc Computer Science,GE1401,122,175,GE1401 CS1302A MA1508 CS2115
+College of Computing,BSc Computer Science,LC0200A,52,75,LC0200A CS1302A MA1508 CS2115
+College of Computing,BSc Data Science,GE1401,54,63,GE1401 MA1508 CS1315 DSC1001
+College of Computing,BSc Data Science,LC0200A,23,27,LC0200A MA1508 CS1315 DSC1001
+College of Computing,BSc Data and Systems Engineering,GE1401,36,42,GE1401 MA1508 CS1315 DSC1001
+College of Computing,BSc Data and Systems Engineering,LC0200A,15,18,LC0200A MA1508 CS1315 DSC1001
+College of Computing,BSc Cybersecurity,GE1401,19,28,GE1401 CS1302A MA1508 CS2115 CS2117
+College of Computing,BSc Cybersecurity,LC0200A,8,12,LC0200A CS1302A MA1508 CS2115 CS2117
+College of Engineering,BEng Civil Engineering,GE1401,39,42,GE1401 MA1200 CS1302 PHY1201
+College of Engineering,BEng Civil Engineering,LC0200A,17,18,LC0200A MA1200 CS1302 PHY1201
+College of Engineering,BEng Building Services Engineering,GE1401,26,28,GE1401 MA1200 CS1302 PHY1201
+College of Engineering,BEng Building Services Engineering,LC0200A,11,12,LC0200A MA1200 CS1302 PHY1201
+College of Engineering,BSc Architecture and Surveying,GE1401,33,35,GE1401 MA1200 CS1302 PHY1201
+College of Engineering,BSc Architecture and Surveying,LC0200A,14,15,LC0200A MA1200 CS1302 PHY1201
+College of Engineering,BEng Computer and Data Engineering,GE1401,25,42,GE1401 MA1200 CS1302 GE1354 EE1001
+College of Engineering,BEng Computer and Data Engineering,LC0200A,10,18,LC0200A MA1200 CS1302 GE1354 EE1001
+College of Engineering,BEng Electronic and Electrical Engineering,GE1401,25,42,GE1401 MA1200 CS1302 GE1354 EE1001
+College of Engineering,BEng Electronic and Electrical Engineering,LC0200A,10,18,LC0200A MA1200 CS1302 GE1354 EE1001
+College of Engineering,BEng Information Engineering,GE1401,21,35,GE1401 MA1200 CS1302 GE1354 EE1001
+College of Engineering,BEng Information Engineering,LC0200A,9,15,LC0200A MA1200 CS1302 GE1354 EE1001
+College of Engineering,BEng Microelectronics Engineering,GE1401,12,21,GE1401 MA1200 CS1302 GE1354 EE1001
+College of Engineering,BEng Microelectronics Engineering,LC0200A,5,9,LC0200A MA1200 CS1302 GE1354 EE1001
+College of Engineering,BEng Mechanical Engineering,GE1401,39,42,GE1401 MA1200 MNE2066 PHY1101 MNE2116
+College of Engineering,BEng Mechanical Engineering,LC0200A,17,18,LC0200A MA1200 MNE2066 PHY1101 MNE2116
+College of Engineering,BEng Aerospace Engineering,GE1401,26,28,GE1401 MA1200 MNE2066 PHY1101 MNE2116
+College of Engineering,BEng Aerospace Engineering,LC0200A,11,12,LC0200A MA1200 MNE2066 PHY1101 MNE2116
+College of Engineering,BEng Nuclear and Risk Engineering,GE1401,16,17,GE1401 MA1200 MNE2066 PHY1101 MNE2116
+College of Engineering,BEng Nuclear and Risk Engineering,LC0200A,7,8,LC0200A MA1200 MNE2066 PHY1101 MNE2116
+College of Engineering,BEng Materials Science and Engineering,GE1401,33,35,GE1401 CHEM1300 MA1200 MSE1001 PHY1201
+College of Engineering,BEng Materials Science and Engineering,LC0200A,14,15,LC0200A CHEM1300 MA1200 MSE1001 PHY1201
+College of Engineering,BEng Intelligent Manufacturing Engineering,GE1401,23,25,GE1401 MA1200 SYE2066 PHY1201 GE1501
+College of Engineering,BEng Intelligent Manufacturing Engineering,LC0200A,9,10,LC0200A MA1200 SYE2066 PHY1201 GE1501
+College of Engineering,BEng Innovation and Enterprise Engineering,GE1401,16,17,GE1401 MA1200 SYE1001 PHY1201 GE2304 GE1501
+College of Engineering,BEng Innovation and Enterprise Engineering,LC0200A,7,8,LC0200A MA1200 SYE1001 PHY1201 GE2304 GE1501
+School of Energy and Environment,BEng Energy Science and Engineering,GE1401,23,25,GE1401 MA1200 CHEM1200 CHEM1300 SEE1003
+School of Energy and Environment,BEng Energy Science and Engineering,LC0200A,9,10,LC0200A MA1200 CHEM1200 CHEM1300 SEE1003
+School of Energy and Environment,BEng Environmental Science and Engineering,GE1401,23,25,GE1401 MA1200 CHEM1200 CHEM1300 SEE1003
+School of Energy and Environment,BEng Environmental Science and Engineering,LC0200A,9,10,LC0200A MA1200 CHEM1200 CHEM1300 SEE1003
+School of Energy and Environment,BSc Environment and Sustainable Business,GE1401,16,17,GE1401 CB2100 CHEM1300 MA1200 SEE1005
+School of Energy and Environment,BSc Environment and Sustainable Business,LC0200A,7,8,LC0200A CB2100 CHEM1300 MA1200 SEE1005
+College of Science,BSc Chemistry,GE1401,39,42,GE1401 MA1300 CS1102 CHEM1300 CSCI1001
+College of Science,BSc Chemistry,LC0200A,18,18,LC0200A MA1300 CS1102 CHEM1300 CSCI1001
+College of Science,BSc Computing Mathematics,GE1401,39,42,GE1401 GE1501 MA1400 CS1302 MA1502 CSCI1001
+College of Science,BSc Computing Mathematics,LC0200A,18,18,LC0200A GE1501 MA1400 CS1302 MA1502 CSCI1001
+College of Science,BSc Physics,GE1401,26,28,GE1401 PHY1101 CS1302 CSCI1001 MA1300
+College of Science,BSc Physics,LC0200A,12,12,LC0200A PHY1101 CS1302 CSCI1001 MA1300
+College of Biomedicine,BEng Biomedical Engineering,GE1401,26,28,GE1401 PHY1201 CHEM1200 MA1200 BME2105
+College of Biomedicine,BEng Biomedical Engineering,LC0200A,11,12,LC0200A PHY1201 CHEM1200 MA1200 BME2105
+College of Biomedicine,BSc Biological Sciences,GE1401,33,35,GE1401 CHEM1300 CHEM1200 BMS1901 GE1501
+College of Biomedicine,BSc Biological Sciences,LC0200A,15,15,LC0200A CHEM1300 CHEM1200 BMS1901 GE1501
+College of Biomedicine,BSc Biomedical Sciences,GE1401,33,35,GE1401 CHEM1300 CHEM1200 BMS1901 GE1501
+College of Biomedicine,BSc Biomedical Sciences,LC0200A,15,15,LC0200A CHEM1300 CHEM1200 BMS1901 GE1501
+Jockey Club College of Veterinary Medicine and Life Sciences,Bachelor of Veterinary Medicine,GE1401,12,13,GE1401 VM2001 VM2102
+Jockey Club College of Veterinary Medicine and Life Sciences,Bachelor of Veterinary Medicine,LC0200A,5,5,LC0200A VM2001 VM2102
+College of Liberal Arts and Social Sciences,BA English,GE1401,25,49,GE1401 EN2714
+College of Liberal Arts and Social Sciences,BA English,LC0200A,10,21,LC0200A EN2714
+College of Liberal Arts and Social Sciences,BA Chinese and History,GE1401,33,35,GE1401 CAH2610 CAH2614
+College of Liberal Arts and Social Sciences,BA Chinese and History,LC0200A,15,15,LC0200A CAH2610 CAH2614
+College of Liberal Arts and Social Sciences,BA Linguistics and Language Applications,GE1401,26,28,GE1401 LT1101 GE1501
+College of Liberal Arts and Social Sciences,BA Linguistics and Language Applications,LC0200A,12,12,LC0200A LT1101 GE1501
+College of Liberal Arts and Social Sciences,BA Media and Communication,GE1401,46,49,GE1401 COM2105
+College of Liberal Arts and Social Sciences,BA Media and Communication,LC0200A,20,21,LC0200A COM2105
+College of Liberal Arts and Social Sciences,BA Digital Television and Broadcasting,GE1401,19,21,GE1401 COM2105
+College of Liberal Arts and Social Sciences,BA Digital Television and Broadcasting,LC0200A,8,9,LC0200A COM2105
+College of Liberal Arts and Social Sciences,BSocSc International Relations and Global Affairs,GE1401,33,35,GE1401 PIA2050
+College of Liberal Arts and Social Sciences,BSocSc International Relations and Global Affairs,LC0200A,15,15,LC0200A PIA2050
+College of Liberal Arts and Social Sciences,BSocSc Public Affairs and Management,GE1401,39,42,GE1401 PIA2307 PIA2530
+College of Liberal Arts and Social Sciences,BSocSc Public Affairs and Management,LC0200A,18,18,LC0200A PIA2307 PIA2530
+College of Liberal Arts and Social Sciences,BSocSc Crime Science,GE1401,20,28,GE1401 SS1011 SS1101
+College of Liberal Arts and Social Sciences,BSocSc Crime Science,LC0200A,8,12,LC0200A SS1011 SS1101
+College of Liberal Arts and Social Sciences,BSocSc Psychology,GE1401,36,49,GE1401 SS1101 SS1011
+College of Liberal Arts and Social Sciences,BSocSc Psychology,LC0200A,15,21,LC0200A SS1101 SS1011
+College of Liberal Arts and Social Sciences,BSocSc Social Work,GE1401,30,42,GE1401 SS1011 SS1101
+College of Liberal Arts and Social Sciences,BSocSc Social Work,LC0200A,13,18,LC0200A SS1011 SS1101
+School of Creative Media,BA Creative Media,GE1401,39,42,GE1401 SM1103A SM1701 SM1702A
+School of Creative Media,BA Creative Media,LC0200A,17,18,LC0200A SM1103A SM1701 SM1702A
+School of Creative Media,BSc Creative Media,GE1401,26,28,GE1401 SM1701 SM1702A SM2714 CS1103B
+School of Creative Media,BSc Creative Media,LC0200A,11,12,LC0200A SM1701 SM1702A SM2714 CS1103B
+School of Creative Media,BAS New Media,GE1401,19,21,GE1401 SM1103A SM1701 SM1702A
+School of Creative Media,BAS New Media,LC0200A,8,9,LC0200A SM1103A SM1701 SM1702A
+School of Law,Bachelor of Laws (incl. LLB double degrees),GE1401,59,63,GE1401 LW2601 LW2602A LW2603A
+School of Law,Bachelor of Laws (incl. LLB double degrees),LC0200A,27,27,LC0200A LW2601 LW2602A LW2603A
