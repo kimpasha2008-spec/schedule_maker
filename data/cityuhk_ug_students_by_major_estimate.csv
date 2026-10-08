@@ -1,0 +1,54 @@
+﻿college,major,jupas_codes_feeding_major,jupas_places_2026_published,est_annual_intake_all_routes,est_total_ug_students_all_years,confidence
+College of Business,BBA Accountancy,JS1002,148,200,770,anchored (JUPAS places published)
+College of Business,BBA Finance,JS1012/JS1014,,160,620,estimate
+College of Business,BBA Business Economics,JS1012/JS1013,,70,270,estimate
+College of Business,BBA Marketing,JS1007,82,110,420,anchored (JUPAS places published)
+College of Business,BBA Management,JS1005,58,90,350,anchored (JUPAS places published)
+College of Business,BBA Global Business,JS1001,,60,230,estimate
+College of Business,BBA Global Business Systems Management,JS1017/JS1018,62,90,350,anchored (JUPAS places published)
+College of Business,BBA Artificial Intelligence in Business,JS1017/JS1019,10,50,190,anchored (JUPAS places published)
+College of Business,BBA Business Decision Analytics,JS1026,,60,230,estimate
+College of Business,BBA Global Operations Management,JS1027,,50,190,estimate
+College of Business,BSc Computational Finance and Financial Technology,JS1000/JS1221,,60,230,estimate
+College of Computing,BSc Computer Science,JS1204/JS1070/JS1221/JS1063,,250,960,estimate
+College of Computing,BSc Data Science,JS1071/JS1072,,90,350,estimate
+College of Computing,BSc Data and Systems Engineering,JS1071/JS1074,,60,230,estimate
+College of Computing,BSc Cybersecurity,JS1218,,40,150,estimate
+College of Engineering,BEng Civil Engineering,JS1201,,60,230,estimate
+College of Engineering,BEng Building Services Engineering,JS1201,,40,150,estimate
+College of Engineering,BSc Architecture and Surveying,JS1201,,50,190,estimate
+College of Engineering,BEng Computer and Data Engineering,JS1205,,60,230,estimate
+College of Engineering,BEng Electronic and Electrical Engineering,JS1205,,60,230,estimate
+College of Engineering,BEng Information Engineering,JS1205,,50,190,estimate
+College of Engineering,BEng Microelectronics Engineering,JS1205,,30,120,estimate
+College of Engineering,BEng Mechanical Engineering,JS1207/JS1217,,60,230,estimate
+College of Engineering,BEng Aerospace Engineering,JS1207/JS1217,,40,150,estimate
+College of Engineering,BEng Nuclear and Risk Engineering,JS1207,,25,100,estimate
+College of Engineering,BEng Materials Science and Engineering,JS1210,,50,190,estimate
+College of Engineering,BEng Intelligent Manufacturing Engineering,JS1216,24,35,130,anchored (JUPAS places published)
+College of Engineering,BEng Innovation and Enterprise Engineering,JS1219,16,25,100,anchored (JUPAS places published)
+School of Energy and Environment,BEng Energy Science and Engineering,JS1050/JS1051,,35,130,estimate
+School of Energy and Environment,BEng Environmental Science and Engineering,JS1050/JS1051/JS1052,,35,130,estimate
+School of Energy and Environment,BSc Environment and Sustainable Business,JS1053,,25,100,estimate
+College of Science,BSc Chemistry,JS1200/JS1202,,60,230,estimate
+College of Science,BSc Computing Mathematics,JS1200/JS1206,,60,230,estimate
+College of Science,BSc Physics,JS1200/JS1208,,40,150,estimate
+College of Biomedicine,BEng Biomedical Engineering,JS1211/JS1300,,40,150,estimate
+College of Biomedicine,BSc Biological Sciences,JS1805/JS1806/JS1300,,50,190,estimate
+College of Biomedicine,BSc Biomedical Sciences,JS1805/JS1807/JS1300,,50,190,estimate
+Jockey Club College of Veterinary Medicine and Life Sciences,Bachelor of Veterinary Medicine,JS1801,,18,100,estimate
+College of Liberal Arts and Social Sciences,BA English,JS1104/JS1120,,70,270,estimate
+College of Liberal Arts and Social Sciences,BA Chinese and History,JS1103/JS1120,,50,190,estimate
+College of Liberal Arts and Social Sciences,BA Linguistics and Language Applications,JS1109/JS1120,,40,150,estimate
+College of Liberal Arts and Social Sciences,BA Media and Communication,JS1106,,70,270,estimate
+College of Liberal Arts and Social Sciences,BA Digital Television and Broadcasting,JS1106,,30,120,estimate
+College of Liberal Arts and Social Sciences,BSocSc International Relations and Global Affairs,JS1102/JS1120,,50,190,estimate
+College of Liberal Arts and Social Sciences,BSocSc Public Affairs and Management,JS1108/JS1120,,60,230,estimate
+College of Liberal Arts and Social Sciences,BSocSc Crime Science,JS1111/JS1123,,40,150,estimate
+College of Liberal Arts and Social Sciences,BSocSc Psychology,JS1112/JS1120,,70,270,estimate
+College of Liberal Arts and Social Sciences,BSocSc Social Work,JS1113,54,60,230,anchored (JUPAS places published)
+School of Creative Media,BA Creative Media,JS1040/JS1041/JS1042,17,60,230,anchored (JUPAS places published)
+School of Creative Media,BSc Creative Media,JS1041/JS1043,,40,150,estimate
+School of Creative Media,BAS New Media,JS1041/JS1044,,30,120,estimate
+School of Law,Bachelor of Laws (incl. LLB double degrees),JS1061/JS1062/JS1063/JS1123,,90,350,estimate
+TOTAL,,,,3198,12300,"scaled to 12,361 UG headcount (2024/25 annual report)"

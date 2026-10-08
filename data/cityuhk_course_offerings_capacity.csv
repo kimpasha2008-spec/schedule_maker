@@ -1,0 +1,1592 @@
+﻿academic_unit,subject,course_no,course_code,title,credits,web_registration,level_codes,open_to_undergrads,cap,avail,enrolled_est,fill_rate,full,waitlist_avail,medium
+Accountancy,AC,3202,AC3202,Corporate Accounting I,3,Y,B,Y,390,42,348,0.892,False,N,English
+Accountancy,AC,4161,AC4161,Accounting Information Systems and Emerging Technologies,3,Y,B,Y,65,2,63,0.969,False,N,English
+Accountancy,AC,4251,AC4251,Taxation and Tax Planning,3,Y,B,Y,325,37,288,0.886,False,N,English
+Accountancy,AC,4301,AC4301,Corporate Accounting II,3,Y,B,Y,195,27,168,0.862,False,N,English
+Accountancy,AC,4303,AC4303,Advanced Financial Accounting,3,Y,B,Y,130,11,119,0.915,False,N,English
+Accountancy,AC,4332,AC4332,Corporate Finance and Control,3,Y,B,Y,195,3,192,0.985,False,N,English
+Accountancy,AC,4342,AC4342,Auditing,3,Y,B,Y,260,78,182,0.7,False,N,English
+Accountancy,AC,4382,AC4382,Contemporary Accounting and Business Issues: Global Perspectives,3,Y,B,Y,50,30,20,0.4,False,N,English
+Accountancy,AC,4391,AC4391,Accounting and Business Ethics,3,Y,B,Y,195,2,193,0.99,False,N,English
+Accountancy,AC,5511,AC5511,Financial and Management Accounting,3,Y,P,N,465,97,368,0.791,False,N,English
+Accountancy,AC,5603,AC5603,Corporate Financial Reporting,3,Y,P,N,144,3,141,0.979,False,N,English
+Accountancy,AC,5690,AC5690,Corporate Governance,3,Y,P,N,760,104,656,0.863,False,N,English
+Accountancy,AC,5710,AC5710,Advanced International Financial Accounting,3,N,P,N,320,5,315,0.984,False,N,English
+Accountancy,AC,5711,AC5711,International Financial Statement Analysis,3,N,P,N,320,2,318,0.994,False,N,English
+Accountancy,AC,5720,AC5720,Management Accounting Issues in Multinational Enterprises,3,N,P,N,320,0,320,1.0,True,N,English
+Accountancy,AC,5803,AC5803,Financial Statement Analysis in Global Context,3,Y,P,N,255,27,228,0.894,False,N,English
+Accountancy,AC,5813,AC5813,Financial and Management Accounting,3,Y,P,N,160,1,159,0.994,False,N,English
+Accountancy,AC,6531,AC6531,Financial Management,3,Y,P,N,216,7,209,0.968,False,N,English
+Accountancy,AC,6691,AC6691,Companies and Securities Regulations and Practice,3,N,P,N,130,0,130,1.0,True,N,English
+Accountancy,AC,6692,AC6692,Risk Management,3,N,P,N,130,3,127,0.977,False,N,English
+Accountancy,AC,6761,AC6761,Artificial Intelligence Accounting,3,Y,P,N,100,36,64,0.64,False,N,English
+Accountancy,AC,6761P,AC6761P,Artificial Intelligence Accounting,1.5,N,P,N,53,53,0,0.0,False,N,Putonghua
+Accountancy,AC,6790P,AC6790P,CFO and Strategic Business Leaders,1.5,N,P,N,50,50,0,0.0,False,N,Putonghua
+Accountancy,AC,8900,AC8900,Seminar in Financial Accounting Issues,3,Y,R,N,30,14,16,0.533,False,N,English
+Biomedical Engineering,BME,2029,BME2029,Electrical and Electronic Principles,3,Y,B,Y,98,21,77,0.786,False,N,English
+Biomedical Engineering,BME,2036,BME2036,Engineering Computing,3,Y,B,Y,83,10,73,0.88,False,N,English
+Biomedical Engineering,BME,2102,BME2102,Introduction to Biomechanics,3,Y,B,Y,85,14,71,0.835,False,N,English
+Biomedical Engineering,BME,2104,BME2104,Tissue Engineering,3,Y,B,Y,57,3,54,0.947,False,N,English
+Biomedical Engineering,BME,2105,BME2105,Introduction to Biomedical Engineering,3,Y,B,Y,90,8,82,0.911,False,N,English
+Biomedical Engineering,BME,2123,BME2123,Mathematics for Biomedical Engineering,3,Y,B,Y,103,27,76,0.738,False,N,English
+Biomedical Engineering,BME,3016,BME3016,Biomedical Engineering CAD,3,Y,B,Y,38,0,38,1.0,True,N,English
+Biomedical Engineering,BME,3104,BME3104,Robotic Technology in Healthcare,3,Y,B,Y,56,0,56,1.0,True,N,English
+Biomedical Engineering,BME,3121,BME3121,Biomedical Signals and Systems,3,Y,B,Y,86,28,58,0.674,False,N,English
+Biomedical Engineering,BME,3123,BME3123,Materials for Biomedical Engineering,3,Y,B,Y,66,13,53,0.803,False,N,English
+Biomedical Engineering,BME,3200,BME3200,Internship in Biomedical Engineering,3,N,B,Y,5,5,0,0.0,False,N,English
+Biomedical Engineering,BME,4068,BME4068,Project (Individual),3,N,B,Y,5,5,0,0.0,False,N,English
+Biomedical Engineering,BME,4068C,BME4068C,Project (Individual),3,N,B,Y,5,5,0,0.0,False,N,English
+Biomedical Engineering,BME,4102,BME4102,Final Year Project,3,N,B,Y,61,3,58,0.951,False,N,English
+Biomedical Engineering,BME,4103,BME4103,Bio-safety and Risk Assessment,3,Y,B,Y,56,11,45,0.804,False,N,English
+Biomedical Engineering,BME,5110,BME5110,Biomedical Engineering Design,3,Y,P,N,140,7,133,0.95,False,N,English
+Biomedical Engineering,BME,6101,BME6101,Manufacturing of Biomedical Devices,3,Y,P,N,125,23,102,0.816,False,N,English
+Biomedical Engineering,BME,6111,BME6111,Biomedical Instrumentation,3,Y,P,N,192,13,179,0.932,False,N,English
+Biomedical Engineering,BME,6123,BME6123,Flexible Bioelectronics for Medical Applications,3,Y,P,N,184,0,184,1.0,True,N,English
+Biomedical Engineering,BME,6136,BME6136,Advanced Biomaterials for Healthcare and Biomedical Applications,3,Y,P,N,175,64,111,0.634,False,N,English
+Biomedical Engineering,BME,6141,BME6141,Fundamentals and Applications of Single-molecule Biophysics in Rapid Diagnostics,3,Y,P,N,136,0,136,1.0,True,N,English
+Biomedical Engineering,BME,6145,BME6145,Applied Artificial Intelligence for Biomedical and Healthcare Applications,3,Y,P,N,200,0,200,1.0,True,N,English
+Biomedical Engineering,BME,8009,BME8009,Research Methodology,1,Y,R,N,50,19,31,0.62,False,N,English
+Biomedical Engineering,BME,8103,BME8103,Manufacturing of Biomedical Devices,3,Y,R,N,15,8,7,0.467,False,N,English
+Biomedical Engineering,BME,8122,BME8122,Biomedical Engineering Design,3,Y,R,N,4,1,3,0.75,False,N,English
+Biomedical Engineering,BME,8127,BME8127,Biomedical Instrumentation,3,Y,R,N,8,5,3,0.375,False,N,English
+Biomedical Engineering,BME,8134,BME8134,Flexible Bioelectronics for Medical Applications,3,Y,R,N,16,3,13,0.812,False,N,English
+Biomedical Engineering,BME,8136,BME8136,Advanced Biomaterials for Healthcare and Biomedical Applications,3,Y,R,N,25,13,12,0.48,False,N,English
+Biomedical Engineering,BME,8141,BME8141,Fundamentals and Applications of Single-molecule Biophysics in Rapid Diagnostics,3,Y,R,N,4,1,3,0.75,False,N,English
+Biomedical Sciences,BMS,1701A,BMS1701A,Biomedical Research – Rotation Project I (Theme A),1,N,B,Y,10,0,10,1.0,True,N,English
+Biomedical Sciences,BMS,1901,BMS1901,Calculus for Life Sciences,3,Y,B,Y,138,11,127,0.92,False,N,English
+Biomedical Sciences,BMS,2001,BMS2001,Medical Microbiology,3,Y,B,Y,48,1,47,0.979,False,N,English
+Biomedical Sciences,BMS,2005,BMS2005,Human Physiology,3,Y,B,Y,109,6,103,0.945,False,N,English
+Biomedical Sciences,BMS,2007,BMS2007,Human Anatomy,3,Y,B,Y,53,1,52,0.981,False,N,English
+Biomedical Sciences,BMS,2008,BMS2008,Hematology,3,Y,B,Y,48,1,47,0.979,False,N,English
+Biomedical Sciences,BMS,2008B,BMS2008B,Hematology I,2,Y,B,Y,20,12,8,0.4,False,N,English
+Biomedical Sciences,BMS,2202,BMS2202,Diversity of Life and Evolution,3,Y,B,Y,118,7,111,0.941,False,N,English
+Biomedical Sciences,BMS,2204,BMS2204,Diversity of Life and Microbiology Laboratory,2,Y,B,Y,58,3,55,0.948,False,N,English
+Biomedical Sciences,BMS,2301A,BMS2301A,Biomedical Research – Rotation Project II (Theme A),1,N,B,Y,1,0,1,1.0,True,N,English
+Biomedical Sciences,BMS,2803,BMS2803,Biology of Cells,3,N,B,Y,48,5,43,0.896,False,N,English
+Biomedical Sciences,BMS,2804,BMS2804,Veterinary Microbiology,3,N,B,Y,48,4,44,0.917,False,N,English
+Biomedical Sciences,BMS,3002,BMS3002,Cellular Pathology,3,Y,B,Y,46,4,42,0.913,False,N,English
+Biomedical Sciences,BMS,3002B,BMS3002B,Cellular Pathology,2,Y,B,Y,12,12,0,0.0,False,N,English
+Biomedical Sciences,BMS,3003,BMS3003,Advanced Clinical Chemistry,3,Y,B,Y,45,3,42,0.933,False,N,English
+Biomedical Sciences,BMS,3003B,BMS3003B,Advanced Clinical Chemistry,2,Y,B,Y,15,15,0,0.0,False,N,English
+Biomedical Sciences,BMS,3011,BMS3011,Advanced Hematology,3,Y,B,Y,45,6,39,0.867,False,N,English
+Biomedical Sciences,BMS,3011B,BMS3011B,Hematology II,2,Y,B,Y,15,14,1,0.067,False,N,English
+Biomedical Sciences,BMS,3101,BMS3101,Cell Transport and Signalling,3,Y,B,Y,65,14,51,0.785,False,N,English
+Biomedical Sciences,BMS,3203A,BMS3203A,Genetics,3,Y,B,Y,60,3,57,0.95,False,N,English
+Biomedical Sciences,BMS,3205,BMS3205,"Omics, Genome Editing and Advanced Techniques for Biomedical Research",2,Y,B,Y,55,3,52,0.945,False,N,English
+Biomedical Sciences,BMS,3301,BMS3301,Bioinformatics,3,Y,B,Y,57,5,52,0.912,False,N,English
+Biomedical Sciences,BMS,4001,BMS4001,Medical Informatics and Laboratory Management,3,Y,B,Y,77,21,56,0.727,False,N,English
+Biomedical Sciences,BMS,4002,BMS4002,Public Health and Emerging Infectious Diseases,3,Y,B,Y,42,0,42,1.0,True,N,English
+Biomedical Sciences,BMS,4003,BMS4003,Clinical Biochemistry and Molecular Diagnostics,3,Y,B,Y,44,1,43,0.977,False,N,English
+Biomedical Sciences,BMS,4003B,BMS4003B,Clinical Biochemistry and Molecular Diagnostics,2,Y,B,Y,10,8,2,0.2,False,N,English
+Biomedical Sciences,BMS,4005,BMS4005,Medical Virology,3,Y,B,Y,45,3,42,0.933,False,N,English
+Biomedical Sciences,BMS,4005B,BMS4005B,Medical Virology,2,Y,B,Y,15,12,3,0.2,False,N,English
+Biomedical Sciences,BMS,4006,BMS4006,Final Year Project Medical Laboratory Research,3,N,B,Y,42,0,42,1.0,True,N,English
+Biomedical Sciences,BMS,4007,BMS4007,Pharmacology and Toxicology,3,Y,B,Y,109,9,100,0.917,False,N,English
+Biomedical Sciences,BMS,4206,BMS4206,Final Year Project in Biomedical Research,4,N,B,Y,45,18,27,0.6,False,N,English
+Biomedical Sciences,BMS,4303,BMS4303,Neuroscience,3,Y,B,Y,55,3,52,0.945,False,N,English
+Biomedical Sciences,BMS,4304,BMS4304,Industrial Attachment: Biotechnology and Health Sciences,4,N,B,Y,19,0,19,1.0,True,N,English
+Biomedical Sciences,BMS,5002,BMS5002,Infectious Disease Management,3,Y,P,N,111,11,100,0.901,False,N,English
+Biomedical Sciences,BMS,5007,BMS5007,Pharmacology Principles in Drug Discovery and Development,3,Y,P,N,117,7,110,0.94,False,N,English
+Biomedical Sciences,BMS,5010,BMS5010,Artificial Intelligence in Health Science Research and Management,3,Y,P,N,101,26,75,0.743,False,N,English
+Biomedical Sciences,BMS,5011,BMS5011,Wearable Technologies and Digital Medicine,3,Y,P,N,120,3,117,0.975,False,N,English
+Biomedical Sciences,BMS,5100,BMS5100,"Research Project Study in Biomedical Sciences, Life Sciences and Relevant Disciplines",5,N,P,N,32,0,32,1.0,True,N,English
+Biomedical Sciences,BMS,5101,BMS5101,Project Study in Management and Relevant Disciplines,3,N,P,N,10,5,5,0.5,False,N,English
+Biomedical Sciences,BMS,8001,BMS8001,Research Ethics and Methodology,2,Y,P R,N,45,4,41,0.911,False,N,English
+Biomedical Sciences,BMS,8101A,BMS8101A,Guided Studies for Postgraduate Students (A),1,Y,R,N,40,10,30,0.75,False,N,English
+Biomedical Sciences,BMS,8101C,BMS8101C,Guided Studies for Postgraduate Students (C),1,Y,R,N,20,0,20,1.0,True,N,English
+Biomedical Sciences,BMS,8101E,BMS8101E,Guided Studies for Postgraduate Students (E),1,Y,R,N,20,0,20,1.0,True,N,English
+Biomedical Sciences,BMS,8103,BMS8103,Cell and Molecular Biology Research,3,Y,R,N,85,37,48,0.565,False,N,English
+Biomedical Sciences,BMS,8105,BMS8105,Biotherapy and Nanomedicine,3,Y,P R,N,85,36,49,0.576,False,N,English
+Biomedical Sciences,BMS,8106,BMS8106,Stem Cell and Regenerative Medicine,3,Y,P R,N,100,29,71,0.71,False,N,English
+Biomedical Sciences,BMS,8110,BMS8110,Genomics and Bioinformatics,3,Y,P R,N,81,25,56,0.691,False,N,English
+Biomedical Sciences,BMS,8112,BMS8112,"Viruses, Immunity and Ageing",3,Y,P R,N,60,53,7,0.117,False,N,English
+Biomedical Sciences,BMS,8113,BMS8113,Advanced Biomedical Materials and Devices,3,Y,P R,N,60,36,24,0.4,False,N,English
+Biostatistics,BIOS,5800,BIOS5800,Probability,3,Y,P,N,165,13,152,0.921,False,N,English
+Biostatistics,BIOS,5801,BIOS5801,Statistical Computing,3,Y,P,N,165,11,154,0.933,False,N,English
+Biostatistics,BIOS,6902,BIOS6902,Statistical Inference,3,Y,P,N,157,10,147,0.936,False,N,English
+Biostatistics,BIOS,8001,BIOS8001,Seminars on Biostatistics,1,Y,R,N,30,17,13,0.433,False,N,English
+Biostatistics,BIOS,8004,BIOS8004,Advanced Statistical Theory,3,Y,R,N,30,17,13,0.433,False,N,English
+CFML CSL Language Centre,LC,0200A,LC0200A,English for Academic Purposes 1,3,Y,B,Y,1185,60,1125,0.949,False,N,English
+CFML CSL Language Centre,LC,2401,LC2401,French 1,3,Y,B,Y,150,2,148,0.987,False,N,English & Others
+CFML CSL Language Centre,LC,2501,LC2501,German 1,3,Y,B,Y,60,7,53,0.883,False,N,English & Others
+CFML CSL Language Centre,LC,2601,LC2601,Spanish 1,3,Y,B,Y,150,1,149,0.993,False,N,English & Others
+CFML CSL Language Centre,LC,2930,LC2930,Japanese 1,3,Y,B,Y,180,3,177,0.983,False,N,English & Others
+CFML CSL Language Centre,LC,2931,LC2931,Japanese 2,3,Y,B,Y,60,19,41,0.683,False,N,English & Others
+CFML CSL Language Centre,LC,2956,LC2956,Mandarin for Non-Chinese Speakers 1,3,Y,B,Y,30,0,30,1.0,True,N,English & Chinese
+CFML CSL Language Centre,LC,2973,LC2973,Korean 1,3,Y,B,Y,180,0,180,1.0,True,N,English & Others
+CFML CSL Language Centre,LC,2974,LC2974,Korean 2,3,Y,B,Y,60,0,60,1.0,True,N,English & Others
+CFML CSL Language Centre,LC,2996,LC2996,Basic Cantonese for Non-Chinese Speakers 1,3,Y,B,Y,30,0,30,1.0,True,N,English & Chinese
+CFML CSL Language Centre,LC,3932,LC3932,Japanese 3,3,Y,B,Y,30,0,30,1.0,True,N,English & Others
+CFML CSL Language Centre,LC,3933,LC3933,Japanese 4,3,Y,B,Y,30,20,10,0.333,False,N,English & Others
+CFML CSL Language Centre,LC,3982,LC3982,Korean 3,3,Y,B,Y,30,0,30,1.0,True,N,English & Others
+Chemistry,CHEM,1200,CHEM1200,Discovery in Biology,3,Y,B,Y,300,30,270,0.9,False,N,English
+Chemistry,CHEM,1300,CHEM1300,Principles of General Chemistry,3,Y,B,Y,425,27,398,0.936,False,N,English
+Chemistry,CHEM,2006,CHEM2006,Principles of Inorganic Chemistry,4,Y,B,Y,120,20,100,0.833,False,N,English
+Chemistry,CHEM,2006A,CHEM2006A,Principles of Inorganic Chemistry,3,Y,B,Y,21,16,5,0.238,False,N,English
+Chemistry,CHEM,2007,CHEM2007,Principles of Organic Chemistry,4,Y,B,Y,120,23,97,0.808,False,N,English
+Chemistry,CHEM,2007A,CHEM2007A,Principles of Organic Chemistry,3,Y,B,Y,23,17,6,0.261,False,N,English
+Chemistry,CHEM,2007B,CHEM2007B,Principles of Organic Chemistry,3,Y,B,Y,50,6,44,0.88,False,N,English
+Chemistry,CHEM,2013,CHEM2013,Microbiology,3,Y,B,Y,89,10,79,0.888,False,N,English
+Chemistry,CHEM,2071,CHEM2071,Biological Chemistry,4,Y,B,Y,50,28,22,0.44,False,N,English
+Chemistry,CHEM,2071A,CHEM2071A,Biological Chemistry,3,Y,B,Y,10,6,4,0.4,False,N,English
+Chemistry,CHEM,3015,CHEM3015,Organic Chemistry,4,Y,B,Y,80,12,68,0.85,False,N,English
+Chemistry,CHEM,3015A,CHEM3015A,Organic Chemistry,3,Y,B,Y,5,4,1,0.2,False,N,English
+Chemistry,CHEM,3027,CHEM3027,Analytical Chemistry,4,Y,B,Y,85,14,71,0.835,False,N,English
+Chemistry,CHEM,3027A,CHEM3027A,Analytical Chemistry,3,Y,B,Y,4,2,2,0.5,False,N,English
+Chemistry,CHEM,3042,CHEM3042,Directed Studies in Biology/Chemistry/Environmental Sciences,4,N,B,Y,15,9,6,0.4,False,N,English
+Chemistry,CHEM,3068,CHEM3068,General Ecology,4,Y,B,Y,60,4,56,0.933,False,N,English
+Chemistry,CHEM,3068A,CHEM3068A,General Ecology,3,Y,B,Y,14,10,4,0.286,False,N,English
+Chemistry,CHEM,3081,CHEM3081,Chemical Biology of DNA and RNA,3,Y,B,Y,40,1,39,0.975,False,N,English
+Chemistry,CHEM,3082,CHEM3082,Graphene: Fundamentals and Emergent Applications,3,Y,B,Y,30,0,30,1.0,True,N,English
+Chemistry,CHEM,3083,CHEM3083,Cosmetic Chemistry,3,Y,B,Y,70,21,49,0.7,False,N,English
+Chemistry,CHEM,4035,CHEM4035,Environmental Measurements,4,Y,B,Y,50,25,25,0.5,False,N,English
+Chemistry,CHEM,4035A,CHEM4035A,Environmental Measurements,3,Y,B,Y,5,3,2,0.4,False,N,English
+Chemistry,CHEM,4036,CHEM4036,Project,3,N,B,Y,45,22,23,0.511,False,N,English
+Chemistry,CHEM,4037,CHEM4037,Seminar Series,1.5,N,B,Y,4,1,3,0.75,False,N,English
+Chemistry,CHEM,4051,CHEM4051,Forensic Chemistry,3,Y,B,Y,60,9,51,0.85,False,N,English
+Chemistry,CHEM,4086,CHEM4086,Independent Research I,8,Y,B,Y,10,8,2,0.2,False,N,English
+Chemistry,CHEM,4087,CHEM4087,Independent Research II,8,Y,B,Y,10,10,0,0.0,False,N,English
+Chemistry,CHEM,6118,CHEM6118,Advanced Chemical Instrumentation,3,N,P,N,250,67,183,0.732,False,N,English
+Chemistry,CHEM,6119,CHEM6119,Frontiers in Chemical Biology,3,Y,P,N,220,35,185,0.841,False,N,English
+Chemistry,CHEM,6121,CHEM6121,"Academic and Industrial Research, Development and Innovation",3,Y,P,N,220,18,202,0.918,False,N,English
+Chemistry,CHEM,6125,CHEM6125,Selected Topics in Chemistry & Molecular Sciences,3,N,P,N,200,21,179,0.895,False,N,English
+Chemistry,CHEM,6126,CHEM6126,Advanced Seminar Series,1.5,N,P,N,200,14,186,0.93,False,N,English
+Chemistry,CHEM,6127,CHEM6127,Dissertation,7,N,P,N,11,8,3,0.273,False,N,English
+Chemistry,CHEM,6129,CHEM6129,Advanced Directed Studies,3,N,P,N,60,0,60,1.0,True,N,English
+Chemistry,CHEM,8004A,CHEM8004A,Directed Studies for Postgraduate Students A,1,N,R,N,10,10,0,0.0,False,N,English
+Chemistry,CHEM,8004B,CHEM8004B,Directed Studies for Postgraduate Students B,2,N,R,N,10,10,0,0.0,False,N,English
+Chemistry,CHEM,8007A,CHEM8007A,Window on Science A,6,Y,R,N,200,64,136,0.68,False,N,English
+Chemistry,CHEM,8007B,CHEM8007B,Window on Science B,3,Y,R,N,5,5,0,0.0,False,N,English
+Chemistry,CHEM,8007M,CHEM8007M,Window on Science M,6,Y,R,N,10,10,0,0.0,False,N,English
+Chemistry,CHEM,8008,CHEM8008,Advanced Chemical Instrumentation for Research,3,Y,R,N,20,16,4,0.2,False,N,English
+Chemistry,CHEM,8017,CHEM8017,Research Methodology and Ethics,2,Y,R,N,50,3,47,0.94,False,N,English
+Chemistry,CHEM,8141,CHEM8141,Selected Topics in Modern Chemistry,3,Y,R,N,60,17,43,0.717,False,N,English
+Chinese and History,CAH,1603,CAH1603,Great Works in the Humanities,3,Y,B,Y,80,10,70,0.875,False,N,English
+Chinese and History,CAH,2140,CAH2140,Modern Chinese Literature,3,Y,B,Y,101,32,69,0.683,False,N,Chinese
+Chinese and History,CAH,2141,CAH2141,History of Chinese Literature,3,Y,B,Y,93,33,60,0.645,False,N,Chinese
+Chinese and History,CAH,2501,CAH2501,Art and Visual Culture,3,Y,B,Y,94,40,54,0.574,False,N,English
+Chinese and History,CAH,2503,CAH2503,World Art and Culture,3,Y,B,Y,55,6,49,0.891,False,N,English
+Chinese and History,CAH,2509,CAH2509,History and Heritage,3,Y,B,Y,96,39,57,0.594,False,N,English
+Chinese and History,CAH,2536,CAH2536,Intangible Heritages and Indigenous Cultures,3,Y,B,Y,95,47,48,0.505,False,N,English
+Chinese and History,CAH,2545,CAH2545,"Exploring China: Words, Images, and Objects",3,Y,B,Y,56,8,48,0.857,False,N,English
+Chinese and History,CAH,2610,CAH2610,Sources of Chinese Tradition,3,N,B,Y,100,42,58,0.58,False,N,Chinese (Eng Avail in Sem A/B)
+Chinese and History,CAH,2614,CAH2614,Methods for Studying Humanities,3,Y,B,Y,90,15,75,0.833,False,N,English
+Chinese and History,CAH,2840,CAH2840,Late Imperial and Modern China,3,Y,B,Y,88,36,52,0.591,False,N,English
+Chinese and History,CAH,2865,CAH2865,History of Chinese Art,3,Y,B,Y,53,20,33,0.623,False,N,English & Chinese
+Chinese and History,CAH,3110,CAH3110,Readings in Pre-Qin Confucianism and Daoism,3,N,B,Y,78,21,57,0.731,False,N,Chinese
+Chinese and History,CAH,3132,CAH3132,Chinese Philology,3,N,B,Y,58,12,46,0.793,False,N,Chinese
+Chinese and History,CAH,3133,CAH3133,Introduction to Chinese Documentology,3,Y,B,Y,80,31,49,0.613,False,N,Chinese
+Chinese and History,CAH,3136,CAH3136,Selected Readings in Chinese Women Literature,3,Y,B,Y,40,1,39,0.975,False,N,Chinese
+Chinese and History,CAH,3138,CAH3138,Classical Chinese Fiction and Xiqu,3,Y,B,Y,35,0,35,1.0,True,N,Chinese
+Chinese and History,CAH,3165,CAH3165,Creative Chinese,3,Y,B,Y,50,10,40,0.8,False,N,Chinese
+Chinese and History,CAH,3168,CAH3168,Chinese Editing and Publishing,3,Y,B,Y,43,18,25,0.581,False,N,Chinese
+Chinese and History,CAH,3187,CAH3187,Contemporary Chinese Literature,3,Y,B,Y,50,13,37,0.74,False,N,Chinese
+Chinese and History,CAH,3522,CAH3522,History and Cultural Heritage of East Asia,3,Y,B,Y,47,3,44,0.936,False,N,English
+Chinese and History,CAH,3542,CAH3542,Museum Studies,3,Y,B,Y,94,32,62,0.66,False,N,English
+Chinese and History,CAH,3820,CAH3820,Siku Quanshu,3,Y,B,Y,39,4,35,0.897,False,N,Chinese
+Chinese and History,CAH,4143,CAH4143,Topics in Chinese Literature,3,Y,B,Y,35,2,33,0.943,False,N,Chinese
+Chinese and History,CAH,4144,CAH4144,Chinese Literary Criticism,3,Y,B,Y,35,6,29,0.829,False,N,Chinese
+Chinese and History,CAH,4299,CAH4299,"Capstone Project in Chinese, History and Cultural Heritage II",3,N,B,Y,53,12,41,0.774,False,N,English & Chinese
+Chinese and History,CAH,4399,CAH4399,Dissertation,3,N,B,Y,40,19,21,0.525,False,N,English & Chinese
+Chinese and History,CAH,4842,CAH4842,History of the Modern World,3,N,B,Y,75,5,70,0.933,False,N,English
+Chinese and History,CAH,4870,CAH4870,History of Hong Kong,3,Y,B,Y,28,0,28,1.0,True,N,English & Cantonese
+Chinese and History,CAH,5701,CAH5701,Classical Chinese Literature,3,Y,P,N,284,37,247,0.87,False,N,Putonghua
+Chinese and History,CAH,5707,CAH5707,Classical Chinese Philology,3,Y,P,N,70,2,68,0.971,False,N,Putonghua
+Chinese and History,CAH,5711,CAH5711,"Chinese Written Characters, Literary Chinese, and East Asian History",3,Y,P,N,65,0,65,1.0,True,N,Putonghua
+Chinese and History,CAH,5713,CAH5713,Essential Concepts in Chinese Culture,3,Y,P,N,392,29,363,0.926,False,N,Putonghua
+Chinese and History,CAH,5719,CAH5719,Chinese for the Media,3,Y,P,N,70,27,43,0.614,False,N,Putonghua
+Chinese and History,CAH,5722,CAH5722,Chinese Creative Writing,3,Y,P,N,140,40,100,0.714,False,N,Putonghua
+Chinese and History,CAH,5731,CAH5731,Special Topics in Hong Kong Literature and Culture,3,Y,P,N,140,0,140,1.0,True,N,Putonghua
+Chinese and History,CAH,5732,CAH5732,Gender Perspective on Chinese Literature,3,Y,P,N,70,0,70,1.0,True,N,Putonghua
+Chinese and History,CAH,5733,CAH5733,Special Topics in Chinese Literature and Religion,3,Y,P,N,70,7,63,0.9,False,N,Putonghua
+Chinese and History,CAH,5734,CAH5734,Writing for Museum Professionals,3,Y,P,N,65,4,61,0.938,False,N,Putonghua
+Chinese and History,CAH,5736,CAH5736,Chinese Literature and Fine Arts,3,Y,P,N,70,6,64,0.914,False,N,Putonghua
+Chinese and History,CAH,5738,CAH5738,Historical Narrative in Chinese Literature and History Writing,3,Y,P,N,70,5,65,0.929,False,N,Putonghua
+Chinese and History,CAH,5739,CAH5739,Special Topics in Chinese-language Film and Fiction,3,Y,P,N,140,19,121,0.864,False,N,Putonghua
+Chinese and History,CAH,5740,CAH5740,History and Historical Sources in a Changing World,3,Y,P,N,130,14,116,0.892,False,N,Putonghua
+Chinese and History,CAH,5744,CAH5744,Museum Studies in China,3,Y,P,N,65,1,64,0.985,False,N,Putonghua
+Chinese and History,CAH,5745,CAH5745,Archaeology and Civilization of Early China,3,Y,P,N,65,0,65,1.0,True,N,Putonghua
+Chinese and History,CAH,5750,CAH5750,Cultural History of Medicine in China,3,Y,P,N,65,7,58,0.892,False,N,Chinese
+Chinese and History,CAH,5752,CAH5752,From Lingnan to the Greater Bay Area,3,Y,P,N,65,10,55,0.846,False,N,Putonghua
+Chinese and History,CAH,5754,CAH5754,Cultural and Creative Industries in Greater China,3,Y,P,N,65,30,35,0.538,False,N,Putonghua
+Chinese and History,CAH,8807,CAH8807,Research Methods for Humanities Studies,3,Y,R,N,10,7,3,0.3,False,N,Chinese
+Chinese and History,CAH,8808,CAH8808,Research Methods for Humanities Studies,3,Y,R,N,10,8,2,0.2,False,N,English
+Chinese and History,CAH,8811,CAH8811,"Great Works of Literature, History and Philosophy",3,Y,R,N,10,7,3,0.3,False,N,English
+Chinese and History,CAH,8812,CAH8812,Writing and Presentation for Academic Purpose,3,Y,R,N,10,7,3,0.3,False,N,Chinese
+Chinese and History,CAH,8813,CAH8813,Writing and Presentation for Academic Purpose,3,Y,R,N,10,7,3,0.3,False,N,English
+CityUHK Academy of Innovation,CAI,6001,CAI6001,GRIT (Graduate Research and Innovation Trek) Integrated Study,3,N,P,N,180,25,155,0.861,False,N,English
+CityUHK Academy of Innovation,CAI,6003,CAI6003,Innovation Project,6,N,P,N,180,25,155,0.861,False,N,English
+CityUHK Academy of Innovation,CAI,6003B,CAI6003B,Innovation Project,3,N,P,N,2,0,2,1.0,True,N,English
+Architecture and Civil Engg,CA,1167,CA1167,Engineering Communication,3,Y,B,Y,310,107,203,0.655,False,N,English
+Architecture and Civil Engg,CA,2123,CA2123,Engineering Methods,3,N,B,Y,112,42,70,0.625,False,N,English
+Architecture and Civil Engg,CA,2169,CA2169,Environmental Engineering,3,N,B,Y,135,55,80,0.593,False,N,English
+Architecture and Civil Engg,CA,2311,CA2311,Construction Contracts I,3,N,B,Y,65,30,35,0.538,False,N,English
+Architecture and Civil Engg,CA,2343A,CA2343A,Architectural Design - Space Making (Topic 1),6,N,B,Y,52,39,13,0.25,False,N,English
+Architecture and Civil Engg,CA,2345,CA2345,Digital Media and Presentation,3,N,B,Y,52,33,19,0.365,False,N,English
+Architecture and Civil Engg,CA,2346,CA2346,Experiencing Architecture,3,N,B,Y,52,29,23,0.442,False,N,English
+Architecture and Civil Engg,CA,2673,CA2673,Engineering Mechanics,3,N,B,Y,130,55,75,0.577,False,N,English
+Architecture and Civil Engg,CA,2674,CA2674,Construction Materials,3,N,B,Y,200,73,127,0.635,False,N,English
+Architecture and Civil Engg,CA,2675,CA2675,Fluid Mechanics,3,N,B,Y,134,67,67,0.5,False,N,English
+Architecture and Civil Engg,CA,2744,CA2744,Building Technology,3,N,B,Y,151,79,72,0.477,False,N,English
+Architecture and Civil Engg,CA,3144,CA3144,Engineering Surveying,3,N,B,Y,60,12,48,0.8,False,N,English
+Architecture and Civil Engg,CA,3170,CA3170,History of Architecture – Chinese and Asian,3,N,B,Y,35,5,30,0.857,False,N,English
+Architecture and Civil Engg,CA,3214,CA3214,Construction Economics,3,N,B,Y,60,23,37,0.617,False,N,English
+Architecture and Civil Engg,CA,3230,CA3230,Property Valuation and Interest Theory,3,Y,B,Y,95,55,40,0.421,False,N,English
+Architecture and Civil Engg,CA,3314,CA3314,Surveying Studio,3,N,B,Y,60,23,37,0.617,False,N,English
+Architecture and Civil Engg,CA,3342,CA3342,"Architecture, Smart Cities and Design",3,Y,B,Y,84,42,42,0.5,False,N,English
+Architecture and Civil Engg,CA,3349A,CA3349A,Architectural Design: Building Integration (Topic 1),6,N,B,Y,15,0,15,1.0,True,N,English
+Architecture and Civil Engg,CA,3349B,CA3349B,Architectural Design: Building Integration (Topic 2),6,N,B,Y,16,0,16,1.0,True,N,English
+Architecture and Civil Engg,CA,3619,CA3619,Design of Structural Elements,3,N,B,Y,70,15,55,0.786,False,N,English
+Architecture and Civil Engg,CA,3629,CA3629,Building and Fire Safety Control,3,N,B,Y,130,35,95,0.731,False,N,English
+Architecture and Civil Engg,CA,3632,CA3632,Mechanics of Structures and Materials,3,N,B,Y,70,20,50,0.714,False,N,English
+Architecture and Civil Engg,CA,3687,CA3687,Soil Mechanics,3,N,B,Y,70,12,58,0.829,False,N,English
+Architecture and Civil Engg,CA,3703,CA3703,Construction Methods and Equipment,3,N,B,Y,60,22,38,0.633,False,N,English
+Architecture and Civil Engg,CA,3704,CA3704,Construction Engineering,3,N,B,Y,65,15,50,0.769,False,N,English
+Architecture and Civil Engg,CA,3712,CA3712,Electrical Services,3,Y,B,Y,48,17,31,0.646,False,N,English
+Architecture and Civil Engg,CA,3722,CA3722,HVAC Engineering,3,Y,B,Y,48,14,34,0.708,False,N,English
+Architecture and Civil Engg,CA,3732,CA3732,Fire Engineering and Piped Services,3,Y,B,Y,48,16,32,0.667,False,N,English
+Architecture and Civil Engg,CA,4413,CA4413,Construction Project Management,3,Y,B,Y,50,40,10,0.2,False,N,English
+Architecture and Civil Engg,CA,4415,CA4415,Value Management,3,N,B,Y,60,22,38,0.633,False,N,English
+Architecture and Civil Engg,CA,4424,CA4424,Strategic BIM Management in Smart Construction,3,N,B,Y,55,17,38,0.691,False,N,English
+Architecture and Civil Engg,CA,4513,CA4513,Final Year Project,3,N,B,Y,45,5,40,0.889,False,N,English
+Architecture and Civil Engg,CA,4516,CA4516,Final Year Project,3,N,B,Y,48,3,45,0.938,False,N,English
+Architecture and Civil Engg,CA,4524,CA4524,Integrated Building Project Development (Surveying),3,N,B,Y,40,1,39,0.975,False,N,English
+Architecture and Civil Engg,CA,4525,CA4525,Integrated Building Project Development (Architectural Studies),3,N,B,Y,1,0,1,1.0,True,N,English
+Architecture and Civil Engg,CA,4526,CA4526,Integrated Building Project Development (Civil Engineering),3,N,B,Y,48,7,41,0.854,False,N,English
+Architecture and Civil Engg,CA,4527,CA4527,Integrated Building Project Development (Architectural Engineering),3,N,B,Y,16,5,11,0.688,False,N,English
+Architecture and Civil Engg,CA,4528,CA4528,Integrated Building Project Development (Architecture),3,N,B,Y,22,0,22,1.0,True,N,English
+Architecture and Civil Engg,CA,4529,CA4529,Architectural Design: Final Year Design Research Project Part 1,9,N,B,Y,1,0,1,1.0,True,N,English
+Architecture and Civil Engg,CA,4534,CA4534,Final Year Project,3,N,B,Y,22,0,22,1.0,True,N,
+Architecture and Civil Engg,CA,4539,CA4539,Architectural Design: Final Year Design Research Project Part 1,6,N,B,Y,22,0,22,1.0,True,N,English
+Architecture and Civil Engg,CA,4617,CA4617,Temporary Works Design,3,Y,B,Y,90,76,14,0.156,False,N,English
+Architecture and Civil Engg,CA,4630,CA4630,Building Design and Appraisal,3,N,B,Y,50,11,39,0.78,False,N,English
+Architecture and Civil Engg,CA,4665,CA4665,Geotechnical Analysis and Design,3,N,B,Y,60,17,43,0.717,False,N,English
+Architecture and Civil Engg,CA,4717,CA4717,Electrical Engineering Practices,3,N,B,Y,25,16,9,0.36,False,N,English
+Architecture and Civil Engg,CA,4727,CA4727,Advanced HVAC Systems,3,N,B,Y,25,16,9,0.36,False,N,English
+Architecture and Civil Engg,CA,4737,CA4737,Fire Science and Modelling,3,Y,B,Y,43,35,8,0.186,False,N,English
+Architecture and Civil Engg,CA,4749,CA4749,Final Year Project,3,N,B,Y,15,4,11,0.733,False,N,English
+Architecture and Civil Engg,CA,5104,CA5104,Management Workshops,3,Y,P,N,335,186,149,0.445,False,N,English
+Architecture and Civil Engg,CA,5136,CA5136,Foundation Studio for Values and Fundamentals in Design and Planning,6,N,P,N,70,19,51,0.729,False,N,English
+Architecture and Civil Engg,CA,5148,CA5148,Architecture and Urbanism,3,Y,P,N,60,35,25,0.417,False,N,English
+Architecture and Civil Engg,CA,5159,CA5159,Design Representation and Building Information Management,3,Y,P,N,80,32,48,0.6,False,N,English
+Architecture and Civil Engg,CA,5201,CA5201,Advanced Architectural Design Studio: Digital Architecture,6,Y,P,N,40,31,9,0.225,False,N,English
+Architecture and Civil Engg,CA,5217,CA5217,"Environmental Economics, Planning and Policy",3,Y,P,N,360,52,308,0.856,False,N,English
+Architecture and Civil Engg,CA,5236,CA5236,Transportation and Land Planning,3,Y,P,N,300,16,284,0.947,False,N,English
+Architecture and Civil Engg,CA,5244,CA5244,Geotechnics & Civil Engineering Infrastructures,3,N,P R,N,180,92,88,0.489,False,N,English
+Architecture and Civil Engg,CA,5248,CA5248,Indoor Environmental Quality,3,N,P,N,86,8,78,0.907,False,N,English
+Architecture and Civil Engg,CA,5250,CA5250,Renewable Energy for a Sustainable Building Performance,3,Y,P,N,90,20,70,0.778,False,N,English
+Architecture and Civil Engg,CA,5251,CA5251,Sustainable Building Development,3,Y,P,N,90,28,62,0.689,False,N,English
+Architecture and Civil Engg,CA,5252,CA5252,Building Environment Modelling for Sustainability Analysis,3,Y,P,N,138,13,125,0.906,False,N,English
+Architecture and Civil Engg,CA,5563,CA5563,Advanced Digital Construction,3,Y,P,N,112,21,91,0.812,False,N,English
+Architecture and Civil Engg,CA,5603,CA5603,Professional Research Methods,3,Y,P R,N,296,31,265,0.895,False,N,English
+Architecture and Civil Engg,CA,6138,CA6138,Urban Design Charrette,6,Y,P,N,90,51,39,0.433,False,N,English
+Architecture and Civil Engg,CA,6164,CA6164,Architecture Thesis Studio - Part 1,6,N,P,N,70,39,31,0.443,False,N,English
+Architecture and Civil Engg,CA,6200,CA6200,Thesis Writing Skills,1,N,P,N,62,31,31,0.5,False,N,English
+Architecture and Civil Engg,CA,6241,CA6241,Geographic Data Management and Planning Analysis,3,Y,P R,N,146,10,136,0.932,False,N,English
+Architecture and Civil Engg,CA,6247,CA6247,Water Resources Assessment and Management,3,Y,P,N,90,53,37,0.411,False,N,English
+Architecture and Civil Engg,CA,6302,CA6302,Theory and Criticism of Architecture,3,Y,P,N,82,40,42,0.512,False,N,English
+Architecture and Civil Engg,CA,6533,CA6533,Thesis Studio for Design and Planning,3,Y,P,N,57,32,25,0.439,False,N,English
+Architecture and Civil Engg,CA,6535,CA6535,Dissertation - Civil Engineering,3,N,P,N,161,75,86,0.534,False,N,English
+Architecture and Civil Engg,CA,6536,CA6536,Dissertation - Building Environment and Sustainability,3,N,P,N,115,37,78,0.678,False,N,English
+Architecture and Civil Engg,CA,6537,CA6537,Dissertation – Construction Project Management,3,N,P,N,154,32,122,0.792,False,N,English
+Architecture and Civil Engg,CA,6538,CA6538,Dissertation – Digital Construction Management,3,N,P,N,115,27,88,0.765,False,N,English
+Architecture and Civil Engg,CA,6694,CA6694,Geomechanics,3,Y,P R,N,80,12,68,0.85,False,N,English
+Architecture and Civil Engg,CA,8022,CA8022,Research Methodology and Ethics,3,Y,R,N,80,41,39,0.487,False,N,English
+Architecture and Civil Engg,CA,8022M,CA8022M,Research Methodology and Ethics,3,Y,R,N,10,1,9,0.9,False,N,English
+Architecture and Civil Engg,CA,8028,CA8028,Strategies for Planning and Construction,3,Y,R,N,80,39,41,0.512,False,N,English
+Architecture and Civil Engg,CA,8028M,CA8028M,Strategies for Planning and Construction,3,Y,R,N,15,6,9,0.6,False,N,English
+Veterinary Clinical Sciences,VM,1005,VM1005,Clinical Extra-mural Studies,0,N,B,Y,27,2,25,0.926,False,N,English
+Infectious Diseases & Pub Hlth,VM,2001,VM2001,One Health,3,N,B,Y,65,20,45,0.692,False,N,English
+Veterinary Clinical Sciences,VM,2102,VM2102,Animal Behaviour and Handling,3,N,B,Y,60,17,43,0.717,False,N,English
+Infectious Diseases & Pub Hlth,VM,2106,VM2106,Aquaculture and Aquatic Animal Health,3,N,B,Y,50,6,44,0.88,False,N,English
+Veterinary Clinical Sciences,VM,3010,VM3010,Veterinary Practice & Professional Studies 1,3,N,B,Y,31,0,31,1.0,True,N,English
+Infectious Diseases & Pub Hlth,VM,3012,VM3012,Animal Body,18,N,B,Y,35,4,31,0.886,False,N,English
+Infectious Diseases & Pub Hlth,VM,4000,VM4000,"Host, Agent and Defence",18,N,B,Y,41,3,38,0.927,False,N,English
+Infectious Diseases & Pub Hlth,VM,4001,VM4001,Clinical Pharmacology/ Toxicology,3,N,B,Y,41,3,38,0.927,False,N,English
+Veterinary Clinical Sciences,VM,4114,VM4114,Small Animal Clinical Studies 2,5,N,B,Y,30,1,29,0.967,False,N,English
+Veterinary Clinical Sciences,VM,4115,VM4115,Equine Medicine and Surgery,6,N,B,Y,30,1,29,0.967,False,N,English
+Veterinary Clinical Sciences,VM,4116,VM4116,Production Animal Clinical Studies,8,N,B,Y,30,1,29,0.967,False,N,English
+Veterinary Clinical Sciences,VM,4301,VM4301,Clinical Rotations: Part I,5,N,B,Y,1,0,1,1.0,True,N,English
+Veterinary Clinical Sciences,VM,4302,VM4302,Clinical Rotations: Part II,21,N,B,Y,27,2,25,0.926,False,N,English
+Veterinary Clinical Sciences,VM,4401,VM4401,Research Project,3,N,B,Y,30,1,29,0.967,False,N,English
+Economics & Finance,CB,2041,CB2041,Applications of Game Theory to Business,3,Y,B,Y,102,4,98,0.961,False,N,English
+Accountancy,CB,2100,CB2100,Introduction to Financial Accounting,3,Y,B,Y,560,47,513,0.916,False,N,English
+Accountancy,CB,2101,CB2101,Introduction to Managerial Accounting,3,Y,B,Y,1121,103,1018,0.908,False,N,English
+Decision Analytics &Operations,CB,2200,CB2200,Business Statistics,3,Y,B,Y,1150,209,941,0.818,False,N,English
+Decision Analytics &Operations,CB,2201,CB2201,Operations Management,3,Y,B,Y,1194,59,1135,0.951,False,N,English
+Decision Analytics &Operations,CB,2203,CB2203,Data-driven Business Modeling,3,Y,B,Y,1050,218,832,0.792,False,N,English
+Information Systems,CB,2240,CB2240,Introduction to Business Programming in Python,3,Y,B,Y,846,33,813,0.961,False,N,English
+Management,CB,2300,CB2300,Management,3,Y,B,Y,422,16,406,0.962,False,N,English
+Economics & Finance,CB,2400,CB2400,Microeconomics,3,Y,B,Y,850,68,782,0.92,False,N,English
+Economics & Finance,CB,2402,CB2402,Macroeconomics,3,Y,B,Y,665,27,638,0.959,False,N,English
+Information Systems,CB,2500,CB2500,Information Management,3,Y,B,Y,521,60,461,0.885,False,N,English
+Marketing,CB,2601,CB2601,Marketing,3,Y,B,Y,715,92,623,0.871,False,N,English
+Decision Analytics &Operations,CB,3021,CB3021,Business Discovery Methods,3,Y,B,Y,60,0,60,1.0,True,N,English
+Accountancy,CB,3041,CB3041,Financial Statement Analysis,3,Y,B,Y,195,0,195,1.0,True,N,English
+Marketing,CB,3043,CB3043,Business Case Analysis and Communication,3,Y,B,Y,171,68,103,0.602,False,N,English
+Economics & Finance,CB,3044,CB3044,Introduction to Financial Markets,3,Y,B,Y,105,2,103,0.981,False,N,English
+Management,CB,3045,CB3045,Advanced Seminar on Business Case Analysis,3,N,B,Y,30,15,15,0.5,False,N,English
+Economics & Finance,CB,3410,CB3410,Financial Management,3,Y,B,Y,602,45,557,0.925,False,N,English
+Col of Business,CB,3840,CB3840,Consulting Co-op Programme,3,N,B,Y,11,0,11,1.0,True,N,English
+Economics & Finance,CB,4001,CB4001,Honor Thesis,3,Y,B,Y,30,26,4,0.133,False,N,English
+Management,CB,4303,CB4303,Strategic Management,3,Y,B,Y,425,8,417,0.981,False,N,English
+Marketing,CB,4601,CB4601,Global Marketing,3,Y,B,Y,77,17,60,0.779,False,N,English
+Marketing,CB,4604,CB4604,Global Business Consultancy Project,3,N,B,Y,30,20,10,0.333,False,N,English
+Information Systems,FB,5003,FB5003,Information Systems for Managers,2,Y,P,N,120,44,76,0.633,False,N,English
+Col of Business,FB,5560,FB5560,FinTech and Cryptocurrency,2,Y,P,N,60,18,42,0.7,False,N,English
+Col of Business,FB,5561,FB5561,Artificial Intelligence in Business,2,Y,P,N,120,38,82,0.683,False,N,English
+Col of Business,FB,5601,FB5601,Principles of Marketing,2,Y,P,N,60,26,34,0.567,False,N,English
+Col of Business,FB,5700,FB5700,MBA Orientation,1,N,P,N,90,84,6,0.067,False,N,English
+Col of Business,FB,5700B,FB5700B,MBA Orientation,2,N,P,N,90,22,68,0.756,False,N,English
+Decision Analytics &Operations,FB,5731,FB5731,Business Analytics and Decision Modelling,2,Y,P,N,120,44,76,0.633,False,N,English
+Col of Business,FB,5771,FB5771,Sustainability in Business,2,Y,P,N,60,46,14,0.233,False,N,English
+Col of Business,FB,5800P,FB5800P,Leadership Positioning (Orientation),1,N,P,N,120,49,71,0.592,False,N,Putonghua
+Col of Business,FB,5801P,FB5801P,Organizational Behaviour,2,N,P,N,35,35,0,0.0,False,N,Putonghua
+Col of Business,FB,5802P,FB5802P,Managerial Economics,2,N,P,N,120,75,45,0.375,False,N,Putonghua
+Col of Business,FB,5803P,FB5803P,Financial Reporting and Analysis for Decision Making,2,N,P,N,240,141,99,0.412,False,N,Putonghua
+Col of Business,FB,5804P,FB5804P,Corporate Finance,2,N,P,N,120,50,70,0.583,False,N,Putonghua
+Col of Business,FB,5805P,FB5805P,Managing Operations for Competitive Advantage,2,N,P,N,20,20,0,0.0,False,N,Putonghua
+Col of Business,FB,5806P,FB5806P,Challenges in Marketing,2,N,P,N,120,44,76,0.633,False,N,Putonghua
+Col of Business,FB,5807P,FB5807P,Management Information Systems,2,N,P,N,80,0,80,1.0,True,N,Putonghua
+Col of Business,FB,5808P,FB5808P,Interdisciplinary Discovery,1,N,P,N,60,60,0,0.0,False,N,Putonghua
+Col of Business,FB,5809P,FB5809P,Leadership Positioning (Orientation),1,N,P,N,20,20,0,0.0,False,N,Putonghua
+Accountancy,FB,5810,FB5810,Financial Reporting Analysis for Business Decisions,2,Y,P,N,120,45,75,0.625,False,N,English
+Col of Business,FB,5810P,FB5810P,Strategic Management and Organizational Behaviour,2,N,P,N,15,15,0,0.0,False,N,Putonghua
+Col of Business,FB,5813P,FB5813P,Business Strategy and Valuation,2,N,P,N,15,15,0,0.0,False,N,Putonghua
+Col of Business,FB,5816P,FB5816P,Contemporary Marketing,2,N,P,N,20,20,0,0.0,False,N,Putonghua
+Col of Business,FB,5818P,FB5818P,Capital Markets and Corporate Finance,2,N,P,N,15,15,0,0.0,False,N,Putonghua
+Col of Business,FB,6701A,FB6701A,MBA Enterprise Diagnostic Residential Trip I,3,Y,P,N,40,0,40,1.0,True,N,English
+Col of Business,FB,6702,FB6702,Professional Forum,3,Y,P,N,60,31,29,0.483,False,N,English & Chinese
+Col of Business,FB,6705,FB6705,Business Mentoring,1,N,P,N,60,57,3,0.05,False,N,English
+Col of Business,FB,6773A,FB6773A,Global Exchange I,3,N,P,N,10,10,0,0.0,False,N,English
+Col of Business,FB,6776C,FB6776C,Special Topics in Business I,3,Y,P,N,50,3,47,0.94,False,N,English
+Col of Business,FB,6778A,FB6778A,AI-Driven Analytics and Business Intelligence,2,Y,P,N,60,16,44,0.733,False,N,English
+Col of Business,FB,6779B,FB6779B,Special Topics in Business II,2,Y,P,N,60,47,13,0.217,False,N,English
+Col of Business,FB,6782C,FB6782C,Agile Leadership in a Transformative World,3,Y,P,N,50,14,36,0.72,False,N,English
+Col of Business,FB,6801,FB6801,Business Innovations: Asia Field Study 1,4,N,P,N,30,9,21,0.7,False,N,English
+Col of Business,FB,6810P,FB6810P,"Technologies, Innovation and Business",2,N,P,N,20,20,0,0.0,False,N,Putonghua
+Col of Business,FB,6811P,FB6811P,Strategic Management,2,N,P,N,120,49,71,0.592,False,N,Putonghua
+Col of Business,FB,6812,FB6812,EMBA Consulting Project,4,N,P,N,40,40,0,0.0,False,N,English
+Col of Business,FB,6815P,FB6815P,Leadership in Action Workshop,1,N,P,N,140,68,72,0.514,False,N,Putonghua
+Col of Business,FB,6816P,FB6816P,Innovation and Entrepreneurship Management,3,N,P,N,60,21,39,0.65,False,N,Putonghua
+Col of Business,FB,6838P,FB6838P,Current Challenges in Leadership,2,N,P,N,120,41,79,0.658,False,N,Putonghua
+Col of Business,FB,6840P,FB6840P,Customer Experience Management,2,N,P,N,60,60,0,0.0,False,N,Putonghua
+Col of Business,FB,6843P,FB6843P,Global Organizations Benchmarking Field Study,3,N,P,N,120,75,45,0.375,False,N,English & Putonghua
+Col of Business,FB,6844P,FB6844P,Contemporary Business Topics / Issues,1,N,P,N,30,30,0,0.0,False,N,Putonghua
+Col of Business,FB,6850P,FB6850P,Big Data Technologies and Business Applications,2,N,P,N,60,60,0,0.0,False,N,Putonghua
+Col of Business,FB,6853P,FB6853P,"IPO, and Mergers & Acquisitions",2,N,P,N,120,120,0,0.0,False,N,Putonghua
+Col of Business,FB,6854P,FB6854P,Social Media Marketing,2,N,P,N,120,77,43,0.358,False,N,Putonghua
+Col of Business,FB,6855P,FB6855P,Business Intelligence and Strategic Decision Making,2,N,P,N,60,60,0,0.0,False,N,Putonghua
+Col of Business,FB,6856P,FB6856P,Global Business,2,N,P,N,40,0,40,1.0,True,N,Putonghua
+Col of Business,FB,6857P,FB6857P,Topics in Business Law,2,N,P,N,60,60,0,0.0,False,N,Putonghua
+Col of Business,FB,6858P,FB6858P,Strategic Transformation and Corporate Entrepreneurship,1,N,P,N,60,60,0,0.0,False,N,Putonghua
+Col of Business,FB,6862P,FB6862P,Derivatives and Applications,1,N,P,N,60,29,31,0.517,False,N,Putonghua
+Col of Business,FB,6865P,FB6865P,Compensation Management and High-performance Team Development,1,N,P,N,60,60,0,0.0,False,N,Putonghua
+Col of Business,FB,6867P,FB6867P,Consumer Behavior,1,N,P,N,60,20,40,0.667,False,N,Putonghua
+Col of Business,FB,6869P,FB6869P,Stress and Emotion Management,1,N,P,N,15,15,0,0.0,False,N,Putonghua
+Col of Business,FB,6870P,FB6870P,Strategic Marketing in China,1,N,P,N,60,60,0,0.0,False,N,Putonghua
+Col of Business,FB,6875P,FB6875P,Strategic Management and Innovation,1,N,P,N,60,60,0,0.0,False,N,Putonghua
+Col of Business,FB,6876P,FB6876P,Thinking & Practice of Sustainable Business,1,N,P,N,60,60,0,0.0,False,N,Putonghua
+Col of Business,FB,6880,FB6880,Global Marketing Strategy,4,N,P,N,30,9,21,0.7,False,N,English
+Col of Business,FB,6880P,FB6880P,Global Marketing,1,N,P,N,60,60,0,0.0,False,N,Putonghua
+Col of Business,FB,6881P,FB6881P,Artificial Intelligence and Business Applications,2,N,P,N,120,36,84,0.7,False,N,Chinese
+Col of Business,FB,6882P,FB6882P,Psychology: Insight into the People’s Heart,1,N,P,N,50,19,31,0.62,False,N,Chinese
+Col of Business,FB,6885P,FB6885P,PPP Theory and Policy,2,N,P,N,60,60,0,0.0,False,N,Chinese
+Col of Business,FB,6886P,FB6886P,Public Management,3,N,P,N,10,10,0,0.0,False,N,Putonghua
+Col of Business,FB,6887P,FB6887P,Public Policy Analysis,3,N,P,N,20,20,0,0.0,False,N,Putonghua
+Col of Business,FB,6890,FB6890,"Management, Strategy and Leadership",4,N,P,N,40,22,18,0.45,False,N,English
+Col of Business,FB,6893P,FB6893P,Creativity for Business Executives,2,N,P,N,60,60,0,0.0,False,N,Cantonese
+Col of Business,FB,6896P,FB6896P,Strategies for Building Resilient Enterprises,1,N,P,N,60,21,39,0.65,False,N,Chinese
+Col of Business,FB,6898,FB6898,Modern Logistics and Supply Chain Management,4,N,P,N,40,24,16,0.4,False,N,English
+Col of Business,FB,6899P,FB6899P,Innovative Development of New Quality Productivity and Digital Economy,1,N,P,N,120,49,71,0.592,False,N,Putonghua
+Col of Business,FB,6903P,FB6903P,China's Macroeconomic Landscape and Strategic Corporate Responses,1,N,P,N,120,34,86,0.717,False,N,Putonghua
+Col of Business,FB,6908P,FB6908P,Chinese Tech Companies Going Global: From Strategic Frameworks to Practical Pathways,1,N,P,N,60,29,31,0.517,False,N,Putonghua
+Col of Business,FB,6913P,FB6913P,Understanding China's Governance,2,N,P,N,25,25,0,0.0,False,N,Putonghua
+Col of Business,FB,6914P,FB6914P,Leadership Forum,1,N,P,N,20,20,0,0.0,False,N,Putonghua
+Col of Business,FB,6916P,FB6916P,The Emerging Trend of Public Administration,1,N,P,N,20,20,0,0.0,False,N,Putonghua
+Col of Business,FB,6918P,FB6918P,Politics (International),3,N,P,N,25,25,0,0.0,False,N,Putonghua
+Col of Business,FB,6920P,FB6920P,PPP Legal Systems and Contract Management,2,N,P,N,35,35,0,0.0,False,N,Putonghua
+Col of Business,FB,6921P,FB6921P,PPP Global Benchmarking,2,N,P,N,20,20,0,0.0,False,N,Chinese
+Col of Business,FB,6922P,FB6922P,PPP Consulting Project Research,2,N,P,N,5,5,0,0.0,False,N,Putonghua
+Col of Business,FB,6924P,FB6924P,Leadership in Public and Business Administrations,2,N,P,N,15,15,0,0.0,False,N,Putonghua
+Col of Business,FB,6926P,FB6926P,Development Strategy and Planning,2,N,P,N,20,20,0,0.0,False,N,Putonghua
+Col of Business,FB,6933,FB6933,Global Economic Environments and Business Strategies,2,N,P,N,40,5,35,0.875,False,N,English
+Col of Business,FB,6934,FB6934,"Accounting, Strategy and Control",2,N,P,N,40,5,35,0.875,False,N,English
+Col of Business,FB,6945,FB6945,"Corporate Governance, Directorship and Business Ethics",2,N,P,N,50,50,0,0.0,False,N,English
+Col of Business,FB,8001D,FB8001D,Methodology for Applied Business Research I,3,N,D,N,25,16,9,0.36,False,N,English
+Col of Business,FB,8002I,FB8002I,Methodology for Applied Business Research II,3,N,D,N,100,100,0,0.0,False,N,Chinese (Eng Avail in Sem A/B)
+Col of Business,FB,8003D,FB8003D,Methodology for Applied Business Research III,3,N,D,N,25,16,9,0.36,False,N,English
+Col of Business,FB,8003I,FB8003I,Methodology for Applied Business Research III,3,N,D,N,200,170,30,0.15,False,N,Chinese (Eng Avail in Sem A/B)
+Col of Business,FB,8004D,FB8004D,Residential Workshop I,2,N,D,N,30,21,9,0.3,False,N,English
+Col of Business,FB,8005D,FB8005D,Residential Workshop II,2,N,R,N,30,30,0,0.0,False,N,English
+Col of Business,FB,8007D,FB8007D,Doctoral Thesis,30,N,D,N,140,83,57,0.407,False,N,English
+Col of Business,FB,8007I,FB8007I,Doctoral Thesis,30,N,D,N,200,97,103,0.515,False,N,Chinese (Eng Avail in Sem A/B)
+Col of Business,FB,8008D,FB8008D,Directed Studies I for DBA Participants,3,N,D,N,30,28,2,0.067,False,N,English
+Col of Business,FB,8009D,FB8009D,Directed Studies II for DBA Participants,3,N,D,N,30,29,1,0.033,False,N,English
+Col of Business,FB,8010D,FB8010D,Research Development Workshop,2,N,D,N,120,83,37,0.308,False,N,English
+Col of Business,FB,8015I,FB8015I,Contemporary Marketing Strategy,3,N,D,N,100,79,21,0.21,False,N,Chinese (Eng Avail in Sem A/B)
+Col of Business,FB,8016I,FB8016I,Research in Finance,3,N,D,N,100,82,18,0.18,False,N,Putonghua
+Col of Business,FB,8051I,FB8051I,Residential Workshop III,2,N,D,N,50,50,0,0.0,False,N,Putonghua
+Col of Business,FB,8052I,FB8052I,Research in Finance,3,N,D,N,100,100,0,0.0,False,N,Putonghua
+Col of Business,FB,8053I,FB8053I,Directed Studies for DBA Participants,3,N,D,N,50,42,8,0.16,False,N,Putonghua
+Col of Business,FB,8057I,FB8057I,Corporate Sustainability and Responsibility,3,N,B P D R,Y,100,88,12,0.12,False,N,Putonghua
+Col of Business,FB,8905,FB8905,Project,6,Y,R,N,70,0,70,1.0,True,N,English
+Col of Business,FB,8914,FB8914,Doctoral Seminar,3,Y,R,N,55,2,53,0.964,False,N,English
+Col of Business,FB,8917,FB8917,Survey and Experimental Research Methods for Business,3,Y,R,N,55,45,10,0.182,False,N,English
+Col of Liberal Arts & Soc Sci,CLA,1000C,CLA1000C,Internship III,0,N,B,Y,30,30,0,0.0,False,N,English & Others
+Col of Liberal Arts & Soc Sci,CLA,1000D,CLA1000D,Internship IV,0,N,B,Y,30,30,0,0.0,False,N,English & Others
+Col of Liberal Arts & Soc Sci,CLA,5001,CLA5001,Cross Sectoral Leadership,3,N,P,N,225,7,218,0.969,False,N,Chinese
+Col of Liberal Arts & Soc Sci,CLA,5002,CLA5002,Research Design and Methods,3,N,P,N,225,7,218,0.969,False,N,Chinese
+Col of Liberal Arts & Soc Sci,CLA,5005,CLA5005,Marketing for Social Impact,3,N,P,N,225,7,218,0.969,False,N,Chinese
+Col of Liberal Arts & Soc Sci,CLA,5006,CLA5006,Technology for Social Transformation,3,N,P,N,225,7,218,0.969,False,N,Chinese
+Col of Liberal Arts & Soc Sci,CLA,5007,CLA5007,Project Management and Capstone,3,N,P,N,225,7,218,0.969,False,N,Chinese
+College of Engineering,FS,1101,FS1101,STEM Internship Scheme,1,N,B,Y,50,50,0,0.0,False,N,English & Others
+College of Engineering,FS,2002,FS2002,Industrial Attachment Scheme,3,N,B,Y,5,5,0,0.0,False,N,English
+College of Engineering,FS,2009,FS2009,Research Internship Scheme,3,N,B,Y,50,50,0,0.0,False,N,English & Others
+College of Engineering,FS,2101,FS2101,STEM Internship Scheme,1,N,B,Y,100,100,0,0.0,False,N,English & Others
+College of Engineering,FS,3002,FS3002,Industrial Attachment Scheme,3,N,B,Y,5,5,0,0.0,False,N,English
+College of Engineering,FS,3009,FS3009,Research Internship Scheme,3,N,B,Y,50,50,0,0.0,False,N,English & Others
+College of Engineering,FS,3101,FS3101,STEM Internship Scheme,1,N,B,Y,100,100,0,0.0,False,N,English & Others
+College of Engineering,FS,4001,FS4001,Co-operative Education Scheme (CES),4,N,B,Y,10,10,0,0.0,False,N,English & Others
+College of Engineering,FS,4002,FS4002,Industrial Attachment Scheme,3,N,B,Y,5,5,0,0.0,False,N,English & Others
+College of Engineering,FS,4003,FS4003,CES Placement Project,3,N,B,Y,2,2,0,0.0,False,N,English & Others
+College of Engineering,FS,4007,FS4007,Start-up Technology Entrepreneur Programme I,3,N,B,Y,3,3,0,0.0,False,N,English & Others
+College of Engineering,FS,4009,FS4009,Research Internship Scheme,3,N,B,Y,50,50,0,0.0,False,N,English & Others
+College of Engineering,FS,4101,FS4101,STEM Internship Scheme,1,N,B,Y,100,100,0,0.0,False,N,English & Others
+College of Engineering,FS,4102,FS4102,STEM Work Experience Scheme,0,N,B,Y,50,50,0,0.0,False,N,English & Others
+College of Science,CSCI,0001,CSCI0001,Internship,0,N,B,Y,5,5,0,0.0,False,N,English & Others
+College of Science,CSCI,0002,CSCI0002,Internship,0,N,B,Y,5,5,0,0.0,False,N,English & Others
+College of Science,CSCI,0003,CSCI0003,Internship,0,N,B,Y,5,5,0,0.0,False,N,English & Others
+College of Science,CSCI,0004,CSCI0004,Internship,0,N,B,Y,1,1,0,0.0,False,N,English & Others
+College of Science,CSCI,1001,CSCI1001,Employability for Scientists,0,Y,B,Y,210,18,192,0.914,False,N,English
+College of Science,CSCI,4001,CSCI4001,Co-operative Education Scheme for Science Students,3,N,B,Y,5,5,0,0.0,False,N,English & Chinese
+College of Science,CSCI,4002,CSCI4002,Industrial Attachment Scheme for Science Students,3,N,B,Y,13,8,5,0.385,False,N,English & Chinese
+College of Science,CSCI,4003,CSCI4003,Co-operative Education Placement Project for Science Students,3,N,B,Y,5,5,0,0.0,False,N,English & Chinese
+College of Science,CSCI,4005,CSCI4005,Overseas Internship Scheme for Science Student,3,N,B,Y,5,5,0,0.0,False,N,English
+Computer Science,CS,1102,CS1102,Introduction to Computer Studies,3,Y,B,Y,346,103,243,0.702,False,N,English
+Computer Science,CS,1103B,CS1103B,Media Computing,3,Y,B,Y,60,17,43,0.717,False,N,English
+Computer Science,CS,1302,CS1302,Introduction to Computer Programming,3,Y,B,Y,526,39,487,0.926,False,N,English
+Computer Science,CS,1302A,CS1302A,Introduction to Computer Programming,3,Y,B,Y,225,23,202,0.898,False,N,English
+Computer Science,CS,1315,CS1315,Introduction to Computer Programming,3,Y,B,Y,210,88,122,0.581,False,N,English
+Computer Science,CS,2115,CS2115,Computer Organization,3,Y,B,Y,299,33,266,0.89,False,N,English
+Computer Science,CS,2116,CS2116,Computer Systems,3,Y,B,Y,75,5,70,0.933,False,N,English
+Computer Science,CS,2117,CS2117,Foundation of Cybersecurity,3,Y,B,Y,60,22,38,0.633,False,N,English
+Computer Science,CS,2310,CS2310,Computer Programming,3,Y,B,Y,80,10,70,0.875,False,N,English
+Computer Science,CS,2311,CS2311,Computer Programming,3,Y,B,Y,400,88,312,0.78,False,N,English
+Computer Science,CS,2312,CS2312,Problem Solving and Programming,3,Y,B,Y,252,39,213,0.845,False,N,English
+Computer Science,CS,2313,CS2313,Computer Programming,3,Y,B,Y,68,4,64,0.941,False,N,English
+Computer Science,CS,2334,CS2334,Data Structures for Data Science,3,Y,B,Y,156,32,124,0.795,False,N,English
+Computer Science,CS,2360,CS2360,Java Programming,3,Y,B,Y,138,13,125,0.906,False,N,English
+Computer Science,CS,2611,CS2611,Seminars on Contemporary Technology I,0,N,B,Y,30,4,26,0.867,False,N,English
+Computer Science,CS,2612,CS2612,Seminars on Contemporary Cybersecurity,1,N,B,Y,60,15,45,0.75,False,N,English
+Computer Science,CS,2613,CS2613,Seminars on Contemporary Technology,1,N,B,Y,247,23,224,0.907,False,N,English
+Computer Science,CS,3000,CS3000,Professional Career Development Internship,0,N,B,Y,10,10,0,0.0,False,N,English
+Computer Science,CS,3103,CS3103,Operating Systems,3,Y,B,Y,169,25,144,0.852,False,N,English
+Computer Science,CS,3201,CS3201,Computer Networks,3,Y,B,Y,299,12,287,0.96,False,N,English
+Computer Science,CS,3301,CS3301,Applied Algorithms,3,Y,B,Y,77,18,59,0.766,False,N,English
+Computer Science,CS,3334,CS3334,Data Structures,3,Y,B,Y,280,59,221,0.789,False,N,English
+Computer Science,CS,3356,CS3356,Managing Software Projects,3,Y,B,Y,100,0,100,1.0,True,N,English
+Computer Science,CS,3383,CS3383,AI for Software Engineering,3,Y,B,Y,180,34,146,0.811,False,N,English
+Computer Science,CS,3402,CS3402,Database Systems,3,Y,B,Y,204,46,158,0.775,False,N,English
+Computer Science,CS,3483,CS3483,Multimodal Interface Design,3,Y,B,Y,200,10,190,0.95,False,N,English
+Computer Science,CS,3504,CS3504,IT Professional Placement,6,N,B,Y,11,9,2,0.182,False,N,English & Others
+Computer Science,CS,3505,CS3505,IT Professional Internship,6,N,B,Y,260,128,132,0.508,False,N,English & Others
+Computer Science,CS,4182,CS4182,Computer Graphics,3,Y,B,Y,156,31,125,0.801,False,N,English
+Computer Science,CS,4187,CS4187,Computer Vision for Interactivity,3,Y,B,Y,78,0,78,1.0,True,N,English
+Computer Science,CS,4335,CS4335,Design and Analysis of Algorithms,3,Y,B,Y,326,96,230,0.706,False,N,English
+Computer Science,CS,4394,CS4394,Information Security and Management,3,Y,B,Y,110,13,97,0.882,False,N,English
+Computer Science,CS,4480,CS4480,Data-Intensive Computing,3,Y,B,Y,156,64,92,0.59,False,N,English
+Computer Science,CS,4487,CS4487,Machine Learning,3,Y,B,Y,156,60,96,0.615,False,N,English
+Computer Science,CS,4514,CS4514,Project,3,N,B,Y,225,52,173,0.769,False,N,English
+Computer Science,CS,5187,CS5187,Vision and Image,3,Y,P R,N,400,10,390,0.975,False,N,English
+Computer Science,CS,5222,CS5222,Computer Networks and Internets,3,Y,P R,N,555,33,522,0.941,False,N,English
+Computer Science,CS,5285,CS5285,Introduction to Cybersecurity,3,Y,P R,N,564,32,532,0.943,False,N,English
+Computer Science,CS,5292,CS5292,Cybersecurity Audits and Compliance,3,Y,P,N,112,38,74,0.661,False,N,English
+Computer Science,CS,5294,CS5294,Information Security Technology Management,3,Y,P R,N,224,76,148,0.661,False,N,English
+Computer Science,CS,5295,CS5295,Network and Cloud Security,3,Y,P,N,120,37,83,0.692,False,N,English
+Computer Science,CS,5298,CS5298,Blockchain and Web3.0 Security,3,Y,P,N,112,78,34,0.304,False,N,English
+Computer Science,CS,5351,CS5351,Software Engineering,3,Y,P R,N,400,201,199,0.497,False,N,English
+Computer Science,CS,5481,CS5481,Data Engineering,3,Y,P R,N,300,23,277,0.923,False,N,English
+Computer Science,CS,5486,CS5486,Intelligent Systems,3,Y,P R,N,260,63,197,0.758,False,N,English
+Computer Science,CS,5488,CS5488,Big Data Algorithms and Techniques,3,Y,P R,N,152,63,89,0.586,False,N,English
+Computer Science,CS,5489,CS5489,Machine Learning: Algorithms and Applications,3,Y,P R,N,455,121,334,0.734,False,N,English
+Computer Science,CS,5494,CS5494,Topics in Generative AI,3,Y,P,N,176,8,168,0.955,False,N,English
+Computer Science,CS,5495,CS5495,Explainable AI,3,Y,P,N,160,19,141,0.881,False,N,English
+Computer Science,CS,6382,CS6382,Algorithm Analysis and Game Theory,3,Y,P R,N,190,75,115,0.605,False,N,English
+Computer Science,CS,6480,CS6480,AI Oracles for Multiagent Economic Systems,3,N,P R,N,100,2,98,0.98,False,N,English
+Computer Science,CS,6520,CS6520,Project,3,N,P,N,20,17,3,0.15,False,N,English
+Computer Science,CS,6521,CS6521,Research/Internship Project,3,N,P,N,20,4,16,0.8,False,N,English
+Computer Science,CS,6522,CS6522,Project in Autonomous Driving,3,N,P,N,5,5,0,0.0,False,N,English
+Computer Science,CS,6523,CS6523,Internship in Autonomous Driving,3,N,P,N,20,19,1,0.05,False,N,English
+Computer Science,CS,6524,CS6524,Project in Generative AI,3,N,P,N,5,3,2,0.4,False,N,English
+Computer Science,CS,6525,CS6525,Internship in Generative AI,3,N,P,N,20,15,5,0.25,False,N,English
+Computer Science,CS,6526,CS6526,Project in Trustworthy AI,3,N,P,N,5,5,0,0.0,False,N,English
+Computer Science,CS,6527,CS6527,Internship in Trustworthy AI,3,N,P,N,20,20,0,0.0,False,N,English
+Computer Science,CS,6528,CS6528,Internship in Artificial Intelligence,3,N,P,N,20,9,11,0.55,False,N,English
+Computer Science,CS,6529,CS6529,Project in Artificial Intelligence,3,N,P,N,25,19,6,0.24,False,N,English
+Computer Science,CS,6534,CS6534,Guided Study,3,N,P,N,20,17,3,0.15,False,N,English
+Computer Science,CS,6535,CS6535,Guided Study in Artificial Intelligence,3,N,P,N,20,13,7,0.35,False,N,English
+Computer Science,CS,6536,CS6536,Guided Study in Data Science,3,N,P,N,20,20,0,0.0,False,N,English
+Computer Science,CS,6537,CS6537,Guided Study in Information Security,3,N,P,N,20,19,1,0.05,False,N,English
+Computer Science,CS,8692,CS8692,Comprehensive Studies in Selected Topics in Computer Science,3,Y,R,N,80,11,69,0.863,False,N,English
+Computer Science,CS,8695,CS8695,Research In Computer Science,2,Y,R,N,140,16,124,0.886,False,N,English
+Data Science,DSC,0001,DSC0001,Internship,0,N,B,Y,40,40,0,0.0,False,N,English & Others
+Data Science,DSC,0002,DSC0002,Internship,0,N,B,Y,40,40,0,0.0,False,N,English & Others
+Data Science,DSC,0003,DSC0003,Internship,0,N,B,Y,40,40,0,0.0,False,N,English & Others
+Data Science,DSC,0004,DSC0004,Internship,0,N,B,Y,40,40,0,0.0,False,N,English & Others
+Data Science,DSC,1001,DSC1001,Introduction to Data Science,2,Y,B,Y,160,48,112,0.7,False,N,English
+Data Science,DSC,2001,DSC2001,Python for Data Science,4,Y,B,Y,200,14,186,0.93,False,N,English
+Data Science,DSC,3001,DSC3001,Big Data: The Arts and Science of Scaling,3,Y,B,Y,90,26,64,0.711,False,N,English
+Data Science,DSC,3006,DSC3006,Fundamentals of Machine Learning I,3,Y,B,Y,160,49,111,0.694,False,N,English
+Data Science,DSC,3007,DSC3007,Advanced Statistics,3,Y,B,Y,130,44,86,0.662,False,N,English
+Data Science,DSC,3008,DSC3008,Systems Dynamics and Control,3,Y,B,Y,70,23,47,0.671,False,N,English
+Data Science,DSC,3013,DSC3013,Introduction to Social Media Analytics,3,Y,B,Y,70,14,56,0.8,False,N,English
+Data Science,DSC,3019,DSC3019,Introduction to Networked Life and Data Science,3,Y,B,Y,80,34,46,0.575,False,N,English
+Data Science,DSC,3020,DSC3020,Engineering Economics,3,Y,B,Y,40,22,18,0.45,False,N,English
+Data Science,DSC,3080,DSC3080,Internship,3,N,B,Y,40,40,0,0.0,False,N,English & Others
+Data Science,DSC,3105,DSC3105,Bayesian Analysis,3,Y,B,Y,70,43,27,0.386,False,N,English
+Data Science,DSC,4008,DSC4008,Deep Learning,3,Y,B,Y,70,31,39,0.557,False,N,English
+Data Science,DSC,4024,DSC4024,Project Management and Analysis,3,Y,B,Y,50,36,14,0.28,False,N,English
+Data Science,DSC,4070,DSC4070,Large Language Models,3,Y,B,Y,70,20,50,0.714,False,N,English
+Data Science,DSC,4107,DSC4107,Financial Engineering and Analytics,3,Y,B,Y,90,25,65,0.722,False,N,English
+Data Science,DSC,4116,DSC4116,Data Science Capstone,3,N,B,Y,100,0,100,1.0,True,N,English
+Data Science,DSC,5001,DSC5001,Statistical Machine Learning I,3,Y,P,N,800,131,669,0.836,False,N,English
+Data Science,DSC,5002,DSC5002,Exploratory Data Analysis and Visualization,3,Y,P,N,516,67,449,0.87,False,N,English
+Data Science,DSC,5003,DSC5003,Storing and Retrieving Data,3,Y,P,N,500,51,449,0.898,False,N,English
+Data Science,DSC,6004,DSC6004,Topics of Artificial Intelligence for Smart Cities,3,Y,P,N,300,32,268,0.893,False,N,English
+Data Science,DSC,6006,DSC6006,Dissertation,3,N,P,N,150,113,37,0.247,False,N,English
+Data Science,DSC,6008,DSC6008,Design of Experiments,3,Y,P,N,300,28,272,0.907,False,N,English
+Data Science,DSC,6011,DSC6011,Optimization for Data Science,3,Y,P,N,80,37,43,0.537,False,N,English
+Data Science,DSC,6012,DSC6012,Time Series and Recurrent Neural Networks,3,Y,P,N,251,6,245,0.976,False,N,English
+Data Science,DSC,6013,DSC6013,Topics in Financial Engineering and Technology,3,Y,P,N,250,123,127,0.508,False,N,English
+Data Science,DSC,6016,DSC6016,Predictive Analytics and Financial Applications,3,Y,P,N,190,39,151,0.795,False,N,English
+Data Science,DSC,6017,DSC6017,Internship Project,3,N,P,N,150,135,15,0.1,False,N,English
+Data Science,DSC,6018,DSC6018,Health Data Analytics,3,Y,P,N,200,97,103,0.515,False,N,English
+Data Science,DSC,6020,DSC6020,Artificial Intelligence for Scientific Knowledge Discovery,3,Y,P,N,300,79,221,0.737,False,N,English
+Data Science,DSC,6021,DSC6021,Generative Artificial Intelligence,3,Y,P,N,300,79,221,0.737,False,N,English
+Data Science,DSC,6026,DSC6026,Social Network Analysis,3,Y,P,N,250,155,95,0.38,False,N,English
+Data Science,DSC,8001,DSC8001,Seminars on Data Science I,1,Y,B P D R,Y,100,20,80,0.8,False,N,English
+Data Science,DSC,8002,DSC8002,Seminars on Data Science II,1,Y,B P D R,Y,100,39,61,0.61,False,N,English
+Data Science,DSC,8003,DSC8003,Machine Learning,3,Y,B P D R,Y,100,24,76,0.76,False,N,English
+Data Science,DSC,8004,DSC8004,Advanced Statistics,3,Y,B P D R,Y,100,21,79,0.79,False,N,English
+Data Science,DSC,8005,DSC8005,Optimization,3,Y,B P D R,Y,100,17,83,0.83,False,N,English
+Decision Analytics &Operations,MS,2602,MS2602,Statistical Inference,3,Y,B,Y,60,34,26,0.433,False,N,English
+Decision Analytics &Operations,MS,3106,MS3106,Simulation,3,Y,B,Y,100,62,38,0.38,False,N,English
+Decision Analytics &Operations,MS,3124,MS3124,Global Supply Chain Management,3,Y,B,Y,130,32,98,0.754,False,N,English
+Decision Analytics &Operations,MS,3128,MS3128,Managerial Decision Analytics,3,Y,B,Y,110,11,99,0.9,False,N,English
+Decision Analytics &Operations,MS,3227,MS3227,Probability Theory in Decision Making,3,Y,B,Y,130,8,122,0.938,False,N,English
+Decision Analytics &Operations,MS,3251,MS3251,Analytics using SAS,3,Y,B,Y,167,18,149,0.892,False,N,English
+Decision Analytics &Operations,MS,3252,MS3252,Regression Analysis,3,Y,B,Y,220,87,133,0.605,False,N,English
+Decision Analytics &Operations,MS,3322,MS3322,Quality Management,3,Y,B,Y,100,12,88,0.88,False,N,English
+Decision Analytics &Operations,MS,3403,MS3403,Internship for Decision Analytics and Operations,3,N,B,Y,25,15,10,0.4,False,N,English & Others
+Decision Analytics &Operations,MS,3404,MS3404,"Internship, Training and Career Development",0,N,B,Y,25,25,0,0.0,False,N,English & Others
+Decision Analytics &Operations,MS,4118,MS4118,Operations Management Project,3,N,B,Y,30,12,18,0.6,False,N,English
+Decision Analytics &Operations,MS,4212,MS4212,Predictive Analytics and Forecasting,3,Y,B,Y,80,51,29,0.362,False,N,English
+Decision Analytics &Operations,MS,4224,MS4224,Enterprise Data Mining,3,Y,B,Y,160,69,91,0.569,False,N,English
+Decision Analytics &Operations,MS,4306,MS4306,Best Practices in Global Operations Management,3,Y,B,Y,110,22,88,0.8,False,N,English
+Decision Analytics &Operations,MS,5215,MS5215,AI-Enhanced Business Analytics with Excel and Python,3,Y,P,N,453,0,453,1.0,True,N,English
+Decision Analytics &Operations,MS,5216,MS5216,Decision Analytics,3,Y,P,N,205,2,203,0.99,False,N,English
+Decision Analytics &Operations,MS,5217,MS5217,Statistical Data Analysis,3,Y,P,N,494,39,455,0.921,False,N,English
+Decision Analytics &Operations,MS,5218,MS5218,Applied Linear Statistical Models,3,Y,P,N,274,17,257,0.938,False,N,English
+Decision Analytics &Operations,MS,5225,MS5225,Business Process Modeling and Simulation,3,Y,P,N,213,2,211,0.991,False,N,English
+Decision Analytics &Operations,MS,5313,MS5313,Managerial Decision Modeling,3,Y,P,N,268,18,250,0.933,False,N,English
+Decision Analytics &Operations,MS,6211,MS6211,Statistical Modelling in Risk Management,3,Y,P R,N,246,19,227,0.923,False,N,English
+Decision Analytics &Operations,MS,6322,MS6322,Transportation Logistics,3,Y,P,N,223,1,222,0.996,False,N,English
+Decision Analytics &Operations,MS,6324,MS6324,Internship Project,3,N,P,N,10,7,3,0.3,False,N,English
+Decision Analytics &Operations,MS,6325,MS6325,Operations Management,3,Y,P,N,272,15,257,0.945,False,N,English
+Decision Analytics &Operations,MS,8944,MS8944,Probability and Markov Chain Models,3,Y,R,N,50,34,16,0.32,False,N,English
+Decision Analytics &Operations,MS,8951,MS8951,Decision Analytics and Operations Seminar Series IV,1,Y,R,N,50,31,19,0.38,False,N,English
+Decision Analytics &Operations,MS,8952,MS8952,Introduction to Mathematical Statistics,3,Y,R,N,50,37,13,0.26,False,N,English
+Economics & Finance,EF,2452,EF2452,Mathematics for Economics and Finance,3,Y,B,Y,221,12,209,0.946,False,N,English
+Economics & Finance,EF,3320,EF3320,Security Analysis and Portfolio Management,3,Y,B,Y,427,34,393,0.92,False,N,English
+Economics & Finance,EF,3333,EF3333,"Financial Systems, Markets and Instruments",3,Y,B,Y,120,11,109,0.908,False,N,English
+Economics & Finance,EF,3451,EF3451,Economic and Business Forecasting,3,Y,B,Y,100,56,44,0.44,False,N,English
+Economics & Finance,EF,3520,EF3520,Stochastic Calculus for Finance,3,Y,B,Y,50,19,31,0.62,False,N,English
+Economics & Finance,EF,4300,EF4300,Project,3,N,B,Y,20,3,17,0.85,False,N,English
+Economics & Finance,EF,4312,EF4312,Mergers and Acquisitions,3,Y,B,Y,115,3,112,0.974,False,N,English
+Economics & Finance,EF,4321,EF4321,Derivatives and Risk Management,3,Y,B,Y,345,32,313,0.907,False,N,English
+Economics & Finance,EF,4323,EF4323,Trading Room Workshop,3,Y,B,Y,100,16,84,0.84,False,N,English
+Economics & Finance,EF,4473,EF4473,International Trade,3,Y,B,Y,100,25,75,0.75,False,N,English
+Economics & Finance,EF,4480,EF4480,Industrial Organization,3,Y,B,Y,85,47,38,0.447,False,N,English
+Economics & Finance,EF,4485,EF4485,Experimental Methods in Economics/Finance,3,Y,B,Y,100,50,50,0.5,False,N,English
+Economics & Finance,EF,4600,EF4600,Internship,3,N,B,Y,32,0,32,1.0,True,N,English
+Economics & Finance,EF,4821,EF4821,Derivatives Pricing II: Interest Rate and Credit Risk,3,Y,B,Y,35,13,22,0.629,False,N,English
+Economics & Finance,EF,5010,EF5010,Economics for Business,3,Y,P,N,100,7,93,0.93,False,N,English
+Economics & Finance,EF,5042,EF5042,Corporate Finance,3,Y,P,N,460,48,412,0.896,False,N,English
+Economics & Finance,EF,5050,EF5050,Derivatives and Risk Management,3,N,P,N,426,22,404,0.948,False,N,English
+Economics & Finance,EF,5052,EF5052,Investments,3,Y,P,N,469,38,431,0.919,False,N,English
+Economics & Finance,EF,5063,EF5063,Professional Seminars in Finance,3,N,P,N,413,11,402,0.973,False,N,English
+Economics & Finance,EF,5070,EF5070,Financial Econometrics,3,Y,P,N,307,18,289,0.941,False,N,English
+Economics & Finance,EF,5250,EF5250,Stochastic Calculus for Finance,3,N,P,N,155,10,145,0.935,False,N,English
+Economics & Finance,EF,5342,EF5342,"Financial Systems, Markets and Instruments",3,Y,P,N,240,39,201,0.838,False,N,English
+Economics & Finance,EF,5470,EF5470,Advanced Econometrics,3,Y,P,N,260,18,242,0.931,False,N,English
+Economics & Finance,EF,5471,EF5471,Advanced Microeconomics,3,Y,P,N,260,18,242,0.931,False,N,English
+Economics & Finance,EF,5472,EF5472,Advanced Macroeconomics,3,Y,P,N,260,17,243,0.935,False,N,English
+Economics & Finance,EF,5473,EF5473,Professional Seminars in Applied Economics,3,N,P,N,300,58,242,0.807,False,N,English
+Economics & Finance,EF,5474,EF5474,Quantitative Methods in Economics,3,Y,P,N,260,18,242,0.931,False,N,English
+Economics & Finance,EF,5550P,EF5550P,Portfolio Management and Security Analysis,1.5,N,P,N,50,50,0,0.0,False,N,Putonghua
+Economics & Finance,EF,5551P,EF5551P,Financial Instruments and Risk Management,1.5,N,P,N,50,50,0,0.0,False,N,Putonghua
+Economics & Finance,EF,5560,EF5560,Fintech and AI in Finance,3,Y,P,N,255,9,246,0.965,False,N,English
+Economics & Finance,EF,8070,EF8070,Advanced Microeconomics,3,Y,R,N,24,0,24,1.0,True,N,English
+Economics & Finance,EF,8072,EF8072,Advanced Macroeconomics,3,Y,R,N,15,7,8,0.533,False,N,English
+Economics & Finance,EF,8083,EF8083,Empirical Asset Pricing,3,Y,R,N,15,3,12,0.8,False,N,English
+Economics & Finance,EF,8090,EF8090,Advanced Econometrics,3,Y,R,N,23,0,23,1.0,True,N,English
+Economics & Finance,EF,8091,EF8091,Topics in Computational Economics,3,Y,R,N,10,6,4,0.4,False,N,English
+Electrical Engineering,EE,1000,EE1000,Programme Induction,0,N,B,Y,1,0,1,1.0,True,N,English
+Electrical Engineering,EE,1001,EE1001,Foundations of Digital Techniques,3,Y,B,Y,161,6,155,0.963,False,N,English
+Electrical Engineering,EE,1002,EE1002,Principles of Electrical Engineering,3,Y,B,Y,156,2,154,0.987,False,N,English
+Electrical Engineering,EE,1004,EE1004,Foundations of Information Systems and Data Analysis,3,Y,B,Y,153,3,150,0.98,False,N,English
+Electrical Engineering,EE,2000,EE2000,Logic Circuit Design,3,Y,B,Y,231,15,216,0.935,False,N,English
+Electrical Engineering,EE,2004,EE2004,Microcomputer Systems,3,Y,B,Y,124,29,95,0.766,False,N,English
+Electrical Engineering,EE,2005,EE2005,Electronic Devices and Circuits,3,Y,B,Y,171,17,154,0.901,False,N,English
+Electrical Engineering,EE,2066,EE2066,Engineers in Society,3,Y,B,Y,123,1,122,0.992,False,N,English
+Electrical Engineering,EE,2108,EE2108,Computational Engineering Analysis,3,Y,B,Y,108,11,97,0.898,False,N,English
+Electrical Engineering,EE,2302,EE2302,Foundations of Information Engineering and Cryptography,3,Y,B,Y,100,19,81,0.81,False,N,English
+Electrical Engineering,EE,2331,EE2331,Data Structures and Algorithms,3,Y,B,Y,100,2,98,0.98,False,N,English
+Electrical Engineering,EE,3001,EE3001,Foundations of Data Engineering,3,Y,B,Y,105,12,93,0.886,False,N,English
+Electrical Engineering,EE,3008,EE3008,Principles of Communications,3,Y,B,Y,122,11,111,0.91,False,N,English
+Electrical Engineering,EE,3009,EE3009,Data Communications and Networking,3,Y,B,Y,112,1,111,0.991,False,N,English
+Electrical Engineering,EE,3070,EE3070,Design Project,3,Y,B,Y,120,0,120,1.0,True,N,English
+Electrical Engineering,EE,3114,EE3114,Systems and Control,3,Y,B,Y,98,0,98,1.0,True,N,English
+Electrical Engineering,EE,3123,EE3123,Introduction to Electric Power Systems,3,Y,B,Y,80,6,74,0.925,False,N,English
+Electrical Engineering,EE,3206,EE3206,Object-Oriented Programming and Applications,3,Y,B,Y,88,11,77,0.875,False,N,English
+Electrical Engineering,EE,3210,EE3210,Signals and Systems,3,Y,B,Y,180,45,135,0.75,False,N,English
+Electrical Engineering,EE,3301,EE3301,Quantitative Methods for Information Engineering,3,Y,B,Y,120,46,74,0.617,False,N,English
+Electrical Engineering,EE,3800,EE3800,Semiconductor Materials and Devices,3,Y,B,Y,50,22,28,0.56,False,N,English
+Electrical Engineering,EE,3801,EE3801,Microsystems and Nanotechnology,3,Y,B,Y,45,6,39,0.867,False,N,English
+Electrical Engineering,EE,4080,EE4080,Project,3,N,B,Y,227,1,226,0.996,False,N,English
+Electrical Engineering,EE,4085,EE4085,Internship: Engineering Practice,3,N,B,Y,7,0,7,1.0,True,N,English & Others
+Electrical Engineering,EE,4086,EE4086,Internship: Advanced Topics in Electrical Engineering,3,N,B,Y,8,0,8,1.0,True,N,English & Others
+Electrical Engineering,EE,4087,EE4087,Internship: Industrial Project,3,N,B,Y,12,0,12,1.0,True,N,English & Others
+Electrical Engineering,EE,4107,EE4107,5G Circuit Design,3,Y,B,Y,59,0,59,1.0,True,N,English
+Electrical Engineering,EE,4149,EE4149,Power Electronics,3,Y,B,Y,36,1,35,0.972,False,N,English
+Electrical Engineering,EE,4211,EE4211,Computer Vision,3,Y,B,Y,80,2,78,0.975,False,N,English
+Electrical Engineering,EE,4213,EE4213,Human-Computer Interaction,3,Y,B,Y,85,0,85,1.0,True,N,English
+Electrical Engineering,EE,4221,EE4221,Cloud Computing Systems,3,Y,B,Y,80,0,80,1.0,True,N,English
+Electrical Engineering,EE,4316,EE4316,Mobile Data Networks,3,Y,B,Y,95,0,95,1.0,True,N,English
+Electrical Engineering,EE,4802,EE4802,VLSI Circuit Design,3,Y,B,Y,40,9,31,0.775,False,N,English
+Electrical Engineering,EE,5415,EE5415,Mobile Applications Design and Development,3,Y,P R,N,200,105,95,0.475,False,N,English
+Electrical Engineering,EE,5425,EE5425,Fundamentals of Radio Frequency (RF) Circuit Engineering,3,Y,P R,N,180,44,136,0.756,False,N,English
+Electrical Engineering,EE,5436,EE5436,Fundamentals and Applications of Photonics,3,Y,P R,N,183,3,180,0.984,False,N,English
+Electrical Engineering,EE,5438,EE5438,Applied Deep Learning,3,Y,P R,N,180,3,177,0.983,False,N,English
+Electrical Engineering,EE,5606,EE5606,Artificial Intelligence for Antennas in Wireless Communications,3,Y,P,N,160,40,120,0.75,False,N,English
+Electrical Engineering,EE,5607,EE5607,Advanced Computer Architecture,3,Y,P,N,160,23,137,0.856,False,N,English
+Electrical Engineering,EE,5609,EE5609,"Computer Networks: Architecture, Protocols, and Applications",3,Y,P,N,151,0,151,1.0,True,N,English
+Electrical Engineering,EE,5808,EE5808,Topics in Computer Graphics,3,Y,B P R,Y,160,109,51,0.319,False,N,English
+Electrical Engineering,EE,6603,EE6603,Wireless Communication Technologies,3,Y,P R,N,160,85,75,0.469,False,N,English
+Electrical Engineering,EE,6605,EE6605,"Complex Networks: Modeling, Dynamics and Control",3,Y,P R,N,250,0,250,1.0,True,N,English
+Electrical Engineering,EE,6623,EE6623,Sustainable Energy Systems,3,Y,P,N,206,0,206,1.0,True,N,English
+Electrical Engineering,EE,6626,EE6626,AI-enabled Autonomous Driving,3,Y,P,N,129,4,125,0.969,False,N,English
+Electrical Engineering,EE,6680,EE6680,Dissertation,9,N,P,N,1,0,1,1.0,True,N,English
+Electrical Engineering,EE,6680D,EE6680D,Dissertation,6,N,P,N,0,0,0,,True,N,English
+Electrical Engineering,EE,6691,EE6691,Applied Research Internship Scheme in Electrical Engineering,9,N,P,N,2,2,0,0.0,False,N,English
+Electrical Engineering,EE,8401,EE8401,Advanced Topics in Applied Electromagnetics,3,Y,R,N,150,58,92,0.613,False,N,English
+Electrical Engineering,EE,8403,EE8403,Machine Learning for Signal Processing Applications,3,Y,R,N,220,63,157,0.714,False,N,English
+Electrical Engineering,EE,8405,EE8405,Queueing Theory with Telecommunications Applications,3,Y,R,N,222,4,218,0.982,False,N,English
+Electrical Engineering,EE,8406,EE8406,AI-enabled Autonomous Driving,3,Y,R,N,11,4,7,0.636,False,N,English
+Electrical Engineering,EE,8461,EE8461,Research Seminar I,.5,Y,R,N,50,3,47,0.94,False,N,English
+Electrical Engineering,EE,8462,EE8462,Research Seminar II,.5,Y,R,N,30,22,8,0.267,False,N,English
+Computer Science,EC,5001,EC5001,Introduction to eCommerce,3,Y,P,N,295,12,283,0.959,False,N,English
+English,EN,2011,EN2011,English on the Move,3,Y,B,Y,80,37,43,0.537,False,N,English
+English,EN,2321,EN2321,Modern and Contemporary Fiction,3,Y,B,Y,80,17,63,0.787,False,N,English
+English,EN,2322,EN2322,Creative Writing,3,Y,B,Y,40,4,36,0.9,False,N,English
+English,EN,2502,EN2502,Language in Social Interaction,3,Y,B,Y,40,2,38,0.95,False,N,English
+English,EN,2711,EN2711,The Structure of English,3,Y,B,Y,115,21,94,0.817,False,N,English
+English,EN,2714,EN2714,Foundations of Literary Studies,3,N,B,Y,40,5,35,0.875,False,N,English
+English,EN,2717,EN2717,Literature Across Time,3,Y,B,Y,120,24,96,0.8,False,N,English
+English,EN,2801,EN2801,Popular Culture and Social Life,3,Y,B,Y,80,1,79,0.988,False,N,English
+English,EN,2808,EN2808,Introduction to English Film Studies,3,Y,B,Y,40,2,38,0.95,False,N,English
+English,EN,2837,EN2837,Communicating Fashion Culture,3,Y,B,Y,40,2,38,0.95,False,N,English
+English,EN,3504,EN3504,Intercultural Communication,3,Y,B,Y,60,29,31,0.517,False,N,English
+English,EN,3525,EN3525,English in Corporate and Professional Communication,3,Y,B,Y,120,24,96,0.8,False,N,English
+English,EN,3578,EN3578,Travel Writing,3,Y,B,Y,40,7,33,0.825,False,N,English
+English,EN,3592,EN3592,Professional and Corporate Discourse,3,Y,B,Y,60,30,30,0.5,False,N,English
+English,EN,3593,EN3593,Internship,3,N,B,Y,25,14,11,0.44,False,N,English
+English,EN,3594,EN3594,English as a World Language,3,Y,B,Y,60,17,43,0.717,False,N,English
+English,EN,4262,EN4262,English Communication Skills for Computing,2,N,B,Y,175,33,142,0.811,False,N,English
+English,EN,4573,EN4573,Language in Law and Crime,3,Y,B,Y,40,17,23,0.575,False,N,English
+English,EN,4575,EN4575,Research Final Year Project,3,N,B,Y,30,25,5,0.167,False,N,English
+English,EN,4576,EN4576,Professional English Final Year Project,3,N,B,Y,100,26,74,0.74,False,N,English
+English,EN,4577,EN4577,Critical Approaches to Literature,3,Y,B,Y,60,20,40,0.667,False,N,English
+English,EN,5315,EN5315,Analysing Specialised Texts for Applied Purposes,3,Y,P,N,160,79,81,0.506,False,N,English
+English,EN,5450,EN5450,Survey of Literary Genres,3,Y,P,N,200,15,185,0.925,False,N,English
+English,EN,5461,EN5461,Language in Its Social Context,3,Y,P R,N,200,15,185,0.925,False,N,English
+English,EN,5465,EN5465,Second Language Acquisition,3,Y,P R,N,200,30,170,0.85,False,N,English
+English,EN,5491,EN5491,Discourse Analysis,3,Y,P,N,100,77,23,0.23,False,N,English
+English,EN,6471,EN6471,Research Methods in English Studies,3,Y,P R,N,200,17,183,0.915,False,N,English
+English,EN,6483,EN6483,Modern and Contemporary Drama,3,Y,P R,N,60,0,60,1.0,True,N,English
+English,EN,6508,EN6508,Critical Approaches to Literature,3,Y,P,N,60,51,9,0.15,False,N,English
+English,EN,6519,EN6519,Studies in Literature and Film,3,Y,P,N,60,34,26,0.433,False,N,English
+English,EN,8001,EN8001,English Department Research Students' Seminar I,2,Y,R,N,10,4,6,0.6,False,N,English
+English,EN,8002,EN8002,English Department Research Students' Seminar II,2,Y,R,N,10,4,6,0.6,False,N,English
+English,EN,8015,EN8015,Research Methods in English Studies,3,Y,R,N,10,5,5,0.5,False,N,English
+English,EN,8930,EN8930,Independent Studies,2,Y,R,N,10,5,5,0.5,False,N,English
+English,GE,1401,GE1401,University English,3,Y,B,Y,3032,25,3007,0.992,False,N,English
+English,GE,2401,GE2401,English for Science,3,Y,B,Y,25,0,25,1.0,True,N,English
+English,GE,2402,GE2402,English for Business Communication,3,Y,B,Y,100,0,100,1.0,True,N,English
+English,GE,2410,GE2410,English for Engineering,3,Y,B,Y,100,3,97,0.97,False,N,English
+English,GE,2412,GE2412,English for the Humanities and Social Sciences,3,Y,B,Y,300,14,286,0.953,False,N,English
+English,GE,2413,GE2413,"Word, Sound, Image: Writing for Creative Media",3,Y,B,Y,100,10,90,0.9,False,N,English
+Chinese and History,GE,1501,GE1501,Chinese Civilisation - History and Philosophy,3,Y,B,Y,1323,9,1314,0.993,False,N,Chinese (Eng Avail in Sem A/B)
+Chinese and History,GE,1105,GE1105,Chinese Music Appreciation,3,Y,B,Y,130,0,130,1.0,True,N,English
+Public & International Affairs,GE,1109,GE1109,Values and Justice in the Contemporary World,3,Y,B,Y,154,8,146,0.948,False,N,English
+School of Creative Media,GE,1110,GE1110,Exploring Contemporary Art,3,Y,B,Y,60,2,58,0.967,False,N,English
+School of Creative Media,GE,1113,GE1113,Visual Storytelling and Cultural Thinking,3,Y,B,Y,80,4,76,0.95,False,N,English
+Chinese and History,GE,1125,GE1125,Architecture and Space in Chinese Culture,3,Y,B,Y,126,0,126,1.0,True,N,English
+School of Law,GE,1126,GE1126,Smart Consumers – Think like Lawyers,3,Y,B,Y,50,1,49,0.98,False,N,
+School of Creative Media,GE,1128,GE1128,Music for Film,3,Y,B,Y,60,1,59,0.983,False,N,English
+Social and Behavioural Sci,GE,1137,GE1137,Movies and Psychology,3,Y,B,Y,240,4,236,0.983,False,N,English
+Chinese and History,GE,1138,GE1138,"Exploring Hong Kong: History, Culture and Society",3,Y,B,Y,132,1,131,0.992,False,N,English & Chinese
+English,GE,2105,GE2105,Popular Culture,3,Y,B,Y,80,1,79,0.988,False,N,English
+Public & International Affairs,GE,2106,GE2106,Philosophy and Life: A Dialogue,3,Y,B,Y,75,0,75,1.0,True,N,English
+English,GE,2108,GE2108,Literature in Our Lives,3,Y,B,Y,80,5,75,0.938,False,N,English
+Social and Behavioural Sci,GE,2109,GE2109,"Love, Sex, and Relationships: Psychological Perspectives",3,Y,B,Y,120,2,118,0.983,False,N,English
+Linguistics and Translation,GE,2111,GE2111,"Image of the City – Language, Culture and Society",3,Y,B,Y,132,6,126,0.955,False,N,English
+Public & International Affairs,GE,2120,GE2120,Asian Values and Managerial Practices,3,Y,B,Y,79,1,78,0.987,False,N,English
+Social and Behavioural Sci,GE,2129,GE2129,Psychology for Young Professionals,3,Y,B,Y,160,0,160,1.0,True,N,English
+Chinese and History,GE,2132,GE2132,Discovering the Dynamics of Contemporary Cities and Architecture in China,3,Y,B,Y,122,0,122,1.0,True,N,English
+Public & International Affairs,GE,2134,GE2134,Critical and Creative Thinking,3,Y,B,Y,163,10,153,0.939,False,N,English
+Public & International Affairs,GE,2135,GE2135,World Religions,3,Y,B,Y,79,2,77,0.975,False,N,English
+Chinese and History,GE,2136,GE2136,Sources of Chinese Tradition,3,Y,B,Y,35,1,34,0.971,False,N,English
+Linguistics and Translation,GE,2142,GE2142,Network Analysis for the Humanities and Social Sciences,3,Y,B,Y,119,4,115,0.966,False,N,English
+School of Creative Media,GE,4103,GE4103,"Technologies in Art, Science and Everyday Life",3,Y,B,Y,40,0,40,1.0,True,N,English
+Economics & Finance,GE,1202,GE1202,Managing Your Personal Finance,3,Y,B,Y,300,1,299,0.997,False,N,English
+Economics & Finance,GE,1205,GE1205,Green Economics,3,Y,B,Y,240,5,235,0.979,False,N,English
+Public & International Affairs,GE,1218,GE1218,Social Entrepreneurship and Innovation,3,Y,B,Y,75,5,70,0.933,False,N,English
+Social and Behavioural Sci,GE,1226,GE1226,Youth in a Changing Society,3,Y,B,Y,120,0,120,1.0,True,N,English
+Social and Behavioural Sci,GE,1229,GE1229,Community Service Engagement,3,Y,B,Y,60,0,60,1.0,True,N,English & Others
+Social and Behavioural Sci,GE,2211,GE2211,"Sexuality, Culture and Diversity",3,Y,B,Y,150,0,150,1.0,True,N,English
+Decision Analytics &Operations,GE,2213,GE2213,Understanding Uncertainty and Statistical Reasoning,3,Y,B,Y,120,0,120,1.0,True,N,English
+Social and Behavioural Sci,GE,2223,GE2223,Interpersonal Skills and Positive Personal Development,3,Y,B,Y,120,0,120,1.0,True,N,English
+Social and Behavioural Sci,GE,2226,GE2226,Ageing Society: Hong Kong and Beyond,3,Y,B,Y,80,0,80,1.0,True,N,English
+Management,GE,2230,GE2230,Innovation and Entrepreneurship in Global Business,3,Y,B,Y,80,0,80,1.0,True,N,English
+Media and Communication,GE,2234,GE2234,"Social Networks for Media, Business and Technological Applications",3,Y,B,Y,115,8,107,0.93,False,N,English
+Public & International Affairs,GE,2239,GE2239,"Food: Culture, Science and Society",3,Y,B,Y,79,2,77,0.975,False,N,English
+Public & International Affairs,GE,2244,GE2244,"The Hidden City: Space, Power and Social Processes in Hong Kong",3,Y,B,Y,75,2,73,0.973,False,N,English
+Economics & Finance,GE,2256,GE2256,Applications of Game Theory to Business,3,Y,B,Y,150,4,146,0.973,False,N,English
+Economics & Finance,GE,2258,GE2258,Introduction to Economics,3,Y,B,Y,100,1,99,0.99,False,N,English
+Economics & Finance,GE,2260,GE2260,Introduction to Finance,3,Y,B,Y,100,1,99,0.99,False,N,English
+Decision Analytics &Operations,GE,2262,GE2262,Business Statistics,3,Y,B,Y,120,0,120,1.0,True,N,English
+Information Systems,GE,2263,GE2263,Information Management,3,Y,B,Y,80,27,53,0.662,False,N,English
+Marketing,GE,2265,GE2265,Introduction to Marketing,3,Y,B,Y,160,24,136,0.85,False,N,English
+Media and Communication,GE,2266,GE2266,Health Communication,3,Y,B,Y,115,0,115,1.0,True,N,English
+Public & International Affairs,GE,2267,GE2267,Exploring Public Affairs in Globalised Cities,3,Y,B,Y,30,3,27,0.9,False,N,English
+Management,GE,3204,GE3204,Business and Hong Kong Society,3,Y,B,Y,80,0,80,1.0,True,N,English
+Public & International Affairs,GE,3207,GE3207,Comparing Capitalisms in East Asia and the West,3,Y,B,Y,79,2,77,0.975,False,N,English
+Sch of Energy and Environment,GE,1301,GE1301,Climate Change and Extreme Weather,3,Y,B,Y,131,0,131,1.0,True,N,English
+Physics,GE,1305,GE1305,Foundation Physics,3,Y,B,Y,200,1,199,0.995,False,N,English
+Biomedical Engineering,GE,1320,GE1320,Engineering Your Health,3,Y,B,Y,120,11,109,0.908,False,N,English
+Biomedical Sciences,GE,1341,GE1341,Life and Health,3,Y,B,Y,200,10,190,0.95,False,N,English
+Infectious Diseases & Pub Hlth,GE,1351,GE1351,Food Production and Security,3,Y,B,Y,71,23,48,0.676,False,N,English
+Neuroscience,GE,1352,GE1352,How Your Brain Works,3,Y,B,Y,200,10,190,0.95,False,N,English
+Electrical Engineering,GE,1354,GE1354,Introduction to Electronic Design,3,Y,B,Y,170,6,164,0.965,False,N,English
+Sch of Energy and Environment,GE,1355,GE1355,Introduction to Sustainable Energy and Environment,3,Y,B,Y,100,0,100,1.0,True,N,English
+Data Science,GE,1356,GE1356,Introduction to Data Science,3,Y,B,Y,140,0,140,1.0,True,N,English
+Mathematics,GE,1359,GE1359,Algebra,3,Y,B,Y,120,0,120,1.0,True,N,English
+Computer Science,GE,1362,GE1362,Exploring Generative AI in Practice,3,Y,B,Y,120,0,120,1.0,True,N,English
+Mechanical Engineering,GE,2301,GE2301,Science and Technology: Fascinating Mechanical Engineering,3,Y,B,Y,250,0,250,1.0,True,N,English
+Systems Engineering,GE,2304,GE2304,Foundations of Innovation and Entrepreneurship,3,Y,B,Y,78,6,72,0.923,False,N,English
+Materials Sci & Engineering,GE,2309,GE2309,The World of NANO: The Next Big Thing Is Really Small,3,Y,B,Y,70,14,56,0.8,False,N,English
+Architecture and Civil Engg,GE,2327,GE2327,Green and Intelligent Buildings,3,Y,B,Y,200,2,198,0.99,False,N,English
+Information Systems,GE,2335,GE2335,Business Programming with Spreadsheet,3,Y,B,Y,80,0,80,1.0,True,N,English
+Systems Engineering,GE,2336,GE2336,Systems Thinking to Understanding Phenomena,3,Y,B,Y,110,1,109,0.991,False,N,English
+Computer Science,GE,2340,GE2340,"Artificial Intelligence – Past, Present, and Future",3,Y,B,Y,200,33,167,0.835,False,N,English
+Student Development Services,GE,1601,GE1601,Whole-Person Development,1,N,B,Y,15000,11572,3428,0.229,False,N,English
+Infectious Diseases & Pub Hlth,PH,5101,PH5101,Introduction to Health Economics and Outcomes Research,3,Y,P,N,151,29,122,0.808,False,N,English
+Infectious Diseases & Pub Hlth,PH,5102,PH5102,Introduction to Biostatistics in One Health,3,Y,P,N,160,59,101,0.631,False,N,English
+Infectious Diseases & Pub Hlth,PH,5103,PH5103,Principles of Epidemiology and One Health,3,Y,P,N,160,14,146,0.912,False,N,English
+Infectious Diseases & Pub Hlth,PH,5105,PH5105,Basic Biostatistics in Public Health,3,Y,P,N,225,96,129,0.573,False,N,English
+Infectious Diseases & Pub Hlth,PH,5106,PH5106,Fundamentals of Epidemiology in Public Health,3,Y,P,N,200,66,134,0.67,False,N,English
+Infectious Diseases & Pub Hlth,PH,6203,PH6203,Applied Public Health Projects,3,N,P,N,50,19,31,0.62,False,N,English
+Infectious Diseases & Pub Hlth,PH,6206,PH6206,Practicum,3,N,P,N,80,8,72,0.9,False,N,English
+Infectious Diseases & Pub Hlth,PH,6207,PH6207,Global Scholars Training,3,N,P,N,15,14,1,0.067,False,N,English
+Infectious Diseases & Pub Hlth,PH,6208,PH6208,Public Health Insights: Global Perspectives from Research and Practice,1.5,Y,P,N,145,38,107,0.738,False,N,English
+Infectious Diseases & Pub Hlth,PH,6209,PH6209,Global Practicum,3,N,P,N,20,18,2,0.1,False,N,English
+Infectious Diseases & Pub Hlth,PH,8004,PH8004,Animal Welfare and Research Ethics,2,Y,R,N,25,10,15,0.6,False,N,English
+Infectious Diseases & Pub Hlth,PH,8007,PH8007,Medical Imaging Instrumentation for Research and Clinical Practice,3,Y,R,N,25,18,7,0.28,False,N,English
+Information Systems,IS,2010,IS2010,Internship in Information Systems,0,N,B,Y,20,20,0,0.0,False,N,English
+Information Systems,IS,2021,IS2021,Big Data Management,3,Y,B,Y,180,4,176,0.978,False,N,English
+Information Systems,IS,2022,IS2022,Business Programming with Spreadsheet,3,Y,B,Y,80,25,55,0.688,False,N,English
+Information Systems,IS,2023,IS2023,Mobile Applications for Business,3,Y,B,Y,208,3,205,0.986,False,N,English
+Information Systems,IS,2505,IS2505,e-Business,3,Y,B,Y,80,33,47,0.588,False,N,English
+Information Systems,IS,3230,IS3230,Java Programming for Business,3,Y,B,Y,80,59,21,0.263,False,N,English
+Information Systems,IS,3240,IS3240,Advanced Business Programming in Python,3,Y,B,Y,160,10,150,0.938,False,N,English
+Information Systems,IS,3331,IS3331,Database Management,3,Y,B,Y,250,54,196,0.784,False,N,English
+Information Systems,IS,3501,IS3501,Cybersecurity for Business,3,Y,B,Y,100,46,54,0.54,False,N,English
+Information Systems,IS,3542,IS3542,Generative Artificial Intelligence for Business,3,Y,B,Y,100,46,54,0.54,False,N,English
+Information Systems,IS,4340,IS4340,Search Engine Optimization,3,Y,B,Y,80,39,41,0.512,False,N,English
+Information Systems,IS,4435,IS4435,Governance & Regulatory Compliance for Financial Information Systems,3,Y,B,Y,80,47,33,0.412,False,N,English
+Information Systems,IS,4532,IS4532,Global Project Management,3,Y,B,Y,220,39,181,0.823,False,N,English
+Information Systems,IS,4834,IS4834,Business Intelligence and Analytics,3,Y,B,Y,150,11,139,0.927,False,N,English
+Information Systems,IS,4837,IS4837,Regulatory Compliance for Financial Services Technologies,3,Y,B,Y,80,52,28,0.35,False,N,English
+Information Systems,IS,4861,IS4861,Machine Learning for Business,3,Y,B,Y,160,35,125,0.781,False,N,English
+Information Systems,IS,4920,IS4920,FinTech Capstone Project,3,N,B,Y,30,15,15,0.5,False,N,English
+Information Systems,IS,5113,IS5113,AI Ethics and Regulations,3,Y,P,N,262,35,227,0.866,False,N,English
+Information Systems,IS,5312,IS5312,Analytical Programming with Python,3,Y,P,N,452,9,443,0.98,False,Y,English
+Information Systems,IS,5313,IS5313,Foundations of Information and Electronic Business Systems,3,Y,P,N,440,260,180,0.409,False,N,English
+Information Systems,IS,5336P,IS5336P,Data Visualization and Image Analysis,1.5,N,P,N,50,50,0,0.0,False,N,English & Putonghua
+Information Systems,IS,5411,IS5411,Systems Analysis and Design,3,Y,P,N,300,9,291,0.97,False,Y,English
+Information Systems,IS,5413,IS5413,Database Management Systems,3,Y,P,N,400,11,389,0.973,False,Y,English
+Information Systems,IS,5414,IS5414,Analysis and Design of ecommerce Systems,3,N,P,N,236,44,192,0.814,False,N,English
+Information Systems,IS,5540,IS5540,Project Management and Quality Assurance,3,Y,P,N,313,98,215,0.687,False,N,English
+Information Systems,IS,5542,IS5542,Generative Artificial Intelligence for Business,3,Y,P,N,214,10,204,0.953,False,Y,English
+Information Systems,IS,5740,IS5740,Management Support and Business Intelligence Systems,3,Y,P,N,480,50,430,0.896,False,Y,English
+Information Systems,IS,5940,IS5940,Innovation and Technology Entrepreneurship,3,Y,P,N,601,99,502,0.835,False,Y,English
+Information Systems,IS,6000,IS6000,Research Methods for the IS Manager,3,Y,P,N,112,4,108,0.964,False,N,English
+Information Systems,IS,6201P,IS6201P,Blockchain Technology and Artificial Intelligence,1.5,N,P,N,50,50,0,0.0,False,N,English & Putonghua
+Information Systems,IS,6335,IS6335,Data Visualization,3,Y,P,N,700,18,682,0.974,False,N,English
+Information Systems,IS,6400,IS6400,Business Data Analytics,3,Y,P,N,510,33,477,0.935,False,Y,English
+Information Systems,IS,6523,IS6523,Information Systems Infrastructure and Security Management,3,Y,P,N,220,68,152,0.691,False,N,English
+Information Systems,IS,6526P,IS6526P,Information Systems Security Management,1.5,N,P,N,50,50,0,0.0,False,N,English & Putonghua
+Information Systems,IS,6620,IS6620,Large Language Model with Prompt Engineering for Business,3,Y,P,N,120,25,95,0.792,False,N,English
+Information Systems,IS,6911,IS6911,Dissertation,4.5,N,P,N,3,3,0,0.0,False,N,English
+Information Systems,IS,6912,IS6912,Information Systems Project,3,N,P,N,20,0,20,1.0,True,N,English
+Information Systems,IS,6912B,IS6912B,Information Systems Project,6,N,B P D R,Y,5,5,0,0.0,False,N,English
+Information Systems,IS,6914,IS6914,Information Analytics Management Project,3,N,P,N,3,3,0,0.0,False,N,English
+Information Systems,IS,8002,IS8002,Foundations of Information Systems Research,3,Y,R,N,35,14,21,0.6,False,N,English
+Information Systems,IS,8003,IS8003,Information Systems Research Seminars I,.5,Y,R,N,25,12,13,0.52,False,N,English
+Information Systems,IS,8005,IS8005,Information Systems Research Seminars II,.5,Y,R,N,20,2,18,0.9,False,N,English
+Information Systems,IS,8008,IS8008,Information Systems Research Seminars III,.5,Y,R,N,15,0,15,1.0,True,N,English
+School of Creative Media,JC,2002,JC2002,Artists in the Labs,3,N,B,Y,25,25,0,0.0,False,N,English
+School of Law,LW,2601,LW2601,Hong Kong Legal System,3,Y,B,Y,168,22,146,0.869,False,N,English
+School of Law,LW,2602A,LW2602A,Law of Contract I,3,Y,B,Y,187,19,168,0.898,False,N,English
+School of Law,LW,2603A,LW2603A,Law of Tort I,3,Y,B,Y,190,27,163,0.858,False,N,English
+School of Law,LW,2604,LW2604,"Legal Methods, Research and Writing",3,Y,B,Y,148,19,129,0.872,False,N,English
+School of Law,LW,2605,LW2605,Law School Survival Skills Workshop,1.5,N,B,Y,130,50,80,0.615,False,N,English
+School of Law,LW,2903,LW2903,Business and Law,3,Y,B,Y,613,217,396,0.646,False,N,English
+School of Law,LW,3605B,LW3605B,Administrative Law,3,Y,B,Y,150,32,118,0.787,False,N,English
+School of Law,LW,3606A,LW3606A,Criminal Law I,3,Y,B,Y,108,3,105,0.972,False,N,English
+School of Law,LW,3607A,LW3607A,Land Law I,3,N,B,Y,120,12,108,0.9,False,N,English
+School of Law,LW,3611,LW3611,Private Law of the PRC,3,Y,B,Y,120,10,110,0.917,False,N,English
+School of Law,LW,4612,LW4612,Legal Placement,3,N,B,Y,50,45,5,0.1,False,N,English & Chinese
+School of Law,LW,4614,LW4614,Dispute Resolution,3,Y,B,Y,55,6,49,0.891,False,N,English
+School of Law,LW,4615,LW4615,Principles of Insurance Law (Marine and General),3,Y,B,Y,45,35,10,0.222,False,N,English
+School of Law,LW,4617,LW4617,Family Law in Hong Kong,3,Y,B,Y,60,6,54,0.9,False,N,English
+School of Law,LW,4622,LW4622,Law of Human Rights and Civil Liberties of Hong Kong,3,Y,B,Y,55,17,38,0.691,False,N,English
+School of Law,LW,4630A,LW4630A,Equity and Trusts I,3,Y,B,Y,113,21,92,0.814,False,N,English
+School of Law,LW,4634,LW4634,Public International Law,3,Y,B,Y,50,17,33,0.66,False,N,English
+School of Law,LW,4635,LW4635,Independent Research,3,N,B,Y,50,49,1,0.02,False,N,English
+School of Law,LW,4637,LW4637,Criminology,3,Y,B,Y,55,20,35,0.636,False,N,English
+School of Law,LW,4641,LW4641,"Intellectual Property: Theory, Copyright and Design",3,Y,B,Y,60,10,50,0.833,False,N,English
+School of Law,LW,4649,LW4649,International Mooting and Advocacy,1.5,N,B,Y,10,5,5,0.5,False,N,English
+School of Law,LW,4649B,LW4649B,International Mooting and Advocacy,3,N,B,Y,60,51,9,0.15,False,N,English
+School of Law,LW,4656,LW4656,Company Law I,3,Y,B,Y,141,13,128,0.908,False,N,English
+School of Law,LW,4658,LW4658,Commercial Law,3,Y,B,Y,82,22,60,0.732,False,N,English
+School of Law,LW,4667,LW4667,City University Law Review,1.5,N,B,Y,40,35,5,0.125,False,N,English
+School of Law,LW,4680,LW4680,Principles of Maritime Law and Governance for Sustainable Shipping,3,Y,B,Y,55,48,7,0.127,False,N,English
+School of Law,LW,4682,LW4682,Legal Clinic,1,N,B,Y,60,42,18,0.3,False,N,English & Cantonese
+School of Law,LW,4685,LW4685,Tax Law and Policy,3,Y,B,Y,40,0,40,1.0,True,N,English
+School of Law,LW,5303,LW5303,Commercial Contracts,3,Y,P,N,200,33,167,0.835,False,N,English
+School of Law,LW,5400,LW5400,Legal Concepts,3,Y,P,N,200,27,173,0.865,False,N,English
+School of Law,LW,5552,LW5552,Independent Research,3,N,P,N,50,50,0,0.0,False,N,English
+School of Law,LW,5600,LW5600,Law School Survival Skills Workshop,1.5,N,P,N,40,27,13,0.325,False,N,English
+School of Law,LW,5601,LW5601,Hong Kong Legal System,3,Y,P,N,162,8,154,0.951,False,N,English
+School of Law,LW,5602A,LW5602A,Law of Contract I,3,Y,P,N,162,7,155,0.957,False,N,English
+School of Law,LW,5603A,LW5603A,Law of Tort I,3,Y,P,N,164,13,151,0.921,False,N,English
+School of Law,LW,5606A,LW5606A,Criminal Law I,3,Y,P,N,150,22,128,0.853,False,N,English
+School of Law,LW,5607A,LW5607A,Land Law I,3,Y,P,N,112,0,112,1.0,True,N,English
+School of Law,LW,5610,LW5610,Administrative Law,3,Y,P D,N,100,3,97,0.97,False,N,English
+School of Law,LW,5611,LW5611,Private Law of the PRC,3,Y,P,N,12,2,10,0.833,False,N,English
+School of Law,LW,5612,LW5612,Legal Placement,3,N,P,N,50,46,4,0.08,False,N,English
+School of Law,LW,5614,LW5614,Dispute Resolution,3,Y,P,N,20,9,11,0.55,False,N,English
+School of Law,LW,5615,LW5615,Principles of Insurance Law (Marine and General),3,Y,P,N,20,14,6,0.3,False,N,English
+School of Law,LW,5617,LW5617,Family Law in Hong Kong,3,Y,P,N,20,8,12,0.6,False,N,English
+School of Law,LW,5622,LW5622,"Legal Methods, Research and Writing",3,Y,P,N,165,11,154,0.933,False,N,English
+School of Law,LW,5624,LW5624,Law of Human Rights and Civil Liberties of Hong Kong,3,Y,P,N,20,0,20,1.0,True,N,English
+School of Law,LW,5630A,LW5630A,Equity and Trusts I,3,Y,P,N,110,4,106,0.964,False,N,English
+School of Law,LW,5634,LW5634,Public International Law,3,Y,P,N,10,1,9,0.9,False,N,English
+School of Law,LW,5637,LW5637,Criminology,3,Y,P,N,30,22,8,0.267,False,N,English
+School of Law,LW,5641,LW5641,"Intellectual Property: Theory, Copyright and Design",3,Y,P,N,22,0,22,1.0,True,N,English
+School of Law,LW,5649,LW5649,International Mooting & Advocacy,3,N,P,N,80,79,1,0.013,False,N,English
+School of Law,LW,5649B,LW5649B,International Mooting & Advocacy,6,N,P,N,80,77,3,0.037,False,N,English
+School of Law,LW,5656,LW5656,Company Law I,3,Y,P,N,110,5,105,0.955,False,N,English
+School of Law,LW,5658,LW5658,Commercial Law,3,Y,P,N,125,12,113,0.904,False,N,English
+School of Law,LW,5662C,LW5662C,International Arbitration: Law and Practice,1.5,Y,P,N,80,36,44,0.55,False,N,English
+School of Law,LW,5663A,LW5663A,Understanding Corporate Crime and Corruption,1.5,Y,P,N,80,71,9,0.113,False,N,English
+School of Law,LW,5663Y,LW5663Y,Patent Law in Europe,1.5,Y,P,N,80,72,8,0.1,False,N,English
+School of Law,LW,5667,LW5667,City University Law Review,3,N,P,N,80,77,3,0.037,False,N,English
+School of Law,LW,566A,LW566A,Financial Statement Analysis: Bridging Finance and Legal Insight,1.5,Y,P,N,80,47,33,0.412,False,N,English
+School of Law,LW,566AB,LW566AB,Current Issues in Criminal Law and Practice,1.5,Y,P,N,80,62,18,0.225,False,N,English
+School of Law,LW,566AC,LW566AC,IPO and Listed Company Compliance in Hong Kong,1.5,Y,P,N,80,42,38,0.475,False,N,English
+School of Law,LW,5680,LW5680,Principles of Maritime Law and Governance for Sustainable Shipping,3,Y,P,N,20,18,2,0.1,False,N,English
+School of Law,LW,5685,LW5685,Tax Law and Policy,3,Y,P,N,20,5,15,0.75,False,N,English
+School of Law,LW,5957,LW5957,Legal Studies for the Built Environment,3,Y,P,N,100,11,89,0.89,False,N,English
+School of Law,LW,5962,LW5962,Law Relating to Business and Companies,3,Y,P,N,765,96,669,0.875,False,N,English
+School of Law,LW,6100E,LW6100E,Advanced Legal Research Methodology,3,Y,P D R,N,80,2,78,0.975,False,N,English
+School of Law,LW,6102E,LW6102E,Introduction to Common Law System and Methodology,3,N,P,N,520,80,440,0.846,False,N,English
+School of Law,LW,6103E,LW6103E,Company Law,3,Y,P D,N,142,2,140,0.986,False,N,English
+School of Law,LW,6108E,LW6108E,International Finance: Law and Regulation,3,Y,P,N,110,26,84,0.764,False,N,English
+School of Law,LW,6115E,LW6115E,Selected Issues on Chinese IP Law,3,Y,P,N,177,0,177,1.0,True,N,English
+School of Law,LW,6126E,LW6126E,Dispute Resolution in Theory and Practice,3,Y,P D,N,70,42,28,0.4,False,N,English
+School of Law,LW,6132E,LW6132E,Theory and Practice of Comparative Law,3,Y,P R,N,110,63,47,0.427,False,N,English
+School of Law,LW,6134E,LW6134E,Chinese and Comparative Company Law,3,Y,P,N,190,5,185,0.974,False,N,English
+School of Law,LW,6137E,LW6137E,Dissertation,6,N,P,N,80,75,5,0.062,False,N,English
+School of Law,LW,6142E,LW6142E,International Investment Law,3,Y,P,N,140,10,130,0.929,False,N,English
+School of Law,LW,6146E,LW6146E,Principles of Maritime Law and Governance for Sustainable Shipping,3,Y,P,N,75,51,24,0.32,False,N,English
+School of Law,LW,6149E,LW6149E,Energy and Environmental Law,3,Y,P,N,200,2,198,0.99,False,N,English
+School of Law,LW,6152E,LW6152E,Cyber Governance and Law,3,Y,P,N,186,3,183,0.984,False,N,English
+School of Law,LW,6163E,LW6163E,International Commercial Law,3,Y,P,N,120,0,120,1.0,True,N,English
+School of Law,LW,6164E,LW6164E,Law of Contract,3,N,P,N,100,27,73,0.73,False,N,English
+School of Law,LW,6170E,LW6170E,Principles of Insurance Law (Marine and General),3,Y,P,N,80,14,66,0.825,False,N,English
+School of Law,LW,6172E,LW6172E,Law and Society in China,3,Y,P,N,100,13,87,0.87,False,N,English
+School of Law,LW,6177E,LW6177E,Commercial Application of Equity and Trusts,3,Y,P,N,150,4,146,0.973,False,N,English
+School of Law,LW,6195E,LW6195E,"International and Comparative Law of Copyright, Designs and Allied Rights",3,Y,P D,N,100,31,69,0.69,False,N,English
+School of Law,LW,6207E,LW6207E,Comparative Arbitration in Asia,3,Y,P,N,105,2,103,0.981,False,N,English
+School of Law,LW,6208E,LW6208E,Patent Drafting and Litigation,1.5,Y,P,N,80,63,17,0.212,False,N,English
+School of Law,LW,6209E,LW6209E,Patent Procedures,1.5,Y,P,N,107,95,12,0.112,False,N,English
+School of Law,LW,6216E,LW6216E,China Patent Litigation and Adjudication Rules,1.5,Y,P,N,110,79,31,0.282,False,N,English
+School of Law,LW,6401,LW6401,Dispute Resolution in Theory and Practice,3,Y,P,N,190,17,173,0.911,False,N,English
+School of Law,LW,6405,LW6405,Arbitration Law,3,Y,P D,N,264,36,228,0.864,False,N,English
+School of Law,LW,6406,LW6406,Mediation Practice,3,N,P,N,540,504,36,0.067,False,N,English
+School of Law,LW,6409A,LW6409A,Dissertation,6,N,P,N,85,84,1,0.012,False,N,English
+School of Law,LW,6423,LW6423,Construction Law and Dispute Resolution,3,Y,P,N,55,23,32,0.582,False,N,English
+School of Law,LW,6959,LW6959,Energy and Environmental Law,3,Y,P,N,50,18,32,0.64,False,N,English
+School of Law,LW,8704D,LW8704D,Doctoral Thesis,22,N,D,N,150,150,0,0.0,False,N,English & Chinese
+School of Law,LW,8705D,LW8705D,Research Methodology,3,N,D R,N,60,53,7,0.117,False,N,English & Putonghua
+School of Law,LW,8713D,LW8713D,Legal Writing and Skills I,3,Y,D,N,50,43,7,0.14,False,N,English & Putonghua
+School of Law,LW,8715D,LW8715D,Public Law Seminars,3,Y,D,N,50,43,7,0.14,False,N,English & Putonghua
+School of Law,LW,8800,LW8800,Research Seminars,2,Y,R,N,120,112,8,0.067,False,N,English & Chinese
+Linguistics and Translation,LT,1101,LT1101,Amazing Things about Language,3,Y,B,Y,80,1,79,0.988,False,N,English
+Linguistics and Translation,LT,2203,LT2203,Language in Society,3,Y,B,Y,106,29,77,0.726,False,N,English
+Linguistics and Translation,LT,2229,LT2229,Fundamentals of Linguistics,3,Y,B,Y,172,45,127,0.738,False,N,English
+Linguistics and Translation,LT,2231,LT2231,Introduction to Language Technology,3,Y,B,Y,104,33,71,0.683,False,N,English
+Linguistics and Translation,LT,3211,LT3211,Semantics and Pragmatics,3,Y,B,Y,85,9,76,0.894,False,N,English
+Linguistics and Translation,LT,3214,LT3214,Phonology,3,Y,B,Y,83,7,76,0.916,False,N,English
+Linguistics and Translation,LT,3234,LT3234,Language and Cognition,3,Y,B,Y,80,3,77,0.963,False,N,English
+Linguistics and Translation,LT,3345,LT3345,Discovering and Managing Terms,3,Y,B,Y,80,4,76,0.95,False,N,English & Chinese
+Linguistics and Translation,LT,4235,LT4235,Project I,3,N,B,Y,61,35,26,0.426,False,N,English
+Linguistics and Translation,LT,4240,LT4240,Structure and Meaning in Language,3,Y,B,Y,61,0,61,1.0,True,N,English
+Linguistics and Translation,LT,4245,LT4245,Psycholinguistics,3,Y,B,Y,60,0,60,1.0,True,N,English
+Linguistics and Translation,LT,4391,LT4391,Undergraduate Research Project,3,N,B,Y,50,17,33,0.66,False,N,English & Chinese
+Linguistics and Translation,LT,5401,LT5401,Phonetics and Phonology,3,Y,P,N,250,21,229,0.916,False,N,English
+Linguistics and Translation,LT,5402,LT5402,Syntax and Morphology,3,Y,P,N,255,13,242,0.949,False,N,English
+Linguistics and Translation,LT,5406,LT5406,Psycholinguistics,3,Y,P,N,120,4,116,0.967,False,N,English
+Linguistics and Translation,LT,5407,LT5407,Research Methodology for Applied Linguistics,3,Y,P,N,334,0,334,1.0,True,N,English
+Linguistics and Translation,LT,5412,LT5412,English Language Teaching,3,Y,P,N,140,15,125,0.893,False,N,English
+Linguistics and Translation,LT,5413,LT5413,Philosophy of Language,3,Y,P,N,156,20,136,0.872,False,N,English
+Linguistics and Translation,LT,5421,LT5421,Corpus Linguistics,3,Y,P,N,170,6,164,0.965,False,N,English
+Linguistics and Translation,LT,5422,LT5422,Neurocognition of Language,3,Y,P,N,102,20,82,0.804,False,N,English
+Linguistics and Translation,LT,5425,LT5425,"Contrastive Studies of the Sounds of English, Mandarin, and Cantonese",3,Y,P,N,120,5,115,0.958,False,N,English
+Linguistics and Translation,LT,5431,LT5431,Functional Approaches to Syntax,3,Y,P,N,188,4,184,0.979,False,N,English
+Linguistics and Translation,LT,5451,LT5451,Pedagogical Grammar: Chinese and English,3,Y,P,N,342,4,338,0.988,False,N,English & Putonghua
+Linguistics and Translation,LT,5461,LT5461,Cognition and Language Differences,3,Y,P,N,160,34,126,0.787,False,N,English
+Linguistics and Translation,LT,5603,LT5603,Translation Studies,3,Y,P,N,144,0,144,1.0,True,N,English & Chinese
+Linguistics and Translation,LT,5604,LT5604,Translation Methodology,3,Y,P,N,120,7,113,0.942,False,N,English & Chinese
+Linguistics and Translation,LT,5605,LT5605,Interpretation Methodology,3,Y,P,N,96,2,94,0.979,False,N,English & Chinese
+Linguistics and Translation,LT,5621,LT5621,Language and Literature in Translation,3,Y,P,N,120,3,117,0.975,False,N,English & Chinese
+Linguistics and Translation,LT,5903,LT5903,Language and its Applications,3,Y,P,N,280,2,278,0.993,False,N,English
+Linguistics and Translation,LT,5904,LT5904,Language and Culture in Society,3,Y,P,N,400,14,386,0.965,False,N,English
+Linguistics and Translation,LT,8805,LT8805,Independent Study,3,Y,R,N,10,6,4,0.4,False,N,English & Chinese
+Linguistics and Translation,LT,8806,LT8806,Advanced Topics in Linguistics Research,3,Y,R,N,45,38,7,0.156,False,N,English
+Linguistics and Translation,LT,8809,LT8809,Research Student Seminar,3,Y,R,N,52,15,37,0.712,False,N,English
+Management,MGT,2324,MGT2324,Introduction to Entrepreneurship,3,Y,B,Y,179,8,171,0.955,False,N,English
+Management,MGT,2800,MGT2800,Internship in Management,0,N,B,Y,10,10,0,0.0,False,N,English
+Management,MGT,3302,MGT3302,Interactive Skills Workshop for Business,3,Y,B,Y,80,6,74,0.925,False,N,English
+Management,MGT,3305,MGT3305,Corporate Social Responsibility,3,Y,B,Y,200,28,172,0.86,False,N,English
+Management,MGT,3306,MGT3306,Organizational Behavior and Human Resources Management,3,Y,B,Y,360,10,350,0.972,False,N,English
+Management,MGT,4227,MGT4227,International Business,3,Y,B,Y,240,41,199,0.829,False,N,English
+Management,MGT,4309,MGT4309,Talent Management: Learning and Development,3,Y,B,Y,80,14,66,0.825,False,N,English
+Management,MGT,4310,MGT4310,Managing Multinationals,3,Y,B,Y,80,41,39,0.487,False,N,English
+Management,MGT,4314,MGT4314,Negotiation,3,Y,B,Y,91,1,90,0.989,False,N,English
+Management,MGT,4315,MGT4315,Leadership,3,Y,B,Y,158,1,157,0.994,False,N,English
+Management,MGT,4800,MGT4800,Management Internship,3,N,B,Y,30,20,10,0.333,False,N,English
+Management,MGT,5204,MGT5204,Management and Organizations,3,N,P,N,240,30,210,0.875,False,N,English
+Management,MGT,5205,MGT5205,Strategic Management,3,Y,P,N,250,25,225,0.9,False,N,English
+Management,MGT,5313,MGT5313,International Organizational Behavior,3,Y,P,N,148,16,132,0.892,False,N,English
+Management,MGT,5507,MGT5507,Managerial Decision Making,3,Y,P,N,160,57,103,0.644,False,N,English
+Management,MGT,6209,MGT6209,Innovation and Collaboration,3,Y,P,N,160,80,80,0.5,False,N,English
+Management,MGT,6323,MGT6323,Cross-Cultural Negotiation,3,N,P,N,140,18,122,0.871,False,N,English
+Management,MGT,6325,MGT6325,Entrepreneurship,3,Y,P,N,394,37,357,0.906,False,N,English
+Management,MGT,6326,MGT6326,Managing International Business,3,Y,P,N,148,16,132,0.892,False,N,English
+Management,MGT,6534,MGT6534,Transforming Organizations in the Age of AI,3,Y,P,N,160,29,131,0.819,False,N,English
+Marketing,MKT,1641,MKT1641,Exchange Learning and Reflection,0,Y,B,Y,80,53,27,0.338,False,N,English
+Marketing,MKT,1671,MKT1671,Internship I,0,N,B,Y,80,69,11,0.138,False,N,English & Others
+Marketing,MKT,2643,MKT2643,Active Learning for Professional Marketing,1,Y,B,Y,80,80,0,0.0,False,N,English
+Marketing,MKT,2643A,MKT2643A,Active Learning for Professional Marketing,0,Y,B,Y,80,56,24,0.3,False,N,English
+Marketing,MKT,2672,MKT2672,Internship II,0,N,B,Y,80,80,0,0.0,False,N,English & Others
+Marketing,MKT,3601,MKT3601,China Business Environment,3,Y,B,Y,393,1,392,0.997,False,N,English & Chinese
+Marketing,MKT,3602,MKT3602,Marketing Research,3,Y,B,Y,175,18,157,0.897,False,N,English
+Marketing,MKT,3603,MKT3603,Consumer Behaviour,3,Y,B,Y,170,19,151,0.888,False,N,English
+Marketing,MKT,3607,MKT3607,Design Thinking and Creativity in Marketing,3,Y,B,Y,80,2,78,0.975,False,N,English
+Marketing,MKT,3638,MKT3638,Marketing Internship,3,N,B,Y,80,78,2,0.025,False,N,English & Others
+Marketing,MKT,3673,MKT3673,Internship III,0,N,B,Y,80,80,0,0.0,False,N,English & Others
+Marketing,MKT,4606,MKT4606,Strategic Marketing,3,Y,B,Y,90,16,74,0.822,False,N,English
+Marketing,MKT,4611,MKT4611,Advanced Marketing Seminar I,3,N,B,Y,413,312,101,0.245,False,N,English
+Marketing,MKT,4625,MKT4625,Advertising Management and Integrated Marketing Communications,3,Y,B,Y,160,45,115,0.719,False,N,English
+Marketing,MKT,4637,MKT4637,Event Marketing,3,Y,B,Y,160,90,70,0.438,False,N,English
+Marketing,MKT,4650,MKT4650,Designing Brand and Customer Experience,3,Y,B,Y,80,12,68,0.85,False,N,English
+Marketing,MKT,4674,MKT4674,Advanced Internship,3,N,B,Y,80,78,2,0.025,False,N,English & Others
+Marketing,MKT,4680,MKT4680,Digital Marketing Tools & Analytics,3,Y,B,Y,80,0,80,1.0,True,N,English
+Marketing,MKT,5610,MKT5610,Marketing Strategy and Planning,3,Y,P,N,300,56,244,0.813,False,N,English
+Marketing,MKT,5611,MKT5611,Consumer/Buyer Behaviour,3,Y,P,N,302,55,247,0.818,False,N,English
+Marketing,MKT,5612,MKT5612,Applied Marketing Research,3,Y,P,N,300,54,246,0.82,False,N,English
+Marketing,MKT,5644,MKT5644,Digital Marketing,3,Y,P,N,240,64,176,0.733,False,N,English
+Marketing,MKT,5646,MKT5646,Advertising and Integrated Marketing Communications,3,Y,P,N,80,0,80,1.0,True,N,English
+Marketing,MKT,5648,MKT5648,Social Media Marketing,3,Y,P,N,103,0,103,1.0,True,N,English
+Marketing,MKT,5652,MKT5652,Artificial Intelligence for Marketing,3,Y,P,N,190,12,178,0.937,False,N,English
+Marketing,MKT,8633,MKT8633,Doctoral Studies: Empirical Marketing Research,3,Y,R,N,30,21,9,0.3,False,N,English
+Marketing,MKT,8634,MKT8634,Doctoral Studies: Marketing Literature,3,Y,R,N,30,20,10,0.333,False,N,English
+Materials Sci & Engineering,MSE,1001,MSE1001,Programme Induction,0,N,B,Y,60,7,53,0.883,False,N,English
+Materials Sci & Engineering,MSE,2066,MSE2066,Materials Engineers in Society,3,Y,B,Y,60,34,26,0.433,False,N,English
+Materials Sci & Engineering,MSE,2102,MSE2102,Introduction to Materials Science and Engineering,3,Y,B,Y,166,38,128,0.771,False,N,English
+Materials Sci & Engineering,MSE,2104,MSE2104,Mechanical Behaviour of Materials,3,Y,B,Y,75,33,42,0.56,False,N,English
+Materials Sci & Engineering,MSE,2106,MSE2106,Quantum Properties of Materials,3,Y,B,Y,65,25,40,0.615,False,N,English
+Materials Sci & Engineering,MSE,3130,MSE3130,Biomaterials,3,Y,B,Y,65,26,39,0.6,False,N,English
+Materials Sci & Engineering,MSE,3171,MSE3171,Materials Characterization,3,Y,B,Y,70,33,37,0.529,False,N,English
+Materials Sci & Engineering,MSE,3190,MSE3190,Thermodynamics of Materials,3,Y,B,Y,65,28,37,0.569,False,N,English
+Materials Sci & Engineering,MSE,3244,MSE3244,Design Laboratory,3,N,B,Y,60,28,32,0.533,False,N,English
+Materials Sci & Engineering,MSE,4116,MSE4116,Dissertation,3,N,B,Y,60,35,25,0.417,False,N,English
+Materials Sci & Engineering,MSE,4170,MSE4170,Corrosion and Protection of Materials,3,Y,B,Y,65,48,17,0.262,False,N,English
+Materials Sci & Engineering,MSE,4178,MSE4178,Nanostructures and Nanotechnology,3,Y,B,Y,50,11,39,0.78,False,N,English
+Materials Sci & Engineering,MSE,5301,MSE5301,Instrumentation for Materials Characterization,3,Y,P,N,255,8,247,0.969,False,N,English
+Materials Sci & Engineering,MSE,5303,MSE5303,Structure and Deformation of Materials,3,Y,P,N,252,7,245,0.972,False,N,English
+Materials Sci & Engineering,MSE,6121,MSE6121,Thin Film Technology and Nanocrystalline Coatings,3,Y,P,N,120,21,99,0.825,False,N,English
+Materials Sci & Engineering,MSE,6176,MSE6176,Nanomaterials Design for Energy Applications,3,Y,P,N,120,0,120,1.0,True,N,English
+Materials Sci & Engineering,MSE,6181,MSE6181,Photonics in Nanomaterial Systems and Devices,3,Y,P,N,121,5,116,0.959,False,N,English
+Materials Sci & Engineering,MSE,6182,MSE6182,Polymers and Composites and Nano-applications,3,Y,P,N,120,0,120,1.0,True,N,English
+Materials Sci & Engineering,MSE,6265,MSE6265,Quantum Theory of Semiconductors,3,Y,P,N,251,6,245,0.976,False,N,English
+Materials Sci & Engineering,MSE,6309,MSE6309,Advanced Research,4.5,N,P,N,79,0,79,1.0,True,N,English
+Materials Sci & Engineering,MSE,8001,MSE8001,Survival Skills for Research Scientists,2,Y,R,N,80,27,53,0.662,False,N,English
+Materials Sci & Engineering,MSE,8016,MSE8016,Materials Characterization Techniques,3,Y,R,N,80,40,40,0.5,False,N,English
+Materials Sci & Engineering,MSE,8019,MSE8019,Functional Properties of Materials,3,Y,R,N,80,53,27,0.338,False,N,English
+Materials Sci & Engineering,MSE,8020,MSE8020,Structural Properties of Materials,3,Y,R,N,85,35,50,0.588,False,N,English
+Mathematics,MA,1006,MA1006,Calculus and Linear Algebra for Business,3,Y,B,Y,120,39,81,0.675,False,N,English
+Mathematics,MA,1200,MA1200,Calculus and Basic Linear Algebra I,3,N,B,Y,942,88,854,0.907,False,N,English
+Mathematics,MA,1201,MA1201,Calculus and Basic Linear Algebra II,3,Y,B,Y,140,0,140,1.0,True,N,English
+Mathematics,MA,1300,MA1300,Enhanced Calculus and Linear Algebra I,3,N,B,Y,274,4,270,0.985,False,N,English
+Mathematics,MA,1400,MA1400,Calculus I,3,N,B,Y,86,2,84,0.977,False,N,English
+Mathematics,MA,1502,MA1502,Algebra,3,Y,B,Y,80,2,78,0.975,False,N,English
+Mathematics,MA,1508,MA1508,Calculus,4,Y,B,Y,420,86,334,0.795,False,N,English
+Mathematics,MA,2001,MA2001,Multi-variable Calculus and Linear Algebra,3,Y,B,Y,610,109,501,0.821,False,N,English
+Mathematics,MA,2158,MA2158,Linear Algebra and Calculus,3,Y,B,Y,80,29,51,0.637,False,N,English
+Mathematics,MA,2172,MA2172,Applied Statistics for Sciences and Engineering,3,Y,B,Y,158,17,141,0.892,False,N,English
+Mathematics,MA,2185,MA2185,Discrete Mathematics,3,Y,B,Y,390,90,300,0.769,False,N,English
+Mathematics,MA,2503,MA2503,Linear Algebra,4,Y,B,Y,100,8,92,0.92,False,N,English
+Mathematics,MA,2508,MA2508,Multi-variable Calculus,4,Y,B,Y,274,7,267,0.974,False,N,English
+Mathematics,MA,2509,MA2509,Discrete Mathematics,3,Y,B,Y,102,14,88,0.863,False,N,English
+Mathematics,MA,2510,MA2510,Probability and Statistics,3,Y,B,Y,160,0,160,1.0,True,N,English
+Mathematics,MA,3510,MA3510,Independent Research I,6,N,B,Y,10,9,1,0.1,False,N,English
+Mathematics,MA,3512,MA3512,Partial Differential Equations,3,Y,B,Y,80,15,65,0.812,False,N,English
+Mathematics,MA,3518,MA3518,Applied Statistics,3,Y,B,Y,83,2,81,0.976,False,N,English
+Mathematics,MA,3521,MA3521,Introductory Mathematical Finance,3,Y,B,Y,80,13,67,0.838,False,N,English
+Mathematics,MA,3525,MA3525,Elementary Numerical Methods,3,Y,B,Y,116,15,101,0.871,False,N,English
+Mathematics,MA,4528,MA4528,Introduction to Dynamical Systems and Chaos,3,Y,B,Y,80,47,33,0.412,False,N,English
+Mathematics,MA,4530,MA4530,Project,3,N,B,Y,20,4,16,0.8,False,N,English
+Mathematics,MA,4542,MA4542,Real Analysis,3,Y,B,Y,80,54,26,0.325,False,N,English
+Mathematics,MA,4545,MA4545,Applied Differential Geometry,3,Y,B,Y,80,62,18,0.225,False,N,English
+Mathematics,MA,5616,MA5616,Financial Mathematics in Derivative Markets,3,Y,P,N,194,0,194,1.0,True,N,English
+Mathematics,MA,5617,MA5617,Statistical Data Analysis,3,Y,P,N,216,22,194,0.898,False,N,English
+Mathematics,MA,5618,MA5618,Stochastic Analysis in Finance,3,Y,P,N,200,10,190,0.95,False,N,English
+Mathematics,MA,6617,MA6617,Dissertation,6,N,P,N,40,39,1,0.025,False,N,English
+Mathematics,MA,6628,MA6628,Programming and Computing in Financial Engineering,3,Y,P,N,200,14,186,0.93,False,N,English
+Mathematics,MA,6635,MA6635,Mathematical Foundations of Data Science,3,Y,P,N,200,10,190,0.95,False,N,English
+Mathematics,MA,8003,MA8003,Research Methodology and Ethics,2,Y,R,N,50,33,17,0.34,False,N,English
+Mathematics,MA,8006,MA8006,Functional Analysis and Applications,3,Y,R,N,50,33,17,0.34,False,N,English
+Mathematics,MA,8011,MA8011,Methods for Applied Mathematics,3,Y,R,N,50,34,16,0.32,False,N,English
+Mathematics,MA,8100,MA8100,Analysis in High Dimensions and Applications,1,Y,R,N,80,68,12,0.15,False,N,English
+Mechanical Engineering,MNE,2029,MNE2029,Electrical and Electronic Principles I,3,Y,B,Y,200,70,130,0.65,False,N,English
+Mechanical Engineering,MNE,2066,MNE2066,Engineers in Society,3,Y,B,Y,241,132,109,0.452,False,N,English
+Mechanical Engineering,MNE,2109,MNE2109,Engineering Mechanics,3,Y,B,Y,95,20,75,0.789,False,N,English
+Mechanical Engineering,MNE,2110,MNE2110,Engineering Materials,3,Y,B,Y,200,63,137,0.685,False,N,English
+Mechanical Engineering,MNE,2116,MNE2116,Engineering Graphics,0,Y,B,Y,228,120,108,0.474,False,N,English
+Mechanical Engineering,MNE,3007,MNE3007,CAD/CAM,3,Y,B,Y,173,30,143,0.827,False,N,English
+Mechanical Engineering,MNE,3046,MNE3046,Automation Technology,3,Y,B,Y,175,38,137,0.783,False,N,English
+Mechanical Engineering,MNE,3107,MNE3107,Principles of Nuclear Engineering,3,Y,B,Y,33,21,12,0.364,False,N,English
+Mechanical Engineering,MNE,3115,MNE3115,Microelectromechanical Systems,3,Y,B,Y,95,7,88,0.926,False,N,English
+Mechanical Engineering,MNE,3118,MNE3118,Mechanics of Materials,3,Y,B,Y,222,87,135,0.608,False,N,English
+Mechanical Engineering,MNE,3120,MNE3120,Measurement and Instrumentation,3,Y,B,Y,133,22,111,0.835,False,N,English
+Mechanical Engineering,MNE,3202,MNE3202,Aircraft Dynamics,3,Y,B,Y,60,24,36,0.6,False,N,English
+Mechanical Engineering,MNE,3203,MNE3203,Aerospace Propulsion Systems,3,Y,B,Y,75,43,32,0.427,False,N,English
+Mechanical Engineering,MNE,3204,MNE3204,NDT Technologies for Aircraft Structures and Materials,3,Y,B,Y,60,8,52,0.867,False,N,English
+Mechanical Engineering,MNE,4010,MNE4010,Dynamics and Vibrations,3,Y,B,Y,137,64,73,0.533,False,N,English
+Mechanical Engineering,MNE,4047,MNE4047,Directed Studies,3,N,B,Y,1,1,0,0.0,False,N,English
+Mechanical Engineering,MNE,4068,MNE4068,Project (Individual),6,N,B,Y,21,20,1,0.048,False,N,English
+Mechanical Engineering,MNE,4068C,MNE4068C,Project (Individual),3,N,B,Y,1,1,0,0.0,False,N,English
+Mechanical Engineering,MNE,4109,MNE4109,Reliability Engineering and Risk Analysis,3,Y,B,Y,108,15,93,0.861,False,N,English
+Mechanical Engineering,MNE,4118,MNE4118,Project (Individual),3,N,B,Y,7,1,6,0.857,False,N,English
+Mechanical Engineering,MNE,4119,MNE4119,Project (Group),3,N,B,Y,89,3,86,0.966,False,N,English
+Mechanical Engineering,MNE,4125,MNE4125,Principles and Transport Process Fundamentals of Semiconductor Manufacturing,3,Y,B,Y,75,47,28,0.373,False,N,English
+Mechanical Engineering,MNE,4201,MNE4201,Aerodynamics,3,Y,B,Y,50,10,40,0.8,False,N,English
+Mechanical Engineering,MNE,4204,MNE4204,"Signals, Sensors and Communication Systems",3,Y,B,Y,50,42,8,0.16,False,N,English
+Mechanical Engineering,MNE,5103,MNE5103,Risk and Reliability Engineering,3,Y,P,N,200,55,145,0.725,False,N,English
+Mechanical Engineering,MNE,5112,MNE5112,Mechanical Design with Advanced Material and Additive Manufacturing,3,Y,P,N,60,0,60,1.0,True,N,English
+Mechanical Engineering,MNE,6007,MNE6007,Advanced Automation Technology,3,N,P,N,138,46,92,0.667,False,N,English
+Mechanical Engineering,MNE,6113,MNE6113,Advanced Thermo-fluid,3,N,P,N,180,100,80,0.444,False,N,English
+Mechanical Engineering,MNE,6116,MNE6116,Applied Engineering Mechanics,3,N,P,N,272,92,180,0.662,False,N,English
+Mechanical Engineering,MNE,6125,MNE6125,Engineering Methods,3,N,P,N,180,100,80,0.444,False,N,English
+Mechanical Engineering,MNE,6127,MNE6127,Microfluidics: From Fundamentals to Applications,3,Y,P,N,180,40,140,0.778,False,N,English
+Mechanical Engineering,MNE,6131,MNE6131,"Nuclear Reactor Systems, Safety and Waste Management",3,N,P,N,80,73,7,0.087,False,N,English
+Mechanical Engineering,MNE,6132,MNE6132,Materials in Nuclear Engineering,3,N,P,N,40,33,7,0.175,False,N,English
+Mechanical Engineering,MNE,6138,MNE6138,Fundamentals of Nuclear Engineering,3,N,P,N,80,73,7,0.087,False,N,English
+Mechanical Engineering,MNE,6140,MNE6140,Thermodynamics and Kinetics,3,Y,P,N,180,117,63,0.35,False,N,English
+Mechanical Engineering,MNE,8009,MNE8009,Research Methodology,2,Y,R,N,80,25,55,0.688,False,N,English
+Mechanical Engineering,MNE,8108,MNE8108,Engineering Methods,3,Y,R,N,36,0,36,1.0,True,N,English
+Mechanical Engineering,MNE,8109,MNE8109,Thermodynamics and Kinetics,3,Y,R,N,26,2,24,0.923,False,N,English
+Mechanical Engineering,MNE,8111,MNE8111,Advanced Thermal Fluids,3,Y,R,N,36,16,20,0.556,False,N,English
+Mechanical Engineering,MNE,8113,MNE8113,Applied Engineering Mechanics,3,Y,R,N,30,18,12,0.4,False,N,English
+Mechanical Engineering,MNE,8114,MNE8114,Fundamentals of Nuclear Engineering,3,Y,R,N,40,33,7,0.175,False,N,English
+Mechanical Engineering,MNE,8118,MNE8118,Advanced Automation Technology,3,Y,R,N,22,6,16,0.727,False,N,English
+Mechanical Engineering,MNE,8120,MNE8120,Microfluidics: From Fundamentals to Applications,3,Y,R,N,26,15,11,0.423,False,N,English
+Mechanical Engineering,MNE,8122,MNE8122,"Advanced Topics in Nonlinear Dynamics, Vibration & Control",3,Y,R,N,100,90,10,0.1,False,N,English
+Media and Communication,COM,1101,COM1101,Media and Communication in the Digital Age,3,Y,B,Y,80,11,69,0.863,False,N,English
+Media and Communication,COM,2105,COM2105,Visual Communication,3,Y,B,Y,106,22,84,0.792,False,N,English
+Media and Communication,COM,2120,COM2120,Health Communication,3,Y,B,Y,52,15,37,0.712,False,N,English
+Media and Communication,COM,2201,COM2201,News Writing and Reporting,3,Y,B,Y,40,0,40,1.0,True,N,English
+Media and Communication,COM,2202,COM2202,Writing for the Media,3,Y,B,Y,152,36,116,0.763,False,N,English
+Media and Communication,COM,2303,COM2303,Video Production and Editing,3,N,B,Y,114,39,75,0.658,False,N,English
+Media and Communication,COM,2401,COM2401,Fundamentals of Advertising,3,Y,B,Y,90,3,87,0.967,False,N,English
+Media and Communication,COM,2402,COM2402,Principles of Public Relations,3,Y,B,Y,80,10,70,0.875,False,N,English
+Media and Communication,COM,2405,COM2405,Communication and Marketing,3,Y,B,Y,40,18,22,0.55,False,N,English
+Media and Communication,COM,3107,COM3107,Fundamentals of Persuasive Communication,3,Y,B,Y,145,21,124,0.855,False,N,English
+Media and Communication,COM,3119,COM3119,International Communication,3,Y,B,Y,139,19,120,0.863,False,N,English
+Media and Communication,COM,3203,COM3203,Data Journalism,3,Y,B,Y,96,12,84,0.875,False,N,English
+Media and Communication,COM,3209,COM3209,Digital Photojournalism,3,Y,B,Y,80,5,75,0.938,False,N,English
+Media and Communication,COM,3211,COM3211,Business Journalism,3,Y,B,Y,51,0,51,1.0,True,N,English & Chinese
+Media and Communication,COM,3408,COM3408,Integrated Strategic Communication,3,Y,B,Y,155,7,148,0.955,False,N,English
+Media and Communication,COM,3411,COM3411,Interactive Advertising,3,Y,B,Y,65,19,46,0.708,False,N,English
+Media and Communication,COM,3413,COM3413,Writing for Public Relations,3,Y,B,Y,52,4,48,0.923,False,N,English
+Media and Communication,COM,4204,COM4204,News Feature Writing,3,Y,B,Y,50,28,22,0.44,False,N,English
+Media and Communication,COM,4307,COM4307,Video News Production and Anchoring,3,N,B,Y,72,18,54,0.75,False,N,English
+Media and Communication,COM,4510,COM4510,Generative AI for Multimedia Authoring,3,Y,B,Y,90,20,70,0.778,False,N,English
+Media and Communication,COM,4511,COM4511,Social Media and Communication,3,Y,B,Y,80,39,41,0.512,False,N,English
+Media and Communication,COM,5101,COM5101,Communication Fundamentals,3,Y,P,N,225,24,201,0.893,False,N,English
+Media and Communication,COM,5103,COM5103,Policy and Regulations of New Media,3,Y,P,N,120,0,120,1.0,True,N,English
+Media and Communication,COM,5104,COM5104,Research Methods for Communication and New Media,3,Y,P R,N,420,34,386,0.919,False,N,English
+Media and Communication,COM,5106,COM5106,Integrated Marketing Communication,3,Y,P,N,205,13,192,0.937,False,N,English
+Media and Communication,COM,5401,COM5401,Advertising Production and Management,3,Y,P,N,270,36,234,0.867,False,N,English
+Media and Communication,COM,5402,COM5402,Public Relations Strategies,3,Y,P,N,294,71,223,0.759,False,N,English
+Media and Communication,COM,5408,COM5408,Global Promotion and Branding,3,Y,P,N,140,67,73,0.521,False,N,English
+Media and Communication,COM,5501,COM5501,Internet Communication,3,Y,P,N,220,23,197,0.895,False,N,English
+Media and Communication,COM,5507,COM5507,Social Media Data Acquisition and Processing,3,Y,P,N,110,32,78,0.709,False,N,English
+Media and Communication,COM,5509,COM5509,Digital Visual Media,3,Y,P,N,114,33,81,0.711,False,N,English
+Media and Communication,COM,5510,COM5510,Introduction to Artificial Intelligence,3,Y,P,N,130,18,112,0.862,False,N,English
+Media and Communication,COM,6601,COM6601,Capstone Project,1,N,P,N,420,34,386,0.919,False,N,English
+Media and Communication,COM,8000,COM8000,Communication and Society,3,Y,R,N,21,0,21,1.0,True,N,English
+Media and Communication,COM,8005,COM8005,Quantitative Research Methods in Media and Communication,3,Y,R,N,20,1,19,0.95,False,N,English
+Neuroscience,NS,2001,NS2001,Cognition and Behavior,3,Y,B,Y,35,17,18,0.514,False,N,English
+Neuroscience,NS,2003,NS2003,Introduction to Artificial Intelligence with Brain Computing and Application,3,Y,B,Y,45,29,16,0.356,False,N,English
+Neuroscience,NS,3002,NS3002,Learning and Memory,3,Y,B,Y,30,20,10,0.333,False,N,English
+Neuroscience,NS,5001,NS5001,Research Methodology and Ethics,3,Y,P,N,90,23,67,0.744,False,N,English
+Neuroscience,NS,5004,NS5004,Molecular and Cellular Neuroscience,3,Y,P,N,100,29,71,0.71,False,N,English
+Neuroscience,NS,5007,NS5007,Human and Artificial Intelligence,3,Y,P,N,90,14,76,0.844,False,N,English
+Neuroscience,NS,5008,NS5008,Neuropharmacology,3,Y,P,N,55,3,52,0.945,False,N,English
+Neuroscience,NS,6001,NS6001,Research Project in Neuroscience,3,N,P,N,60,27,33,0.55,False,N,English
+Neuroscience,NS,8001,NS8001,Neuroscience Research Seminar,3,Y,R,N,80,30,50,0.625,False,N,English
+Neuroscience,NS,8002,NS8002,Advanced Neuroscience,3,Y,P R,N,120,16,104,0.867,False,N,English
+Neuroscience,NS,8101,NS8101,Research Methodology and Ethics,3,Y,R,N,20,8,12,0.6,False,N,English
+Neuroscience,NS,8104,NS8104,Molecular and Cellular Neuroscience,3,Y,R,N,20,9,11,0.55,False,N,English
+Neuroscience,NS,8107,NS8107,Human and Artificial Intelligence,3,Y,R,N,7,0,7,1.0,True,N,English
+Physics,PHY,1101,PHY1101,Introductory Classical Mechanics,3,Y,B,Y,260,35,225,0.865,False,N,English
+Physics,PHY,1201,PHY1201,General Physics I,3,Y,B,Y,435,70,365,0.839,False,N,English
+Physics,PHY,1202,PHY1202,General Physics II,3,Y,B,Y,80,65,15,0.188,False,N,English
+Physics,PHY,2212,PHY2212,Measurement and Instrumentation,3,Y,B,Y,45,2,43,0.956,False,N,English
+Physics,PHY,2400,PHY2400,Advanced Physics for Biologists,3,N,B,Y,47,3,44,0.936,False,N,English
+Physics,PHY,3202,PHY3202,Modern Physics,3,Y,B,Y,50,0,50,1.0,True,N,English
+Physics,PHY,3205,PHY3205,Electrodynamics,3,Y,B,Y,40,3,37,0.925,False,N,English
+Physics,PHY,3220,PHY3220,From Physics to Finance,3,Y,B,Y,25,1,24,0.96,False,N,English
+Physics,PHY,3231,PHY3231,Advanced Instrumentation Lab,3,Y,B,Y,40,5,35,0.875,False,N,English
+Physics,PHY,3251,PHY3251,Quantum Mechanics,3,Y,B,Y,40,1,39,0.975,False,N,English
+Physics,PHY,4172,PHY4172,Computational Physics and Machine Learning,3,N,B,Y,34,9,25,0.735,False,N,English
+Physics,PHY,4216,PHY4216,Project,3,N,B,Y,5,4,1,0.2,False,N,English
+Physics,PHY,4217,PHY4217,Dissertation,3,N,B,Y,24,8,16,0.667,False,N,English
+Physics,PHY,4218,PHY4218,Independent Research I,6,N,B,Y,5,5,0,0.0,False,N,English
+Physics,PHY,4219,PHY4219,Independent Research II,6,N,B,Y,5,2,3,0.6,False,N,English
+Physics,PHY,4232,PHY4232,Radiotherapy Physics,3,Y,B,Y,40,0,40,1.0,True,N,English
+Physics,PHY,4254,PHY4254,Fundamentals of Laser Optics,3,Y,B,Y,25,15,10,0.4,False,N,English
+Physics,PHY,5501,PHY5501,Modern Characterization Techniques for Experimental Physics,3,Y,P,N,90,21,69,0.767,False,N,English
+Physics,PHY,5503,PHY5503,Introduction to Quantum Technology,3,Y,P,N,110,8,102,0.927,False,N,English
+Physics,PHY,5504,PHY5504,Data Acquisition and Processing Skills for Physicists I,3,Y,P,N,126,4,122,0.968,False,N,English
+Physics,PHY,6251,PHY6251,Advanced Quantum Mechanics,3,N,P,N,20,7,13,0.65,False,N,English
+Physics,PHY,6252,PHY6252,Statistical Mechanics,3,Y,P,N,40,12,28,0.7,False,N,English
+Physics,PHY,6253,PHY6253,Introduction to Biophysics,3,Y,P,N,35,5,30,0.857,False,N,English
+Physics,PHY,6503,PHY6503,Mathematical Methods for Scientists and Engineers,3,Y,P,N,60,9,51,0.85,False,N,English
+Physics,PHY,6526,PHY6526,Energy Materials: Physics and Applications,3,Y,P,N,59,0,59,1.0,True,N,English
+Physics,PHY,6528,PHY6528,Advanced Research in Physics,4.5,N,P,N,25,0,25,1.0,True,N,English
+Physics,PHY,8001,PHY8001,Survival Skills for Research Scientists,3,Y,R,N,40,1,39,0.975,False,N,English
+Physics,PHY,8004,PHY8004,Postgraduate Seminar,2,Y,R,N,40,6,34,0.85,False,N,English
+Physics,PHY,8251,PHY8251,Advanced Quantum Mechanics,3,Y,R,N,20,6,14,0.7,False,N,English
+Physics,PHY,8252,PHY8252,Statistical Mechanics,3,Y,R,N,20,0,20,1.0,True,N,English
+Physics,PHY,8253,PHY8253,Introduction to Biophysics,3,Y,R,N,10,9,1,0.1,False,N,English
+Physics,PHY,8501,PHY8501,Modern Characterization Techniques for Experimental Physics,3,Y,R,N,20,2,18,0.9,False,N,English
+Physics,PHY,8503,PHY8503,Mathematical Methods for Scientists and Engineers,3,Y,R,N,10,10,0,0.0,False,N,English
+Physics,PHY,8513,PHY8513,Introduction to Quantum Technology,3,Y,R,N,10,8,2,0.2,False,N,English
+Physics,PHY,8514,PHY8514,Data Acquisition and Processing Skills for Physicists I,3,Y,R,N,10,6,4,0.4,False,N,English
+Physics,PHY,8526,PHY8526,Energy Materials: Physics and Applications,3,Y,R,N,10,9,1,0.1,False,N,English
+School of Law,PLE,5012,PLE5012,Conveyancing Practice,2,N,P,N,215,32,183,0.851,False,N,English
+School of Law,PLE,5013,PLE5013,Corporate and Commercial Practice,3,N,P,N,215,32,183,0.851,False,N,English
+School of Law,PLE,5015,PLE5015,Professional Conduct and Practice,3,N,P,N,215,32,183,0.851,False,N,English
+School of Law,PLE,5016,PLE5016,Wills and Probate Practice,2,N,P,N,215,32,183,0.851,False,N,English
+School of Law,PLE,5018,PLE5018,Civil Litigation Practice,3,N,P,N,215,32,183,0.851,False,N,English
+School of Law,PLE,5019,PLE5019,Criminal Litigation Practice,3,N,P,N,215,32,183,0.851,False,N,English
+School of Law,PLE,5051,PLE5051,Mediation and Negotiation,2,N,P,N,215,32,183,0.851,False,N,English
+Public & International Affairs,PIA,2012,PIA2012,Social Research Methods,3,Y,B,Y,308,43,265,0.86,False,N,English
+Public & International Affairs,PIA,2030,PIA2030,Traditions of Inquiry in the Social Sciences,3,Y,B,Y,50,4,46,0.92,False,N,English
+Public & International Affairs,PIA,2050,PIA2050,Comparative Politics and Societies,3,Y,B,Y,135,22,113,0.837,False,N,English
+Public & International Affairs,PIA,2073,PIA2073,Understanding Culture in Japan and China through Film,3,Y,B,Y,160,10,150,0.938,False,N,English
+Public & International Affairs,PIA,2104,PIA2104,Hong Kong Governance,3,Y,B,Y,67,7,60,0.896,False,N,English
+Public & International Affairs,PIA,2200,PIA2200,Introduction to International Studies Through Film,3,Y,B,Y,140,3,137,0.979,False,N,English
+Public & International Affairs,PIA,2224,PIA2224,Environmental Issues and Sustainable Development,3,Y,B,Y,165,4,161,0.976,False,N,English
+Public & International Affairs,PIA,2307,PIA2307,Introduction to Public Governance,3,Y,B,Y,115,17,98,0.852,False,N,English
+Public & International Affairs,PIA,2308,PIA2308,Working with Clients in Public Service,3,Y,B,Y,200,26,174,0.87,False,N,English
+Public & International Affairs,PIA,2524,PIA2524,Management Skills for Public Managers,3,N,B,Y,155,1,154,0.994,False,N,English
+Public & International Affairs,PIA,2530,PIA2530,Exploring Public Affairs in Globalised Cities,3,Y,B,Y,105,15,90,0.857,False,N,English
+Public & International Affairs,PIA,2601,PIA2601,Computational Language Course I,3,Y,B,Y,70,40,30,0.429,False,N,English
+Public & International Affairs,PIA,2801,PIA2801,Social Change and Governance Challenges: A Critical Appreciation through Film,3,Y,B,Y,80,27,53,0.662,False,N,English
+Public & International Affairs,PIA,3031,PIA3031,Political Dynamics in Asia,3,Y,B,Y,135,44,91,0.674,False,N,English
+Public & International Affairs,PIA,3032,PIA3032,State and Economy in Asia,3,Y,B,Y,205,91,114,0.556,False,N,English
+Public & International Affairs,PIA,3033,PIA3033,Culture and Change in Asia,3,Y,B,Y,100,3,97,0.97,False,N,English
+Public & International Affairs,PIA,3046,PIA3046,Asian Migration and the Global Diasporas,3,Y,B,Y,45,10,35,0.778,False,N,English
+Public & International Affairs,PIA,3113,PIA3113,Issues in Contemporary World Politics,3,Y,B,Y,135,52,83,0.615,False,N,English
+Public & International Affairs,PIA,3120,PIA3120,Politics and Media,3,Y,B,Y,155,6,149,0.961,False,N,English
+Public & International Affairs,PIA,3121,PIA3121,Theories of International Relations,3,Y,B,Y,130,17,113,0.869,False,N,English
+Public & International Affairs,PIA,3123,PIA3123,Theories of Development,3,Y,B,Y,105,44,61,0.581,False,N,English
+Public & International Affairs,PIA,3142,PIA3142,Global Social Movements,3,Y,B,Y,55,5,50,0.909,False,N,English
+Public & International Affairs,PIA,3207,PIA3207,Health Care Policy and Ethics,3,Y,B,Y,150,25,125,0.833,False,N,English
+Public & International Affairs,PIA,3241,PIA3241,Policy Processes and Institutions,3,Y,B,Y,185,38,147,0.795,False,N,English
+Public & International Affairs,PIA,3306,PIA3306,Organizational Behaviour for Public Management,3,Y,B,Y,173,13,160,0.925,False,N,English
+Public & International Affairs,PIA,3410,PIA3410,Management Ethics,3,Y,B,Y,105,26,79,0.752,False,N,English
+Public & International Affairs,PIA,3544,PIA3544,East Asia and Globalization,3,Y,B,Y,115,38,77,0.67,False,N,English
+Public & International Affairs,PIA,3710,PIA3710,Contemporary Chinese Politics,3,Y,B,Y,70,40,30,0.429,False,N,English
+Public & International Affairs,PIA,3812,PIA3812,International Experience,0,N,B,Y,50,50,0,0.0,False,N,English
+Public & International Affairs,PIA,3921,PIA3921,Urban and Social Policy,3,Y,B,Y,175,17,158,0.903,False,N,English
+Public & International Affairs,PIA,4060,PIA4060,Directed Research Project,3,N,B,Y,10,5,5,0.5,False,N,English
+Public & International Affairs,PIA,4071,PIA4071,Globalisation and the Environment,3,Y,B,Y,35,12,23,0.657,False,N,English
+Public & International Affairs,PIA,4142,PIA4142,Global Public Health,3,Y,B,Y,77,21,56,0.727,False,N,English
+Public & International Affairs,PIA,4601,PIA4601,Undergraduate Research Project,3,N,B,Y,119,4,115,0.966,False,N,English
+Public & International Affairs,PIA,4602,PIA4602,Undergraduate Capstone Project,3,N,B,Y,70,0,70,1.0,True,N,English
+Public & International Affairs,PIA,4953,PIA4953,Housing Policy in Contemporary Society,3,Y,B,Y,105,31,74,0.705,False,N,English
+Public & International Affairs,PIA,5001,PIA5001,Theories and Approaches in Development Studies,3,Y,P,N,185,29,156,0.843,False,N,English
+Public & International Affairs,PIA,5003,PIA5003,Project Planning and Management for Development,3,Y,P,N,105,57,48,0.457,False,N,English
+Public & International Affairs,PIA,5021,PIA5021,Asian Regional Governance,3,Y,P,N,180,34,146,0.811,False,N,English
+Public & International Affairs,PIA,5025,PIA5025,Theory in International Studies,3,Y,P,N,180,32,148,0.822,False,N,English
+Public & International Affairs,PIA,5026,PIA5026,Research Design for the Social Sciences,3,Y,P,N,80,39,41,0.512,False,N,English
+Public & International Affairs,PIA,5032,PIA5032,Authoritarian Resilience and Democratic Change in East Asia,3,Y,P,N,180,27,153,0.85,False,N,English
+Public & International Affairs,PIA,5045,PIA5045,International Relations of Northeast Asia,3,Y,P R,N,180,32,148,0.822,False,N,English
+Public & International Affairs,PIA,5101,PIA5101,Theories of Government and Public Administration,3,Y,P,N,305,56,249,0.816,False,N,English
+Public & International Affairs,PIA,5300,PIA5300,Politics and Social Movements in Developing Asia,3,Y,P R,N,80,20,60,0.75,False,N,English
+Public & International Affairs,PIA,5401,PIA5401,Values and Choice in Public Policy,3,Y,P,N,250,44,206,0.824,False,N,English
+Public & International Affairs,PIA,5504,PIA5504,The Asian Metropolis: Issues in Urban Management,3,Y,P,N,260,104,156,0.6,False,N,English
+Public & International Affairs,PIA,5701,PIA5701,Comparative and International Housing and Urban Policy,3,Y,P,N,275,39,236,0.858,False,N,English
+Public & International Affairs,PIA,5704,PIA5704,Building Services Systems and Maintenance for Housing Managers,3,Y,P,N,80,14,66,0.825,False,N,English
+Public & International Affairs,PIA,5710,PIA5710,State and Market in China,3,Y,P,N,55,25,30,0.545,False,N,English
+Public & International Affairs,PIA,5716,PIA5716,Governance in the Greater China Region,3,Y,P,N,55,29,26,0.473,False,N,English
+Public & International Affairs,PIA,6020,PIA6020,SSP Capstone Project,1,Y,P,N,150,54,96,0.64,False,N,English
+Public & International Affairs,PIA,6202,PIA6202,Evidence-based Policy and Practice,3,Y,P,N,170,18,152,0.894,False,N,English
+Public & International Affairs,PIA,6302,PIA6302,Public Budgeting and the Management of Financial Resources,3,Y,P,N,180,33,147,0.817,False,N,English
+Public & International Affairs,PIA,6501,PIA6501,Urban Development and Sustainable Cities,3,Y,P,N,300,23,277,0.923,False,N,English
+Public & International Affairs,PIA,6502,PIA6502,Sustainable Development: Theory and Policy,3,Y,P,N,215,4,211,0.981,False,N,English
+Public & International Affairs,PIA,6505,PIA6505,Financing Sustainability: Policy and Mechanisms,3,Y,P,N,135,25,110,0.815,False,N,English
+Public & International Affairs,PIA,6603,PIA6603,Research Methods in Public Policy and Management,3,Y,P,N,260,52,208,0.8,False,N,English
+Public & International Affairs,PIA,6604,PIA6604,MAPPM Capstone Project,1,N,P,N,30,6,24,0.8,False,N,English
+Public & International Affairs,PIA,6803,PIA6803,Research Methods for Housing and Urban Management,2,Y,P,N,210,36,174,0.829,False,N,English
+Public & International Affairs,PIA,6804,PIA6804,MAHUM Capstone Project,2,N,P,N,260,42,218,0.838,False,N,English
+Public & International Affairs,PIA,8617,PIA8617,"Research Design, Methodology, and Ethics",3,Y,R,N,55,37,18,0.327,False,N,English
+Public & International Affairs,PIA,8618,PIA8618,Qualitative Methods,3,Y,R,N,40,31,9,0.225,False,N,English
+Public & International Affairs,PIA,8619,PIA8619,Independent Study,4,Y,R,N,30,24,6,0.2,False,N,English
+Student Development Services,PED,1101,PED1101,Canoeing - Elementary,0,Y,B P D R,Y,10,0,10,1.0,True,N,English
+Student Development Services,PED,1102,PED1102,Snorkel Diving - Elementary,0,Y,B P D R,Y,10,1,9,0.9,False,N,English
+Student Development Services,PED,1103,PED1103,Swimming - Elementary,0,Y,B P D R,Y,48,0,48,1.0,True,N,English
+Student Development Services,PED,1204,PED1204,Hip Hop - Elementary,0,Y,B P D R,Y,36,0,36,1.0,True,N,English
+Student Development Services,PED,1205,PED1205,Jazz Funk - Elementary,0,Y,B P D R,Y,36,0,36,1.0,True,N,English
+Student Development Services,PED,1305,PED1305,Physical Fitness - Elementary,0,Y,B P D R,Y,2704,12,2692,0.996,False,N,English
+Student Development Services,PED,1308,PED1308,Fitball - Elementary,0,Y,B P D R,Y,48,1,47,0.979,False,N,English
+Student Development Services,PED,1309,PED1309,Pilates Mat - Elementary,0,Y,B P D R,Y,42,2,40,0.952,False,N,English
+Student Development Services,PED,1310,PED1310,Refreshing Yoga - Elementary,0,Y,B P D R,Y,42,0,42,1.0,True,N,English
+Student Development Services,PED,1314,PED1314,Chi Running - Elementary,0,Y,B P D R,Y,10,0,10,1.0,True,N,English
+Student Development Services,PED,1315,PED1315,Tabata - Elementary,0,Y,B P D R,Y,56,2,54,0.964,False,N,English
+Student Development Services,PED,1316,PED1316,Body Combat - Elementary,0,Y,B P D R,Y,24,0,24,1.0,True,N,English
+Student Development Services,PED,1317,PED1317,High Intensity Interval Training (HIIT),0,Y,B P D R,Y,70,1,69,0.986,False,N,English
+Student Development Services,PED,1402,PED1402,Golf - Elementary,0,Y,B P D R,Y,40,0,40,1.0,True,N,English
+Student Development Services,PED,1404,PED1404,Archery - Elementary,0,Y,B P D R,Y,56,0,56,1.0,True,N,English
+Student Development Services,PED,1405,PED1405,Rope Skipping for Fun,0,Y,B P D R,Y,24,1,23,0.958,False,N,English
+Student Development Services,PED,1406,PED1406,Woodball - Elementary,0,Y,B P D R,Y,12,0,12,1.0,True,N,English
+Student Development Services,PED,1502,PED1502,Tai Chi Chuan (24 Forms) - Elementary,0,Y,B P D R,Y,12,1,11,0.917,False,N,English
+Student Development Services,PED,1503,PED1503,Tai Chi Sword (32 Forms) - Elementary,0,Y,B P D R,Y,12,0,12,1.0,True,N,English
+Student Development Services,PED,1504,PED1504,Karate -Elementary,0,Y,B P D R,Y,24,0,24,1.0,True,N,English
+Student Development Services,PED,1601,PED1601,Badminton - Elementary,0,Y,B P D R,Y,80,0,80,1.0,True,N,English
+Student Development Services,PED,1602,PED1602,Squash - Elementary,0,Y,B P D R,Y,56,0,56,1.0,True,N,English
+Student Development Services,PED,1603,PED1603,Table Tennis - Elementary,0,Y,B P D R,Y,32,0,32,1.0,True,N,English
+Student Development Services,PED,1605,PED1605,Tennis - Elementary,0,Y,B P D R,Y,64,0,64,1.0,True,N,English
+Student Development Services,PED,1606,PED1606,Pickleball - Elementary,0,Y,B P D R,Y,96,0,96,1.0,True,N,English
+Student Development Services,PED,1701,PED1701,Basketball (Men) - Elementary,0,Y,B P D R,Y,40,0,40,1.0,True,N,English
+Student Development Services,PED,1706,PED1706,Soccer - Elementary,0,Y,B P D R,Y,20,1,19,0.95,False,N,English
+Student Development Services,PED,1707,PED1707,Softball - Elementary,0,Y,B P D R,Y,20,0,20,1.0,True,N,English
+Student Development Services,PED,1708,PED1708,Volleyball - Elementary,0,Y,B P D R,Y,40,0,40,1.0,True,N,English
+Student Development Services,PED,1712,PED1712,Floorball - Elementary,0,Y,B P D R,Y,12,0,12,1.0,True,N,English
+Student Development Services,PED,2103,PED2103,Swimming - Intermediate,0,Y,B P D R,Y,16,0,16,1.0,True,N,English
+Student Development Services,PED,2312,PED2312,Running - Improver,0,Y,B P D R,Y,14,2,12,0.857,False,N,English
+Student Development Services,PED,2402,PED2402,Golf - Improver,0,Y,B P D R,Y,10,0,10,1.0,True,N,English
+Student Development Services,PED,2601,PED2601,Badminton - Intermediate,0,Y,B P D R,Y,16,0,16,1.0,True,N,English
+School of Creative Media,SM,1012B,SM1012B,Writing and Creativity (Chinese),3,Y,B,Y,29,0,29,1.0,True,N,Chinese
+School of Creative Media,SM,1013,SM1013,Introduction to Photography,3,Y,B,Y,106,6,100,0.943,False,N,English
+School of Creative Media,SM,1103A,SM1103A,Introduction to Media Computing,3,Y,B,Y,164,17,147,0.896,False,N,English
+School of Creative Media,SM,1700A,SM1700A,Professional Internship I,0,N,B,Y,25,25,0,0.0,False,N,English & Others
+School of Creative Media,SM,1700B,SM1700B,Professional Internship II,0,N,B,Y,25,25,0,0.0,False,N,English & Others
+School of Creative Media,SM,1700C,SM1700C,Professional Internship III,0,N,B,Y,25,25,0,0.0,False,N,English & Others
+School of Creative Media,SM,1700D,SM1700D,Professional Internship IV,0,N,B,Y,25,25,0,0.0,False,N,English & Others
+School of Creative Media,SM,1701,SM1701,New Media Art,3,Y,B,Y,260,34,226,0.869,False,N,English
+School of Creative Media,SM,1702,SM1702,Creative Media Studio I,3,N,B,Y,8,2,6,0.75,False,N,English
+School of Creative Media,SM,1702A,SM1702A,Creative Media Studio IA,3,Y,B,Y,151,25,126,0.834,False,N,English
+School of Creative Media,SM,2231,SM2231,3D Animation I - Basic,3,Y,B,Y,39,2,37,0.949,False,N,English
+School of Creative Media,SM,2253,SM2253,Digital Photography,3,Y,B,Y,39,0,39,1.0,True,N,English
+School of Creative Media,SM,2259,SM2259,Game and Play Studies,3,Y,B,Y,38,0,38,1.0,True,N,English
+School of Creative Media,SM,2277,SM2277,Life Drawing,3,Y,B,Y,60,2,58,0.967,False,N,English
+School of Creative Media,SM,2291,SM2291,Theories and Phenomena of Human-Computer Interaction,3,Y,B,Y,32,1,31,0.969,False,N,English
+School of Creative Media,SM,2603,SM2603,2D Game Production,3,Y,B,Y,43,0,43,1.0,True,N,English
+School of Creative Media,SM,2704,SM2704,Creative Media Studio II,3,Y,B,Y,69,9,60,0.87,False,N,English
+School of Creative Media,SM,2706,SM2706,Critical Theory and Socially Engaged Practices,3,Y,B,Y,160,24,136,0.85,False,N,English
+School of Creative Media,SM,2713,SM2713,2D Animation I - Basic,3,Y,B,Y,37,1,36,0.973,False,N,English
+School of Creative Media,SM,2714,SM2714,Fundamentals of Animation,3,Y,B,Y,80,8,72,0.9,False,N,English
+School of Creative Media,SM,2715,SM2715,Creative Coding,3,Y,B,Y,50,11,39,0.78,False,N,English
+School of Creative Media,SM,2716,SM2716,Physical Computing and Tangible Media,3,Y,B,Y,121,6,115,0.95,False,N,English
+School of Creative Media,SM,2718,SM2718,Object Art Production,3,Y,B,Y,25,1,24,0.96,False,N,English
+School of Creative Media,SM,2719,SM2719,Documentary I,3,Y,B,Y,64,2,62,0.969,False,N,English
+School of Creative Media,SM,2720,SM2720,Black and White Photography,3,Y,B,Y,27,1,26,0.963,False,N,English
+School of Creative Media,SM,2724B,SM2724B,Leadership and Creativity,1,N,B,Y,25,4,21,0.84,False,N,English
+School of Creative Media,SM,3115,SM3115,Chinese Scriptwriting,6,Y,B,Y,43,0,43,1.0,True,N,Chinese
+School of Creative Media,SM,3131,SM3131,Art Direction,3,Y,B,Y,48,0,48,1.0,True,N,English
+School of Creative Media,SM,3151,SM3151,Visualizing Literature,3,Y,B,Y,50,0,50,1.0,True,N,English
+School of Creative Media,SM,3153,SM3153,Sound Design for Cinema,3,Y,B,Y,37,4,33,0.892,False,N,English
+School of Creative Media,SM,3601,SM3601,Game Prototyping and Design,3,Y,B,Y,71,0,71,1.0,True,N,English
+School of Creative Media,SM,3603,SM3603,3D Natural Interaction,3,Y,B,Y,38,14,24,0.632,False,N,English
+School of Creative Media,SM,3604,SM3604,Installation I,3,Y,B,Y,34,11,23,0.676,False,N,English
+School of Creative Media,SM,3611,SM3611,"New Media for Installation, Events and Performance",3,Y,B,Y,104,3,101,0.971,False,N,English
+School of Creative Media,SM,3612,SM3612,Mixed Reality,3,Y,B,Y,34,0,34,1.0,True,N,English
+School of Creative Media,SM,3701,SM3701,Digital Composition,3,Y,B,Y,40,4,36,0.9,False,N,English
+School of Creative Media,SM,3711,SM3711,Arts Administration and Cultural Management,3,Y,B,Y,32,1,31,0.969,False,N,English
+School of Creative Media,SM,3729,SM3729,Relational Aesthetics and Participatory Media,3,Y,B,Y,40,8,32,0.8,False,N,English
+School of Creative Media,SM,3746,SM3746,Special Topics in Creative Media (III),3,Y,B,Y,28,2,26,0.929,False,N,English
+School of Creative Media,SM,3751,SM3751,"Art, Technology and Wellbeing",3,Y,B,Y,39,0,39,1.0,True,N,English
+School of Creative Media,SM,3801,SM3801,Understanding Data,3,Y,B,Y,40,9,31,0.775,False,N,English
+School of Creative Media,SM,3805,SM3805,Imaging Science Studio,6,Y,B,Y,27,0,27,1.0,True,N,English
+School of Creative Media,SM,4123,SM4123,Procedural Animation,3,Y,B,Y,38,2,36,0.947,False,N,English
+School of Creative Media,SM,4124,SM4124,Character Animation,3,Y,B,Y,38,10,28,0.737,False,N,English
+School of Creative Media,SM,4125,SM4125,Computer Animation for Interactive Content,3,Y,B,Y,39,2,37,0.949,False,N,English
+School of Creative Media,SM,4143,SM4143,Sonic Arts and the History of Sounds and Noises,3,Y,B,Y,30,2,28,0.933,False,N,English
+School of Creative Media,SM,4704,SM4704,Art Game Studio,3,Y,B,Y,35,9,26,0.743,False,N,English
+School of Creative Media,SM,4709,SM4709,Internship and Practicum,3,N,B,Y,2,1,1,0.5,False,N,English & Others
+School of Creative Media,SM,4711,SM4711,Industry Internship,3,N,B,Y,2,2,0,0.0,False,N,English & Others
+School of Creative Media,SM,4712A,SM4712A,Graduation Thesis/Project,3,N,B,Y,120,21,99,0.825,False,N,English
+School of Creative Media,SM,4712B,SM4712B,Graduation Thesis/Project,3,N,B,Y,80,13,67,0.838,False,N,English
+School of Creative Media,SM,4712C,SM4712C,Graduation Thesis/Project,3,N,B,Y,55,7,48,0.873,False,N,English
+School of Creative Media,SM,5301,SM5301,Studio I,3,Y,P,N,36,6,30,0.833,False,N,English
+School of Creative Media,SM,5301A,SM5301A,Studio I (Games),3,Y,P,N,30,1,29,0.967,False,N,English
+School of Creative Media,SM,5301B,SM5301B,Studio I (Human-Computer Interaction),3,Y,P,N,33,0,33,1.0,True,N,English
+School of Creative Media,SM,5303,SM5303,"Technofutures: Critical Approaches to the Metaverse, AI, and Blockchain",3,Y,P R,N,183,9,174,0.951,False,N,English
+School of Creative Media,SM,5306,SM5306,Cinematic Arts Workshop,3,Y,P R,N,38,2,36,0.947,False,N,English
+School of Creative Media,SM,5313,SM5313,Interactive Media II,3,Y,P R,N,40,5,35,0.875,False,N,English
+School of Creative Media,SM,5315,SM5315,Independent Study I,3,Y,P R,N,50,16,34,0.68,False,N,English
+School of Creative Media,SM,5316A,SM5316A,Topics in Media Art I: Wunderkammer - Human-AI-Collaborative-Marking,3,Y,P R,N,34,9,25,0.735,False,N,English
+School of Creative Media,SM,5318,SM5318,Topics in Media History and Theory I,3,Y,P R,N,76,0,76,1.0,True,N,English
+School of Creative Media,SM,5325,SM5325,Introduction to Media and Cultural Studies,3,Y,P,N,180,6,174,0.967,False,N,English
+School of Creative Media,SM,5326,SM5326,Gender in Popular Media,3,Y,P R,N,141,0,141,1.0,True,N,English
+School of Creative Media,SM,5327,SM5327,Chinese Cinema,3,Y,P R,N,72,0,72,1.0,True,N,English
+School of Creative Media,SM,5331,SM5331,Topics in Media History and Theory III,3,Y,P R,N,140,17,123,0.879,False,N,English
+School of Creative Media,SM,5332,SM5332,"Making Things Blip, Blink and Move: Introduction to Physical Computing",3,Y,P R,N,34,11,23,0.676,False,N,English
+School of Creative Media,SM,5334,SM5334,"Navigating Social Media: Culture, Aesthetics, and Technology",3,Y,P R,N,70,0,70,1.0,True,N,English
+School of Creative Media,SM,5335,SM5335,Archaeology of New Media Art,3,Y,P R,N,73,0,73,1.0,True,N,English
+School of Creative Media,SM,5343,SM5343,"Law, Policies and Global Media Platforms",3,Y,P R,N,70,2,68,0.971,False,N,English
+School of Creative Media,SM,5345,SM5345,Introduction to Digital Processes: From Creative Computation to Fabrication,3,Y,P,N,37,2,35,0.946,False,N,English
+School of Creative Media,SM,5346A,SM5346A,Topics in Human-Computer Interaction: Research Methodologies,3,Y,P R,N,40,8,32,0.8,False,N,English
+School of Creative Media,SM,5347A,SM5347A,Topics in Media Worlding: Experimental Sound and Moving Image Performance,3,Y,P R,N,68,37,31,0.456,False,N,English
+School of Creative Media,SM,5347C,SM5347C,Topics in Media Worlding: Animation Beyond Traditional Narrative,3,Y,P R,N,34,3,31,0.912,False,N,English
+School of Creative Media,SM,5347D,SM5347D,Topics in Media Worlding: Video Games as Art,3,Y,P R,N,34,0,34,1.0,True,N,English
+School of Creative Media,SM,5348,SM5348,Curating Creative Media,3,Y,P,N,64,1,63,0.984,False,N,English
+School of Creative Media,SM,5350,SM5350,Game Design Fundamentals,3,Y,P,N,30,1,29,0.967,False,N,English
+School of Creative Media,SM,5351,SM5351,Introduction to Influencer Studies,3,Y,P,N,172,9,163,0.948,False,N,English
+School of Creative Media,SM,5354,SM5354,Design Thinking and Innovation in Media,3,Y,P,N,38,0,38,1.0,True,N,English
+School of Creative Media,SM,5355,SM5355,Korean Cinema,3,Y,P R,N,70,0,70,1.0,True,N,English
+School of Creative Media,SM,5358,SM5358,Qualitative Research in Social Computing and Art Technology,3,Y,P R,N,53,0,53,1.0,True,N,English
+School of Creative Media,SM,5360,SM5360,"""Making"" Interactive Things",3,Y,P R,N,40,0,40,1.0,True,N,English
+School of Creative Media,SM,5367,SM5367,Global Media Studies,3,Y,P R,N,70,0,70,1.0,True,N,English
+School of Creative Media,SM,5368,SM5368,Accessible Media: Disability and Digital Culture,3,Y,P R,N,82,0,82,1.0,True,N,English
+School of Creative Media,SM,5369A,SM5369A,Topics in Sound: Ambisonics (Spatial Audio) Field Recording,3,Y,P R,N,34,8,26,0.765,False,N,English
+School of Creative Media,SM,6300,SM6300,Thesis Project - Studio I,3,Y,P,N,45,11,34,0.756,False,N,English
+School of Creative Media,SM,6300A,SM6300A,Thesis Project - Studio I (Games),3,Y,P,N,22,1,21,0.955,False,N,English
+School of Creative Media,SM,6300B,SM6300B,Thesis Project - Studio I (Human-Computer Interaction),3,Y,P,N,16,1,15,0.938,False,N,English
+School of Creative Media,SM,6302,SM6302,Thesis Project - Studio II,6,N,P,N,1,0,1,1.0,True,N,English
+School of Creative Media,SM,6310,SM6310,Independent Study II,3,Y,P R,N,40,24,16,0.4,False,N,English
+School of Creative Media,SM,6311B,SM6311B,Topics in Media Art II: Cyber‑Shanzhai Aesthetics and Post‑Internet Media Art,3,Y,P R,N,39,0,39,1.0,True,N,English
+School of Creative Media,SM,6316,SM6316,Media Art: Theory and Practice II,3,Y,P R,N,70,3,67,0.957,False,N,English
+School of Creative Media,SM,6317,SM6317,Research Project in Media Studies,3,Y,P R,N,25,19,6,0.24,False,N,English
+School of Creative Media,SM,6323,SM6323,"Critical Ludology: Games, Playability and New Media Art",3,Y,P R,N,143,1,142,0.993,False,N,English
+School of Creative Media,SM,6329,SM6329,History and Making of Exhibitions,3,Y,P R,N,73,0,73,1.0,True,N,English
+School of Creative Media,SM,6331,SM6331,Digital Media for Curating,3,Y,P R,N,70,0,70,1.0,True,N,English
+School of Creative Media,SM,6346,SM6346,"Social Media, Aesthetics, and Curation",3,Y,P,N,64,0,64,1.0,True,N,English
+School of Creative Media,SM,6350,SM6350,Videographic Criticism,3,Y,P,N,163,3,160,0.982,False,N,English
+School of Creative Media,SM,6351,SM6351,Information Visualization,3,Y,P R,N,35,0,35,1.0,True,N,English
+School of Creative Media,SM,8402,SM8402,Research Skills and Methods,3,Y,D R,N,25,7,18,0.72,False,N,English
+School of Creative Media,SM,8405A,SM8405A,Professional Practice,3,Y,R,N,20,3,17,0.85,False,N,English
+School of Creative Media,SM,8406,SM8406,Independent Study for Qualifying Examination,3,Y,R,N,30,13,17,0.567,False,N,English
+Sch of Energy and Environment,SEE,1003,SEE1003,Introduction to Sustainable Energy and Environmental Engineering,3,Y,B,Y,100,34,66,0.66,False,N,English
+Sch of Energy and Environment,SEE,1005,SEE1005,Global Sustainable Technologies and Finance,3,Y,B,Y,60,4,56,0.933,False,N,English
+Sch of Energy and Environment,SEE,2000,SEE2000,Professional Development I,0,Y,B,Y,125,7,118,0.944,False,N,English
+Sch of Energy and Environment,SEE,2001,SEE2001,Electromagnetic Principles for Energy Engineers,3,Y,B,Y,40,9,31,0.775,False,N,English
+Sch of Energy and Environment,SEE,2002,SEE2002,Chemical Sciences for Energy and Environmental Engineers,4,Y,B,Y,120,25,95,0.792,False,N,English
+Sch of Energy and Environment,SEE,2003,SEE2003,Introduction to Energy and Environmental Data Analysis,3,Y,B,Y,110,20,90,0.818,False,N,English
+Sch of Energy and Environment,SEE,2203,SEE2203,"Environmental, Safety, and Occupational Health Management",3,Y,B,Y,60,27,33,0.55,False,N,English
+Sch of Energy and Environment,SEE,2204,SEE2204,Principles of Sustainability,3,Y,B,Y,90,1,89,0.989,False,N,English
+Sch of Energy and Environment,SEE,3002,SEE3002,Energy and Environmental Economics,3,Y,B,Y,100,4,96,0.96,False,N,English
+Sch of Energy and Environment,SEE,3101,SEE3101,Engineering Thermofluids II,4,Y,B,Y,120,27,93,0.775,False,N,English
+Sch of Energy and Environment,SEE,3102,SEE3102,Power Plant Engineering,3,Y,B,Y,51,9,42,0.824,False,N,English
+Sch of Energy and Environment,SEE,3103,SEE3103,Energy Efficiency for Buildings,3,Y,B,Y,40,0,40,1.0,True,N,English
+Sch of Energy and Environment,SEE,3206,SEE3206,Environmental Social Governance,3,Y,B,Y,80,24,56,0.7,False,N,English
+Sch of Energy and Environment,SEE,3208,SEE3208,"Paleobiology: Climate, Environmental, and Biosphere Interactions",3,Y,B,Y,80,72,8,0.1,False,N,English
+Sch of Energy and Environment,SEE,4000,SEE4000,Professional Development II,0,N,B,Y,60,60,0,0.0,False,N,English
+Sch of Energy and Environment,SEE,4002,SEE4002,Environmental Engineering Laboratory,3,Y,B,Y,40,4,36,0.9,False,N,English
+Sch of Energy and Environment,SEE,4003,SEE4003,Energy and Environmental Engineering Laboratory,3,Y,B,Y,45,4,41,0.911,False,N,English
+Sch of Energy and Environment,SEE,4112,SEE4112,Sustainable Engineering Systems: Modelling and Analysis,3,Y,B,Y,50,10,40,0.8,False,N,English
+Sch of Energy and Environment,SEE,4116,SEE4116,Energy and Carbon Auditing,3,Y,B,Y,80,11,69,0.863,False,N,English
+Sch of Energy and Environment,SEE,4218,SEE4218,Water and Water Resource Engineering,3,Y,B,Y,63,3,60,0.952,False,N,English
+Sch of Energy and Environment,SEE,4993,SEE4993,Research Seminar,1,Y,B,Y,10,5,5,0.5,False,N,English
+Sch of Energy and Environment,SEE,4994,SEE4994,Guided Study in Energy and Environment,3,Y,B,Y,10,10,0,0.0,False,N,English
+Sch of Energy and Environment,SEE,4995,SEE4995,Guided Study in Energy and Environment,3,Y,B,Y,10,10,0,0.0,False,N,English
+Sch of Energy and Environment,SEE,4996,SEE4996,Final Year Project,3,N,B,Y,45,10,35,0.778,False,N,English
+Sch of Energy and Environment,SEE,4997,SEE4997,Final Year Project,3,N,B,Y,45,5,40,0.889,False,N,English
+Sch of Energy and Environment,SEE,4998,SEE4998,Special Project in Energy and Environment,3,Y,B,Y,10,8,2,0.2,False,N,English
+Sch of Energy and Environment,SEE,4999,SEE4999,Special Project in Energy and Environment,3,Y,B,Y,10,8,2,0.2,False,N,English
+Sch of Energy and Environment,SEE,5114,SEE5114,"Energy, Environment and Sustainable Development",3,Y,P,N,270,50,220,0.815,False,N,English
+Sch of Energy and Environment,SEE,6115,SEE6115,Carbon Audit and Management,3,Y,P,N,130,71,59,0.454,False,N,English
+Sch of Energy and Environment,SEE,6118,SEE6118,Emerging Energy Technologies,3,Y,P,N,135,0,135,1.0,True,N,English
+Sch of Energy and Environment,SEE,6123,SEE6123,Electrochemical Energy Storage,3,Y,P,N,85,0,85,1.0,True,N,English
+Sch of Energy and Environment,SEE,6124,SEE6124,Fuel Processing,3,Y,P,N,80,4,76,0.95,False,N,English
+Sch of Energy and Environment,SEE,6201,SEE6201,Environmental and Energy Policy,3,Y,P,N,285,83,202,0.709,False,N,English
+Sch of Energy and Environment,SEE,6203,SEE6203,Environmental Impact Assessment: Principles and Practice,3,Y,P,N,85,2,83,0.976,False,N,English
+Sch of Energy and Environment,SEE,6214,SEE6214,Solid Waste Treatment and Management,3,Y,P,N,118,37,81,0.686,False,N,English
+Sch of Energy and Environment,SEE,6224,SEE6224,Environmental Engineering Science,3,N,P,N,50,37,13,0.26,False,N,English
+Sch of Energy and Environment,SEE,6999,SEE6999,Dissertation,3,N,P,N,105,50,55,0.524,False,N,English
+Sch of Energy and Environment,SEE,8003,SEE8003,Skills for Scientists,2,Y,R,N,80,32,48,0.6,False,N,English
+Sch of Energy and Environment,SEE,8114,SEE8114,"Energy, Environment and Sustainable Development",3,Y,R,N,10,5,5,0.5,False,N,English
+Sch of Energy and Environment,SEE,8115,SEE8115,Carbon Audit and Management,3,Y,R,N,10,5,5,0.5,False,N,English
+Sch of Energy and Environment,SEE,8125,SEE8125,Emerging Energy Technologies,3,Y,R,N,22,2,20,0.909,False,N,English
+Sch of Energy and Environment,SEE,8203,SEE8203,Environmental Impact Assessment: Principles and Practice,3,Y,R,N,5,1,4,0.8,False,N,English
+Sch of Energy and Environment,SEE,8219,SEE8219,Environmental and Energy Policy,3,Y,R,N,20,5,15,0.75,False,N,English
+Sch of Energy and Environment,SEE,8224,SEE8224,Environmental Engineering Science,3,Y,R,N,30,15,15,0.5,False,N,English
+School of Graduate Studies,SG,8001,SG8001,Teaching Students: First Steps,1,N,R,N,500,219,281,0.562,False,N,English
+School of Graduate Studies,SG,8002,SG8002,English for the Medium of Instruction,1,N,R,N,400,25,375,0.938,False,N,English
+Social and Behavioural Sci,SS,1011,SS1011,Social Welfare Services and Issues,3,Y,B,Y,177,56,121,0.684,False,N,English
+Social and Behavioural Sci,SS,1012,SS1012,Youth in a Changing Society,3,Y,B,Y,160,18,142,0.887,False,N,English
+Social and Behavioural Sci,SS,1101,SS1101,Basic Psychology,3,Y,B,Y,139,46,93,0.669,False,N,English
+Social and Behavioural Sci,SS,1600,SS1600,Discovering the Mystery of Applied Social Sciences,3,Y,B,Y,80,15,65,0.812,False,N,English
+Social and Behavioural Sci,SS,2029,SS2029,Basic Sociology,3,Y,B,Y,234,36,198,0.846,False,N,English
+Social and Behavioural Sci,SS,2030,SS2030,Introduction to Crime Science,3,Y,B,Y,189,26,163,0.862,False,N,English
+Social and Behavioural Sci,SS,2033,SS2033,Research Methods for Behavioural Sciences,3,Y,B,Y,80,41,39,0.487,False,N,English
+Social and Behavioural Sci,SS,2034,SS2034,Research Methods in Social Sciences: Quantitative and Qualitative Methods,3,N,B,Y,161,27,134,0.832,False,N,English
+Social and Behavioural Sci,SS,2105,SS2105,Introduction to Social Work,3,N,B,Y,118,8,110,0.932,False,N,English
+Social and Behavioural Sci,SS,2116,SS2116,Working with Organizations and Communities,3,N,B,Y,45,2,43,0.956,False,N,English & Cantonese
+Social and Behavioural Sci,SS,2202,SS2202,Community Organising Skills Laboratory,3,N,B,Y,46,1,45,0.978,False,N,English & Chinese
+Social and Behavioural Sci,SS,2278,SS2278,Self Development Laboratory,3,N,B,Y,117,8,109,0.932,False,N,English & Chinese
+Social and Behavioural Sci,SS,2613,SS2613,Psychology for Young Professionals,3,Y,B,Y,240,82,158,0.658,False,N,English
+Social and Behavioural Sci,SS,2712,SS2712,Personality and Individual Differences,3,Y,B,Y,112,26,86,0.768,False,N,English
+Social and Behavioural Sci,SS,3282,SS3282,Social Work and the Law,3,N,B,Y,45,2,43,0.956,False,N,English
+Social and Behavioural Sci,SS,3283,SS3283,Introduction to Fieldwork Learning I,1,N,B,Y,57,5,52,0.912,False,N,English
+Social and Behavioural Sci,SS,3284,SS3284,Introduction to Fieldwork Learning II,1,N,B,Y,44,1,43,0.977,False,N,English
+Social and Behavioural Sci,SS,3290,SS3290,Social Work Research,3,N,B,Y,45,2,43,0.956,False,N,English
+Social and Behavioural Sci,SS,3417,SS3417,Applied Sociological Theory,3,Y,B,Y,86,46,40,0.465,False,N,English
+Social and Behavioural Sci,SS,3423,SS3423,Advanced Applied Quantitative Research Methods,3,Y,B,Y,96,50,46,0.479,False,N,English
+Social and Behavioural Sci,SS,3707,SS3707,Design and Analysis for Psychological Research I,3,N,B,Y,123,15,108,0.878,False,N,English
+Social and Behavioural Sci,SS,3711,SS3711,Biological Psychology,3,Y,B,Y,113,26,87,0.77,False,N,English
+Social and Behavioural Sci,SS,3712,SS3712,Cognitive Psychology,3,Y,B,Y,113,31,82,0.726,False,N,English
+Social and Behavioural Sci,SS,3721,SS3721,Introduction to psychopathology,3,Y,B,Y,137,61,76,0.555,False,N,English
+Social and Behavioural Sci,SS,3724,SS3724,Positive Psychology,3,Y,B,Y,145,35,110,0.759,False,N,English
+Social and Behavioural Sci,SS,3726,SS3726,Designing Experiments in Psychology,3,Y,B,Y,70,38,32,0.457,False,N,English
+Social and Behavioural Sci,SS,4116,SS4116,"Crime, Social Order and Policing in Contemporary China",3,Y,B,Y,80,19,61,0.762,False,N,English
+Social and Behavioural Sci,SS,4206,SS4206,Working with Children & Families,3,Y,B,Y,25,3,22,0.88,False,N,English & Cantonese
+Social and Behavioural Sci,SS,4207,SS4207,Working with Young People and Offenders,3,Y,B,Y,148,23,125,0.845,False,N,English & Cantonese
+Social and Behavioural Sci,SS,4210,SS4210,Mental Health and Social Work,3,N,B,Y,44,1,43,0.977,False,N,English & Cantonese
+Social and Behavioural Sci,SS,4227,SS4227,Contemporary Social Work Intervention Approaches,3,Y,B,Y,25,0,25,1.0,True,N,English & Cantonese
+Social and Behavioural Sci,SS,4291,SS4291,Practicum II,8,N,B,Y,42,0,42,1.0,True,N,English & Others
+Social and Behavioural Sci,SS,4296,SS4296,Criminology Capstone Research Project,3,N,B,Y,78,0,78,1.0,True,N,English
+Social and Behavioural Sci,SS,4300,SS4300,Advanced Criminological Theory,3,Y,B,Y,86,1,85,0.988,False,N,English
+Social and Behavioural Sci,SS,4302,SS4302,Organized Crime,3,Y,B,Y,130,2,128,0.985,False,N,English
+Social and Behavioural Sci,SS,4571,SS4571,Digital Sociology and Big Data Research,3,Y,B,Y,80,23,57,0.713,False,N,English
+Social and Behavioural Sci,SS,4595,SS4595,Independent Study in Applied Sociology,3,N,B,Y,58,1,57,0.983,False,N,English
+Social and Behavioural Sci,SS,4708,SS4708,Research Project in Psychology,3,N,B,Y,75,0,75,1.0,True,N,English
+Social and Behavioural Sci,SS,4719,SS4719,Introduction to Industrial and Organizational Psychology,3,Y,B,Y,60,7,53,0.883,False,N,English
+Social and Behavioural Sci,SS,5115,SS5115,Social Sciences Theories for Social Work,0,N,P,N,60,14,46,0.767,False,N,English
+Social and Behavioural Sci,SS,5117,SS5117,Social Work as a Profession,3,N,P,N,80,3,77,0.963,False,N,English & Chinese
+Social and Behavioural Sci,SS,5208,SS5208,Cognitive-Behavioural Interventions,3,Y,P,N,140,11,129,0.921,False,N,English & Chinese
+Social and Behavioural Sci,SS,5209,SS5209,Social Work Theories and Practice I: Working with Individuals and Families,3,N,P,N,80,0,80,1.0,True,N,English & Chinese
+Social and Behavioural Sci,SS,5212,SS5212,Human Behaviour and Diversity,3,N,P,N,80,3,77,0.963,False,N,English
+Social and Behavioural Sci,SS,5213,SS5213,Social Work Research Methods,3,N,P,N,100,40,60,0.6,False,N,English
+Social and Behavioural Sci,SS,5215,SS5215,Diversity and the Helping Professions,3,Y,P,N,50,14,36,0.72,False,N,English & Chinese
+Social and Behavioural Sci,SS,5301,SS5301,Advanced Theories in Criminology,3,Y,P,N,60,0,60,1.0,True,N,English
+Social and Behavioural Sci,SS,5302,SS5302,Research Methods in Social Sciences,3,Y,P,N,330,0,330,1.0,True,N,English
+Social and Behavioural Sci,SS,5304,SS5304,Psychology and Crime,3,Y,P,N,160,4,156,0.975,False,N,English
+Social and Behavioural Sci,SS,5316,SS5316,Aggressive Behaviour and Homicide,3,Y,P,N,170,22,148,0.871,False,N,English & Chinese
+Social and Behavioural Sci,SS,5400,SS5400,Applied Sociology,3,Y,P,N,200,0,200,1.0,True,N,English
+Social and Behavioural Sci,SS,5426,SS5426,Social Problems,3,Y,P,N,260,0,260,1.0,True,N,English
+Social and Behavioural Sci,SS,5427,SS5427,Special Topics in Applied Sociology,3,Y,P,N,130,15,115,0.885,False,N,English
+Social and Behavioural Sci,SS,5753,SS5753,Advanced Social Psychology,3,Y,P,N,240,34,206,0.858,False,N,English
+Social and Behavioural Sci,SS,5755,SS5755,Applying Psychology to Contemporary Issues,3,Y,P,N,150,15,135,0.9,False,N,English
+Social and Behavioural Sci,SS,5757,SS5757,Personality Theories and Assessment,3,Y,P,N,230,23,207,0.9,False,N,English
+Social and Behavioural Sci,SS,5758,SS5758,Educational Psychology,3,Y,P R,N,80,13,67,0.838,False,N,English
+Social and Behavioural Sci,SS,5763,SS5763,Special Topics in Psychology of Education,3,Y,P,N,80,24,56,0.7,False,N,English
+Social and Behavioural Sci,SS,5783,SS5783,Psychological Research Design and Analysis,3,Y,P,N,230,22,208,0.904,False,N,English
+Social and Behavioural Sci,SS,5791,SS5791,Advanced Health Psychology,3,Y,P,N,150,21,129,0.86,False,N,English
+Social and Behavioural Sci,SS,5798B,SS5798B,Dissertation,3,N,P,N,5,0,5,1.0,True,N,English
+Social and Behavioural Sci,SS,5800,SS5800,Counselling Theories and Practice,3,N,P,N,141,10,131,0.929,False,N,English & Chinese
+Social and Behavioural Sci,SS,5803,SS5803,Psychopathology,3,Y,P,N,240,18,222,0.925,False,N,English
+Social and Behavioural Sci,SS,5825,SS5825,"Marital Preparation, Enrichment and Therapy",3,Y,P,N,80,40,40,0.5,False,N,English & Chinese
+Social and Behavioural Sci,SS,5836,SS5836,Evidence-based Assessment and Management of Mental Disorders,3,Y,P,N,80,17,63,0.787,False,N,English & Chinese
+Social and Behavioural Sci,SS,5837,SS5837,Community Mental Health: Theory and Practice,3,Y,P,N,80,22,58,0.725,False,N,English & Chinese
+Social and Behavioural Sci,SS,5841,SS5841,Counselling Skills Laboratory and Ethics,3,N,P,N,145,12,133,0.917,False,N,English & Chinese
+Social and Behavioural Sci,SS,6221,SS6221,Practicum Related Workshop III,.5,N,P,N,25,2,23,0.92,False,N,English & Chinese
+Social and Behavioural Sci,SS,6221A,SS6221A,Practicum Related Workshop III,1,N,P,N,49,0,49,1.0,True,N,English & Chinese
+Social and Behavioural Sci,SS,6291,SS6291,Fieldwork I,8,N,P,N,75,0,75,1.0,True,N,English & Others
+Social and Behavioural Sci,SS,6292,SS6292,Fieldwork II,4,N,P,N,40,0,40,1.0,True,N,English & Others
+Social and Behavioural Sci,SS,6308,SS6308,Master's Thesis in Criminology,3,N,P,N,5,3,2,0.4,False,N,English
+Social and Behavioural Sci,SS,6591,SS6591,Integrative Project,3,N,P,N,1,0,1,1.0,True,N,English
+Social and Behavioural Sci,SS,6805,SS6805,Project,3,N,P,N,5,2,3,0.6,False,N,English
+Social and Behavioural Sci,SS,6806,SS6806,Counselling Practicum,3,N,P,N,78,20,58,0.744,False,N,English & Chinese
+Social and Behavioural Sci,SS,8800,SS8800,Departmental Research Degree Student Seminar,.5,Y,R,N,50,33,17,0.34,False,N,English
+Social and Behavioural Sci,SS,8802,SS8802,Directed Study on Research Methods,2,Y,R,N,20,15,5,0.25,False,N,English
+Social and Behavioural Sci,SS,8803,SS8803,Directed Study in Research,2,Y,R,N,20,17,3,0.15,False,N,English
+Social and Behavioural Sci,SS,8804,SS8804,Enhancing Social Science Competence,3,Y,R,N,40,23,17,0.425,False,N,English
+Systems Engineering,SYE,1001,SYE1001,Introduction of Engineering Disciplines,0,Y,B,Y,40,14,26,0.65,False,N,English
+Systems Engineering,SYE,2011,SYE2011,Fundamental Engineering Analysis and Design for Manufacturing Engineers II,3,Y,B,Y,65,12,53,0.815,False,N,English
+Systems Engineering,SYE,2066,SYE2066,Professional Engineering Practice,3,Y,B,Y,110,14,96,0.873,False,N,English
+Systems Engineering,SYE,2100,SYE2100,Engineering Statistics and Experimentation,3,Y,B,Y,60,12,48,0.8,False,N,English
+Systems Engineering,SYE,3004,SYE3004,Production Planning and Control,3,Y,B,Y,45,4,41,0.911,False,N,English
+Systems Engineering,SYE,3101,SYE3101,Basic Methodologies and Tools for Risk Engineering,3,Y,B,Y,57,0,57,1.0,True,N,English
+Systems Engineering,SYE,3102,SYE3102,Quality Engineering,3,Y,B,Y,80,6,74,0.925,False,N,English
+Systems Engineering,SYE,4002,SYE4002,Fundamentals of Advanced Packaging,3,Y,B,Y,40,0,40,1.0,True,N,English
+Systems Engineering,SYE,4003,SYE4003,Artificial Intelligence and Advanced Technology in Manufacturing and Operations,3,Y,B,Y,55,0,55,1.0,True,N,English
+Systems Engineering,SYE,4008,SYE4008,Smart Production Systems Engineering,3,Y,B,Y,31,0,31,1.0,True,N,English
+Systems Engineering,SYE,4024,SYE4024,Project Management,3,Y,B,Y,160,13,147,0.919,False,N,English
+Systems Engineering,SYE,4068,SYE4068,Final Year Project,3,N,B,Y,33,0,33,1.0,True,N,English
+Systems Engineering,SYE,4068C,SYE4068C,Final Year Project,3,N,B,Y,2,2,0,0.0,False,N,English
+Systems Engineering,SYE,5006,SYE5006,Operations Management,3,Y,P D R,N,275,13,262,0.953,False,N,English
+Systems Engineering,SYE,5010,SYE5010,Engineering Management Principles and Concepts,3,Y,P,N,265,72,193,0.728,False,N,English
+Systems Engineering,SYE,6014,SYE6014,Asset and Maintenance Management,3,Y,P R,N,80,17,63,0.787,False,N,English
+Systems Engineering,SYE,6043,SYE6043,Quality and Reliability Engineering,3,Y,P R,N,180,31,149,0.828,False,N,English
+Systems Engineering,SYE,6045,SYE6045,Industrial Case Study,3,Y,P D,N,0,0,0,,True,N,English
+Systems Engineering,SYE,6047,SYE6047,Quality Improvement: Systems and Methodologies,3,Y,P,N,150,27,123,0.82,False,N,English
+Systems Engineering,SYE,6103,SYE6103,Financial Engineering for Engineering Managers,3,Y,P D,N,185,14,171,0.924,False,N,English
+Systems Engineering,SYE,6106,SYE6106,Intelligent Manufacturing for Engineering Managers,3,Y,P,N,246,2,244,0.992,False,N,English
+Systems Engineering,SYE,6111,SYE6111,Transportation and Logistics Management,3,Y,P,N,117,2,115,0.983,False,N,English
+Systems Engineering,SYE,6201,SYE6201,3D IC Stacking and Advanced Packaging Technology,3,Y,P,N,140,0,140,1.0,True,N,English
+Systems Engineering,SYE,6207,SYE6207,Characterization Techniques for Semiconductor Manufacturing,3,Y,P,N,120,2,118,0.983,False,N,English
+Systems Engineering,SYE,6303,SYE6303,Multiscale Decision Making for Industrial Enterprise,3,Y,P,N,130,14,116,0.892,False,N,English
+Systems Engineering,SYE,6308,SYE6308,Statistical Learning in Manufacturing Quality Control,3,Y,P,N,170,75,95,0.559,False,N,English
+Systems Engineering,SYE,6601,SYE6601,Introduction to Artificial Intelligence: Concepts and Applications,3,Y,P,N,137,21,116,0.847,False,N,English
+Systems Engineering,SYE,6602,SYE6602,AI-Driven Innovation: Seminars and Projects,3,Y,P,N,120,4,116,0.967,False,N,English
+Systems Engineering,SYE,6612,SYE6612,The Fourth Industrial Revolution,3,Y,P,N,75,12,63,0.84,False,N,English
+Systems Engineering,SYE,8008D,SYE8008D,EngD Seminar,3,N,D,N,30,10,20,0.667,False,N,English
+Systems Engineering,SYE,8008P,SYE8008P,EngD Seminar,3,N,D,N,40,3,37,0.925,False,N,Chinese
+Systems Engineering,SYE,8009,SYE8009,Research Methodology,1,Y,R,N,40,7,33,0.825,False,N,English
+Systems Engineering,SYE,8024D,SYE8024D,Integrative Engineering Management,3,Y,D,N,20,12,8,0.4,False,N,English
+Systems Engineering,SYE,8024P,SYE8024P,Integrative Engineering Management,3,Y,D,N,50,15,35,0.7,False,N,Chinese
+Systems Engineering,SYE,8025D,SYE8025D,Research Methods in Engineering Management,3,Y,D,N,20,12,8,0.4,False,N,English
+Systems Engineering,SYE,8025P,SYE8025P,Research Methods in Engineering Management,3,Y,D,N,50,15,35,0.7,False,N,Chinese
+Systems Engineering,SYE,8026P,SYE8026P,Industrial Case Studies,3,Y,D,N,0,0,0,,True,N,English & Chinese
+Systems Engineering,SYE,8029P,SYE8029P,Data Analysis and Artificial Intelligence for Systems Engineering,3,Y,D,N,30,0,30,1.0,True,N,Chinese
+Systems Engineering,SYE,8104D,SYE8104D,Doctoral Thesis,36,N,D,N,17,0,17,1.0,True,N,English
+Systems Engineering,SYE,8104P,SYE8104P,Doctoral Thesis,45,N,D,N,20,3,17,0.85,False,N,English & Chinese
+Systems Engineering,SYE,8204,SYE8204,Process Modelling and Control,3,Y,R,N,35,2,33,0.943,False,N,English
+Systems Engineering,SYE,8210,SYE8210,Advanced Research Topics,2,Y,R,N,30,5,25,0.833,False,N,English
+CFML CSL Language Centre,CHIN,1001,CHIN1001,University Chinese I,3,Y,B,Y,390,1,389,0.997,False,N,Chinese
+Veterinary Clinical Sciences,VCS,5001,VCS5001,Integrated Small Animal Medicine: Part I,3,N,P,N,35,21,14,0.4,False,N,English
+Veterinary Clinical Sciences,VCS,5002,VCS5002,Integrated Small Animal Medicine: Part II,3,N,P,N,35,21,14,0.4,False,N,English
+Veterinary Clinical Sciences,VCS,5005,VCS5005,Clinical Practice and Professional Skills,3,N,P,N,35,21,14,0.4,False,N,English
+Veterinary Clinical Sciences,VCS,8003B,VCS8003B,Frontiers in Veterinary Medical Research (B),1,Y,B P D R,Y,50,39,11,0.22,False,N,English
