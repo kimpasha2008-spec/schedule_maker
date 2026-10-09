@@ -73,7 +73,8 @@ Run: `pip install -r requirements.txt`, then `python3 scripts/build_sections.py`
 
 **Comparison** (all on the published times, same 2,796 students, registration order seed 1):
 - **Random clash-free:** students register one at a time; each gets a random clash-free timetable from the seats still open. If no clash-free option is left, they take the least-clashing one.
-- **First come, first served:** the same, but each student picks their own best timetable, using the planner's objective for one student.
+- **First come, first served:** the same, but each student picks their own best timetable, using the planner's objective for one student. If no clash-free option is left, they accept the smallest clash.
+- **First come, no clashes:** the same, but a student who can't fit a clash-free timetable drops as few courses as needed. Added with `python3 scripts/optimize.py --only-no-clash`, which keeps the saved results and merges in this scenario.
 - **Planner:** assigns everyone at once, in blocks of ≤12 from the same cohort.
 
 **Planner priorities (user's weights, 9 Oct):**
@@ -81,17 +82,18 @@ Run: `pip install -r requirements.txt`, then `python3 scripts/build_sections.py`
 - **Hard rules:** every course, no clashes, seat caps, and linked sections.
 - **Seats for other years:** first-years may take at most a quota of each course and section type. Other years keep what they really enrolled (AIMS enrolment − Year 1 demand), capped so Year 1 fits within 95% of seats. That holds back 6,267 of the 7,578 seats; per-course detail is in `results/seats_kept_for_other_years.csv`. All three scenarios use the same quotas.
 
-| per student, averaged over 13 teaching weeks | random clash-free | first come, first served | planner |
-|---|---|---|---|
-| gap hours / week (mean) | 3.01 | **0.41** | 0.47 |
-| gap hours max | 19.8 | 6.9 | **5.9** |
-| students with ≥3 gap hours / week | 1,359 | 97 | **72** |
-| std of daily hours on campus | 1.95 | 0.95 | **0.91** |
-| longest day (hours) | 7.3 | 4.9 | **4.8** |
-| class hours after 19:00 / week | 0.21 | 0.12 | **0.10** |
-| days without lunch break / week | 1.41 | **1.25** | 1.28 |
-| students with a clash or missing course | 10 | 11 | **0** |
-| peak first-years on campus in one hour | 1,470 | 1,368 | **1,213** |
+| per student, averaged over 13 teaching weeks | random clash-free | first come, first served | first come, no clashes | planner |
+|---|---|---|---|---|
+| gap hours / week (mean) | 3.01 | 0.41 | **0.40** | 0.47 |
+| gap hours max | 19.8 | 6.9 | 6.9 | **5.9** |
+| students with ≥3 gap hours / week | 1,359 | 97 | 98 | **72** |
+| std of daily hours on campus | 1.95 | 0.95 | 0.95 | **0.91** |
+| longest day (hours) | 7.3 | 4.9 | 4.9 | **4.8** |
+| class hours after 19:00 / week | 0.21 | 0.12 | 0.12 | **0.10** |
+| days without lunch break / week | 1.41 | **1.25** | **1.25** | 1.28 |
+| student clash hours over the term | 169 | 99 | **0** | **0** |
+| students who had to drop a course | 0 | 0 | 11 | **0** |
+| peak first-years on campus in one hour | 1,470 | 1,368 | 1,368 | **1,213** |
 
 The planner beats random on everything. Against an idealised first come, first served, it wins on clashes, the worst-off students, balanced days, late classes and crowding, and loses slightly on mean gaps and lunch breaks. CP-SAT is far from optimal on this model: objective 23,556 against a bound of 6,891 after 900 s, warm-started. Solving it better (next step 7) is the main lever left. Run: `python3 scripts/optimize.py --time-limit 900 --hint <previous planner_block_timetables.csv>`.
 

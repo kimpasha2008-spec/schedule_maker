@@ -62,5 +62,23 @@
     "evening_or_saturday_class_hours_per_student_week": 0.38,
     "student_clash_hours": 0,
     "students_missing_a_course": 0
+  },
+  "fcfs_no_clash": {
+    "students": 2796,
+    "idle_hours_per_student_week": 0.4,
+    "idle_hours_std": 0.9,
+    "idle_hours_max": 6.92,
+    "students_with_3h_plus_idle_per_week": 98,
+    "days_on_campus_per_student_week": 4.19,
+    "daily_hours_std_per_student": 0.95,
+    "longest_day_hours_per_student": 4.86,
+    "peak_students_on_campus": 1368,
+    "weekday_hourly_load_std": 404.2,
+    "late_class_hours_per_student_week": 0.12,
+    "days_without_lunch_break_per_student_week": 1.25,
+    "evening_or_saturday_class_hours_per_student_week": 0.41,
+    "student_clash_hours": 0,
+    "students_missing_a_course": 11,
+    "courses_missing": 11
   }
 }

@@ -719,12 +719,50 @@ def year1_quota(blocks, options):
     return quota, report
 
 
+def add_no_clash_scenario(blocks, options, real, sections, quota, seed):
+    """Run only the first-come no-clash registration and merge it into saved results.
+
+    Keeps the random, first-come and planner results from the last full run.
+    """
+    print("First come, no clashes: drop a course rather than accept a clash", flush=True)
+    students, assign, unplaced = register(blocks, options, real, quota, seed, allow_clash=False)
+    result = metrics(students, assign, real)
+    result["students_missing_a_course"] = len(unplaced)
+    result["courses_missing"] = sum(len(v) for v in unplaced.values())
+
+    summary = json.loads((OUT_DIR / "summary.json").read_text())
+    summary["fcfs_no_clash"] = result
+    (OUT_DIR / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+
+    with open(OUT_DIR / "planner_block_timetables.csv", encoding="utf-8") as f:
+        planner = {(int(r["block"]), r["crn"]) for r in csv.DictReader(f)}
+    view = student_view(students, {"fcfs_no_clash": assign}, blocks, planner, real, sections)
+    app = json.loads((OUT_DIR / "app_data.json").read_text())
+    app["summary"] = summary
+    for row, new in zip(app["students"], view):
+        row["fcfs_no_clash"] = new["fcfs_no_clash"]
+    (OUT_DIR / "app_data.json").write_text(json.dumps(app, separators=(",", ":")))
+
+    with open(OUT_DIR / "fcfs_no_clash_student_timetables.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["student", "major", "english", "course", "crn", "section"])
+        for sid, crn in sorted(assign):
+            st = students[sid]
+            w.writerow([sid, st.major, st.english, sections[crn].course, crn, sections[crn].code])
+    cols = [k for k in ("random", "fcfs", "fcfs_no_clash", "planner") if k in summary]
+    print(f"\n{'metric':52}" + "".join(f"{c[:13]:>14}" for c in cols))
+    for k in result:
+        print(f"{k:52}" + "".join(f"{summary[c].get(k, ''):>14}" for c in cols))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--time-limit", type=float, default=120, help="seconds per optimization stage")
     ap.add_argument("--seed", type=int, default=1, help="registration order for the simulation")
     ap.add_argument("--hint", type=Path,
                     help="block timetable CSV from an earlier run to start the planner from")
+    ap.add_argument("--only-no-clash", action="store_true",
+                    help="keep the saved results and only add the first-come no-clash scenario")
     ap.add_argument("--retime", action="store_true",
                     help="also try moving class times (a timetable redesign, not just sectioning)")
     args = ap.parse_args()
@@ -738,6 +776,9 @@ def main():
           f"{sum(len(v) for k in options.values() for v in k.values())} candidate sections")
     real = {crn: s.meetings for crn, s in sections.items()}
     quota, quota_report = year1_quota(blocks, options)
+    if args.only_no_clash:
+        add_no_clash_scenario(blocks, options, real, sections, quota, args.seed)
+        return
     print(f"Seats kept for other years: {sum(r['kept_for_other_years'] for r in quota_report)} "
           f"(they took {sum(r['other_years_enrolled'] for r in quota_report)})", flush=True)
 
