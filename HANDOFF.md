@@ -71,20 +71,23 @@ Run: `pip install -r requirements.txt`, then `python3 scripts/build_sections.py`
 
 **Population** (`data/curricula_year1_semA.csv`): 2,796 first-years in 104 cohorts (52 majors × GE1401 or LC0200A English stream), taking 58 courses across 586 candidate sections. Plans were resolved by the rules at the top of `scripts/build_curricula.py`, and intakes were scaled so each course's Year 1 demand fits 90% of its real seats.
 
-**Comparison:**
-- **Today (simulated):** students register one at a time in random order (seed 1). Each takes the fewest-gap clash-free timetable still open. If none is left, they take the least-clashing one.
-- **Planner:** assigns every student at once, in blocks of ≤12 from the same cohort, minimising gap hours + 3 × peak students on campus + 50 × the worst block's gap hours. Linked sections (CA1 with TA*) are respected, and clashes are checked week by week.
+**Comparison** (all on the published times, same 2,796 students, registration order seed 1):
+- **Random clash-free:** students register one at a time; each gets a random clash-free timetable from the seats still open. If no clash-free option is left, they take the least-clashing one.
+- **First come, first served:** the same, but each student picks their own best timetable, using the planner's objective for one student.
+- **Planner:** assigns everyone at once, in blocks of ≤12 from the same cohort. Objective: 2 × gap hours + 6 × peak students on campus + 100 × the worst block's gap hours + 1 × (longest − shortest day on campus) per student. The last term is a linear stand-in for the std of daily hours, which the metrics report.
 
-| per student, averaged over 13 teaching weeks | first come, first served | planner |
-|---|---|---|
-| gap hours / week (mean) | 0.33 | 0.30 |
-| gap hours std / max | 0.84 / 7.0 | 0.69 / 5.9 |
-| students with ≥3 gap hours / week | 68 | **40** |
-| students with a clash | 35 (563 clash-hours over the term) | **0** |
-| peak first-years on campus in one hour | 1,385 | **1,184** (−15%) |
-| days on campus / week | 3.83 | 3.99 |
+| per student, averaged over 13 teaching weeks | random clash-free | first come, first served | planner |
+|---|---|---|---|
+| gap hours / week (mean) | 3.01 | 0.42 | 0.44 |
+| gap hours std / max | 3.15 / 19.8 | 1.01 / 6.9 | 0.89 / 5.9 |
+| students with ≥3 gap hours / week | 1,359 | 93 | **84** |
+| std of daily hours on campus | 1.95 | 0.96 | 0.94 |
+| longest day (hours) | 7.3 | 5.1 | **4.8** |
+| days on campus / week | 3.80 | 4.08 | 4.22 |
+| students with a clash or missing course | 10 | 12 | **0** |
+| peak first-years on campus in one hour | 1,470 | 1,374 | **1,214** |
 
-378 students are better off, 305 get slightly more gap time, and the rest keep an equally good week. The planner's main gains are no clashes, fewer bad weeks and a lower campus peak. The average gap barely moves, because most students already get a gap-free week in this model. CP-SAT stopped at the 300 s limit (FEASIBLE, not proven optimal).
+The planner is far better than random. Against an idealised first come, first served, where every student picks perfectly with full information, it wins on clashes, the worst-off students, the longest day and peak campus load, and ties on mean gaps and daily spread. The balanced-day term made the model much harder. Even warm-started (`--hint` from the previous planner run) and given 900 s, CP-SAT stopped far from optimal (objective 12,997, bound 6,741), so better solving should widen the margin. Run: `python3 scripts/optimize.py --time-limit 900 --hint <previous planner_block_timetables.csv>`.
 
 **Caveats:**
 - The simulated students are optimal myopic registrants. Real students also weigh friends, instructors and lunch, and they register in priority rounds, not in random order.
@@ -99,6 +102,7 @@ Run: `pip install -r requirements.txt`, then `python3 scripts/build_sections.py`
 4. ~~Compare against the current real timetable~~ Done (baseline column above).
 5. ~~Simulate first-come-first-served registration~~ Done (`first_come_first_served` in `scripts/optimize.py`).
 6. Respect major/programme section restrictions (parse the `restrict` column).
-7. Add student preferences: no classes before X, days off, keep friends together.
-8. Model other years' seat use in shared sections.
-9. Tune the weights (gaps vs. peak load vs. days on campus) and show the trade-off.
+7. Solve the planner better: decompose (large-neighbourhood search over one major or a few blocks at a time) so it gets close to optimal, then tune the weights.
+8. Add student preferences: no classes before X, days off, keep friends together.
+9. Model other years' seat use in shared sections.
+10. Tune the weights (gaps vs. peak load vs. days on campus) and show the trade-off.

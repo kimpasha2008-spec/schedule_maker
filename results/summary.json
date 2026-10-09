@@ -1,41 +1,57 @@
 {
-  "first_come_first_served": {
-    "students": 2796,
-    "idle_hours_per_student_week": 0.33,
-    "idle_hours_std": 0.84,
-    "idle_hours_max": 7.0,
-    "students_with_3h_plus_idle_per_week": 68,
-    "days_on_campus_per_student_week": 3.83,
-    "peak_students_on_campus": 1385,
-    "weekday_hourly_load_std": 410.5,
-    "evening_or_saturday_class_hours_per_student_week": 0.5,
-    "student_clash_hours": 563,
-    "students_missing_a_course": 0
-  },
-  "optimized_sectioning": {
-    "students": 2796,
-    "idle_hours_per_student_week": 0.3,
-    "idle_hours_std": 0.69,
-    "idle_hours_max": 5.92,
-    "students_with_3h_plus_idle_per_week": 40,
-    "days_on_campus_per_student_week": 3.99,
-    "peak_students_on_campus": 1184,
-    "weekday_hourly_load_std": 380.0,
-    "evening_or_saturday_class_hours_per_student_week": 0.47,
-    "student_clash_hours": 0,
-    "students_missing_a_course": 0
-  },
-  "per_student_idle_change": {
-    "students_better_off": 360,
-    "students_same": 2131,
-    "students_worse_off": 305
-  },
   "weights": {
-    "peak": 3,
-    "fairness": 50
+    "idle": 2,
+    "peak": 6,
+    "fairness": 100,
+    "daily_balance": 1
   },
   "block_size": 12,
   "blocks": 279,
   "seed": 1,
-  "time_limit_per_stage_s": 300.0
+  "time_limit_per_stage_s": 900.0,
+  "random": {
+    "students": 2796,
+    "idle_hours_per_student_week": 3.01,
+    "idle_hours_std": 3.15,
+    "idle_hours_max": 19.77,
+    "students_with_3h_plus_idle_per_week": 1359,
+    "days_on_campus_per_student_week": 3.8,
+    "daily_hours_std_per_student": 1.95,
+    "longest_day_hours_per_student": 7.26,
+    "peak_students_on_campus": 1470,
+    "weekday_hourly_load_std": 471.1,
+    "evening_or_saturday_class_hours_per_student_week": 0.49,
+    "student_clash_hours": 169,
+    "students_missing_a_course": 0
+  },
+  "fcfs": {
+    "students": 2796,
+    "idle_hours_per_student_week": 0.42,
+    "idle_hours_std": 1.01,
+    "idle_hours_max": 6.92,
+    "students_with_3h_plus_idle_per_week": 93,
+    "days_on_campus_per_student_week": 4.08,
+    "daily_hours_std_per_student": 0.96,
+    "longest_day_hours_per_student": 5.07,
+    "peak_students_on_campus": 1374,
+    "weekday_hourly_load_std": 397.6,
+    "evening_or_saturday_class_hours_per_student_week": 0.5,
+    "student_clash_hours": 101,
+    "students_missing_a_course": 0
+  },
+  "planner": {
+    "students": 2796,
+    "idle_hours_per_student_week": 0.44,
+    "idle_hours_std": 0.89,
+    "idle_hours_max": 5.92,
+    "students_with_3h_plus_idle_per_week": 84,
+    "days_on_campus_per_student_week": 4.22,
+    "daily_hours_std_per_student": 0.94,
+    "longest_day_hours_per_student": 4.84,
+    "peak_students_on_campus": 1214,
+    "weekday_hourly_load_std": 385.0,
+    "evening_or_saturday_class_hours_per_student_week": 0.48,
+    "student_clash_hours": 0,
+    "students_missing_a_course": 0
+  }
 }
