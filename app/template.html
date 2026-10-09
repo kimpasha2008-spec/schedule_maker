@@ -9,7 +9,7 @@
   --bg: #f3f5f8; --surface: #ffffff; --ink: #14202e; --ink-2: #4a5666; --muted: #6f7b8b;
   --line: #dce1e8; --grid: #eef1f5; --accent: #0d6b6b; --accent-ink: #ffffff;
   --gap: #b26a00; --gap-tint: #fff4df; --bad: #b42318;
-  --s1: #2a78d6; --s2: #eb6834;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
   --c1: #2a78d6; --c2: #eb6834; --c3: #1baf7a; --c4: #eda100; --c5: #e87ba4; --c6: #008300; --c7: #4a3aa7; --c8: #e34948;
   --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --f-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
@@ -20,14 +20,14 @@
   --bg: #10151c; --surface: #18202a; --ink: #e8edf3; --ink-2: #aab4c1; --muted: #8995a4;
   --line: #2b3542; --grid: #1f2833; --accent: #4fb8b5; --accent-ink: #0b1515;
   --gap: #f0b44c; --gap-tint: #3a2e17; --bad: #ff8a7a;
-  --s1: #3987e5; --s2: #d95926;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70;
   --c1: #3987e5; --c2: #d95926; --c3: #199e70; --c4: #c98500; --c5: #d55181; --c6: #008300; --c7: #9085e9; --c8: #e66767;
   color-scheme: dark; } }
 :root[data-theme="dark"] {
   --bg: #10151c; --surface: #18202a; --ink: #e8edf3; --ink-2: #aab4c1; --muted: #8995a4;
   --line: #2b3542; --grid: #1f2833; --accent: #4fb8b5; --accent-ink: #0b1515;
   --gap: #f0b44c; --gap-tint: #3a2e17; --bad: #ff8a7a;
-  --s1: #3987e5; --s2: #d95926;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70;
   --c1: #3987e5; --c2: #d95926; --c3: #199e70; --c4: #c98500; --c5: #d55181; --c6: #008300; --c7: #9085e9; --c8: #e66767;
   color-scheme: dark; }
 
@@ -47,9 +47,13 @@ header { display: grid; gap: 8px; }
 .strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
 .metric { background: var(--surface); padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
 .metric .label { font-size: 0.84rem; color: var(--ink-2); }
-.metric .pair { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.metric .old { font-family: var(--f-data); font-size: 1.05rem; color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; }
-.metric .new { font-family: var(--f-data); font-size: 1.6rem; font-weight: 500; }
+.metric .rows { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: baseline; }
+.metric .who { font-size: 0.78rem; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+.metric .val { font-family: var(--f-data); font-variant-numeric: tabular-nums; text-align: right; color: var(--ink-2); font-size: 0.95rem; }
+.metric .val.best { color: var(--ink); font-size: 1.35rem; font-weight: 500; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { background: transparent; color: var(--ink-2); border-radius: 0; font-weight: 500; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
 .metric .note { font-size: 0.78rem; color: var(--muted); }
 .verdict { color: var(--ink-2); }
 .verdict strong { color: var(--ink); }
@@ -109,7 +113,7 @@ button:hover { filter: brightness(1.08); }
   <header>
     <span class="eyebrow">CityUHK · Semester A 2026/27 · first-year students</span>
     <h1>Year 1 Section Planner</h1>
-    <p class="lede">Every class keeps its published day, time and room. The planner only decides which lecture, tutorial and lab section each student joins, so that everyone's week has as few gaps and clashes as possible. It is compared with today's first-come, first-served registration, simulated on the same students.</p>
+    <p class="lede">Every class keeps its published day, time and room. The planner only decides which lecture, tutorial and lab section each student joins, so that everyone gets few gaps, no clashes, and days of similar length. It is compared on the same simulated students with two ways of registering: a random clash-free timetable, and today's first come, first served.</p>
   </header>
 
   <section class="strip" id="strip" aria-label="Summary"></section>
@@ -119,11 +123,11 @@ button:hover { filter: brightness(1.08); }
     <div class="week-head">
       <h2 id="dist-title">Students by weekly gap hours</h2>
       <div class="legend">
-        <span class="key"><span class="swatch" style="background:var(--s1)"></span>First come, first served</span>
-        <span class="key"><span class="swatch" style="background:var(--s2)"></span>Planner</span>
+        <span class="key"><span class="swatch" style="background:var(--s1)"></span>Random clash-free</span>
+        <span class="key"><span class="swatch" style="background:var(--s2)"></span>First come, first served</span>
+        <span class="key"><span class="swatch" style="background:var(--s3)"></span>Planner</span>
       </div>
     </div>
-    <p class="lede" id="dist-note"></p>
     <div class="chart" id="chart"></div>
     <details><summary>Show as a table</summary><div id="dist-table"></div></details>
   </section>
@@ -135,16 +139,22 @@ button:hover { filter: brightness(1.08); }
       <div class="field"><label for="student">Student</label><select id="student"></select></div>
       <button id="hard" type="button">Show the biggest improvement in this major</button>
     </div>
+    <div class="controls">
+      <span class="eyebrow">Compare the planner with</span>
+      <div class="seg" role="group" aria-label="Baseline">
+        <button type="button" id="base-r" aria-pressed="true">Random clash-free</button>
+        <button type="button" id="base-f" aria-pressed="false">First come, first served</button>
+      </div>
+    </div>
     <div class="coursekey" id="coursekey"></div>
     <div class="weeks">
       <div class="week">
-        <div class="week-head"><h2>First come, first served</h2><div class="facts" id="facts-f"></div></div>
-        <div class="missing" id="miss-f"></div>
-        <div class="scroll"><div class="grid" id="grid-f"></div></div>
+        <div class="week-head"><h2 id="base-title">Random clash-free</h2><div class="facts" id="facts-b"></div></div>
+        <div class="missing" id="miss-b"></div>
+        <div class="scroll"><div class="grid" id="grid-b"></div></div>
       </div>
       <div class="week">
         <div class="week-head"><h2>Planner</h2><div class="facts" id="facts-o"></div></div>
-        <div class="missing" id="miss-o"></div>
         <div class="scroll"><div class="grid" id="grid-o"></div></div>
       </div>
     </div>
@@ -154,8 +164,8 @@ button:hover { filter: brightness(1.08); }
   <section class="about">
     <h2>How the numbers were made</h2>
     <p>Class times, rooms and seat caps come from the published Semester A 2026/27 timetable (1,585 courses, 5,056 sections). The students are simulated: each major's Year 1 study plan and intake estimate, scaled so every course fits its real seats. GE1601 is online and Gateway electives are not modelled.</p>
-    <p>First come, first served: students register one at a time in random order, and each takes the timetable with the fewest gaps among the seats still open. The planner assigns everyone together, in groups of up to 12 students from the same major, and also keeps the busiest campus hour as low as it can.</p>
-    <p>Gap hours are counted for every teaching week (weeks 1 to 13) and averaged.</p>
+    <p>Random clash-free and first come, first served both let students register one at a time in random order. In the random version each student gets a random timetable with no clashes from the seats still open; in first come, first served each picks their own best one. The planner assigns everyone together, in groups of up to 12 students from the same major. It minimises gap hours, keeps each student's days similar in length (longest minus shortest day), protects the worst-off group, and keeps the busiest campus hour low.</p>
+    <p>All figures are counted for every teaching week (weeks 1 to 13) and averaged. Daily-hours spread is the standard deviation of hours on campus across the days a student comes in.</p>
   </section>
 </div>
 
@@ -163,9 +173,11 @@ button:hover { filter: brightness(1.08); }
 const D = /*APP_DATA*/null;
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const H0 = 9, H1 = 22, WEEKS = 13;
+const NAMES = { r: "Random clash-free", f: "First come, first served", o: "Planner" };
 const $ = id => document.getElementById(id);
 const fmt = (x, d = 1) => Number(x).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
 const int = x => Number(x).toLocaleString("en-US");
+const pstdev = a => { if (a.length < 2) return 0; const m = a.reduce((x, y) => x + y, 0) / a.length; return Math.sqrt(a.reduce((x, y) => x + (y - m) ** 2, 0) / a.length); };
 
 // meeting: [course, section, day, start, length, firstWeek, lastWeek, rooms]
 function stats(ids) {
@@ -175,62 +187,71 @@ function stats(ids) {
     for (let w = Math.max(w0, 1); w <= Math.min(w1, WEEKS); w++)
       for (let h = s; h < s + len; h++) { const k = (w * 7 + d) * 24 + h; occ.set(k, (occ.get(k) || 0) + 1); }
   }
-  let idle = 0, days = 0, clash = 0;
-  for (let w = 1; w <= WEEKS; w++) for (let d = 0; d < 6; d++) {
-    const hs = [];
-    for (let h = H0; h <= H1; h++) { const n = occ.get((w * 7 + d) * 24 + h); if (n) { hs.push(h); clash += n - 1; } }
-    if (!hs.length) continue;
-    days++; idle += hs[hs.length - 1] - hs[0] + 1 - hs.length;
+  let idle = 0, days = 0, clash = 0, spread = 0, longest = 0;
+  for (let w = 1; w <= WEEKS; w++) {
+    const spans = [];
+    for (let d = 0; d < 6; d++) {
+      const hs = [];
+      for (let h = H0; h <= H1; h++) { const n = occ.get((w * 7 + d) * 24 + h); if (n) { hs.push(h); clash += n - 1; } }
+      if (!hs.length) continue;
+      const span = hs[hs.length - 1] - hs[0] + 1;
+      spans.push(span); days++; idle += span - hs.length;
+    }
+    spread += pstdev(spans); longest += spans.length ? Math.max(...spans) : 0;
   }
-  return { idle: idle / WEEKS, days: days / WEEKS, clash: clash / WEEKS };
+  return { idle: idle / WEEKS, days: days / WEEKS, clash: clash / WEEKS, spread: spread / WEEKS, longest: longest / WEEKS };
 }
 
 const groupStats = {};
 for (const [g, ids] of Object.entries(D.groups)) groupStats[g] = stats(ids);
 const S = D.students.map((s, i) => {
-  const f = stats(s.f), o = groupStats[s.g];
-  const took = new Set(s.f.map(k => D.meetings[k][0]));
-  return { ...s, i, fs: f, os: o, missing: s.c.filter(c => !took.has(c)) };
+  const took = k => new Set(s[k].map(m => D.meetings[m][0]));
+  const tr = took("r"), tf = took("f");
+  return { ...s, i, st: { r: stats(s.r), f: stats(s.f), o: groupStats[s.g] },
+           miss: { r: s.c.filter(c => !tr.has(c)), f: s.c.filter(c => !tf.has(c)), o: [] } };
 });
+const count = fn => S.filter(fn).length;
+const mean = fn => S.reduce((a, s) => a + fn(s), 0) / S.length;
+const K = ["r", "f", "o"];
 
-// summary strip
-const sumF = D.summary.first_come_first_served, sumO = D.summary.optimized_sectioning;
-const count = (fn) => S.filter(fn).length;
-const metrics = [
-  ["Gap hours per student, per week", fmt(sumF.idle_hours_per_student_week, 2), fmt(sumO.idle_hours_per_student_week, 2), "average over weeks 1–13"],
-  ["Students with 3+ gap hours a week", int(count(s => s.fs.idle >= 3)), int(count(s => s.os.idle >= 3)), "of " + int(S.length) + " students"],
-  ["Students with a clash or a missing course", int(count(s => s.fs.clash > 0 || s.missing.length)), int(count(s => s.os.clash > 0)), "a course they could not fit or find a seat in"],
-  ["Most first-years on campus in one hour", int(sumF.peak_students_on_campus), int(sumO.peak_students_on_campus), "in class or waiting between classes"],
+// summary strip: three scenarios per metric, lower is better
+const P = D.summary.planner, R = D.summary.random, F = D.summary.fcfs;
+const cards = [
+  ["Gap hours per student, per week", k => fmt(mean(s => s.st[k].idle), 2), "between classes on the same day"],
+  ["Spread of daily hours on campus", k => fmt(mean(s => s.st[k].spread), 2) + " h", "standard deviation across a student's days"],
+  ["Students with 3+ gap hours a week", k => int(count(s => s.st[k].idle >= 3)), "of " + int(S.length) + " students"],
+  ["Students with a clash or a missing course", k => int(count(s => s.st[k].clash > 0 || s.miss[k].length)), "a course they could not fit or find a seat in"],
+  ["Most first-years on campus in one hour", k => int({ r: R, f: F, o: P }[k].peak_students_on_campus), "in class or waiting between classes"],
 ];
-$("strip").innerHTML = metrics.map(([label, a, b, note]) =>
-  `<div class="metric"><span class="label">${label}</span><span class="pair"><span class="old" title="First come, first served">${a}</span><span class="new" title="Planner">${b}</span></span><span class="note">${note}</span></div>`).join("");
-const better = count(s => s.os.idle < s.fs.idle - 1e-9 || s.missing.length > 0 || s.os.clash < s.fs.clash - 1e-9);
-const worse = count(s => s.os.idle > s.fs.idle + 1e-9 && !s.missing.length);
-$("verdict").innerHTML = `Under the planner, <strong>${int(better)}</strong> students get a better week (fewer gaps, no clash, or a course they had missed), <strong>${int(worse)}</strong> get slightly more gap time so others can be helped, and the rest keep an equally good week. Struck-through numbers are first come, first served.`;
+$("strip").innerHTML = cards.map(([label, val, note]) => `<div class="metric"><span class="label">${label}</span><div class="rows">` +
+  K.map((k, n) => `<span class="who"><span class="swatch" style="background:var(--s${n + 1})"></span>${NAMES[k]}</span><span class="val${k === "o" ? " best" : ""}">${val(k)}</span>`).join("") +
+  `</div><span class="note">${note}</span></div>`).join("");
+const better = (b) => count(s => s.st.o.idle < s.st[b].idle - 1e-9 || s.miss[b].length > 0 || s.st.o.clash < s.st[b].clash - 1e-9);
+const worse = (b) => count(s => s.st.o.idle > s.st[b].idle + 1e-9 && !s.miss[b].length);
+$("verdict").innerHTML = `Against random clash-free timetables, the planner gives <strong>${int(better("r"))}</strong> students fewer gaps and <strong>${int(worse("r"))}</strong> more. Against first come, first served, <strong>${int(better("f"))}</strong> get a better week (fewer gaps, no clash, or a course they had missed) and <strong>${int(worse("f"))}</strong> get slightly more gap time so others can be helped.`;
 
-// distribution chart
-const bins = [["0–1 h", 0.001, 1], ["1–2 h", 1, 2], ["2–3 h", 2, 3], ["3–5 h", 3, 5], ["5 h +", 5, 1e9]];
-const zeroF = count(s => s.fs.idle < 0.001), zeroO = count(s => s.os.idle < 0.001);
-$("dist-note").textContent = `${int(zeroF)} students have no gaps at all under first come, first served, and ${int(zeroO)} under the planner. The chart shows everyone else.`;
-const rows = bins.map(([name, lo, hi]) => [name, count(s => s.fs.idle >= lo && s.fs.idle < hi), count(s => s.os.idle >= lo && s.os.idle < hi)]);
-$("dist-table").innerHTML = `<table><thead><tr><th>Gap hours a week</th><th>First come, first served</th><th>Planner</th></tr></thead><tbody>${rows.map(r => `<tr><td>${r[0]}</td><td>${int(r[1])}</td><td>${int(r[2])}</td></tr>`).join("")}</tbody></table>`;
+// distribution chart, three series
+const bins = [["0 h", -1, 0.001], ["0–1 h", 0.001, 1], ["1–2 h", 1, 2], ["2–3 h", 2, 3], ["3–5 h", 3, 5], ["5 h +", 5, 1e9]];
+const rows = bins.map(([name, lo, hi]) => [name, ...K.map(k => count(s => s.st[k].idle >= lo && s.st[k].idle < hi))]);
+$("dist-table").innerHTML = `<table><thead><tr><th>Gap hours a week</th>${K.map(k => `<th>${NAMES[k]}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr><td>${r[0]}</td>${r.slice(1).map(v => `<td>${int(v)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
 function chart() {
   const box = $("chart");
-  const W = Math.max(320, box.clientWidth || 640), Hh = 240, L = 44, B = 28, T = 10, R = 8;
-  const max = Math.max(1, ...rows.flatMap(r => [r[1], r[2]]));
-  const step = Math.pow(10, Math.floor(Math.log10(max))) / (max / Math.pow(10, Math.floor(Math.log10(max))) < 3 ? 2 : 1);
+  const W = Math.max(320, box.clientWidth || 640), Hh = 250, L = 52, B = 28, T = 10, R = 8;
+  const max = Math.max(1, ...rows.flatMap(r => r.slice(1)));
+  const mag = Math.pow(10, Math.floor(Math.log10(max)));
+  const step = max / mag < 2 ? mag / 4 : max / mag < 5 ? mag / 2 : mag;
   const top = Math.ceil(max / step) * step;
   const y = v => T + (Hh - T - B) * (1 - v / top);
-  const band = (W - L - R) / rows.length, bw = Math.min(28, band * 0.3);
-  let svg = `<svg viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}" role="img" aria-label="Students by weekly gap hours, first come first served versus planner">`;
+  const band = (W - L - R) / rows.length, bw = Math.max(6, Math.min(24, band / 4.5));
+  let svg = `<svg viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}" role="img" aria-label="Students by weekly gap hours for three ways of assigning sections">`;
   for (let v = 0; v <= top + 1e-9; v += step)
     svg += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${int(v)}</text>`;
   rows.forEach((r, i) => {
     const cx = L + band * (i + 0.5);
-    [[r[1], "var(--s1)", -1, "First come, first served"], [r[2], "var(--s2)", 1, "Planner"]].forEach(([v, c, side, name]) => {
-      const x = cx + side * (bw / 2 + 1) - bw / 2, h = Math.max(0, y(0) - y(v)), rad = Math.min(4, h / 2);
+    K.forEach((k, n) => {
+      const v = r[n + 1], x = cx + (n - 1) * (bw + 2) - bw / 2, h = Math.max(0, y(0) - y(v)), rad = Math.min(4, h / 2);
       const path = h > 0 ? `M${x},${y(0)} V${y(v) + rad} Q${x},${y(v)} ${x + rad},${y(v)} H${x + bw - rad} Q${x + bw},${y(v)} ${x + bw},${y(v) + rad} V${y(0)} Z` : "";
-      svg += `<path d="${path}" fill="${c}"/><rect class="hit" x="${cx + (side < 0 ? -band / 2 : 0)}" y="${T}" width="${band / 2}" height="${Hh - T - B}" fill="transparent" data-tip="${name}: ${int(v)} students with ${r[0]}"/>`;
+      svg += `<path d="${path}" fill="var(--s${n + 1})"/><rect class="hit" x="${cx - band / 2 + n * band / 3}" y="${T}" width="${band / 3}" height="${Hh - T - B}" fill="transparent" data-tip="${NAMES[k]}: ${int(v)} students with ${r[0]}"/>`;
     });
     svg += `<text x="${cx}" y="${Hh - 8}" text-anchor="middle">${r[0]}</text>`;
   });
@@ -247,12 +268,13 @@ let resizeTimer;
 addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(chart, 150); });
 
 // explorer
+let base = "r";
 const majorSel = $("major"), studentSel = $("student");
 majorSel.innerHTML = D.majors.map((m, i) => `<option value="${i}">${m}</option>`).join("");
-const gain = s => (s.fs.idle - s.os.idle) + 3 * s.missing.length + 3 * (s.fs.clash - s.os.clash);
+const gain = s => (s.st[base].idle - s.st.o.idle) + (s.st[base].spread - s.st.o.spread) + 3 * s.miss[base].length + 3 * (s.st[base].clash - s.st.o.clash);
 function fillStudents(m, pick) {
   const list = S.filter(s => s.m === m).sort((a, b) => gain(b) - gain(a));
-  studentSel.innerHTML = list.map((s, n) => `<option value="${s.i}">Student ${n + 1} · ${s.e} stream · gaps ${fmt(s.fs.idle)} h → ${fmt(s.os.idle)} h${s.missing.length ? " · missed " + s.missing.join(", ") : ""}</option>`).join("");
+  studentSel.innerHTML = list.map((s, n) => `<option value="${s.i}">Student ${n + 1} · ${s.e} stream · gaps ${fmt(s.st[base].idle)} h → ${fmt(s.st.o.idle)} h${s.miss[base].length ? " · missed " + s.miss[base].join(", ") : ""}</option>`).join("");
   studentSel.value = String(pick ?? list[0].i);
   show(+studentSel.value);
 }
@@ -263,7 +285,6 @@ function lanes(evs) {
   for (const e of evs) e.n = Math.max(...evs.filter(o => o.s < e.s + e.len && e.s < o.s + o.len).map(o => o.lane)) + 1;
 }
 function render(gridId, ids, colorOf) {
-  const el = $(gridId);
   let html = `<div></div>` + DAYS.map(d => `<div class="dayhead">${d}</div>`).join("");
   html += `<div class="times" style="height:calc(var(--hr) * ${H1 - H0})">` + Array.from({ length: H1 - H0 }, (_, k) => `<span style="top:calc(var(--hr) * ${k})">${String(H0 + k).padStart(2, "0")}:00</span>`).join("") + `</div>`;
   for (let d = 0; d < 6; d++) {
@@ -289,26 +310,33 @@ function render(gridId, ids, colorOf) {
     }
     html += col + `</div>`;
   }
-  el.innerHTML = html;
+  $(gridId).innerHTML = html;
 }
-function facts(id, st, missing) {
-  $(id).innerHTML = `<span>gaps <span class="num">${fmt(st.idle)} h</span>/wk</span><span><span class="num">${fmt(st.days)}</span> days on campus</span>` +
-    (st.clash > 0 ? `<span class="warn">clash ${fmt(st.clash)} h/wk</span>` : `<span>no clashes</span>`);
+function facts(id, st) {
+  $(id).innerHTML = `<span>gaps <span class="num">${fmt(st.idle)} h</span>/wk</span><span>daily spread <span class="num">${fmt(st.spread)} h</span></span><span><span class="num">${fmt(st.days)}</span> days</span>` +
+    (st.clash > 0 ? `<span class="warn">clash ${fmt(st.clash)} h/wk</span>` : ``);
 }
 function show(i) {
   const s = S[i];
   const colors = {}; s.c.forEach((c, k) => colors[c] = `var(--c${(k % 8) + 1})`);
   const colorOf = c => colors[c] || "var(--muted)";
   $("coursekey").innerHTML = s.c.map(c => `<span class="key"><span class="swatch" style="background:${colorOf(c)}"></span>${c}</span>`).join("");
-  render("grid-f", s.f, colorOf); render("grid-o", D.groups[s.g], colorOf);
-  facts("facts-f", s.fs); facts("facts-o", s.os);
-  $("miss-f").textContent = s.missing.length ? `No seat or no clash-free section left in: ${s.missing.join(", ")}` : "";
-  $("miss-o").textContent = "";
+  $("base-title").textContent = NAMES[base];
+  render("grid-b", s[base], colorOf); render("grid-o", D.groups[s.g], colorOf);
+  facts("facts-b", s.st[base]); facts("facts-o", s.st.o);
+  $("miss-b").textContent = s.miss[base].length ? `No seat or no clash-free section left in: ${s.miss[base].join(", ")}` : "";
 }
+function setBase(k) {
+  base = k;
+  $("base-r").setAttribute("aria-pressed", String(k === "r"));
+  $("base-f").setAttribute("aria-pressed", String(k === "f"));
+  fillStudents(+majorSel.value, +studentSel.value);
+}
+$("base-r").addEventListener("click", () => setBase("r"));
+$("base-f").addEventListener("click", () => setBase("f"));
 majorSel.addEventListener("change", () => fillStudents(+majorSel.value));
 studentSel.addEventListener("change", () => show(+studentSel.value));
 $("hard").addEventListener("click", () => fillStudents(+majorSel.value));
-// open on the student who gains the most overall
 const best = S.reduce((a, b) => gain(b) > gain(a) ? b : a);
 majorSel.value = String(best.m);
 fillStudents(best.m, best.i);

@@ -3,10 +3,11 @@
 Class times stay exactly as published; the optimizer only decides which
 section (lecture, tutorial, lab) each student takes.
 
-  Today      Simulated first-come-first-served registration: students sign up
-             one by one in random order, each taking the best timetable still
-             open to them.
-  Optimized  Every student is assigned at once (Stage B). Students are modelled
+  Random     Students sign up one by one in random order; each gets a random
+             clash-free timetable from the seats still open.
+  FCFS       Same, but each student picks their own best timetable (today's
+             first-come-first-served registration).
+  Planner    Every student is assigned at once (Stage B). Students are modelled
              in *blocks*: up to BLOCK_SIZE students of one cohort (major +
              English stream) who share a timetable.
 
@@ -19,9 +20,11 @@ tutorials in weeks 11-13 can share a slot), so clashes are checked week by week.
 Gaps and campus load are optimised on the regular meetings (>= REGULAR_WEEKS
 weeks); the reported metrics are computed for every teaching week and averaged.
 
-Objective: student idle hours between classes
+Objective: IDLE_WEIGHT * student idle hours between classes
   + PEAK_WEIGHT * peak students on campus in any hour
   + FAIR_WEIGHT * the worst block's weekly idle hours
+  + BALANCE_WEIGHT * each student's longest minus shortest day on campus
+    (a linear stand-in for the std of daily hours, which metrics() reports)
   (+ in Stage A, LATE_WEIGHT per student-hour on Saturday or after 19:00).
 
 Usage: python3 scripts/optimize.py [--time-limit SECONDS] [--seed N] [--retime]
@@ -53,7 +56,9 @@ EVENING = 19
 TERM_START = date(2026, 8, 31)  # Monday of week 1
 TEACHING_WEEKS = range(13)  # 31 Aug - 28 Nov
 REGULAR_WEEKS = 7
-PEAK_WEIGHT, FAIR_WEIGHT, LATE_WEIGHT = 3, 50, 1
+# Objective weights, per student-hour. BALANCE_WEIGHT prices one hour of
+# difference between a student's longest and shortest day on campus.
+IDLE_WEIGHT, PEAK_WEIGHT, FAIR_WEIGHT, BALANCE_WEIGHT, LATE_WEIGHT = 2, 6, 100, 1, 2
 CLASH_PENALTY = 1000
 SECTION_RE = re.compile(r"^([A-Z])([A-Z]?)(\d+)$")
 
@@ -212,12 +217,17 @@ class Week:
     def __init__(self, model, blocks, occ):
         self.idle = {}
         hs = list(HOURS)
-        worst_terms = []
+        worst_terms, spread_terms = [], []
         onsite = {}
         for b in blocks:
             mine = []
+            longest = model.NewIntVar(0, len(hs), "")
+            shortest = model.NewIntVar(0, len(hs), "")
+            model.Add(shortest <= longest)
             for d in range(len(DAYS)):
-                pre, suf = {}, {}  # some class before / after hour h
+                # pre[h] / suf[h]: some class before / after hour h (exact, so
+                # idle and on-campus hours can't be padded to game the objective)
+                pre, suf = {}, {}
                 for h in hs:
                     pre[h] = model.NewBoolVar("")
                     if h == hs[0]:
@@ -225,6 +235,7 @@ class Week:
                     else:
                         model.Add(pre[h] >= pre[h - 1])
                         model.Add(pre[h] >= occ[b.id, d, h - 1])
+                        model.Add(pre[h] <= pre[h - 1] + occ[b.id, d, h - 1])
                 for h in reversed(hs):
                     suf[h] = model.NewBoolVar("")
                     if h == hs[-1]:
@@ -232,12 +243,26 @@ class Week:
                     else:
                         model.Add(suf[h] >= suf[h + 1])
                         model.Add(suf[h] >= occ[b.id, d, h + 1])
+                        model.Add(suf[h] <= suf[h + 1] + occ[b.id, d, h + 1])
+                day = []
                 for h in hs:
                     idle = self.idle[b.id, d, h] = model.NewBoolVar("")
                     model.Add(idle >= pre[h] + suf[h] - 1 - occ[b.id, d, h])
+                    model.Add(idle <= pre[h])
+                    model.Add(idle <= suf[h])
+                    model.Add(idle <= 1 - occ[b.id, d, h])
                     onsite[b.id, d, h] = occ[b.id, d, h] + idle
+                    day.append(onsite[b.id, d, h])
                     mine.append(idle)
+                # Balanced days: longest minus shortest day the block is on campus.
+                present = model.NewBoolVar("")
+                for h in hs:
+                    model.Add(present >= occ[b.id, d, h])
+                model.Add(present <= sum(occ[b.id, d, h] for h in hs))
+                model.Add(longest >= sum(day))
+                model.Add(shortest <= sum(day) + len(hs) * (1 - present))
             worst_terms.append(sum(mine))
+            spread_terms.append(b.size * (longest - shortest))
         self.peak = model.NewIntVar(0, sum(b.size for b in blocks), "peak")
         for d in range(len(DAYS)):
             for h in hs:
@@ -246,9 +271,11 @@ class Week:
         for t in worst_terms:
             model.Add(self.worst >= t)
         self.idle_hours = sum(blocks[bid].size * v for (bid, _, _), v in self.idle.items())
+        self.spread = sum(spread_terms)
 
     def objective(self, extra=0):
-        return self.idle_hours + PEAK_WEIGHT * self.peak + FAIR_WEIGHT * self.worst + extra
+        return (IDLE_WEIGHT * self.idle_hours + PEAK_WEIGHT * self.peak
+                + FAIR_WEIGHT * self.worst + BALANCE_WEIGHT * self.spread + extra)
 
 
 def solve(model, time_limit, label, workers=4, required=True):
@@ -279,11 +306,12 @@ def block_week(model, blocks, slot_terms, slack=None):
 
 
 def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B", seats=None,
-            allow_clash=False, workers=4):
+            allow_clash=False, workers=4, rng=None):
     """Assign blocks to sections given fixed meeting times. times: crn -> [Meeting].
 
     seats overrides section caps (crn -> seats left). With allow_clash, clashes are
-    allowed at a heavy penalty. Returns the chosen (block id, crn) pairs, or None
+    allowed at a heavy penalty. With rng, the choice is random instead of
+    optimized (still clash-free when possible). Returns the chosen (block id, crn) pairs, or None
     if no assignment exists.
     """
     m = cp_model.CpModel()
@@ -318,7 +346,11 @@ def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B", seat
         m.Add(sum(terms) <= caps[crn])
     slack = [] if allow_clash else None
     week = block_week(m, blocks, slot_terms, slack)
-    m.Minimize(week.objective(CLASH_PENALTY * sum(slack) if slack else 0))
+    clash_cost = CLASH_PENALTY * sum(slack) if slack else 0
+    if rng is None:
+        m.Minimize(week.objective(clash_cost))
+    else:
+        m.Minimize(sum(rng.randrange(1000) * v for v in y.values()) + 1000 * clash_cost)
     if hint:
         for key, v in y.items():
             m.AddHint(v, key in hint)
@@ -328,14 +360,17 @@ def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B", seat
     return {key for key, v in y.items() if solver.Value(v)}
 
 
-def first_come_first_served(blocks, options, times, seed=1):
-    """Simulate today's registration: students sign up one at a time in random
-    order, and each takes the best clash-free timetable still open to them
-    (fewest idle hours). A student left with no clash-free choice takes the
+def register(blocks, options, times, seed=1, random_choice=False):
+    """Simulate students signing up one at a time in random order.
+
+    Each student takes the best clash-free timetable still open to them (same
+    objective as the planner, for one student), or with random_choice a random
+    clash-free one. A student left with no clash-free choice takes the
     least-clashing one; one left with no seat in a course goes without it.
 
     Returns (students, assignment, unplaced) where students are size-1 blocks.
     """
+    rng = random.Random(seed + 1) if random_choice else None
     students = []
     for b in blocks:
         for _ in range(b.size):
@@ -350,9 +385,9 @@ def first_come_first_served(blocks, options, times, seed=1):
                         if all(any(seats[s.crn] > 0 for s in secs) for secs in options[c].values())]
         unplaced[sid] = [c for c in st.courses if c not in open_courses]
         me = Block(0, st.major, st.english, 1, open_courses)
-        pick = (stage_b([me], options, times, 10, label=None, seats=seats, workers=1)
+        pick = (stage_b([me], options, times, 10, label=None, seats=seats, workers=1, rng=rng)
                 or stage_b([me], options, times, 10, label=None, seats=seats, workers=1,
-                           allow_clash=True))
+                           allow_clash=True, rng=rng))
         if pick is None:  # linked lecture/tutorial seats ran out together
             unplaced[sid] = st.courses
             pick = set()
@@ -500,21 +535,28 @@ def metrics(blocks, assign, times):
     nweeks = len(TEACHING_WEEKS)
     students = sum(b.size for b in blocks)
     idle_per_student, days, late, clashes = [], 0, 0, 0
+    day_std, longest = [], []
     onsite = defaultdict(int)
     for b in blocks:
-        idle = 0
+        idle, std_sum, long_sum = 0, 0, 0
         for w in TEACHING_WEEKS:
+            spans = []
             for d in range(len(DAYS)):
                 hs = [h for h in HOURS if occ.get((b.id, w, d, h))]
                 if not hs:
                     continue
+                spans.append(hs[-1] - hs[0] + 1)
                 days += b.size
                 clashes += b.size * sum(occ[b.id, w, d, h] - 1 for h in hs)
                 late += b.size * sum(1 for h in hs if DAYS[d] == "S" or h >= EVENING)
                 for h in range(hs[0], hs[-1] + 1):
                     onsite[w, d, h] += b.size
                     idle += not occ.get((b.id, w, d, h))
+            std_sum += statistics.pstdev(spans) if spans else 0
+            long_sum += max(spans, default=0)
         idle_per_student += [idle / nweeks] * b.size
+        day_std += [std_sum / nweeks] * b.size
+        longest += [long_sum / nweeks] * b.size
     weekday = [onsite.get((w, d, h), 0) for w in TEACHING_WEEKS for d in range(5) for h in HOURS]
     return {
         "students": students,
@@ -523,6 +565,8 @@ def metrics(blocks, assign, times):
         "idle_hours_max": round(max(idle_per_student), 2),
         "students_with_3h_plus_idle_per_week": sum(1 for x in idle_per_student if x >= 3),
         "days_on_campus_per_student_week": round(days / students / nweeks, 2),
+        "daily_hours_std_per_student": round(statistics.mean(day_std), 2),
+        "longest_day_hours_per_student": round(statistics.mean(longest), 2),
         "peak_students_on_campus": max(onsite.values()),
         "weekday_hourly_load_std": round(statistics.pstdev(weekday), 1),
         "evening_or_saturday_class_hours_per_student_week": round(late / students / nweeks, 2),
@@ -571,8 +615,11 @@ def write_timetables(path, blocks, assign, times, sections):
                             " + ".join(sorted(mt.venues))])
 
 
-def student_view(students, fcfs, blocks, opt, times, sections):
-    """Per-student timetables for the app: first-come-first-served vs optimized."""
+def student_view(students, baselines, blocks, opt, times, sections):
+    """Per-student timetables for the app: each baseline vs the planner.
+
+    baselines: {name: assignment over the size-1 student blocks}.
+    """
     def week(assign, owner):
         out = []
         for crn in sorted(c for o, c in assign if o == owner):
@@ -582,9 +629,10 @@ def student_view(students, fcfs, blocks, opt, times, sections):
                     out.append([s.course, s.code, mt.day, mt.start, mt.length,
                                 min(mt.weeks) + 1, max(mt.weeks) + 1, " + ".join(sorted(mt.venues))])
         return out
-    by_block = defaultdict(list)
-    for bid, crn in opt:
-        by_block[bid].append(crn)
+    by_owner = {name: defaultdict(set) for name in baselines}
+    for name, assign in baselines.items():
+        for sid, crn in assign:
+            by_owner[name][sid].add((sid, crn))
     block_of, sid = {}, 0
     for b in blocks:  # students were expanded from blocks in this order
         for _ in range(b.size):
@@ -592,29 +640,9 @@ def student_view(students, fcfs, blocks, opt, times, sections):
             sid += 1
     opt_weeks = {b.id: week(opt, b.id) for b in blocks}
     return [{"major": st.major, "english": st.english, "courses": st.courses,
-             "fcfs": week(fcfs, st.id), "optimized": opt_weeks[block_of[st.id]],
-             "group": block_of[st.id]} for st in students]
-
-
-def per_student_idle(blocks, assign, times):
-    """Average weekly idle hours of each block's students (same rules as metrics)."""
-    occ = defaultdict(int)
-    for bid, crn in assign:
-        for mt in times[crn]:
-            if mt.day < 6:
-                for w in mt.weeks & set(TEACHING_WEEKS):
-                    for h in mt.hours():
-                        occ[bid, w, mt.day, h] += 1
-    out = {}
-    for b in blocks:
-        idle = 0
-        for w in TEACHING_WEEKS:
-            for d in range(len(DAYS)):
-                hs = [h for h in HOURS if occ.get((b.id, w, d, h))]
-                if hs:
-                    idle += sum(1 for h in range(hs[0], hs[-1] + 1) if not occ.get((b.id, w, d, h)))
-        out[b.id] = idle / len(TEACHING_WEEKS)
-    return out
+             **{name: week(by_owner[name][st.id], st.id) for name in baselines},
+             "optimized": opt_weeks[block_of[st.id]], "group": block_of[st.id]}
+            for st in students]
 
 
 def main():
@@ -634,39 +662,35 @@ def main():
           f"{sum(len(v) for k in options.values() for v in k.values())} candidate sections")
     real = {crn: s.meetings for crn, s in sections.items()}
 
-    print("Today: first-come-first-served registration on the real timetable", flush=True)
-    students, fcfs_assign, unplaced = first_come_first_served(blocks, options, real, args.seed)
-    fcfs = metrics(students, fcfs_assign, real)
-    fcfs["students_missing_a_course"] = len(unplaced)
+    summary = {"weights": {"idle": IDLE_WEIGHT, "peak": PEAK_WEIGHT, "fairness": FAIR_WEIGHT,
+                           "daily_balance": BALANCE_WEIGHT},
+               "block_size": BLOCK_SIZE, "blocks": len(blocks), "seed": args.seed,
+               "time_limit_per_stage_s": args.time_limit}
+    baselines = {}
+    for name, random_choice, text in (
+            ("random", True, "Random: each student gets a random clash-free timetable"),
+            ("fcfs", False, "First come, first served: each student picks their own best timetable")):
+        print(text, flush=True)
+        students, assign, unplaced = register(blocks, options, real, args.seed, random_choice)
+        summary[name] = metrics(students, assign, real)
+        summary[name]["students_missing_a_course"] = len(unplaced)
+        baselines[name] = assign
 
-    print("Optimized: assign every student together, class times unchanged", flush=True)
+    print("Planner: assign every student together, class times unchanged", flush=True)
     opt_assign = stage_b(blocks, options, real, args.time_limit, label="Sectioning")
-    opt = metrics(blocks, opt_assign, real)
-    opt["students_missing_a_course"] = 0
-
-    fcfs_idle = per_student_idle(students, fcfs_assign, real)
-    opt_idle = per_student_idle(blocks, opt_assign, real)
-    view = student_view(students, fcfs_assign, blocks, opt_assign, real, sections)
-    change = [opt_idle[v["group"]] - fcfs_idle[i] for i, v in enumerate(view)]
-    comparison = {"students_better_off": sum(1 for c in change if c < -1e-9),
-                  "students_same": sum(1 for c in change if abs(c) <= 1e-9),
-                  "students_worse_off": sum(1 for c in change if c > 1e-9)}
+    summary["planner"] = metrics(blocks, opt_assign, real)
+    summary["planner"]["students_missing_a_course"] = 0
+    view = student_view(students, baselines, blocks, opt_assign, real, sections)
 
     OUT_DIR.mkdir(exist_ok=True)
-    with open(OUT_DIR / "fcfs_student_timetables.csv", "w", newline="", encoding="utf-8") as f:
-        w = csv.writer(f)
-        w.writerow(["student", "major", "english", "course", "crn", "section"])
-        for sid, crn in sorted(fcfs_assign):
-            st = students[sid]
-            w.writerow([sid, st.major, st.english, sections[crn].course, crn, sections[crn].code])
-    write_timetables(OUT_DIR / "optimized_block_timetables.csv", blocks, opt_assign, real, sections)
-    summary = {
-        "first_come_first_served": fcfs, "optimized_sectioning": opt,
-        "per_student_idle_change": comparison,
-        "weights": {"peak": PEAK_WEIGHT, "fairness": FAIR_WEIGHT},
-        "block_size": BLOCK_SIZE, "blocks": len(blocks), "seed": args.seed,
-        "time_limit_per_stage_s": args.time_limit,
-    }
+    for name, assign in baselines.items():
+        with open(OUT_DIR / f"{name}_student_timetables.csv", "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(["student", "major", "english", "course", "crn", "section"])
+            for sid, crn in sorted(assign):
+                st = students[sid]
+                w.writerow([sid, st.major, st.english, sections[crn].course, crn, sections[crn].code])
+    write_timetables(OUT_DIR / "planner_block_timetables.csv", blocks, opt_assign, real, sections)
 
     if args.retime:
         print("Redesign: move class times, then re-section", flush=True)
@@ -691,11 +715,10 @@ def main():
     app = {"summary": summary, "days": DAYS, "hours": [HOURS[0], HOURS[-1]], "students": view}
     (OUT_DIR / "app_data.json").write_text(json.dumps(app, separators=(",", ":")))
 
-    cols = [k for k in ("first_come_first_served", "optimized_sectioning", "retimed") if k in summary]
-    print(f"\n{'metric':52}" + "".join(f"{c[:14]:>16}" for c in cols))
-    for k in fcfs:
-        print(f"{k:52}" + "".join(f"{summary[c].get(k, ''):>16}" for c in cols))
-    print(comparison)
+    cols = [k for k in ("random", "fcfs", "planner", "retimed") if k in summary]
+    print(f"\n{'metric':52}" + "".join(f"{c:>10}" for c in cols))
+    for k in summary["planner"]:
+        print(f"{k:52}" + "".join(f"{summary[c].get(k, ''):>10}" for c in cols))
 
 
 if __name__ == "__main__":
