@@ -20,12 +20,16 @@ tutorials in weeks 11-13 can share a slot), so clashes are checked week by week.
 Gaps and campus load are optimised on the regular meetings (>= REGULAR_WEEKS
 weeks); the reported metrics are computed for every teaching week and averaged.
 
-Objective: IDLE_WEIGHT * student idle hours between classes
-  + PEAK_WEIGHT * peak students on campus in any hour
-  + FAIR_WEIGHT * the worst block's weekly idle hours
-  + BALANCE_WEIGHT * each student's longest minus shortest day on campus
-    (a linear stand-in for the std of daily hours, which metrics() reports)
-  (+ in Stage A, LATE_WEIGHT per student-hour on Saturday or after 19:00).
+Objective (per student, summed):
+  IDLE_WEIGHT     * idle hours between classes
+  BALANCE_WEIGHT  * longest minus shortest day on campus (a linear stand-in
+                    for the std of daily hours, which metrics() reports)
+  PEAK_WEIGHT     * peak students on campus in any hour
+  LATE_WEIGHT     * class hours from 19:00 on
+  LUNCH_WEIGHT    * days with class at both 12:00 and 13:00
+  FAIR_WEIGHT     * the worst block's weekly idle hours
+Hard rules: every course, seat caps, linked sections, no clashes, and Year 1
+takes at most its quota of each course (the rest is kept for other years).
 
 Usage: python3 scripts/optimize.py [--time-limit SECONDS] [--seed N] [--retime]
 """
@@ -58,7 +62,11 @@ TEACHING_WEEKS = range(13)  # 31 Aug - 28 Nov
 REGULAR_WEEKS = 7
 # Objective weights, per student-hour. BALANCE_WEIGHT prices one hour of
 # difference between a student's longest and shortest day on campus.
-IDLE_WEIGHT, PEAK_WEIGHT, FAIR_WEIGHT, BALANCE_WEIGHT, LATE_WEIGHT = 2, 6, 100, 1, 2
+IDLE_WEIGHT, BALANCE_WEIGHT, PEAK_WEIGHT, LATE_WEIGHT, LUNCH_WEIGHT, FAIR_WEIGHT = 3, 3, 1, 1, 1, 100
+LATE = 19  # a class hour from 19:00 on counts as late
+LUNCH = (12, 13)  # a day on campus with class in both hours has no lunch break
+MAX_YEAR1_FILL = 0.95  # first-years never get more than this share of a course's seats
+CAPACITY = ROOT / "data/cityuhk_course_offerings_capacity.csv"
 CLASH_PENALTY = 1000
 SECTION_RE = re.compile(r"^([A-Z])([A-Z]?)(\d+)$")
 
@@ -217,7 +225,7 @@ class Week:
     def __init__(self, model, blocks, occ):
         self.idle = {}
         hs = list(HOURS)
-        worst_terms, spread_terms = [], []
+        worst_terms, spread_terms, late_terms, lunch_terms = [], [], [], []
         onsite = {}
         for b in blocks:
             mine = []
@@ -261,6 +269,10 @@ class Week:
                 model.Add(present <= sum(occ[b.id, d, h] for h in hs))
                 model.Add(longest >= sum(day))
                 model.Add(shortest <= sum(day) + len(hs) * (1 - present))
+                late_terms.append(b.size * sum(occ[b.id, d, h] for h in hs if h >= LATE))
+                no_lunch = model.NewBoolVar("")
+                model.Add(no_lunch >= occ[b.id, d, LUNCH[0]] + occ[b.id, d, LUNCH[1]] - 1)
+                lunch_terms.append(b.size * no_lunch)
             worst_terms.append(sum(mine))
             spread_terms.append(b.size * (longest - shortest))
         self.peak = model.NewIntVar(0, sum(b.size for b in blocks), "peak")
@@ -272,10 +284,13 @@ class Week:
             model.Add(self.worst >= t)
         self.idle_hours = sum(blocks[bid].size * v for (bid, _, _), v in self.idle.items())
         self.spread = sum(spread_terms)
+        self.late = sum(late_terms)
+        self.no_lunch = sum(lunch_terms)
 
     def objective(self, extra=0):
-        return (IDLE_WEIGHT * self.idle_hours + PEAK_WEIGHT * self.peak
-                + FAIR_WEIGHT * self.worst + BALANCE_WEIGHT * self.spread + extra)
+        return (IDLE_WEIGHT * self.idle_hours + BALANCE_WEIGHT * self.spread
+                + PEAK_WEIGHT * self.peak + LATE_WEIGHT * self.late
+                + LUNCH_WEIGHT * self.no_lunch + FAIR_WEIGHT * self.worst + extra)
 
 
 def solve(model, time_limit, label, workers=4, required=True):
@@ -306,10 +321,11 @@ def block_week(model, blocks, slot_terms, slack=None):
 
 
 def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B", seats=None,
-            allow_clash=False, workers=4, rng=None):
+            quota=None, allow_clash=False, workers=4, rng=None):
     """Assign blocks to sections given fixed meeting times. times: crn -> [Meeting].
 
-    seats overrides section caps (crn -> seats left). With allow_clash, clashes are
+    seats overrides section caps (crn -> seats left); quota limits the Year 1
+    students per (course, section type), leaving the rest for other years. With allow_clash, clashes are
     allowed at a heavy penalty. With rng, the choice is random instead of
     optimized (still clash-free when possible). Returns the chosen (block id, crn) pairs, or None
     if no assignment exists.
@@ -317,6 +333,7 @@ def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B", seat
     m = cp_model.CpModel()
     y = {}
     load = defaultdict(list)
+    kind_load = defaultdict(list)
     slot_terms = defaultdict(list)
     caps = {s.crn: s.cap for kinds in options.values() for secs in kinds.values() for s in secs}
     if seats is not None:
@@ -328,7 +345,7 @@ def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B", seat
             pick = {g: m.NewBoolVar("") for g in groups} if groups else None
             if pick:
                 m.AddExactlyOne(pick.values())
-            for secs in kinds.values():
+            for kind, secs in kinds.items():
                 choice = []
                 for s in secs:
                     if caps[s.crn] < b.size:
@@ -336,6 +353,7 @@ def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B", seat
                     v = y[b.id, s.crn] = m.NewBoolVar("")
                     choice.append(v)
                     load[s.crn].append(b.size * v)
+                    kind_load[c, kind].append(b.size * v)
                     if pick:
                         m.AddImplication(v, pick[s.group])
                     for mt in times[s.crn]:
@@ -344,6 +362,9 @@ def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B", seat
                 m.AddExactlyOne(choice)
     for crn, terms in load.items():
         m.Add(sum(terms) <= caps[crn])
+    for key, terms in kind_load.items():
+        if quota is not None and key in quota:
+            m.Add(sum(terms) <= quota[key])
     slack = [] if allow_clash else None
     week = block_week(m, blocks, slot_terms, slack)
     clash_cost = CLASH_PENALTY * sum(slack) if slack else 0
@@ -360,7 +381,7 @@ def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B", seat
     return {key for key, v in y.items() if solver.Value(v)}
 
 
-def register(blocks, options, times, seed=1, random_choice=False):
+def register(blocks, options, times, quota, seed=1, random_choice=False):
     """Simulate students signing up one at a time in random order.
 
     Each student takes the best clash-free timetable still open to them (same
@@ -371,28 +392,32 @@ def register(blocks, options, times, seed=1, random_choice=False):
     Returns (students, assignment, unplaced) where students are size-1 blocks.
     """
     rng = random.Random(seed + 1) if random_choice else None
+    sections_by_crn = {s.crn: s for kinds in options.values() for secs in kinds.values() for s in secs}
     students = []
     for b in blocks:
         for _ in range(b.size):
             students.append(Block(len(students), b.major, b.english, 1, b.courses))
     seats = {s.crn: s.cap for kinds in options.values() for secs in kinds.values() for s in secs}
+    quota = dict(quota)
     order = list(range(len(students)))
     random.Random(seed).shuffle(order)
     assign, unplaced = set(), defaultdict(list)
     for n, sid in enumerate(order):
         st = students[sid]
         open_courses = [c for c in st.courses
-                        if all(any(seats[s.crn] > 0 for s in secs) for secs in options[c].values())]
+                        if all(quota[c, k] > 0 and any(seats[s.crn] > 0 for s in secs)
+                               for k, secs in options[c].items())]
         unplaced[sid] = [c for c in st.courses if c not in open_courses]
         me = Block(0, st.major, st.english, 1, open_courses)
-        pick = (stage_b([me], options, times, 10, label=None, seats=seats, workers=1, rng=rng)
-                or stage_b([me], options, times, 10, label=None, seats=seats, workers=1,
-                           allow_clash=True, rng=rng))
+        kw = dict(label=None, seats=seats, quota=quota, workers=1, rng=rng)
+        pick = (stage_b([me], options, times, 10, **kw)
+                or stage_b([me], options, times, 10, allow_clash=True, **kw))
         if pick is None:  # linked lecture/tutorial seats ran out together
             unplaced[sid] = st.courses
             pick = set()
         for _, crn in pick:
             seats[crn] -= 1
+            quota[sections_by_crn[crn].course, sections_by_crn[crn].kind] -= 1
             assign.add((sid, crn))
         if (n + 1) % 500 == 0:
             print(f"  registered {n + 1}/{len(students)}", flush=True)
@@ -502,7 +527,7 @@ def stage_a(blocks, sections, assign, time_limit):
                 for h in mt.hours():
                     slot_terms[bid, mt.day, h].append((1, mt.weeks))
     week = block_week(m, blocks, slot_terms)
-    m.Minimize(week.objective(LATE_WEIGHT * sum(late_terms)))
+    m.Minimize(week.objective())
     for e in movable:  # start from the real timetable
         mt0 = info_cache[e][0]
         for (d, st), v in z[e].items():
@@ -534,7 +559,7 @@ def metrics(blocks, assign, times):
                     occ[bid, w, mt.day, h] += 1
     nweeks = len(TEACHING_WEEKS)
     students = sum(b.size for b in blocks)
-    idle_per_student, days, late, clashes = [], 0, 0, 0
+    idle_per_student, days, late, clashes, after7, no_lunch = [], 0, 0, 0, 0, 0
     day_std, longest = [], []
     onsite = defaultdict(int)
     for b in blocks:
@@ -549,6 +574,8 @@ def metrics(blocks, assign, times):
                 days += b.size
                 clashes += b.size * sum(occ[b.id, w, d, h] - 1 for h in hs)
                 late += b.size * sum(1 for h in hs if DAYS[d] == "S" or h >= EVENING)
+                after7 += b.size * sum(1 for h in hs if h >= LATE)
+                no_lunch += b.size * all(occ.get((b.id, w, d, h)) for h in LUNCH)
                 for h in range(hs[0], hs[-1] + 1):
                     onsite[w, d, h] += b.size
                     idle += not occ.get((b.id, w, d, h))
@@ -569,6 +596,8 @@ def metrics(blocks, assign, times):
         "longest_day_hours_per_student": round(statistics.mean(longest), 2),
         "peak_students_on_campus": max(onsite.values()),
         "weekday_hourly_load_std": round(statistics.pstdev(weekday), 1),
+        "late_class_hours_per_student_week": round(after7 / students / nweeks, 2),
+        "days_without_lunch_break_per_student_week": round(no_lunch / students / nweeks, 2),
         "evening_or_saturday_class_hours_per_student_week": round(late / students / nweeks, 2),
         "student_clash_hours": clashes,
     }
@@ -645,6 +674,32 @@ def student_view(students, baselines, blocks, opt, times, sections):
             for st in students]
 
 
+def year1_quota(blocks, options):
+    """Seats first-years may take per (course, section type).
+
+    Other years keep what they really took: AIMS enrolment minus our Year 1
+    demand, capped so first-years still fit within MAX_YEAR1_FILL of the seats
+    (our simulated first-years can differ from the real ones). Returns
+    (quota, report rows).
+    """
+    with open(CAPACITY, encoding="utf-8-sig") as f:
+        enrolled = {r["course_code"]: int(r["enrolled_est"]) for r in csv.DictReader(f)}
+    demand = defaultdict(int)
+    for b in blocks:
+        for c in b.courses:
+            demand[c] += b.size
+    quota, report = {}, []
+    for c, kinds in options.items():
+        others = max(0, enrolled.get(c, 0) - demand[c])
+        for kind, secs in kinds.items():
+            seats = sum(s.cap for s in secs)
+            keep = min(others, max(0, seats - math.ceil(demand[c] / MAX_YEAR1_FILL)))
+            quota[c, kind] = seats - keep
+            report.append({"course": c, "type": kind, "seats": seats, "year1": demand[c],
+                           "other_years_enrolled": others, "kept_for_other_years": keep})
+    return quota, report
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--time-limit", type=float, default=120, help="seconds per optimization stage")
@@ -663,9 +718,14 @@ def main():
     print(f"{sum(b.size for b in blocks)} students in {len(blocks)} blocks, {len(courses)} courses, "
           f"{sum(len(v) for k in options.values() for v in k.values())} candidate sections")
     real = {crn: s.meetings for crn, s in sections.items()}
+    quota, quota_report = year1_quota(blocks, options)
+    print(f"Seats kept for other years: {sum(r['kept_for_other_years'] for r in quota_report)} "
+          f"(they took {sum(r['other_years_enrolled'] for r in quota_report)})", flush=True)
 
-    summary = {"weights": {"idle": IDLE_WEIGHT, "peak": PEAK_WEIGHT, "fairness": FAIR_WEIGHT,
-                           "daily_balance": BALANCE_WEIGHT},
+    summary = {"weights": {"gaps": IDLE_WEIGHT, "balanced_days": BALANCE_WEIGHT,
+                           "crowding": PEAK_WEIGHT, "late_classes": LATE_WEIGHT,
+                           "no_lunch_break": LUNCH_WEIGHT, "fairness": FAIR_WEIGHT},
+               "seats_kept_for_other_years": sum(r["kept_for_other_years"] for r in quota_report),
                "block_size": BLOCK_SIZE, "blocks": len(blocks), "seed": args.seed,
                "time_limit_per_stage_s": args.time_limit}
     baselines = {}
@@ -673,7 +733,7 @@ def main():
             ("random", True, "Random: each student gets a random clash-free timetable"),
             ("fcfs", False, "First come, first served: each student picks their own best timetable")):
         print(text, flush=True)
-        students, assign, unplaced = register(blocks, options, real, args.seed, random_choice)
+        students, assign, unplaced = register(blocks, options, real, quota, args.seed, random_choice)
         summary[name] = metrics(students, assign, real)
         summary[name]["students_missing_a_course"] = len(unplaced)
         baselines[name] = assign
@@ -683,7 +743,8 @@ def main():
     if args.hint:
         with open(args.hint, encoding="utf-8") as f:
             hint = {(int(r["block"]), r["crn"]) for r in csv.DictReader(f)}
-    opt_assign = stage_b(blocks, options, real, args.time_limit, hint=hint, label="Sectioning")
+    opt_assign = stage_b(blocks, options, real, args.time_limit, hint=hint, quota=quota,
+                         label="Sectioning")
     summary["planner"] = metrics(blocks, opt_assign, real)
     summary["planner"]["students_missing_a_course"] = 0
     view = student_view(students, baselines, blocks, opt_assign, real, sections)
@@ -697,11 +758,15 @@ def main():
                 st = students[sid]
                 w.writerow([sid, st.major, st.english, sections[crn].course, crn, sections[crn].code])
     write_timetables(OUT_DIR / "planner_block_timetables.csv", blocks, opt_assign, real, sections)
+    with open(OUT_DIR / "seats_kept_for_other_years.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(quota_report[0]))
+        w.writeheader()
+        w.writerows(sorted(quota_report, key=lambda r: (r["course"], r["type"])))
 
     if args.retime:
         print("Redesign: move class times, then re-section", flush=True)
         times = stage_a(blocks, sections, opt_assign, args.time_limit)
-        re_assign = stage_b(blocks, options, times, args.time_limit, hint=opt_assign)
+        re_assign = stage_b(blocks, options, times, args.time_limit, hint=opt_assign, quota=quota)
         summary["retimed"] = metrics(blocks, re_assign, times)
         summary["double_booked_hours"] = conflict_summary(real, times)
         write_timetables(OUT_DIR / "retimed_block_timetables.csv", blocks, re_assign, times, sections)
