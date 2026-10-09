@@ -118,7 +118,7 @@ button:hover { filter: brightness(1.08); }
   <header>
     <span class="eyebrow">CityUHK · Semester A 2026/27 · first-year students</span>
     <h1>Year 1 Section Planner</h1>
-    <p class="lede">Every class keeps its published day, time and room. The planner only decides which lecture, tutorial and lab section each student joins, so that everyone gets few gaps, no clashes, and class hours spread evenly from Monday to Friday. It is compared on the same simulated students with three ways of registering: a random clash-free timetable, today's first come, first served, and first come, first served where a student drops a course rather than accept a clash.</p>
+    <p class="lede">Every class keeps its published day, time and room. The planner only decides which lecture, tutorial and lab section each student joins, so that everyone gets few gaps, no clashes, class hours spread evenly from Monday to Friday, and no building gets an overcrowded hour. It is compared on the same simulated students with three ways of registering: a random clash-free timetable, today's first come, first served, and first come, first served where a student drops a course rather than accept a clash.</p>
   </header>
 
   <section class="strip" id="strip" aria-label="Summary"></section>
@@ -142,6 +142,20 @@ button:hover { filter: brightness(1.08); }
     </div>
     <div class="chart" id="chart"></div>
     <details><summary>Show as a table</summary><div id="dist-table"></div></details>
+  </section>
+
+  <section class="panel" aria-labelledby="bld-title">
+    <div class="week-head">
+      <h2 id="bld-title">Load on each building through the day</h2>
+      <div class="legend" id="bld-legend"></div>
+    </div>
+    <p class="lede">Everyone in the building each hour: the first-years placed by each scenario, plus students of other courses and other years (the same for every scenario). Regular weeks only.</p>
+    <div class="controls">
+      <div class="field"><label for="bld">Building</label><select id="bld"></select></div>
+      <div class="field"><label for="bld-day">Day</label><select id="bld-day"></select></div>
+    </div>
+    <div class="chart" id="bld-chart"></div>
+    <div class="scroll"><div id="bld-table"></div></div>
   </section>
 
   <section class="panel" aria-labelledby="explore-title">
@@ -253,12 +267,13 @@ $("verdict").innerHTML = `Against random clash-free timetables, the planner give
 // priorities
 const Wt = D.summary.weights;
 const prio = [
+  ["Building load", Wt.building_peaks, "points per student in each building's busiest hour, summed over buildings"],
   ["Gaps", Wt.gaps, "points per student-hour waiting between classes"],
   ["Even week", Wt.even_week, "points per hour a weekday is off an even Mon–Fri split; Saturday classes count in full"],
   ["Fairness", Wt.fairness, "points per score point of the worst-off group, so nobody is sacrificed for the average"],
 ];
 $("prio").innerHTML = prio.map(([n, w, d]) => `<div><span class="w">${w}</span><span class="n">${n}</span><span class="d">${d}</span></div>`).join("");
-$("rules").textContent = `Always kept: every student gets every course, no clashes, seat caps, linked lectures and tutorials, and ${int(D.summary.seats_kept_for_other_years)} seats held back for students from other years. Weights are points of cost per unit; higher means it matters more. Late classes, lunch breaks and campus crowding are measured but not optimised.`;
+$("rules").textContent = `Always kept: every student gets every course, no clashes, seat caps, linked lectures and tutorials, and ${int(D.summary.seats_kept_for_other_years)} seats held back for students from other years. Weights are points of cost per unit; higher means it matters more. Late classes and lunch breaks are measured but not optimised.`;
 
 // distribution chart, three series
 const bins = [["0 h", -1, 0.001], ["0–1 h", 0.001, 1], ["1–2 h", 1, 2], ["2–3 h", 2, 3], ["3–5 h", 3, 5], ["5 h +", 5, 1e9]];
@@ -296,6 +311,70 @@ function chart() {
 chart();
 let resizeTimer;
 addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(chart, 150); });
+
+// building load
+const BNAMES = { YEUNG: "Yeung Kin Man Academic Building", LI: "Li Dak Sum Yip Yio Chin Academic Building", CMC: "Run Run Shaw Creative Media Centre", MMW: "Mong Man Wai Building", LAU: "Lau Ming Wai Academic Building", BOC: "Bank of China (Hong Kong) Complex" };
+const BLD = Object.keys(D.background);
+const y1Load = {};
+for (const k of K) { y1Load[k] = {}; for (const b of BLD) y1Load[k][b] = Array.from({ length: 5 }, () => new Array(13).fill(0)); }
+const groupSize = {};
+for (const s of S) groupSize[s.g] = (groupSize[s.g] || 0) + 1;
+function addLoad(k, ids, n) {
+  for (const i of ids) {
+    const [, , d, st, len, w0, w1, rooms] = D.meetings[i];
+    if (d > 4 || w1 - w0 + 1 < 7 || !rooms) continue;
+    const b = rooms.split(" ")[0];
+    if (!y1Load[k][b]) continue;
+    for (let h = st; h < st + len; h++) if (h >= 9 && h <= 21) y1Load[k][b][d][h - 9] += n;
+  }
+}
+for (const s of S) for (const k of ["r", "f", "n"]) addLoad(k, s[k], 1);
+for (const [g, ids] of Object.entries(D.groups)) addLoad("o", ids, groupSize[g] || 0);
+const total = (k, b, d) => D.background[b][d].map((v, h) => v + y1Load[k][b][d][h]);
+const bldSel = $("bld"), daySel = $("bld-day");
+bldSel.innerHTML = BLD.map(b => `<option value="${b}">${BNAMES[b] || b} (${b})</option>`).join("");
+daySel.innerHTML = DAYS.slice(0, 5).map((d, i) => `<option value="${i}">${d}</option>`).join("");
+$("bld-legend").innerHTML = K.map(k => `<span class="key"><span class="swatch" style="background:${COLOR[k]}"></span>${NAMES[k]}</span>`).join("");
+function bldChart() {
+  const b = bldSel.value, d = +daySel.value, box = $("bld-chart");
+  const series = K.map(k => total(k, b, d));
+  const W = Math.max(320, box.clientWidth || 640), Hh = 230, L = 52, B = 26, T = 10, R = 10;
+  const max = Math.max(1, ...series.flat());
+  const mag = Math.pow(10, Math.floor(Math.log10(max)));
+  const step = max / mag < 2 ? mag / 4 : max / mag < 5 ? mag / 2 : mag;
+  const top = Math.ceil(max / step) * step;
+  const x = h => L + (W - L - R) * h / 12, y = v => T + (Hh - T - B) * (1 - v / top);
+  let svg = `<svg viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}" role="img" aria-label="Students in ${b} each hour on ${DAYS[d]}">`;
+  for (let v = 0; v <= top + 1e-9; v += step)
+    svg += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${int(v)}</text>`;
+  for (let h = 0; h <= 12; h += 2) svg += `<text x="${x(h)}" y="${Hh - 8}" text-anchor="middle">${String(9 + h).padStart(2, "0")}:00</text>`;
+  K.forEach((k, n) => {
+    svg += `<polyline fill="none" stroke="${COLOR[k]}" stroke-width="2" stroke-linejoin="round" points="${series[n].map((v, h) => `${x(h)},${y(v)}`).join(" ")}"/>`;
+  });
+  svg += `<line class="cross" x1="0" x2="0" y1="${T}" y2="${Hh - B}" stroke="var(--muted)" stroke-dasharray="3 3" visibility="hidden"/>`;
+  svg += `<rect class="hitarea" x="${L}" y="${T}" width="${W - L - R}" height="${Hh - T - B}" fill="transparent"/></svg><div class="tip" hidden></div>`;
+  box.innerHTML = svg;
+  const tip = box.querySelector(".tip"), cross = box.querySelector(".cross"), area = box.querySelector(".hitarea");
+  area.addEventListener("mousemove", e => {
+    const r = box.getBoundingClientRect(), sx = (e.clientX - r.left) * W / r.width;
+    const h = Math.max(0, Math.min(12, Math.round((sx - L) / ((W - L - R) / 12))));
+    cross.setAttribute("x1", x(h)); cross.setAttribute("x2", x(h)); cross.setAttribute("visibility", "visible");
+    tip.hidden = false; tip.style.left = (e.clientX - r.left) + "px"; tip.style.top = (e.clientY - r.top) + "px";
+    tip.innerHTML = `${String(9 + h).padStart(2, "0")}:00 · ` + K.map((k, n) => `${SHORT[k]} ${int(series[n][h])}`).join(" · ");
+  });
+  area.addEventListener("mouseleave", () => { tip.hidden = true; cross.setAttribute("visibility", "hidden"); });
+}
+function bldTable() {
+  const peak = (k, b) => Math.max(...[0, 1, 2, 3, 4].flatMap(d => total(k, b, d)));
+  const sd = (k, b) => pstdev([0, 1, 2, 3, 4].flatMap(d => total(k, b, d)));
+  $("bld-table").innerHTML = `<table><thead><tr><th>Building</th>${K.map(k => `<th>${SHORT[k]}: busiest hour</th>`).join("")}${K.map(k => `<th>${SHORT[k]}: hourly std</th>`).join("")}</tr></thead><tbody>` +
+    BLD.map(b => `<tr><td>${b}</td>${K.map(k => `<td>${int(peak(k, b))}</td>`).join("")}${K.map(k => `<td>${fmt(sd(k, b))}</td>`).join("")}</tr>`).join("") +
+    `<tr><td><strong>All six</strong></td>${K.map(k => `<td><strong>${int(BLD.reduce((a, b) => a + peak(k, b), 0))}</strong></td>`).join("")}${K.map(() => `<td></td>`).join("")}</tr></tbody></table>`;
+}
+bldSel.value = BLD.includes("LI") ? "LI" : BLD[0];
+bldSel.addEventListener("change", bldChart); daySel.addEventListener("change", bldChart);
+bldChart(); bldTable();
+addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(bldChart, 150); });
 
 // explorer
 let base = "r";
