@@ -119,6 +119,22 @@ The planner beats random on everything. Against an idealised first come, first s
 
 On the combined goal the planner is 20% better than first come and 42% better for the worst-off group. It trades a little average gap time (0.47 vs 0.41 h) for a much more even week, and it is the only scenario with neither clashes nor dropped courses. Lunch, late classes and crowding are no longer optimised, only measured. The earlier weighted planner is still in `scripts/optimize.py`.
 
+**Building load (added 9 Oct):** `scripts/even_week.py` also adds 10 points per student in each building's busiest hour, summed over the 6 buildings first-years use (YEUNG, LI, CMC, MMW, LAU, BOC).
+- **What counts:** load is everyone, i.e. first-years placed by the scenario plus a fixed background of other courses' enrolment (cap − available seats) and the seats held back for other years.
+- **What the planner can change:** times are fixed, so it can only move first-years between sections of the same course that meet in other buildings or at other hours.
+- **Run:** 251 steps, 25 minutes, starting from the even-week timetable.
+
+| busiest hour, all students (Mon–Sat) | random | first come | first come, no clashes | planner |
+|---|---|---|---|---|
+| Li Dak Sum (LI) | 1,459 | 1,536 | 1,536 | **1,300** (−15%) |
+| Yeung Kin Man (YEUNG) | 2,377 | 2,385 | 2,380 | **2,308** |
+| Creative Media Centre (CMC) | 533 | 539 | 539 | **518** |
+| Mong Man Wai (MMW) | 383 | 380 | 380 | **368** |
+| Lau Ming Wai (LAU) / Bank of China (BOC) | 386 / 437 | same | same | same (no alternative sections) |
+| sum of the six | 5,641 | 5,729 | 5,724 | **5,383** (−6%) |
+
+Other planner figures after this run: gaps 0.48 h/week (first come 0.41), unevenness across Mon–Fri 1.24 (1.51), longest day 4.7 h (4.9), 0 clashes and 0 dropped courses, campus-wide peak 1,390 (1,368). Crowding is now handled per building rather than campus-wide. The app's "Load on each building through the day" panel shows hourly load for any building and weekday.
+
 **Caveats:**
 - The simulated students are optimal myopic registrants. Real students also weigh friends, instructors and lunch, and they register in priority rounds, not in random order.
 - Section restrictions ("only for Major/Programme …") are ignored, and the Gateway and college-requirement electives are left out.
