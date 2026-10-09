@@ -30,7 +30,8 @@ def main():
     for s in data["students"]:
         groups.setdefault(s["group"], ids(s["optimized"]))
         students.append({"m": majors.index(s["major"]), "e": s["english"], "c": s["courses"],
-                         "r": ids(s["random"]), "f": ids(s["fcfs"]), "g": s["group"]})
+                         "r": ids(s["random"]), "f": ids(s["fcfs"]),
+                         "n": ids(s["fcfs_no_clash"]), "g": s["group"]})
     packed = {"summary": data["summary"], "majors": majors, "meetings": meetings,
               "groups": {str(k): v for k, v in groups.items()}, "students": students}
     html = TEMPLATE.read_text().replace("/*APP_DATA*/null", json.dumps(packed, separators=(",", ":")))

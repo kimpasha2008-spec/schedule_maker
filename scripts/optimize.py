@@ -7,6 +7,8 @@ section (lecture, tutorial, lab) each student takes.
              clash-free timetable from the seats still open.
   FCFS       Same, but each student picks their own best timetable (today's
              first-come-first-served registration).
+  FCFS, no clashes  Same, but a student who can't fit a clash-free timetable
+             drops a course instead of accepting a clash.
   Planner    Every student is assigned at once (Stage B). Students are modelled
              in *blocks*: up to BLOCK_SIZE students of one cohort (major +
              English stream) who share a timetable.
@@ -381,13 +383,14 @@ def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B", seat
     return {key for key, v in y.items() if solver.Value(v)}
 
 
-def register(blocks, options, times, quota, seed=1, random_choice=False):
+def register(blocks, options, times, quota, seed=1, random_choice=False, allow_clash=True):
     """Simulate students signing up one at a time in random order.
 
     Each student takes the best clash-free timetable still open to them (same
     objective as the planner, for one student), or with random_choice a random
     clash-free one. A student left with no clash-free choice takes the
-    least-clashing one; one left with no seat in a course goes without it.
+    least-clashing one, or with allow_clash=False drops as few courses as
+    needed to stay clash-free. One left with no seat in a course goes without it.
 
     Returns (students, assignment, unplaced) where students are size-1 blocks.
     """
@@ -410,8 +413,12 @@ def register(blocks, options, times, quota, seed=1, random_choice=False):
         unplaced[sid] = [c for c in st.courses if c not in open_courses]
         me = Block(0, st.major, st.english, 1, open_courses)
         kw = dict(label=None, seats=seats, quota=quota, workers=1, rng=rng)
-        pick = (stage_b([me], options, times, 10, **kw)
-                or stage_b([me], options, times, 10, allow_clash=True, **kw))
+        pick = stage_b([me], options, times, 10, **kw)
+        if pick is None and allow_clash:
+            pick = stage_b([me], options, times, 10, allow_clash=True, **kw)
+        elif pick is None:
+            pick, dropped = drop_until_clash_free(me, options, times, kw)
+            unplaced[sid] = unplaced[sid] + dropped
         if pick is None:  # linked lecture/tutorial seats ran out together
             unplaced[sid] = st.courses
             pick = set()
@@ -674,6 +681,18 @@ def student_view(students, baselines, blocks, opt, times, sections):
             for st in students]
 
 
+def drop_until_clash_free(me, options, times, kw):
+    """Fewest courses to drop so the rest fit without clashes (tries 1, then 2, ...)."""
+    from itertools import combinations
+    for k in range(1, len(me.courses) + 1):
+        for dropped in combinations(me.courses, k):
+            rest = Block(0, me.major, me.english, 1, [c for c in me.courses if c not in dropped])
+            pick = stage_b([rest], options, times, 10, **kw)
+            if pick is not None:
+                return pick, list(dropped)
+    return set(), list(me.courses)
+
+
 def year1_quota(blocks, options):
     """Seats first-years may take per (course, section type).
 
@@ -729,13 +748,17 @@ def main():
                "block_size": BLOCK_SIZE, "blocks": len(blocks), "seed": args.seed,
                "time_limit_per_stage_s": args.time_limit}
     baselines = {}
-    for name, random_choice, text in (
-            ("random", True, "Random: each student gets a random clash-free timetable"),
-            ("fcfs", False, "First come, first served: each student picks their own best timetable")):
+    for name, random_choice, allow_clash, text in (
+            ("random", True, True, "Random: each student gets a random clash-free timetable"),
+            ("fcfs", False, True, "First come, first served: each student picks their own best timetable"),
+            ("fcfs_no_clash", False, False,
+             "First come, no clashes: as above, but drop a course rather than accept a clash")):
         print(text, flush=True)
-        students, assign, unplaced = register(blocks, options, real, quota, args.seed, random_choice)
+        students, assign, unplaced = register(blocks, options, real, quota, args.seed, random_choice,
+                                              allow_clash)
         summary[name] = metrics(students, assign, real)
         summary[name]["students_missing_a_course"] = len(unplaced)
+        summary[name]["courses_missing"] = sum(len(v) for v in unplaced.values())
         baselines[name] = assign
 
     print("Planner: assign every student together, class times unchanged", flush=True)
@@ -747,6 +770,7 @@ def main():
                          label="Sectioning")
     summary["planner"] = metrics(blocks, opt_assign, real)
     summary["planner"]["students_missing_a_course"] = 0
+    summary["planner"]["courses_missing"] = 0
     view = student_view(students, baselines, blocks, opt_assign, real, sections)
 
     OUT_DIR.mkdir(exist_ok=True)
@@ -786,10 +810,10 @@ def main():
     app = {"summary": summary, "days": DAYS, "hours": [HOURS[0], HOURS[-1]], "students": view}
     (OUT_DIR / "app_data.json").write_text(json.dumps(app, separators=(",", ":")))
 
-    cols = [k for k in ("random", "fcfs", "planner", "retimed") if k in summary]
-    print(f"\n{'metric':52}" + "".join(f"{c:>10}" for c in cols))
+    cols = [k for k in ("random", "fcfs", "fcfs_no_clash", "planner", "retimed") if k in summary]
+    print(f"\n{'metric':52}" + "".join(f"{c[:13]:>14}" for c in cols))
     for k in summary["planner"]:
-        print(f"{k:52}" + "".join(f"{summary[c].get(k, ''):>10}" for c in cols))
+        print(f"{k:52}" + "".join(f"{summary[c].get(k, ''):>14}" for c in cols))
 
 
 if __name__ == "__main__":

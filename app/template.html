@@ -9,7 +9,7 @@
   --bg: #f3f5f8; --surface: #ffffff; --ink: #14202e; --ink-2: #4a5666; --muted: #6f7b8b;
   --line: #dce1e8; --grid: #eef1f5; --accent: #0d6b6b; --accent-ink: #ffffff;
   --gap: #b26a00; --gap-tint: #fff4df; --bad: #b42318;
-  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #4a3aa7;
   --c1: #2a78d6; --c2: #eb6834; --c3: #1baf7a; --c4: #eda100; --c5: #e87ba4; --c6: #008300; --c7: #4a3aa7; --c8: #e34948;
   --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --f-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
@@ -20,14 +20,14 @@
   --bg: #10151c; --surface: #18202a; --ink: #e8edf3; --ink-2: #aab4c1; --muted: #8995a4;
   --line: #2b3542; --grid: #1f2833; --accent: #4fb8b5; --accent-ink: #0b1515;
   --gap: #f0b44c; --gap-tint: #3a2e17; --bad: #ff8a7a;
-  --s1: #3987e5; --s2: #d95926; --s3: #199e70;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #9085e9;
   --c1: #3987e5; --c2: #d95926; --c3: #199e70; --c4: #c98500; --c5: #d55181; --c6: #008300; --c7: #9085e9; --c8: #e66767;
   color-scheme: dark; } }
 :root[data-theme="dark"] {
   --bg: #10151c; --surface: #18202a; --ink: #e8edf3; --ink-2: #aab4c1; --muted: #8995a4;
   --line: #2b3542; --grid: #1f2833; --accent: #4fb8b5; --accent-ink: #0b1515;
   --gap: #f0b44c; --gap-tint: #3a2e17; --bad: #ff8a7a;
-  --s1: #3987e5; --s2: #d95926; --s3: #199e70;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #9085e9;
   --c1: #3987e5; --c2: #d95926; --c3: #199e70; --c4: #c98500; --c5: #d55181; --c6: #008300; --c7: #9085e9; --c8: #e66767;
   color-scheme: dark; }
 
@@ -118,7 +118,7 @@ button:hover { filter: brightness(1.08); }
   <header>
     <span class="eyebrow">CityUHK · Semester A 2026/27 · first-year students</span>
     <h1>Year 1 Section Planner</h1>
-    <p class="lede">Every class keeps its published day, time and room. The planner only decides which lecture, tutorial and lab section each student joins, so that everyone gets few gaps, no clashes, and days of similar length. It is compared on the same simulated students with two ways of registering: a random clash-free timetable, and today's first come, first served.</p>
+    <p class="lede">Every class keeps its published day, time and room. The planner only decides which lecture, tutorial and lab section each student joins, so that everyone gets few gaps, no clashes, and days of similar length. It is compared on the same simulated students with three ways of registering: a random clash-free timetable, today's first come, first served, and first come, first served where a student drops a course rather than accept a clash.</p>
   </header>
 
   <section class="strip" id="strip" aria-label="Summary"></section>
@@ -136,6 +136,7 @@ button:hover { filter: brightness(1.08); }
       <div class="legend">
         <span class="key"><span class="swatch" style="background:var(--s1)"></span>Random clash-free</span>
         <span class="key"><span class="swatch" style="background:var(--s2)"></span>First come, first served</span>
+        <span class="key"><span class="swatch" style="background:var(--s4)"></span>First come, no clashes</span>
         <span class="key"><span class="swatch" style="background:var(--s3)"></span>Planner</span>
       </div>
     </div>
@@ -155,6 +156,7 @@ button:hover { filter: brightness(1.08); }
       <div class="seg" role="group" aria-label="Baseline">
         <button type="button" id="base-r" aria-pressed="true">Random clash-free</button>
         <button type="button" id="base-f" aria-pressed="false">First come, first served</button>
+        <button type="button" id="base-n" aria-pressed="false">First come, no clashes</button>
       </div>
     </div>
     <div class="coursekey" id="coursekey"></div>
@@ -175,7 +177,7 @@ button:hover { filter: brightness(1.08); }
   <section class="about">
     <h2>How the numbers were made</h2>
     <p>Class times, rooms and seat caps come from the published Semester A 2026/27 timetable (1,585 courses, 5,056 sections). The students are simulated: each major's Year 1 study plan and intake estimate, scaled so every course fits its real seats. GE1601 is online and Gateway electives are not modelled.</p>
-    <p>Random clash-free and first come, first served both let students register one at a time in random order. In the random version each student gets a random timetable with no clashes from the seats still open; in first come, first served each picks their own best one. The planner assigns everyone together, in groups of up to 12 students from the same major. It weighs the goals listed above, and the first-years can only use the seats left after other years' share is held back (other years keep what they really enrolled, as long as first-years still fit within 95% of the seats).</p>
+    <p>Random clash-free and first come, first served both let students register one at a time in random order. In the random version each student gets a random timetable with no clashes from the seats still open; in first come, first served each picks their own best one. When no clash-free choice is left, first come, first served accepts the smallest clash, and the no-clash version drops as few courses as needed instead. The planner assigns everyone together, in groups of up to 12 students from the same major. It weighs the goals listed above, and the first-years can only use the seats left after other years' share is held back (other years keep what they really enrolled, as long as first-years still fit within 95% of the seats).</p>
     <p>All figures are counted for every teaching week (weeks 1 to 13) and averaged. Daily-hours spread is the standard deviation of hours on campus across the days a student comes in.</p>
   </section>
 </div>
@@ -184,8 +186,9 @@ button:hover { filter: brightness(1.08); }
 const D = /*APP_DATA*/null;
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const H0 = 9, H1 = 22, WEEKS = 13;
-const NAMES = { r: "Random clash-free", f: "First come, first served", o: "Planner" };
-const SHORT = { r: "Random", f: "First come", o: "Planner" };
+const NAMES = { r: "Random clash-free", f: "First come, first served", n: "First come, no clashes", o: "Planner" };
+const SHORT = { r: "Random", f: "First come", n: "No clashes", o: "Planner" };
+const COLOR = { r: "var(--s1)", f: "var(--s2)", n: "var(--s4)", o: "var(--s3)" };
 const $ = id => document.getElementById(id);
 const fmt = (x, d = 1) => Number(x).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
 const int = x => Number(x).toLocaleString("en-US");
@@ -221,30 +224,30 @@ const groupStats = {};
 for (const [g, ids] of Object.entries(D.groups)) groupStats[g] = stats(ids);
 const S = D.students.map((s, i) => {
   const took = k => new Set(s[k].map(m => D.meetings[m][0]));
-  const tr = took("r"), tf = took("f");
-  return { ...s, i, st: { r: stats(s.r), f: stats(s.f), o: groupStats[s.g] },
-           miss: { r: s.c.filter(c => !tr.has(c)), f: s.c.filter(c => !tf.has(c)), o: [] } };
+  const tr = took("r"), tf = took("f"), tn = took("n");
+  return { ...s, i, st: { r: stats(s.r), f: stats(s.f), n: stats(s.n), o: groupStats[s.g] },
+           miss: { r: s.c.filter(c => !tr.has(c)), f: s.c.filter(c => !tf.has(c)), n: s.c.filter(c => !tn.has(c)), o: [] } };
 });
 const count = fn => S.filter(fn).length;
 const mean = fn => S.reduce((a, s) => a + fn(s), 0) / S.length;
-const K = ["r", "f", "o"];
+const K = ["r", "f", "n", "o"];
 
 // summary strip: three scenarios per metric, lower is better
-const P = D.summary.planner, R = D.summary.random, F = D.summary.fcfs;
+const P = D.summary.planner, R = D.summary.random, F = D.summary.fcfs, N = D.summary.fcfs_no_clash;
 const cards = [
   ["Gap hours per student, per week", k => fmt(mean(s => s.st[k].idle), 2), "between classes on the same day"],
   ["Spread of daily hours on campus", k => fmt(mean(s => s.st[k].spread), 2) + " h", "standard deviation across a student's days"],
   ["Class hours after 19:00 per student, per week", k => fmt(mean(s => s.st[k].late), 2), "late classes"],
   ["Days without a lunch break per student, per week", k => fmt(mean(s => s.st[k].noLunch), 2), "class at both 12:00 and 13:00"],
   ["Students with a clash or a missing course", k => int(count(s => s.st[k].clash > 0 || s.miss[k].length)), "a course they could not fit or find a seat in"],
-  ["Most first-years on campus in one hour", k => int({ r: R, f: F, o: P }[k].peak_students_on_campus), "in class or waiting between classes"],
+  ["Most first-years on campus in one hour", k => int({ r: R, f: F, n: N, o: P }[k].peak_students_on_campus), "in class or waiting between classes"],
 ];
 $("strip").innerHTML = cards.map(([label, val, note]) => `<div class="metric"><span class="label">${label}</span><div class="rows">` +
-  K.map((k, n) => `<span class="who"><span class="swatch" style="background:var(--s${n + 1})"></span>${SHORT[k]}</span><span class="val${k === "o" ? " best" : ""}">${val(k)}</span>`).join("") +
+  K.map(k => `<span class="who"><span class="swatch" style="background:${COLOR[k]}"></span>${SHORT[k]}</span><span class="val${k === "o" ? " best" : ""}">${val(k)}</span>`).join("") +
   `</div><span class="note">${note}</span></div>`).join("");
 const better = (b) => count(s => s.st.o.idle < s.st[b].idle - 1e-9 || s.miss[b].length > 0 || s.st.o.clash < s.st[b].clash - 1e-9);
 const worse = (b) => count(s => s.st.o.idle > s.st[b].idle + 1e-9 && !s.miss[b].length);
-$("verdict").innerHTML = `Against random clash-free timetables, the planner gives <strong>${int(better("r"))}</strong> students fewer gaps and <strong>${int(worse("r"))}</strong> more. Against first come, first served, <strong>${int(better("f"))}</strong> get a better week (fewer gaps, no clash, or a course they had missed) and <strong>${int(worse("f"))}</strong> get slightly more gap time so others can be helped.`;
+$("verdict").innerHTML = `Against random clash-free timetables, the planner gives <strong>${int(better("r"))}</strong> students fewer gaps and <strong>${int(worse("r"))}</strong> more. Against first come, first served, <strong>${int(better("f"))}</strong> get a better week (fewer gaps, no clash, or a course they had missed) and <strong>${int(worse("f"))}</strong> get slightly more gap time so others can be helped. When first come, first served may not clash, <strong>${int(count(s => s.miss.n.length))}</strong> students have to drop a course; the planner fits every course for everyone.`;
 
 // priorities
 const Wt = D.summary.weights;
@@ -271,16 +274,16 @@ function chart() {
   const step = max / mag < 2 ? mag / 4 : max / mag < 5 ? mag / 2 : mag;
   const top = Math.ceil(max / step) * step;
   const y = v => T + (Hh - T - B) * (1 - v / top);
-  const band = (W - L - R) / rows.length, bw = Math.max(6, Math.min(24, band / 4.5));
+  const band = (W - L - R) / rows.length, bw = Math.max(5, Math.min(22, band / 5.5));
   let svg = `<svg viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}" role="img" aria-label="Students by weekly gap hours for three ways of assigning sections">`;
   for (let v = 0; v <= top + 1e-9; v += step)
     svg += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${int(v)}</text>`;
   rows.forEach((r, i) => {
     const cx = L + band * (i + 0.5);
     K.forEach((k, n) => {
-      const v = r[n + 1], x = cx + (n - 1) * (bw + 2) - bw / 2, h = Math.max(0, y(0) - y(v)), rad = Math.min(4, h / 2);
+      const v = r[n + 1], x = cx + (n - (K.length - 1) / 2) * (bw + 2) - bw / 2, h = Math.max(0, y(0) - y(v)), rad = Math.min(4, h / 2);
       const path = h > 0 ? `M${x},${y(0)} V${y(v) + rad} Q${x},${y(v)} ${x + rad},${y(v)} H${x + bw - rad} Q${x + bw},${y(v)} ${x + bw},${y(v) + rad} V${y(0)} Z` : "";
-      svg += `<path d="${path}" fill="var(--s${n + 1})"/><rect class="hit" x="${cx - band / 2 + n * band / 3}" y="${T}" width="${band / 3}" height="${Hh - T - B}" fill="transparent" data-tip="${NAMES[k]}: ${int(v)} students with ${r[0]}"/>`;
+      svg += `<path d="${path}" fill="${COLOR[k]}"/><rect class="hit" x="${cx - band / 2 + n * band / K.length}" y="${T}" width="${band / K.length}" height="${Hh - T - B}" fill="transparent" data-tip="${NAMES[k]}: ${int(v)} students with ${r[0]}"/>`;
     });
     svg += `<text x="${cx}" y="${Hh - 8}" text-anchor="middle">${r[0]}</text>`;
   });
@@ -359,10 +362,12 @@ function setBase(k) {
   base = k;
   $("base-r").setAttribute("aria-pressed", String(k === "r"));
   $("base-f").setAttribute("aria-pressed", String(k === "f"));
+  $("base-n").setAttribute("aria-pressed", String(k === "n"));
   fillStudents(+majorSel.value, +studentSel.value);
 }
 $("base-r").addEventListener("click", () => setBase("r"));
 $("base-f").addEventListener("click", () => setBase("f"));
+$("base-n").addEventListener("click", () => setBase("n"));
 majorSel.addEventListener("change", () => fillStudents(+majorSel.value));
 studentSel.addEventListener("change", () => show(+studentSel.value));
 $("hard").addEventListener("click", () => fillStudents(+majorSel.value));
