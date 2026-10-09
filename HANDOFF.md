@@ -63,39 +63,42 @@ Honest caveat for the user: Bright Data's main strengths (IP rotation, CAPTCHA a
 - Room capacities can now be estimated as the largest section cap booked into each venue.
 
 ## Prototype results (Year 1, Sem A 2026/27)
-Run: `pip install -r requirements.txt`, then `python3 scripts/build_sections.py`, `python3 scripts/build_curricula.py` and `python3 scripts/optimize.py --time-limit 300`. The full run takes about 15 minutes on 4 cores.
+**Direction (user's decision, 9 Oct):** class times stay exactly as published. The product assigns students to sections (registration helper), not a timetable redesign. Retiming is kept behind `--retime` for reference.
 
-**Population** (`data/curricula_year1_semA.csv`): 2,796 first-years in 104 cohorts (52 majors × GE1401 or LC0200A English stream), taking 58 courses across 586 candidate sections. The free-text plans were resolved by explicit rules, documented at the top of `scripts/build_curricula.py`. Intakes were then scaled down so each course's Year 1 demand fits within 90% of its real seats. For example, the estimates put more EE students into EE1001 than it seats.
+Run: `pip install -r requirements.txt`, then `python3 scripts/build_sections.py`, `python3 scripts/build_curricula.py`, `python3 scripts/optimize.py --time-limit 300` (about 7 min), and finally `python3 scripts/build_app.py`.
 
-**Model** (`scripts/optimize.py`): students move in blocks of ≤12 from the same cohort. Blocks of 20 couldn't be packed into the 20–25-seat GE1401 tutorials. Each block takes one section per course and section type, linked sections stay together (CA1 with TA*), and seats are capped. Clashes are checked week by week, because many lectures and tutorials share a slot in different weeks. Stage A moves the meetings of the sections Year 1 uses, keeping their rooms, length and weeks. It never double-books a room or instructor against any other course's bookings. Objective: idle hours + 3 × peak students on campus + 50 × the worst block's idle hours, plus a Stage A penalty for Saturday and after-19:00 classes.
+**App:** `app/index.html`, built from `app/template.html`. It's a single page with the summary, a chart of gap hours, and any student's week under first-come-first-served next to the planner's assignment. Published privately at https://claude.ai/artifact/N9cvAg2GNrgcGNaWB4J8YR.
 
-| per student, averaged over 13 teaching weeks | baseline: real times, best sectioning | optimized |
+**Population** (`data/curricula_year1_semA.csv`): 2,796 first-years in 104 cohorts (52 majors × GE1401 or LC0200A English stream), taking 58 courses across 586 candidate sections. Plans were resolved by the rules at the top of `scripts/build_curricula.py`, and intakes were scaled so each course's Year 1 demand fits 90% of its real seats.
+
+**Comparison:**
+- **Today (simulated):** students register one at a time in random order (seed 1). Each takes the fewest-gap clash-free timetable still open. If none is left, they take the least-clashing one.
+- **Planner:** assigns every student at once, in blocks of ≤12 from the same cohort, minimising gap hours + 3 × peak students on campus + 50 × the worst block's gap hours. Linked sections (CA1 with TA*) are respected, and clashes are checked week by week.
+
+| per student, averaged over 13 teaching weeks | first come, first served | planner |
 |---|---|---|
-| idle hours between classes / week (mean) | 0.36 | **0.24** (−33%) |
-| idle hours std / max | 0.82 / 5.6 | 0.72 / 4.6 |
-| students with ≥3 idle h / week | 77 | 68 |
-| days on campus / week | 4.02 | 3.95 |
-| peak Year 1 students on campus in one hour | 1,160 | **1,020** (−12%) |
-| evening or Saturday class hours / week | 0.46 | **0.27** (−41%) |
-| student clash hours | 0 | 0 |
-| room / instructor double-bookings introduced | – | 0 / 0 (13 existing instructor overlaps resolved) |
+| gap hours / week (mean) | 0.33 | 0.30 |
+| gap hours std / max | 0.84 / 7.0 | 0.69 / 5.9 |
+| students with ≥3 gap hours / week | 68 | **40** |
+| students with a clash | 35 (563 clash-hours over the term) | **0** |
+| peak first-years on campus in one hour | 1,385 | **1,184** (−15%) |
+| days on campus / week | 3.83 | 3.99 |
 
-Stage A moved 200 of the 615 meetings it could move. The new times are in `results/optimized_section_times.csv`, block timetables are in `results/*_block_timetables.csv`, and metrics are in `results/summary.json`. CP-SAT stopped at the time limit in every stage (FEASIBLE, not proven optimal), so longer runs may do a little better.
+378 students are better off, 305 get slightly more gap time, and the rest keep an equally good week. The planner's main gains are no clashes, fewer bad weeks and a lower campus peak. The average gap barely moves, because most students already get a gap-free week in this model. CP-SAT stopped at the 300 s limit (FEASIBLE, not proven optimal).
 
 **Caveats:**
-- The baseline is generous to the real timetable. It gives students the *best possible* sections on the real times, while real students register first-come-first-served, so real gaps are larger.
-- Moving a section also moves the non-Year-1 students in it, whose timetables aren't modelled.
-- Section restrictions ("only for Major/Programme …") and Gateway and college-requirement electives are ignored.
-- Rooms stay as booked; reassigning rooms would add freedom.
-- GE1601 is excluded because its lectures have no fixed time.
-- The source data itself has 117 room-hours and 227 instructor-hours where meetings with different start times overlap. These are probably combined classes or data quirks, and the optimizer leaves them alone.
+- The simulated students are optimal myopic registrants. Real students also weigh friends, instructors and lunch, and they register in priority rounds, not in random order.
+- Section restrictions ("only for Major/Programme …") are ignored, and the Gateway and college-requirement electives are left out.
+- Other years' students aren't modelled, but they also hold seats in these sections.
+- The planner puts each student in a block of ≤12 classmates who share a timetable. Assigning individuals could do slightly better.
 
 ## Next steps
 1. ~~Write a parser for AIMS section pages → `sections.csv`~~ Done via `scripts/build_sections.py` (see update above).
 2. ~~Build a synthetic student population~~ Done: `scripts/build_curricula.py`.
 3. ~~Prototype Stage A + Stage B in CP-SAT~~ Done: `scripts/optimize.py` (results above).
 4. ~~Compare against the current real timetable~~ Done (baseline column above).
-5. Make the baseline realistic: simulate first-come-first-served registration instead of optimal sectioning.
-6. Add room reassignment (room capacities estimated as the largest cap booked into each room) and respect major/programme restrictions.
-7. Model the other years (at least their fixed classes) so moving shared sections doesn't hurt them.
-8. Tune the weights (gaps vs. peak load vs. days on campus) with the user and show the trade-off curve.
+5. ~~Simulate first-come-first-served registration~~ Done (`first_come_first_served` in `scripts/optimize.py`).
+6. Respect major/programme section restrictions (parse the `restrict` column).
+7. Add student preferences: no classes before X, days off, keep friends together.
+8. Model other years' seat use in shared sections.
+9. Tune the weights (gaps vs. peak load vs. days on campus) and show the trade-off.

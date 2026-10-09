@@ -1,42 +1,41 @@
 {
-  "baseline": {
+  "first_come_first_served": {
     "students": 2796,
-    "idle_hours_per_student_week": 0.36,
-    "idle_hours_std": 0.82,
-    "idle_hours_max": 5.62,
-    "students_with_3h_plus_idle_per_week": 77,
-    "days_on_campus_per_student_week": 4.02,
-    "peak_students_on_campus": 1160,
-    "weekday_hourly_load_std": 380.3,
-    "evening_or_saturday_class_hours_per_student_week": 0.46,
-    "student_clash_hours": 0
-  },
-  "optimized": {
-    "students": 2796,
-    "idle_hours_per_student_week": 0.24,
-    "idle_hours_std": 0.72,
-    "idle_hours_max": 4.62,
+    "idle_hours_per_student_week": 0.33,
+    "idle_hours_std": 0.84,
+    "idle_hours_max": 7.0,
     "students_with_3h_plus_idle_per_week": 68,
-    "days_on_campus_per_student_week": 3.95,
-    "peak_students_on_campus": 1020,
-    "weekday_hourly_load_std": 374.6,
-    "evening_or_saturday_class_hours_per_student_week": 0.27,
-    "student_clash_hours": 0
+    "days_on_campus_per_student_week": 3.83,
+    "peak_students_on_campus": 1385,
+    "weekday_hourly_load_std": 410.5,
+    "evening_or_saturday_class_hours_per_student_week": 0.5,
+    "student_clash_hours": 563,
+    "students_missing_a_course": 0
   },
-  "double_booked_hours": {
-    "room_hours_in_real_data": 117,
-    "room_hours_introduced": 0,
-    "room_hours_resolved": 0,
-    "instructor_hours_in_real_data": 227,
-    "instructor_hours_introduced": 0,
-    "instructor_hours_resolved": 13
+  "optimized_sectioning": {
+    "students": 2796,
+    "idle_hours_per_student_week": 0.3,
+    "idle_hours_std": 0.69,
+    "idle_hours_max": 5.92,
+    "students_with_3h_plus_idle_per_week": 40,
+    "days_on_campus_per_student_week": 3.99,
+    "peak_students_on_campus": 1184,
+    "weekday_hourly_load_std": 380.0,
+    "evening_or_saturday_class_hours_per_student_week": 0.47,
+    "student_clash_hours": 0,
+    "students_missing_a_course": 0
+  },
+  "per_student_idle_change": {
+    "students_better_off": 360,
+    "students_same": 2131,
+    "students_worse_off": 305
   },
   "weights": {
     "peak": 3,
-    "fairness": 50,
-    "late": 1
+    "fairness": 50
   },
   "block_size": 12,
   "blocks": 279,
+  "seed": 1,
   "time_limit_per_stage_s": 300.0
 }

@@ -14,7 +14,7 @@
   --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --f-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --f-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --hr: 2.5rem;
+  --hr: 2.9rem;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #10151c; --surface: #18202a; --ink: #e8edf3; --ink-2: #aab4c1; --muted: #8995a4;
@@ -91,7 +91,8 @@ button:hover { filter: brightness(1.08); }
   background-image: repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px var(--hr)); }
 .ev { position: absolute; border-radius: 5px; padding: 3px 5px; overflow: hidden; font-size: 0.68rem; line-height: 1.25;
   background: color-mix(in srgb, var(--c) 20%, var(--surface)); border: 1px solid var(--c); color: var(--ink); }
-.ev b { display: block; font-size: 0.72rem; }
+.ev b, .ev span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ev b { font-size: 0.72rem; }
 .ev.partial { border-style: dashed; }
 .ev.clash { box-shadow: inset 0 0 0 2px var(--bad); }
 .gapblk { position: absolute; left: 2px; right: 2px; border-radius: 5px; border: 1px dashed var(--gap); color: var(--gap); font-size: 0.66rem; font-weight: 600;
@@ -213,14 +214,15 @@ const zeroF = count(s => s.fs.idle < 0.001), zeroO = count(s => s.os.idle < 0.00
 $("dist-note").textContent = `${int(zeroF)} students have no gaps at all under first come, first served, and ${int(zeroO)} under the planner. The chart shows everyone else.`;
 const rows = bins.map(([name, lo, hi]) => [name, count(s => s.fs.idle >= lo && s.fs.idle < hi), count(s => s.os.idle >= lo && s.os.idle < hi)]);
 $("dist-table").innerHTML = `<table><thead><tr><th>Gap hours a week</th><th>First come, first served</th><th>Planner</th></tr></thead><tbody>${rows.map(r => `<tr><td>${r[0]}</td><td>${int(r[1])}</td><td>${int(r[2])}</td></tr>`).join("")}</tbody></table>`;
-(function chart() {
-  const W = 640, Hh = 220, L = 44, B = 28, T = 10, R = 8;
+function chart() {
+  const box = $("chart");
+  const W = Math.max(320, box.clientWidth || 640), Hh = 240, L = 44, B = 28, T = 10, R = 8;
   const max = Math.max(1, ...rows.flatMap(r => [r[1], r[2]]));
   const step = Math.pow(10, Math.floor(Math.log10(max))) / (max / Math.pow(10, Math.floor(Math.log10(max))) < 3 ? 2 : 1);
   const top = Math.ceil(max / step) * step;
   const y = v => T + (Hh - T - B) * (1 - v / top);
   const band = (W - L - R) / rows.length, bw = Math.min(28, band * 0.3);
-  let svg = `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="Students by weekly gap hours, first come first served versus planner">`;
+  let svg = `<svg viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}" role="img" aria-label="Students by weekly gap hours, first come first served versus planner">`;
   for (let v = 0; v <= top + 1e-9; v += step)
     svg += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${int(v)}</text>`;
   rows.forEach((r, i) => {
@@ -233,13 +235,16 @@ $("dist-table").innerHTML = `<table><thead><tr><th>Gap hours a week</th><th>Firs
     svg += `<text x="${cx}" y="${Hh - 8}" text-anchor="middle">${r[0]}</text>`;
   });
   svg += `<line x1="${L}" x2="${W - R}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)"/></svg><div class="tip" hidden></div>`;
-  const box = $("chart"); box.innerHTML = svg;
+  box.innerHTML = svg;
   const tip = box.querySelector(".tip");
   box.querySelectorAll(".hit").forEach(el => {
     el.addEventListener("mousemove", e => { const r = box.getBoundingClientRect(); tip.hidden = false; tip.textContent = el.dataset.tip; tip.style.left = (e.clientX - r.left) + "px"; tip.style.top = (e.clientY - r.top) + "px"; });
     el.addEventListener("mouseleave", () => { tip.hidden = true; });
   });
-})();
+}
+chart();
+let resizeTimer;
+addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(chart, 150); });
 
 // explorer
 const majorSel = $("major"), studentSel = $("student");
@@ -280,7 +285,7 @@ function render(gridId, ids, colorOf) {
       const [course, sec, , s, len, w0, w1, rooms] = e.m;
       const clash = evs.some(o => o !== e && o.s < s + len && s < o.s + o.len && o.m[5] <= w1 && w0 <= o.m[6]);
       const w = 100 / e.n;
-      col += `<div class="ev${e.partial ? " partial" : ""}${clash ? " clash" : ""}" style="--c:${colorOf(course)};top:calc(var(--hr) * ${s - H0} + 1px);height:calc(var(--hr) * ${len} - 2px);left:calc(${w * e.lane}% + 2px);width:calc(${w}% - 4px)" title="${course} ${sec} · ${String(s).padStart(2, "0")}:00–${String(s + len - 1).padStart(2, "0")}:50 · weeks ${w0}–${w1} · ${rooms}"><b>${course}</b>${sec}${e.partial ? ` · wks ${w0}–${w1}` : ""}<br>${rooms}</div>`;
+      col += `<div class="ev${e.partial ? " partial" : ""}${clash ? " clash" : ""}" style="--c:${colorOf(course)};top:calc(var(--hr) * ${s - H0} + 1px);height:calc(var(--hr) * ${len} - 2px);left:calc(${w * e.lane}% + 2px);width:calc(${w}% - 4px)" title="${course} ${sec} · ${String(s).padStart(2, "0")}:00–${String(s + len - 1).padStart(2, "0")}:50 · weeks ${w0}–${w1} · ${rooms}"><b>${course}</b><span>${sec}${e.partial ? ` · wks ${w0}–${w1}` : ""}</span><span>${rooms}</span></div>`;
     }
     html += col + `</div>`;
   }
