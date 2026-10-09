@@ -104,11 +104,6 @@ button:hover { filter: brightness(1.08); }
   background: repeating-linear-gradient(135deg, var(--gap-tint) 0 6px, transparent 6px 11px); }
 .coursekey { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.8rem; color: var(--ink-2); }
 .missing { color: var(--bad); font-size: 0.82rem; }
-.prio { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
-.prio div { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: grid; gap: 2px; }
-.prio .w { font-family: var(--f-data); font-size: 1.3rem; }
-.prio .n { font-weight: 600; }
-.prio .d { font-size: 0.8rem; color: var(--muted); }
 .about { display: grid; gap: 10px; color: var(--ink-2); font-size: 0.9rem; }
 .about h2 { color: var(--ink); }
 @media (prefers-reduced-motion: no-preference) { .ev, .gapblk { transition: opacity .2s; } }
@@ -124,15 +119,10 @@ button:hover { filter: brightness(1.08); }
   <section class="strip" id="strip" aria-label="Summary"></section>
   <p class="verdict" id="verdict"></p>
 
-  <section class="panel" aria-labelledby="prio-title">
-    <h2 id="prio-title">What the planner aims for</h2>
-    <div class="prio" id="prio"></div>
-    <p class="lede" id="rules"></p>
-  </section>
 
   <section class="panel" aria-labelledby="dist-title">
     <div class="week-head">
-      <h2 id="dist-title">Students by weekly gap hours</h2>
+      <h2 id="dist-title">Students with gaps, by weekly gap hours</h2>
       <div class="legend">
         <span class="key"><span class="swatch" style="background:var(--s1)"></span>Random clash-free</span>
         <span class="key"><span class="swatch" style="background:var(--s2)"></span>First come, first served</span>
@@ -140,6 +130,7 @@ button:hover { filter: brightness(1.08); }
         <span class="key"><span class="swatch" style="background:var(--s3)"></span>Planner</span>
       </div>
     </div>
+    <p class="lede" id="dist-note"></p>
     <div class="chart" id="chart"></div>
     <details><summary>Show as a table</summary><div id="dist-table"></div></details>
   </section>
@@ -252,10 +243,8 @@ const P = D.summary.planner, R = D.summary.random, F = D.summary.fcfs, N = D.sum
 const cards = [
   ["Gap hours per student, per week", k => fmt(mean(s => s.st[k].idle), 2), "between classes on the same day"],
   ["Unevenness across Mon–Fri", k => fmt(mean(s => s.st[k].uneven), 2) + " h", "std of a student's class hours per weekday"],
-  ["Class hours after 19:00 per student, per week", k => fmt(mean(s => s.st[k].late), 2), "late classes"],
-  ["Days without a lunch break per student, per week", k => fmt(mean(s => s.st[k].noLunch), 2), "class at both 12:00 and 13:00"],
   ["Students with a clash or a missing course", k => int(count(s => s.st[k].clash > 0 || s.miss[k].length)), "a course they could not fit or find a seat in"],
-  ["Most first-years on campus in one hour", k => int({ r: R, f: F, n: N, o: P }[k].peak_students_on_campus), "in class or waiting between classes"],
+  ["Std of campus load per hour", k => int({ r: R, f: F, n: N, o: P }[k].weekday_hourly_load_std), "first-years on campus each weekday hour, 09:00–22:00; lower is more even"],
 ];
 $("strip").innerHTML = cards.map(([label, val, note]) => `<div class="metric"><span class="label">${label}</span><div class="rows">` +
   K.map(k => `<span class="who"><span class="swatch" style="background:${COLOR[k]}"></span>${SHORT[k]}</span><span class="val${k === "o" ? " best" : ""}">${val(k)}</span>`).join("") +
@@ -264,39 +253,33 @@ const better = (b) => count(s => s.st.o.idle < s.st[b].idle - 1e-9 || s.miss[b].
 const worse = (b) => count(s => s.st.o.idle > s.st[b].idle + 1e-9 && !s.miss[b].length);
 $("verdict").innerHTML = `Against random clash-free timetables, the planner gives <strong>${int(better("r"))}</strong> students fewer gaps and <strong>${int(worse("r"))}</strong> more. Against first come, first served, <strong>${int(better("f"))}</strong> get a better week (fewer gaps, no clash, or a course they had missed) and <strong>${int(worse("f"))}</strong> get slightly more gap time so others can be helped. When first come, first served may not clash, <strong>${int(count(s => s.miss.n.length))}</strong> students have to drop a course; the planner fits every course for everyone.`;
 
-// priorities
-const Wt = D.summary.weights;
-const prio = [
-  ["Building load", Wt.building_peaks, "points per student in each building's busiest hour, summed over buildings"],
-  ["Gaps", Wt.gaps, "points per student-hour waiting between classes"],
-  ["Even week", Wt.even_week, "points per hour a weekday is off an even Mon–Fri split; Saturday classes count in full"],
-  ["Fairness", Wt.fairness, "points per score point of the worst-off group, so nobody is sacrificed for the average"],
-];
-$("prio").innerHTML = prio.map(([n, w, d]) => `<div><span class="w">${w}</span><span class="n">${n}</span><span class="d">${d}</span></div>`).join("");
-$("rules").textContent = `Always kept: every student gets every course, no clashes, seat caps, linked lectures and tutorials, and ${int(D.summary.seats_kept_for_other_years)} seats held back for students from other years. Weights are points of cost per unit; higher means it matters more. Late classes and lunch breaks are measured but not optimised.`;
-
 // distribution chart, three series
-const bins = [["0 h", -1, 0.001], ["0–1 h", 0.001, 1], ["1–2 h", 1, 2], ["2–3 h", 2, 3], ["3–5 h", 3, 5], ["5 h +", 5, 1e9]];
-const rows = bins.map(([name, lo, hi]) => [name, ...K.map(k => count(s => s.st[k].idle >= lo && s.st[k].idle < hi))]);
-$("dist-table").innerHTML = `<table><thead><tr><th>Gap hours a week</th>${K.map(k => `<th>${NAMES[k]}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr><td>${r[0]}</td>${r.slice(1).map(v => `<td>${int(v)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+const bins = [["under 1 h", 0.001, 1], ["1–2 h", 1, 2], ["2–3 h", 2, 3], ["3–4 h", 3, 4], ["4–6 h", 4, 6], ["6 h +", 6, 1e9]];
+const counts = bins.map(([name, lo, hi]) => [name, ...K.map(k => count(s => s.st[k].idle >= lo && s.st[k].idle < hi))]);
+const rows = counts.map(r => [r[0], ...r.slice(1).map(v => 100 * v / S.length)]);
+const none = k => count(s => s.st[k].idle < 0.001);
+$("dist-note").textContent = "Share of all " + int(S.length) + " students in each band. Students with no gaps at all are left out: " +
+  K.map(k => `${NAMES[k].toLowerCase()} ${fmt(100 * none(k) / S.length, 0)}%`).join(", ") + ".";
+$("dist-table").innerHTML = `<table><thead><tr><th>Gap hours a week</th>${K.map(k => `<th>${NAMES[k]}</th>`).join("")}</tr></thead><tbody>` +
+  `<tr><td>none</td>${K.map(k => `<td>${int(none(k))}</td>`).join("")}</tr>` +
+  `${counts.map(r => `<tr><td>${r[0]}</td>${r.slice(1).map(v => `<td>${int(v)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
 function chart() {
   const box = $("chart");
   const W = Math.max(320, box.clientWidth || 640), Hh = 250, L = 52, B = 28, T = 10, R = 8;
   const max = Math.max(1, ...rows.flatMap(r => r.slice(1)));
-  const mag = Math.pow(10, Math.floor(Math.log10(max)));
-  const step = max / mag < 2 ? mag / 4 : max / mag < 5 ? mag / 2 : mag;
+  const step = max <= 10 ? 2 : max <= 25 ? 5 : 10;
   const top = Math.ceil(max / step) * step;
   const y = v => T + (Hh - T - B) * (1 - v / top);
   const band = (W - L - R) / rows.length, bw = Math.max(5, Math.min(22, band / 5.5));
-  let svg = `<svg viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}" role="img" aria-label="Students by weekly gap hours for three ways of assigning sections">`;
+  let svg = `<svg viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}" role="img" aria-label="Share of students by weekly gap hours for each way of assigning sections">`;
   for (let v = 0; v <= top + 1e-9; v += step)
-    svg += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${int(v)}</text>`;
+    svg += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${v}%</text>`;
   rows.forEach((r, i) => {
     const cx = L + band * (i + 0.5);
     K.forEach((k, n) => {
       const v = r[n + 1], x = cx + (n - (K.length - 1) / 2) * (bw + 2) - bw / 2, h = Math.max(0, y(0) - y(v)), rad = Math.min(4, h / 2);
       const path = h > 0 ? `M${x},${y(0)} V${y(v) + rad} Q${x},${y(v)} ${x + rad},${y(v)} H${x + bw - rad} Q${x + bw},${y(v)} ${x + bw},${y(v) + rad} V${y(0)} Z` : "";
-      svg += `<path d="${path}" fill="${COLOR[k]}"/><rect class="hit" x="${cx - band / 2 + n * band / K.length}" y="${T}" width="${band / K.length}" height="${Hh - T - B}" fill="transparent" data-tip="${NAMES[k]}: ${int(v)} students with ${r[0]}"/>`;
+      svg += `<path d="${path}" fill="${COLOR[k]}"/><rect class="hit" x="${cx - band / 2 + n * band / K.length}" y="${T}" width="${band / K.length}" height="${Hh - T - B}" fill="transparent" data-tip="${NAMES[k]}: ${fmt(v)}% of students (${int(counts[i][n + 1])}) with ${r[0]}"/>`;
     });
     svg += `<text x="${cx}" y="${Hh - 8}" text-anchor="middle">${r[0]}</text>`;
   });
@@ -422,7 +405,7 @@ function render(gridId, ids, colorOf) {
   $(gridId).innerHTML = html;
 }
 function facts(id, st) {
-  $(id).innerHTML = `<span>gaps <span class="num">${fmt(st.idle)} h</span>/wk</span><span>uneven <span class="num">${fmt(st.uneven)} h</span></span><span><span class="num">${fmt(st.days)}</span> days</span><span>after 19:00 <span class="num">${fmt(st.late)} h</span></span><span>no lunch <span class="num">${fmt(st.noLunch)}</span> days</span>` +
+  $(id).innerHTML = `<span>gaps <span class="num">${fmt(st.idle)} h</span>/wk</span><span>uneven <span class="num">${fmt(st.uneven)} h</span></span><span><span class="num">${fmt(st.days)}</span> days</span>` +
     (st.clash > 0 ? `<span class="warn">clash ${fmt(st.clash)} h/wk</span>` : ``);
 }
 function show(i) {
