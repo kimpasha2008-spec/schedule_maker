@@ -64,7 +64,8 @@ header { display: grid; gap: 8px; }
 .key { display: inline-flex; align-items: center; gap: 6px; }
 .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
 .chart { position: relative; width: 100%; }
-.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart { min-height: 230px; }
+.chart svg { display: block; overflow: visible; }
 .chart text { fill: var(--muted); font-family: var(--f-data); font-size: 11px; }
 .tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 0.8rem; padding: 6px 9px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, -110%); }
 details summary { cursor: pointer; color: var(--accent); font-size: 0.85rem; }
@@ -291,9 +292,16 @@ function chart() {
     el.addEventListener("mouseleave", () => { tip.hidden = true; });
   });
 }
-chart();
-let resizeTimer;
-addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(chart, 150); });
+// Draw at the container's real width, and redraw whenever that width changes
+// (window resize, full screen, or a first layout that started narrow).
+function redrawOnResize(id, draw) {
+  let width = 0, timer;
+  const run = () => { const w = $(id).clientWidth; if (w && w !== width) { width = w; draw(); } };
+  if ("ResizeObserver" in window) new ResizeObserver(() => { clearTimeout(timer); timer = setTimeout(run, 60); }).observe($(id));
+  addEventListener("resize", () => { clearTimeout(timer); timer = setTimeout(run, 60); });
+  run();
+}
+redrawOnResize("chart", chart);
 
 // building load
 const BNAMES = { YEUNG: "Yeung Kin Man Academic Building", LI: "Li Dak Sum Yip Yio Chin Academic Building", CMC: "Run Run Shaw Creative Media Centre", MMW: "Mong Man Wai Building", LAU: "Lau Ming Wai Academic Building", BOC: "Bank of China (Hong Kong) Complex" };
@@ -356,8 +364,8 @@ function bldTable() {
 }
 bldSel.value = BLD.includes("LI") ? "LI" : BLD[0];
 bldSel.addEventListener("change", bldChart); daySel.addEventListener("change", bldChart);
-bldChart(); bldTable();
-addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(bldChart, 150); });
+bldTable();
+redrawOnResize("bld-chart", bldChart);
 
 // explorer
 let base = "r";
