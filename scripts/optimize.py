@@ -649,6 +649,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--time-limit", type=float, default=120, help="seconds per optimization stage")
     ap.add_argument("--seed", type=int, default=1, help="registration order for the simulation")
+    ap.add_argument("--hint", type=Path,
+                    help="block timetable CSV from an earlier run to start the planner from")
     ap.add_argument("--retime", action="store_true",
                     help="also try moving class times (a timetable redesign, not just sectioning)")
     args = ap.parse_args()
@@ -677,7 +679,11 @@ def main():
         baselines[name] = assign
 
     print("Planner: assign every student together, class times unchanged", flush=True)
-    opt_assign = stage_b(blocks, options, real, args.time_limit, label="Sectioning")
+    hint = None
+    if args.hint:
+        with open(args.hint, encoding="utf-8") as f:
+            hint = {(int(r["block"]), r["crn"]) for r in csv.DictReader(f)}
+    opt_assign = stage_b(blocks, options, real, args.time_limit, hint=hint, label="Sectioning")
     summary["planner"] = metrics(blocks, opt_assign, real)
     summary["planner"]["students_missing_a_course"] = 0
     view = student_view(students, baselines, blocks, opt_assign, real, sections)
