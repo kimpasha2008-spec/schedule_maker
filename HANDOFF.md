@@ -97,6 +97,28 @@ Run: `pip install -r requirements.txt`, then `python3 scripts/build_sections.py`
 
 The planner beats random on everything. Against an idealised first come, first served, it wins on clashes, the worst-off students, balanced days, late classes and crowding, and loses slightly on mean gaps and lunch breaks. CP-SAT is far from optimal on this model: objective 23,556 against a bound of 6,891 after 900 s, warm-started. Solving it better (next step 7) is the main lever left. Run: `python3 scripts/optimize.py --time-limit 900 --hint <previous planner_block_timetables.csv>`.
 
+**Even-week planner (current, 9 Oct):** `python3 scripts/even_week.py --minutes 25`. This is the version the app shows.
+- **Goal (user's direction):** minimise gaps, spread each student's class hours evenly over Mon–Fri, and be fair.
+- **Block score:** 15 per gap hour + 5 per hour a weekday is off the even Mon–Fri split, with Saturday class hours counting in full. Objective = Σ students × score + 100 × the worst block's score.
+- **Hard rules:** the same as before, including other-year seat quotas.
+- **Method:** large-neighbourhood search. Each step frees 16 blocks (those sharing one course, plus the 3 worst blocks), keeps everyone else fixed, and re-solves with CP-SAT for 10 s. A change is kept only if the total falls. It starts from the previous planner timetable and plateaued after about 250 of 267 steps.
+- **Comparison:** baselines are the saved registrations, with metrics recomputed.
+
+| per student, averaged over 13 weeks | random clash-free | first come | first come, no clashes | even-week planner |
+|---|---|---|---|---|
+| planner score: total (lower is better) | 278,571 | 111,028 | 110,840 | **89,022** |
+| planner score: worst group | 342 | 111 | 111 | **64** |
+| unevenness across Mon–Fri (std of class hours) | 1.95 | 1.51 | 1.51 | **1.24** |
+| gap hours / week | 3.01 | 0.41 | **0.40** | 0.47 |
+| students with ≥3 gap hours / week | 1,359 | 97 | 98 | **93** |
+| longest day (hours) | 7.3 | 4.9 | 4.9 | **4.6** |
+| days on campus / week | **3.8** | 4.2 | 4.2 | 4.5 |
+| clash hours over the term / students dropping a course | 169 / 0 | 99 / 0 | 0 / 11 | **0 / 0** |
+| peak first-years on campus | 1,470 | 1,368 | 1,368 | **1,340** |
+| class hours after 19:00 / days without lunch | 0.21 / 1.41 | **0.12 / 1.25** | **0.12 / 1.25** | 0.18 / 1.50 |
+
+On the combined goal the planner is 20% better than first come and 42% better for the worst-off group. It trades a little average gap time (0.47 vs 0.41 h) for a much more even week, and it is the only scenario with neither clashes nor dropped courses. Lunch, late classes and crowding are no longer optimised, only measured. The earlier weighted planner is still in `scripts/optimize.py`.
+
 **Caveats:**
 - The simulated students are optimal myopic registrants. Real students also weigh friends, instructors and lunch, and they register in priority rounds, not in random order.
 - Section restrictions ("only for Major/Programme …") are ignored, and the Gateway and college-requirement electives are left out.

@@ -1,10 +1,7 @@
 {
   "weights": {
-    "gaps": 3,
-    "balanced_days": 3,
-    "crowding": 1,
-    "late_classes": 1,
-    "no_lunch_break": 1,
+    "gaps": 15,
+    "even_week": 5,
     "fairness": 100
   },
   "seats_kept_for_other_years": 6267,
@@ -27,7 +24,8 @@
     "days_without_lunch_break_per_student_week": 1.41,
     "evening_or_saturday_class_hours_per_student_week": 0.49,
     "student_clash_hours": 169,
-    "students_missing_a_course": 0
+    "students_missing_a_course": 0,
+    "week_evenness_std": 1.95
   },
   "fcfs": {
     "students": 2796,
@@ -44,24 +42,27 @@
     "days_without_lunch_break_per_student_week": 1.25,
     "evening_or_saturday_class_hours_per_student_week": 0.41,
     "student_clash_hours": 99,
-    "students_missing_a_course": 0
+    "students_missing_a_course": 0,
+    "week_evenness_std": 1.51
   },
   "planner": {
     "students": 2796,
     "idle_hours_per_student_week": 0.47,
-    "idle_hours_std": 0.93,
+    "idle_hours_std": 0.94,
     "idle_hours_max": 5.92,
-    "students_with_3h_plus_idle_per_week": 72,
-    "days_on_campus_per_student_week": 4.21,
-    "daily_hours_std_per_student": 0.91,
-    "longest_day_hours_per_student": 4.82,
-    "peak_students_on_campus": 1213,
-    "weekday_hourly_load_std": 395.7,
-    "late_class_hours_per_student_week": 0.1,
-    "days_without_lunch_break_per_student_week": 1.28,
-    "evening_or_saturday_class_hours_per_student_week": 0.38,
+    "students_with_3h_plus_idle_per_week": 93,
+    "days_on_campus_per_student_week": 4.46,
+    "daily_hours_std_per_student": 0.94,
+    "longest_day_hours_per_student": 4.64,
+    "peak_students_on_campus": 1340,
+    "weekday_hourly_load_std": 408.5,
+    "late_class_hours_per_student_week": 0.18,
+    "days_without_lunch_break_per_student_week": 1.5,
+    "evening_or_saturday_class_hours_per_student_week": 0.32,
     "student_clash_hours": 0,
-    "students_missing_a_course": 0
+    "students_missing_a_course": 0,
+    "courses_missing": 0,
+    "week_evenness_std": 1.24
   },
   "fcfs_no_clash": {
     "students": 2796,
@@ -79,6 +80,8 @@
     "evening_or_saturday_class_hours_per_student_week": 0.41,
     "student_clash_hours": 0,
     "students_missing_a_course": 11,
-    "courses_missing": 11
-  }
+    "courses_missing": 11,
+    "week_evenness_std": 1.51
+  },
+  "planner_method": "even-week CP-SAT with large-neighbourhood search, 267 steps of 16 blocks, 25 min"
 }
