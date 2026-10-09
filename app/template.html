@@ -44,7 +44,7 @@ header { display: grid; gap: 8px; }
 .num { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
 
 /* summary strip */
-.strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
 .metric { background: var(--surface); padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
 .metric .label { font-size: 0.84rem; color: var(--ink-2); }
 .metric .rows { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: baseline; }
@@ -236,7 +236,6 @@ const cards = [
   ["Spread of daily hours on campus", k => fmt(mean(s => s.st[k].spread), 2) + " h", "standard deviation across a student's days"],
   ["Class hours after 19:00 per student, per week", k => fmt(mean(s => s.st[k].late), 2), "late classes"],
   ["Days without a lunch break per student, per week", k => fmt(mean(s => s.st[k].noLunch), 2), "class at both 12:00 and 13:00"],
-  ["Students with 3+ gap hours a week", k => int(count(s => s.st[k].idle >= 3)), "of " + int(S.length) + " students"],
   ["Students with a clash or a missing course", k => int(count(s => s.st[k].clash > 0 || s.miss[k].length)), "a course they could not fit or find a seat in"],
   ["Most first-years on campus in one hour", k => int({ r: R, f: F, o: P }[k].peak_students_on_campus), "in class or waiting between classes"],
 ];

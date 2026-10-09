@@ -65,7 +65,7 @@ Honest caveat for the user: Bright Data's main strengths (IP rotation, CAPTCHA a
 ## Prototype results (Year 1, Sem A 2026/27)
 **Direction (user's decision, 9 Oct):** class times stay exactly as published. The product assigns students to sections (registration helper), not a timetable redesign. Retiming is kept behind `--retime` for reference.
 
-Run: `pip install -r requirements.txt`, then `python3 scripts/build_sections.py`, `python3 scripts/build_curricula.py`, `python3 scripts/optimize.py --time-limit 300` (about 7 min), and finally `python3 scripts/build_app.py`.
+Run: `pip install -r requirements.txt`, then `python3 scripts/build_sections.py`, `python3 scripts/build_curricula.py`, `python3 scripts/optimize.py --time-limit 300` (about 7 min), and finally `python3 scripts/build_app.py`. The app link is shared as "anyone with the link" (set by the user).
 
 **App:** `app/index.html`, built from `app/template.html`. It's a single page with the summary, a chart of gap hours, and any student's week under first-come-first-served next to the planner's assignment. Published privately at https://claude.ai/artifact/N9cvAg2GNrgcGNaWB4J8YR.
 
@@ -74,20 +74,26 @@ Run: `pip install -r requirements.txt`, then `python3 scripts/build_sections.py`
 **Comparison** (all on the published times, same 2,796 students, registration order seed 1):
 - **Random clash-free:** students register one at a time; each gets a random clash-free timetable from the seats still open. If no clash-free option is left, they take the least-clashing one.
 - **First come, first served:** the same, but each student picks their own best timetable, using the planner's objective for one student.
-- **Planner:** assigns everyone at once, in blocks of ≤12 from the same cohort. Objective: 2 × gap hours + 6 × peak students on campus + 100 × the worst block's gap hours + 1 × (longest − shortest day on campus) per student. The last term is a linear stand-in for the std of daily hours, which the metrics report.
+- **Planner:** assigns everyone at once, in blocks of ≤12 from the same cohort.
+
+**Planner priorities (user's weights, 9 Oct):**
+- **Weighted goals:** gaps 3 (per student-hour), balanced days 3 (longest − shortest day on campus, per student-hour; a linear stand-in for the std of daily hours), crowding 1 (per student in the busiest hour), late classes 1 (per student-hour from 19:00), lunch break 1 (per day with class at both 12:00 and 13:00), fairness 100 (per gap hour of the worst-off block).
+- **Hard rules:** every course, no clashes, seat caps, and linked sections.
+- **Seats for other years:** first-years may take at most a quota of each course and section type. Other years keep what they really enrolled (AIMS enrolment − Year 1 demand), capped so Year 1 fits within 95% of seats. That holds back 6,267 of the 7,578 seats; per-course detail is in `results/seats_kept_for_other_years.csv`. All three scenarios use the same quotas.
 
 | per student, averaged over 13 teaching weeks | random clash-free | first come, first served | planner |
 |---|---|---|---|
-| gap hours / week (mean) | 3.01 | 0.42 | 0.44 |
-| gap hours std / max | 3.15 / 19.8 | 1.01 / 6.9 | 0.89 / 5.9 |
-| students with ≥3 gap hours / week | 1,359 | 93 | **84** |
-| std of daily hours on campus | 1.95 | 0.96 | 0.94 |
-| longest day (hours) | 7.3 | 5.1 | **4.8** |
-| days on campus / week | 3.80 | 4.08 | 4.22 |
-| students with a clash or missing course | 10 | 12 | **0** |
-| peak first-years on campus in one hour | 1,470 | 1,374 | **1,214** |
+| gap hours / week (mean) | 3.01 | **0.41** | 0.47 |
+| gap hours max | 19.8 | 6.9 | **5.9** |
+| students with ≥3 gap hours / week | 1,359 | 97 | **72** |
+| std of daily hours on campus | 1.95 | 0.95 | **0.91** |
+| longest day (hours) | 7.3 | 4.9 | **4.8** |
+| class hours after 19:00 / week | 0.21 | 0.12 | **0.10** |
+| days without lunch break / week | 1.41 | **1.25** | 1.28 |
+| students with a clash or missing course | 10 | 11 | **0** |
+| peak first-years on campus in one hour | 1,470 | 1,368 | **1,213** |
 
-The planner is far better than random. Against an idealised first come, first served, where every student picks perfectly with full information, it wins on clashes, the worst-off students, the longest day and peak campus load, and ties on mean gaps and daily spread. The balanced-day term made the model much harder. Even warm-started (`--hint` from the previous planner run) and given 900 s, CP-SAT stopped far from optimal (objective 12,997, bound 6,741), so better solving should widen the margin. Run: `python3 scripts/optimize.py --time-limit 900 --hint <previous planner_block_timetables.csv>`.
+The planner beats random on everything. Against an idealised first come, first served, it wins on clashes, the worst-off students, balanced days, late classes and crowding, and loses slightly on mean gaps and lunch breaks. CP-SAT is far from optimal on this model: objective 23,556 against a bound of 6,891 after 900 s, warm-started. Solving it better (next step 7) is the main lever left. Run: `python3 scripts/optimize.py --time-limit 900 --hint <previous planner_block_timetables.csv>`.
 
 **Caveats:**
 - The simulated students are optimal myopic registrants. Real students also weigh friends, instructors and lunch, and they register in priority rounds, not in random order.
