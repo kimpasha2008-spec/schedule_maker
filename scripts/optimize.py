@@ -1,33 +1,36 @@
 """Year 1 timetable optimizer (prototype) using OR-Tools CP-SAT.
 
-Students are modelled in *blocks*: up to BLOCK_SIZE students of one cohort
-(major + English stream) who share a timetable. Three stages:
+Class times stay exactly as published; the optimizer only decides which
+section (lecture, tutorial, lab) each student takes.
 
-  Baseline  Stage B on the real Sem A 2026/27 times: assign blocks to sections
-            (one per course and section type) with the fewest gaps. This is the
-            best the current timetable allows, so it's a fair comparison.
-  Stage A   Keep that block -> section assignment and move the meetings of the
-            sections Year 1 uses to new day/start times. Meetings keep their
-            rooms, length and term weeks; rooms and instructors can't be
-            double-booked (all other courses' bookings stay fixed).
-  Stage B   Re-assign blocks to sections on the new times.
+  Today      Simulated first-come-first-served registration: students sign up
+             one by one in random order, each taking the best timetable still
+             open to them.
+  Optimized  Every student is assigned at once (Stage B). Students are modelled
+             in *blocks*: up to BLOCK_SIZE students of one cohort (major +
+             English stream) who share a timetable.
+
+With --retime it also runs a timetable redesign: Stage A moves the meetings of
+the sections Year 1 uses (keeping rooms, length and term weeks, never
+double-booking rooms or instructors), then Stage B re-assigns students.
 
 Meetings run in specific term weeks (e.g. a lecture in weeks 1-10 and its
 tutorials in weeks 11-13 can share a slot), so clashes are checked week by week.
 Gaps and campus load are optimised on the regular meetings (>= REGULAR_WEEKS
 weeks); the reported metrics are computed for every teaching week and averaged.
 
-Objective (all stages): student idle hours between classes
+Objective: student idle hours between classes
   + PEAK_WEIGHT * peak students on campus in any hour
   + FAIR_WEIGHT * the worst block's weekly idle hours
   (+ in Stage A, LATE_WEIGHT per student-hour on Saturday or after 19:00).
 
-Usage: python3 scripts/optimize.py [--time-limit SECONDS]
+Usage: python3 scripts/optimize.py [--time-limit SECONDS] [--seed N] [--retime]
 """
 import argparse
 import csv
 import json
 import math
+import random
 import re
 import statistics
 from collections import defaultdict
@@ -51,6 +54,7 @@ TERM_START = date(2026, 8, 31)  # Monday of week 1
 TEACHING_WEEKS = range(13)  # 31 Aug - 28 Nov
 REGULAR_WEEKS = 7
 PEAK_WEIGHT, FAIR_WEIGHT, LATE_WEIGHT = 3, 50, 1
+CLASH_PENALTY = 1000
 SECTION_RE = re.compile(r"^([A-Z])([A-Z]?)(\d+)$")
 
 
@@ -167,8 +171,12 @@ def linked_groups(kinds):
     return None
 
 
-def at_most_one_per_week(model, terms, limit=1):
-    """terms: [(literal or 1, weeks)]. At most `limit` active in any single week."""
+def at_most_one_per_week(model, terms, limit=1, slack=None):
+    """terms: [(literal or 1, weeks)]. At most `limit` active in any single week.
+
+    With a `slack` list, the limit becomes soft: an excess variable per constraint
+    is appended to it for the caller to penalise.
+    """
     seen = set()
     for w in set().union(*(wk for _, wk in terms)):
         active = [t for t, wk in terms if w in wk]
@@ -177,7 +185,11 @@ def at_most_one_per_week(model, terms, limit=1):
             continue
         seen.add(key)
         fixed = sum(t for t in active if isinstance(t, int))
-        model.Add(sum(t for t in active if not isinstance(t, int)) <= limit - fixed)
+        excess = 0
+        if slack is not None:
+            excess = model.NewIntVar(0, len(active), "")
+            slack.append(excess)
+        model.Add(sum(t for t in active if not isinstance(t, int)) <= limit - fixed + excess)
 
 
 def occupancy(model, terms):
@@ -239,36 +251,48 @@ class Week:
         return self.idle_hours + PEAK_WEIGHT * self.peak + FAIR_WEIGHT * self.worst + extra
 
 
-def solve(model, time_limit, label):
+def solve(model, time_limit, label, workers=4, required=True):
     solver = cp_model.CpSolver()
     solver.parameters.max_time_in_seconds = time_limit
-    solver.parameters.num_workers = 4
+    solver.parameters.num_workers = workers
     status = solver.Solve(model)
-    print(f"  {label}: {solver.StatusName(status)} objective={solver.ObjectiveValue():.0f} "
-          f"bound={solver.BestObjectiveBound():.0f} time={solver.WallTime():.0f}s", flush=True)
+    if label:
+        print(f"  {label}: {solver.StatusName(status)} objective={solver.ObjectiveValue():.0f} "
+              f"bound={solver.BestObjectiveBound():.0f} time={solver.WallTime():.0f}s", flush=True)
     if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        raise SystemExit(f"{label} found no solution")
+        if required:
+            raise SystemExit(f"{label} found no solution")
+        return None
     return solver
 
 
-def block_week(model, blocks, slot_terms):
+def block_week(model, blocks, slot_terms, slack=None):
     """Clash constraints and occupancy from (block, day, hour) -> [(lit, weeks)]."""
     occ = {}
     for b in blocks:
         for d in range(len(DAYS)):
             for h in HOURS:
                 terms = slot_terms.get((b.id, d, h), [])
-                at_most_one_per_week(model, terms)
+                at_most_one_per_week(model, terms, slack=slack)
                 occ[b.id, d, h] = occupancy(model, terms)
     return Week(model, blocks, occ)
 
 
-def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B"):
-    """Assign blocks to sections given fixed meeting times. times: crn -> [Meeting]."""
+def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B", seats=None,
+            allow_clash=False, workers=4):
+    """Assign blocks to sections given fixed meeting times. times: crn -> [Meeting].
+
+    seats overrides section caps (crn -> seats left). With allow_clash, clashes are
+    allowed at a heavy penalty. Returns the chosen (block id, crn) pairs, or None
+    if no assignment exists.
+    """
     m = cp_model.CpModel()
     y = {}
     load = defaultdict(list)
     slot_terms = defaultdict(list)
+    caps = {s.crn: s.cap for kinds in options.values() for secs in kinds.values() for s in secs}
+    if seats is not None:
+        caps.update(seats)
     for b in blocks:
         for c in b.courses:
             kinds = options[c]
@@ -279,7 +303,7 @@ def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B"):
             for secs in kinds.values():
                 choice = []
                 for s in secs:
-                    if s.cap < b.size:
+                    if caps[s.crn] < b.size:
                         continue
                     v = y[b.id, s.crn] = m.NewBoolVar("")
                     choice.append(v)
@@ -290,16 +314,54 @@ def stage_b(blocks, options, times, time_limit, hint=None, label="Stage B"):
                         for h in mt.hours():
                             slot_terms[b.id, mt.day, h].append((v, mt.weeks))
                 m.AddExactlyOne(choice)
-    caps = {s.crn: s.cap for kinds in options.values() for secs in kinds.values() for s in secs}
     for crn, terms in load.items():
         m.Add(sum(terms) <= caps[crn])
-    week = block_week(m, blocks, slot_terms)
-    m.Minimize(week.objective())
+    slack = [] if allow_clash else None
+    week = block_week(m, blocks, slot_terms, slack)
+    m.Minimize(week.objective(CLASH_PENALTY * sum(slack) if slack else 0))
     if hint:
         for key, v in y.items():
             m.AddHint(v, key in hint)
-    solver = solve(m, time_limit, label)
+    solver = solve(m, time_limit, label, workers=workers, required=label is not None)
+    if solver is None:
+        return None
     return {key for key, v in y.items() if solver.Value(v)}
+
+
+def first_come_first_served(blocks, options, times, seed=1):
+    """Simulate today's registration: students sign up one at a time in random
+    order, and each takes the best clash-free timetable still open to them
+    (fewest idle hours). A student left with no clash-free choice takes the
+    least-clashing one; one left with no seat in a course goes without it.
+
+    Returns (students, assignment, unplaced) where students are size-1 blocks.
+    """
+    students = []
+    for b in blocks:
+        for _ in range(b.size):
+            students.append(Block(len(students), b.major, b.english, 1, b.courses))
+    seats = {s.crn: s.cap for kinds in options.values() for secs in kinds.values() for s in secs}
+    order = list(range(len(students)))
+    random.Random(seed).shuffle(order)
+    assign, unplaced = set(), defaultdict(list)
+    for n, sid in enumerate(order):
+        st = students[sid]
+        open_courses = [c for c in st.courses
+                        if all(any(seats[s.crn] > 0 for s in secs) for secs in options[c].values())]
+        unplaced[sid] = [c for c in st.courses if c not in open_courses]
+        me = Block(0, st.major, st.english, 1, open_courses)
+        pick = (stage_b([me], options, times, 10, label=None, seats=seats, workers=1)
+                or stage_b([me], options, times, 10, label=None, seats=seats, workers=1,
+                           allow_clash=True))
+        if pick is None:  # linked lecture/tutorial seats ran out together
+            unplaced[sid] = st.courses
+            pick = set()
+        for _, crn in pick:
+            seats[crn] -= 1
+            assign.add((sid, crn))
+        if (n + 1) % 500 == 0:
+            print(f"  registered {n + 1}/{len(students)}", flush=True)
+    return students, assign, {k: v for k, v in unplaced.items() if v}
 
 
 def stage_a(blocks, sections, assign, time_limit):
@@ -509,9 +571,58 @@ def write_timetables(path, blocks, assign, times, sections):
                             " + ".join(sorted(mt.venues))])
 
 
+def student_view(students, fcfs, blocks, opt, times, sections):
+    """Per-student timetables for the app: first-come-first-served vs optimized."""
+    def week(assign, owner):
+        out = []
+        for crn in sorted(c for o, c in assign if o == owner):
+            s = sections[crn]
+            for mt in times[crn]:
+                if mt.day < 6:
+                    out.append([s.course, s.code, mt.day, mt.start, mt.length,
+                                min(mt.weeks) + 1, max(mt.weeks) + 1, " + ".join(sorted(mt.venues))])
+        return out
+    by_block = defaultdict(list)
+    for bid, crn in opt:
+        by_block[bid].append(crn)
+    block_of, sid = {}, 0
+    for b in blocks:  # students were expanded from blocks in this order
+        for _ in range(b.size):
+            block_of[sid] = b.id
+            sid += 1
+    opt_weeks = {b.id: week(opt, b.id) for b in blocks}
+    return [{"major": st.major, "english": st.english, "courses": st.courses,
+             "fcfs": week(fcfs, st.id), "optimized": opt_weeks[block_of[st.id]],
+             "group": block_of[st.id]} for st in students]
+
+
+def per_student_idle(blocks, assign, times):
+    """Average weekly idle hours of each block's students (same rules as metrics)."""
+    occ = defaultdict(int)
+    for bid, crn in assign:
+        for mt in times[crn]:
+            if mt.day < 6:
+                for w in mt.weeks & set(TEACHING_WEEKS):
+                    for h in mt.hours():
+                        occ[bid, w, mt.day, h] += 1
+    out = {}
+    for b in blocks:
+        idle = 0
+        for w in TEACHING_WEEKS:
+            for d in range(len(DAYS)):
+                hs = [h for h in HOURS if occ.get((b.id, w, d, h))]
+                if hs:
+                    idle += sum(1 for h in range(hs[0], hs[-1] + 1) if not occ.get((b.id, w, d, h)))
+        out[b.id] = idle / len(TEACHING_WEEKS)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--time-limit", type=float, default=120, help="seconds per stage")
+    ap.add_argument("--time-limit", type=float, default=120, help="seconds per optimization stage")
+    ap.add_argument("--seed", type=int, default=1, help="registration order for the simulation")
+    ap.add_argument("--retime", action="store_true",
+                    help="also try moving class times (a timetable redesign, not just sectioning)")
     args = ap.parse_args()
 
     sections = load_sections()
@@ -521,42 +632,70 @@ def main():
     blocks = load_blocks(options)
     print(f"{sum(b.size for b in blocks)} students in {len(blocks)} blocks, {len(courses)} courses, "
           f"{sum(len(v) for k in options.values() for v in k.values())} candidate sections")
-
     real = {crn: s.meetings for crn, s in sections.items()}
-    print("Baseline: sectioning on the real timetable", flush=True)
-    base_assign = stage_b(blocks, options, real, args.time_limit, label="Baseline B")
-    base = metrics(blocks, base_assign, real)
 
-    print("Optimized: retime, then re-section", flush=True)
-    times = stage_a(blocks, sections, base_assign, args.time_limit)
-    opt_assign = stage_b(blocks, options, times, args.time_limit, hint=base_assign)
-    opt = metrics(blocks, opt_assign, times)
+    print("Today: first-come-first-served registration on the real timetable", flush=True)
+    students, fcfs_assign, unplaced = first_come_first_served(blocks, options, real, args.seed)
+    fcfs = metrics(students, fcfs_assign, real)
+    fcfs["students_missing_a_course"] = len(unplaced)
+
+    print("Optimized: assign every student together, class times unchanged", flush=True)
+    opt_assign = stage_b(blocks, options, real, args.time_limit, label="Sectioning")
+    opt = metrics(blocks, opt_assign, real)
+    opt["students_missing_a_course"] = 0
+
+    fcfs_idle = per_student_idle(students, fcfs_assign, real)
+    opt_idle = per_student_idle(blocks, opt_assign, real)
+    view = student_view(students, fcfs_assign, blocks, opt_assign, real, sections)
+    change = [opt_idle[v["group"]] - fcfs_idle[i] for i, v in enumerate(view)]
+    comparison = {"students_better_off": sum(1 for c in change if c < -1e-9),
+                  "students_same": sum(1 for c in change if abs(c) <= 1e-9),
+                  "students_worse_off": sum(1 for c in change if c > 1e-9)}
 
     OUT_DIR.mkdir(exist_ok=True)
-    write_timetables(OUT_DIR / "baseline_block_timetables.csv", blocks, base_assign, real, sections)
-    write_timetables(OUT_DIR / "optimized_block_timetables.csv", blocks, opt_assign, times, sections)
-    with open(OUT_DIR / "optimized_section_times.csv", "w", newline="", encoding="utf-8") as f:
+    with open(OUT_DIR / "fcfs_student_timetables.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(["course", "crn", "section", "old_day", "old_start", "new_day", "new_start",
-                    "hours", "weeks", "venue"])
-        for crn, s in sorted(sections.items(), key=lambda x: (x[1].course, x[1].code)):
-            for old, new in zip(s.meetings, times[crn]):
-                if (old.day, old.start) != (new.day, new.start):
-                    w.writerow([s.course, crn, s.code, DAYS[old.day], f"{old.start:02d}:00",
-                                DAYS[new.day], f"{new.start:02d}:00", old.length,
-                                f"{min(old.weeks) + 1}-{max(old.weeks) + 1}",
-                                " + ".join(sorted(old.venues))])
+        w.writerow(["student", "major", "english", "course", "crn", "section"])
+        for sid, crn in sorted(fcfs_assign):
+            st = students[sid]
+            w.writerow([sid, st.major, st.english, sections[crn].course, crn, sections[crn].code])
+    write_timetables(OUT_DIR / "optimized_block_timetables.csv", blocks, opt_assign, real, sections)
     summary = {
-        "baseline": base, "optimized": opt,
-        "double_booked_hours": conflict_summary(real, times),
-        "weights": {"peak": PEAK_WEIGHT, "fairness": FAIR_WEIGHT, "late": LATE_WEIGHT},
-        "block_size": BLOCK_SIZE, "blocks": len(blocks), "time_limit_per_stage_s": args.time_limit,
+        "first_come_first_served": fcfs, "optimized_sectioning": opt,
+        "per_student_idle_change": comparison,
+        "weights": {"peak": PEAK_WEIGHT, "fairness": FAIR_WEIGHT},
+        "block_size": BLOCK_SIZE, "blocks": len(blocks), "seed": args.seed,
+        "time_limit_per_stage_s": args.time_limit,
     }
+
+    if args.retime:
+        print("Redesign: move class times, then re-section", flush=True)
+        times = stage_a(blocks, sections, opt_assign, args.time_limit)
+        re_assign = stage_b(blocks, options, times, args.time_limit, hint=opt_assign)
+        summary["retimed"] = metrics(blocks, re_assign, times)
+        summary["double_booked_hours"] = conflict_summary(real, times)
+        write_timetables(OUT_DIR / "retimed_block_timetables.csv", blocks, re_assign, times, sections)
+        with open(OUT_DIR / "retimed_section_times.csv", "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(["course", "crn", "section", "old_day", "old_start", "new_day", "new_start",
+                        "hours", "weeks", "venue"])
+            for crn, s in sorted(sections.items(), key=lambda x: (x[1].course, x[1].code)):
+                for old, new in zip(s.meetings, times[crn]):
+                    if (old.day, old.start) != (new.day, new.start):
+                        w.writerow([s.course, crn, s.code, DAYS[old.day], f"{old.start:02d}:00",
+                                    DAYS[new.day], f"{new.start:02d}:00", old.length,
+                                    f"{min(old.weeks) + 1}-{max(old.weeks) + 1}",
+                                    " + ".join(sorted(old.venues))])
+
     (OUT_DIR / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
-    print(f"\n{'metric':52} {'baseline':>9} {'optimized':>9}")
-    for k in base:
-        print(f"{k:52} {base[k]:>9} {opt[k]:>9}")
-    print("double-booked room/instructor hours:", summary["double_booked_hours"])
+    app = {"summary": summary, "days": DAYS, "hours": [HOURS[0], HOURS[-1]], "students": view}
+    (OUT_DIR / "app_data.json").write_text(json.dumps(app, separators=(",", ":")))
+
+    cols = [k for k in ("first_come_first_served", "optimized_sectioning", "retimed") if k in summary]
+    print(f"\n{'metric':52}" + "".join(f"{c[:14]:>16}" for c in cols))
+    for k in fcfs:
+        print(f"{k:52}" + "".join(f"{summary[c].get(k, ''):>16}" for c in cols))
+    print(comparison)
 
 
 if __name__ == "__main__":
