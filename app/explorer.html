@@ -99,7 +99,7 @@ tr.sel td { background: var(--plan-soft); }
 <div class="wrap">
   <header class="hero">
     <canvas id="crystal" aria-hidden="true"></canvas>
-    <div class="eyebrow">City University of Hong Kong · Semester A 2026/27 · bootstrapped to all undergraduates</div>
+    <div class="eyebrow">CityU · Semester A 2026/27</div>
     <h1>How much each programme gains from the timetable planner</h1>
     <p class="lede" id="lede"></p>
   </header>
@@ -115,7 +115,6 @@ tr.sel td { background: var(--plan-soft); }
 
   <section id="ranking">
     <h2>Idle hours between classes, by programme</h2>
-    <p class="note">Average gap hours per student per week. Each line runs from today's random picks to the planner. Select a programme to see its detail.</p>
     <div class="legend"><span><i id="lg-base"></i><span id="lg-base-t">Today</span></span><span><i style="background: var(--plan)"></i>Planner</span></div>
     <div class="chart" id="rank"></div>
   </section>
@@ -123,12 +122,10 @@ tr.sel td { background: var(--plan-soft); }
   <div class="two">
     <section class="card">
       <h2 id="histTitle">How many gap hours students have</h2>
-      <p class="note">Share of the programme's students by weekly gap hours (8 means 8 or more).</p>
       <div class="chart" id="hist"></div>
     </section>
     <section class="card">
       <h2>Week shape</h2>
-      <p class="note">Per student per week, today then the planner.</p>
       <div class="chart" id="shape"></div>
     </section>
   </div>
@@ -143,12 +140,11 @@ tr.sel td { background: var(--plan-soft); }
     </div>
     <p class="courses" id="exCourses"></p>
     <div class="two" id="exWeeks"></div>
-    <p class="note">Same courses and class times in both weeks; only the sections differ. Striped bars mark idle time between classes. Regular teaching weeks shown.</p>
+    <p class="note">Striped = idle time between classes.</p>
   </section>
 
   <section id="gallery-sec">
     <h2>Before and after, every programme</h2>
-    <p class="note">The student in each programme whose timetable improves the most, among those who keep every course in both weeks: their week today (random picks) and with the planner, same courses and class times. Striped cells are idle hours between classes. Select a card to open that programme above.</p>
     <div class="gallery" id="gallery"></div>
   </section>
 
@@ -206,14 +202,14 @@ function tiles() {
   box.replaceChildren();
   const ci = S.base === 'random' ? g.ci_gap : null;
   const items = [
-    ['Gap hours a week', f2(p.gap), b.gap, p.gap, f2, ci ? `95% interval ${f2(-ci[2])} to ${f2(-ci[1])} h less` : ''],
+    ['Gap hours a week', f2(p.gap), b.gap, p.gap, f2, ''],
     ['Longest day on campus', f1(p.long) + ' h', b.long, p.long, (v) => f1(v) + ' h'],
     ['Students with 3+ gap hours', pct(p.gap3_share), b.gap3_share, p.gap3_share, pct],
     ['Students missing a course', pct(p.miss_share), b.miss_share, p.miss_share, pct],
   ];
   const t0 = html('div', { class: 'tile' });
-  t0.append(html('span', { class: 'k' }, S.prog === 'All students' ? 'Students in the population' : 'Students in this programme'),
-    html('span', { class: 'v' }, g.students.toLocaleString()), html('span', { class: 'd' }, 'average of 3 bootstrap populations'));
+  t0.append(html('span', { class: 'k' }, 'Students'),
+    html('span', { class: 'v' }, g.students.toLocaleString()));
   box.append(t0);
   items.forEach(([k, v, from, to, fmt, extra]) => {
     const t = html('div', { class: 'tile' });
@@ -364,7 +360,7 @@ function examples() {
   const wrap = document.getElementById('exWeeks');
   wrap.replaceChildren();
   if (!ex) { document.getElementById('exCourses').textContent = 'No example in this group.'; return; }
-  document.getElementById('exCourses').textContent = 'Courses: ' + ex.courses.join(' · ') + (ex.real ? ' (a real student from the screenshots)' : ' (a simulated student)');
+  document.getElementById('exCourses').textContent = ex.courses.join(' · ');
   wrap.append(week(ex, S.base), week(ex, 'planner'));
 }
 
@@ -418,11 +414,11 @@ function gallery() {
     if (!ex) return;
     const card = html('button', { type: 'button', class: 'mini' + (n === S.prog ? ' sel' : ''), 'aria-label': `Open ${n}` });
     card.append(html('h3', {}, n), html('span', { class: 'meta' },
-      `Programme avg gaps ${f2(g.random.gap)} → ${f2(g.planner.gap)} h · longest day ${f1(g.random.long)} → ${f1(g.planner.long)} h`));
+      `${f2(g.random.gap)} → ${f2(g.planner.gap)} gap h avg`));
     const pair = html('div', { class: 'pair' });
     [['random', 'Today'], ['planner', 'Planner']].forEach(([k, lab]) => {
       const c = html('div');
-      c.append(html('span', {}, `${lab}: ${ex[k].gap} gap h · ${ex[k].long} h day`), miniWeek(ex[k]));
+      c.append(html('span', {}, `${lab}: ${ex[k].gap} gap h`), miniWeek(ex[k]));
       pair.append(c);
     });
     card.append(pair);
