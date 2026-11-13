@@ -1,0 +1,132 @@
+{
+ "rows": [
+  {
+   "comparison": "planner_vs_random",
+   "label": "Planner vs random (all students)",
+   "metric": "gap_hours",
+   "change": -1.874,
+   "lo": -1.913,
+   "hi": -1.833
+  },
+  {
+   "comparison": "planner_vs_random",
+   "label": "Planner vs random (all students)",
+   "metric": "unevenness",
+   "change": -0.341,
+   "lo": -0.35,
+   "hi": -0.331
+  },
+  {
+   "comparison": "planner_vs_random",
+   "label": "Planner vs random (all students)",
+   "metric": "longest_day",
+   "change": -1.396,
+   "lo": -1.427,
+   "hi": -1.364
+  },
+  {
+   "comparison": "planner_vs_random",
+   "label": "Planner vs random (all students)",
+   "metric": "days_on_campus",
+   "change": 0.37,
+   "lo": 0.36,
+   "hi": 0.38
+  },
+  {
+   "comparison": "planner_vs_random",
+   "label": "Planner vs random (all students)",
+   "metric": "missing_courses",
+   "change": 0.0,
+   "lo": -0.001,
+   "hi": 0.0
+  },
+  {
+   "comparison": "planner_vs_fcfs",
+   "label": "Planner vs first come (all students)",
+   "metric": "gap_hours",
+   "change": -0.097,
+   "lo": -0.113,
+   "hi": -0.081
+  },
+  {
+   "comparison": "planner_vs_fcfs",
+   "label": "Planner vs first come (all students)",
+   "metric": "unevenness",
+   "change": 0.001,
+   "lo": -0.006,
+   "hi": 0.007
+  },
+  {
+   "comparison": "planner_vs_fcfs",
+   "label": "Planner vs first come (all students)",
+   "metric": "longest_day",
+   "change": 0.023,
+   "lo": 0.001,
+   "hi": 0.043
+  },
+  {
+   "comparison": "planner_vs_fcfs",
+   "label": "Planner vs first come (all students)",
+   "metric": "days_on_campus",
+   "change": 0.049,
+   "lo": 0.043,
+   "hi": 0.055
+  },
+  {
+   "comparison": "planner_vs_fcfs",
+   "label": "Planner vs first come (all students)",
+   "metric": "missing_courses",
+   "change": -0.07,
+   "lo": -0.075,
+   "hi": -0.066
+  },
+  {
+   "comparison": "real_planner_vs_actual",
+   "label": "Planner vs real timetables (real students)",
+   "metric": "gap_hours",
+   "change": -2.601,
+   "lo": -3.027,
+   "hi": -2.186
+  },
+  {
+   "comparison": "real_planner_vs_actual",
+   "label": "Planner vs real timetables (real students)",
+   "metric": "unevenness",
+   "change": -0.436,
+   "lo": -0.554,
+   "hi": -0.315
+  },
+  {
+   "comparison": "real_planner_vs_actual",
+   "label": "Planner vs real timetables (real students)",
+   "metric": "longest_day",
+   "change": -1.574,
+   "lo": -1.869,
+   "hi": -1.246
+  },
+  {
+   "comparison": "real_planner_vs_actual",
+   "label": "Planner vs real timetables (real students)",
+   "metric": "days_on_campus",
+   "change": 0.464,
+   "lo": 0.355,
+   "hi": 0.579
+  }
+ ],
+ "meta": [
+  {
+   "label": "citywide_report.py",
+   "value": "\"\"\"Turn results/citywide_summary.json into the report's data files.\n\nWrites results/report/{scenarios,effects,real,population}.json, each\n{\"rows\": [...], \"meta\": [...]}: averages over the bootstrap populations, with\nthe lowest and highest population value, and the paired-bootstrap intervals.\n\nUsage: python3 scripts/citywide_report.py\n\"\"\"\nimport json\nimport statistics\nfrom pathlib import Path\n\nROOT = Path(__file__).resolve().parent.parent\nSRC = ROOT / \"results/citywide_summary.json\"\nOUT = ROOT / \"results/report\"\nLABELS = {\"random\": \"Random clash-free (today)\", \"fcfs\": \"First come, best pick\",\n          \"planner\": \"Planner\", \"actual\": \"Real timetables\"}\nMETRICS = [\"gap_hours\", \"unevenness\", \"longest_day\", \"days_on_campus\", \"saturday_hours\",\n           \"share_with_3h_plus_gaps\", \"share_with_no_gaps\", \"worst_10pct_gap_hours\",\n           \"share_missing_a_course\"]\nLOAD = [\"peak_students_in_class\", \"hourly_load_std\", \"building_peak_sum\"]\n\n\ndef avg(values):\n    return round(statistics.fmean(values), 3)\n\n\ndef main():\n    runs = json.loads(SRC.read_text())\n    code = Path(__file__).read_text()\n    meta = [{\"label\": \"citywide_report.py\", \"value\": code, \"type\": \"code\", \"lang\": \"python\"},\n            {\"label\": \"Input\", \"value\": \"results/citywide_summary.json from scripts/citywide.py\"},\n            {\"label\": \"Populations\", \"value\": str(len(runs))}]\n    OUT.mkdir(exist_ok=True)\n\n    rows = []\n    for key in (\"random\", \"fcfs\", \"planner\"):\n        row = {\"scenario\": key, \"label\": LABELS[key]}\n        for m in METRICS + LOAD:\n            vals = [r[\"all_students\"][key][m] for r in runs]\n            row[m], row[m + \"_min\"], row[m + \"_max\"] = avg(vals), min(vals), max(vals)\n        rows.append(row)\n    write(\"scenarios\", rows, meta)\n\n    rows = []\n    for comp, field in ((\"planner_vs_random\", \"Planner vs random (all students)\"),\n                        (\"planner_vs_fcfs\", \"Planner vs first come (all students)\"),\n                        (\"real_planner_vs_actual\", \"Planner vs real timetables (real students)\")):\n        for m in runs[0][comp]:\n            vals = [r[comp][m] for r in runs]\n            rows.append({\"comparison\": comp, \"label\": field, \"metric\": m,\n                         \"change\": avg(v[0] for v in vals),\n                         \"lo\": min(v[1] for v in vals), \"hi\": max(v[2] for v in vals)})\n    write(\"effects\", rows, meta)\n\n    rows = []\n    for key in (\"actual\", \"fcfs\", \"planner\"):\n        row = {\"scenario\": key, \"label\": LABELS[key]}\n        for m in METRICS:\n            row[m] = avg(r[\"real_students\"][key][m] for r in runs)\n        rows.append(row)\n    write(\"real\", rows, meta)\n\n    rows = [{\"seed\": r[\"seed\"], **r[\"population\"]} for r in runs]\n    write(\"population\", rows, meta)\n    print(f\"{len(runs)} populations -> {OUT}\")\n\n\ndef write(name, rows, meta):\n    (OUT / f\"{name}.json\").write_text(json.dumps({\"rows\": rows, \"meta\": meta}, indent=1) + \"\\n\")\n\n\nif __name__ == \"__main__\":\n    main()\n",
+   "type": "code",
+   "lang": "python"
+  },
+  {
+   "label": "Input",
+   "value": "results/citywide_summary.json from scripts/citywide.py"
+  },
+  {
+   "label": "Populations",
+   "value": "1"
+  }
+ ]
+}
