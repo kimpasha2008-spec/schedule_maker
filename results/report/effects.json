@@ -4,39 +4,39 @@
    "comparison": "planner_vs_random",
    "label": "Planner vs random (all students)",
    "metric": "gap_hours",
-   "change": -1.874,
-   "lo": -1.913,
+   "change": -1.884,
+   "lo": -1.936,
    "hi": -1.833
   },
   {
    "comparison": "planner_vs_random",
    "label": "Planner vs random (all students)",
    "metric": "unevenness",
-   "change": -0.341,
-   "lo": -0.35,
-   "hi": -0.331
+   "change": -0.337,
+   "lo": -0.351,
+   "hi": -0.321
   },
   {
    "comparison": "planner_vs_random",
    "label": "Planner vs random (all students)",
    "metric": "longest_day",
-   "change": -1.396,
-   "lo": -1.427,
+   "change": -1.401,
+   "lo": -1.434,
    "hi": -1.364
   },
   {
    "comparison": "planner_vs_random",
    "label": "Planner vs random (all students)",
    "metric": "days_on_campus",
-   "change": 0.37,
-   "lo": 0.36,
+   "change": 0.366,
+   "lo": 0.351,
    "hi": 0.38
   },
   {
    "comparison": "planner_vs_random",
    "label": "Planner vs random (all students)",
    "metric": "missing_courses",
-   "change": 0.0,
+   "change": -0.001,
    "lo": -0.001,
    "hi": 0.0
   },
@@ -44,73 +44,73 @@
    "comparison": "planner_vs_fcfs",
    "label": "Planner vs first come (all students)",
    "metric": "gap_hours",
-   "change": -0.097,
-   "lo": -0.113,
-   "hi": -0.081
+   "change": -0.107,
+   "lo": -0.135,
+   "hi": -0.082
   },
   {
    "comparison": "planner_vs_fcfs",
    "label": "Planner vs first come (all students)",
    "metric": "unevenness",
-   "change": 0.001,
+   "change": 0.005,
    "lo": -0.006,
-   "hi": 0.007
+   "hi": 0.014
   },
   {
    "comparison": "planner_vs_fcfs",
    "label": "Planner vs first come (all students)",
    "metric": "longest_day",
-   "change": 0.023,
-   "lo": 0.001,
-   "hi": 0.043
+   "change": 0.024,
+   "lo": -0.002,
+   "hi": 0.05
   },
   {
    "comparison": "planner_vs_fcfs",
    "label": "Planner vs first come (all students)",
    "metric": "days_on_campus",
-   "change": 0.049,
-   "lo": 0.043,
-   "hi": 0.055
+   "change": 0.046,
+   "lo": 0.036,
+   "hi": 0.056
   },
   {
    "comparison": "planner_vs_fcfs",
    "label": "Planner vs first come (all students)",
    "metric": "missing_courses",
-   "change": -0.07,
-   "lo": -0.075,
+   "change": -0.072,
+   "lo": -0.078,
    "hi": -0.066
   },
   {
    "comparison": "real_planner_vs_actual",
    "label": "Planner vs real timetables (real students)",
    "metric": "gap_hours",
-   "change": -2.601,
-   "lo": -3.027,
-   "hi": -2.186
+   "change": -2.594,
+   "lo": -3.06,
+   "hi": -2.142
   },
   {
    "comparison": "real_planner_vs_actual",
    "label": "Planner vs real timetables (real students)",
    "metric": "unevenness",
    "change": -0.436,
-   "lo": -0.554,
-   "hi": -0.315
+   "lo": -0.56,
+   "hi": -0.31
   },
   {
    "comparison": "real_planner_vs_actual",
    "label": "Planner vs real timetables (real students)",
    "metric": "longest_day",
-   "change": -1.574,
-   "lo": -1.869,
+   "change": -1.57,
+   "lo": -1.923,
    "hi": -1.246
   },
   {
    "comparison": "real_planner_vs_actual",
    "label": "Planner vs real timetables (real students)",
    "metric": "days_on_campus",
-   "change": 0.464,
+   "change": 0.471,
    "lo": 0.355,
-   "hi": 0.579
+   "hi": 0.601
   }
  ],
  "meta": [
@@ -126,7 +126,7 @@
   },
   {
    "label": "Populations",
-   "value": "1"
+   "value": "3"
   }
  ]
 }

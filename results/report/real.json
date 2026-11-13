@@ -16,27 +16,27 @@
   {
    "scenario": "fcfs",
    "label": "First come, best pick",
-   "gap_hours": 1.311,
-   "unevenness": 1.411,
-   "longest_day": 6.721,
-   "days_on_campus": 4.541,
-   "saturday_hours": 0.689,
-   "share_with_3h_plus_gaps": 0.175,
-   "share_with_no_gaps": 0.53,
+   "gap_hours": 1.386,
+   "unevenness": 1.414,
+   "longest_day": 6.772,
+   "days_on_campus": 4.532,
+   "saturday_hours": 0.678,
+   "share_with_3h_plus_gaps": 0.188,
+   "share_with_no_gaps": 0.495,
    "worst_10pct_gap_hours": 6.83,
-   "share_missing_a_course": 0.109
+   "share_missing_a_course": 0.113
   },
   {
    "scenario": "planner",
    "label": "Planner",
-   "gap_hours": 1.24,
+   "gap_hours": 1.248,
    "unevenness": 1.422,
-   "longest_day": 6.787,
-   "days_on_campus": 4.552,
-   "saturday_hours": 0.689,
-   "share_with_3h_plus_gaps": 0.18,
-   "share_with_no_gaps": 0.563,
-   "worst_10pct_gap_hours": 6.78,
+   "longest_day": 6.791,
+   "days_on_campus": 4.559,
+   "saturday_hours": 0.732,
+   "share_with_3h_plus_gaps": 0.173,
+   "share_with_no_gaps": 0.552,
+   "worst_10pct_gap_hours": 6.817,
    "share_missing_a_course": 0.0
   }
  ],
@@ -53,7 +53,7 @@
   },
   {
    "label": "Populations",
-   "value": "1"
+   "value": "3"
   }
  ]
 }

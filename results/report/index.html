@@ -36,7 +36,7 @@
 <div class="tt-page">
   <header id="intro">
     <h1>How much better CityU timetables could be</h1>
-    <p class="tt-lede">The 183 students whose real Semester A timetables we have spend <b data-draw="realActualGaps" data-source="real" data-field="gap_hours" data-where="scenario=actual">—</b> hours a week waiting between classes. Given the same courses, the planner cuts that to <b data-draw="realPlannerGaps" data-source="real" data-field="gap_hours" data-where="scenario=planner">—</b> hours. Scaled to all <b data-draw="students" data-source="population" data-field="students" data-row="0">—</b> undergraduates, idle time falls by <b data-draw="allGapCut" data-source="effects" data-field="change" data-where="comparison=planner_vs_random&amp;metric=gap_hours">—</b> hours per student per week against today's way of picking sections.</p>
+    <p class="tt-lede">The 183 students whose real Semester A timetables we have spend <b data-draw="realActualGaps" data-source="real" data-field="gap_hours" data-where="scenario=actual">—</b> hours a week waiting between classes. Given the same courses, the planner cuts that to <b data-draw="realPlannerGaps" data-source="real" data-field="gap_hours" data-where="scenario=planner">—</b> hours. Scaled to about <b data-draw="students" data-source="population" data-field="students" data-row="0">—</b> undergraduates, idle time falls by <b data-draw="allGapCut" data-source="effects" data-field="change" data-where="comparison=planner_vs_random&amp;metric=gap_hours">—</b> hours per student per week against today's way of picking sections.</p>
   </header>
 
   <section class="tt-tiles" id="tiles" aria-label="Headline figures">
@@ -63,7 +63,7 @@
   </section>
 
   <section class="tt-section" id="real-students">
-    <h2>For the real students, the planner halves waiting time and shortens the longest day</h2>
+    <h2>For the real students, the planner cuts waiting time by about two-thirds and shortens the longest day</h2>
     <p class="tt-note">Same courses, same section times and seat caps. Hours per student per week, regular teaching weeks.</p>
     <div class="tt-legend"><span style="--sw: var(--cds-chart-muted)">Real timetables</span><span data-swatch="1">First come, best pick</span><span data-swatch="0">Planner</span></div>
     <div class="tt-chart" id="chart-real" data-draw="chartReal" data-source="real"></div>
@@ -77,8 +77,8 @@
   </section>
 
   <section class="tt-section" id="effects">
-    <h2>Every change is well clear of zero</h2>
-    <p class="tt-note">Change per student per week with the planner, and its 95% bootstrap interval (resampling students, widest over the populations). Negative is better except days on campus, which rises because the planner spreads classes over the week.</p>
+    <h2>Against today the gains are large and certain; against a perfect first-come system they are small</h2>
+    <p class="tt-note">Change per student per week with the planner, and its 95% bootstrap interval (resampling students, widest over the populations). Negative is better except days on campus, which rises because the planner spreads classes over the week. Against first come, the planner mainly gives every student all their courses (first come leaves about 7% short); its changes to an uneven week and the longest day overlap zero.</p>
     <div class="tt-chart" id="chart-effects" data-draw="chartEffects" data-source="effects"></div>
   </section>
 

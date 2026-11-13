@@ -141,6 +141,35 @@ Other planner figures after this run: gaps 0.48 h/week (first come 0.41), uneven
 - Other years' students aren't modelled, but they also hold seats in these sections.
 - The planner puts each student in a block of ≤12 classmates who share a timetable. Assigning individuals could do slightly better.
 
+## City-wide scaling with real timetables (Nov 2026)
+
+- 199 screenshots of real Sem A 2026/27 timetables were transcribed by hand into
+  `data/real_timetables_transcribed.txt` (course/section codes only, no names).
+  `scripts/read_screenshots.py` resolves them to `data/real_students.csv`
+  (189 students; 183 have timed undergraduate courses).
+- `scripts/citywide.py` bootstraps those 183 into a full undergraduate
+  population (~14,600 students, ~93% of the AIMS UG enrolment of 740 timed
+  courses) by cloning a random real student's week and swapping courses within
+  subject+level, weighted by seats left. Every student is built with a
+  clash-free random timetable. Then: first come (best pick in random order)
+  and the planner (local search from random, worst first, seat swaps, building
+  load). 3 populations; paired bootstrap 95% intervals.
+  `scripts/citywide_report.py` writes `results/report/*.json`.
+- Results (mean of 3 populations, per student per week):
+
+| | Real timetables (183) | Random | First come | Planner |
+|---|---|---|---|---|
+| Gap hours, all students | — | 3.01 | 1.23 | 1.13 |
+| Gap hours, real students | 3.84 | — | 1.39 | 1.25 |
+| Longest day h, real students | 8.36 | — | 6.77 | 6.79 |
+| 3+ gap hours, all students | — | 51% | 21% | 19% |
+| Missing a course | 0% | 0.1% | 6.9% | 0.1% |
+
+  Planner vs random: gaps -1.88 h (95% -1.94 to -1.83), longest day -1.40 h.
+  Planner vs real timetables: gaps -2.59 h (-3.06 to -2.14), longest day -1.57 h.
+  Planner vs first come: gaps -0.11 h and every student gets all courses.
+- Report: https://claude.ai/artifact/Tx3BiqYczKRGUK8fUWfr4H
+
 ## Next steps
 1. ~~Write a parser for AIMS section pages → `sections.csv`~~ Done via `scripts/build_sections.py` (see update above).
 2. ~~Build a synthetic student population~~ Done: `scripts/build_curricula.py`.

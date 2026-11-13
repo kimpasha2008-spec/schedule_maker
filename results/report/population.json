@@ -10,6 +10,28 @@
    "courses": 740,
    "mean_courses_per_student": 5.0,
    "real_mean_courses_per_student": 5.48
+  },
+  {
+   "seed": 2,
+   "students": 14630,
+   "real_students": 183,
+   "target_enrolments": 79057,
+   "simulated_enrolments": 73077,
+   "demand_covered": 0.9244,
+   "courses": 740,
+   "mean_courses_per_student": 5.0,
+   "real_mean_courses_per_student": 5.48
+  },
+  {
+   "seed": 3,
+   "students": 14621,
+   "real_students": 183,
+   "target_enrolments": 79057,
+   "simulated_enrolments": 73262,
+   "demand_covered": 0.9267,
+   "courses": 740,
+   "mean_courses_per_student": 5.01,
+   "real_mean_courses_per_student": 5.48
   }
  ],
  "meta": [
@@ -25,7 +47,7 @@
   },
   {
    "label": "Populations",
-   "value": "1"
+   "value": "3"
   }
  ]
 }
