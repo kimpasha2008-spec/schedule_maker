@@ -1,0 +1,484 @@
+<title>CityU Campus Days Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: crystal-blue header band, then one column of control bar, figures, ranked programmes, then example weeks drawn like the CityUHK timetable grid */
+:root {
+  --bg: #f3f7fd; --panel: #ffffff; --ink: #0d2340; --muted: #4f6684; --line: #d5e1f0;
+  --today: #a7bbd5; --plan: #1a5fd0; --plan-soft: #e3eefd; --warn: #c2410c; --idle: #0d2a5c;
+  --block: #bcd6fb; --block-ink: #0d2a5c; --hero-ink: #ffffff; --hero-muted: #c9dcf7;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #07142a; --panel: #0e2140; --ink: #e6effb; --muted: #93a9c8; --line: #1d3961;
+  --today: #4d6587; --plan: #5b9bff; --plan-soft: #12305a; --warn: #f08a5d; --idle: #9cc2ff;
+  --block: #2b58a0; --block-ink: #eaf2ff; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #07142a; --panel: #0e2140; --ink: #e6effb; --muted: #93a9c8; --line: #1d3961;
+  --today: #4d6587; --plan: #5b9bff; --plan-soft: #12305a; --warn: #f08a5d; --idle: #9cc2ff;
+  --block: #2b58a0; --block-ink: #eaf2ff; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 28px; }
+h1 { font-family: var(--display); font-size: clamp(26px, 4vw, 38px); font-weight: 700; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+h2 { font-size: 19px; font-weight: 600; margin: 0; text-wrap: balance; }
+.lede { max-width: 68ch; margin: 8px 0 0; color: var(--ink); }
+.lede b, .num { font-variant-numeric: tabular-nums; }
+.note { color: var(--muted); font-size: 13px; max-width: 74ch; margin: 0; }
+.eyebrow { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.controls { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.field label, .field .lab { font-size: 12px; color: var(--muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+select { font: inherit; padding: 7px 10px; border-radius: 7px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); max-width: 100%; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+.seg button { font: inherit; font-size: 14px; border: 0; background: var(--bg); color: var(--ink); padding: 7px 12px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+button:focus-visible, select:focus-visible, .row:focus-visible { outline: 2px solid var(--plan); outline-offset: 2px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.tile { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.tile .k { font-size: 13px; color: var(--muted); }
+.tile .v { font-family: var(--display); font-size: 30px; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.tile .v small { font-size: 15px; font-weight: 500; color: var(--muted); }
+.tile .d { font-size: 13px; font-variant-numeric: tabular-nums; }
+.good { color: var(--plan); font-weight: 600; }
+.bad { color: var(--warn); font-weight: 600; }
+section { display: flex; flex-direction: column; gap: 10px; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--muted); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+.chart { position: relative; width: 100%; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { fill: var(--muted); font-size: 12px; font-family: var(--body); }
+.chart .lbl { fill: var(--ink); font-size: 13px; }
+.chart .sel .lbl { font-weight: 700; }
+.chart .grid { stroke: var(--line); }
+.row { cursor: pointer; }
+.row:hover .hit { fill: var(--plan-soft); }
+.tip { position: absolute; pointer-events: none; background: var(--panel); border: 1px solid var(--line); box-shadow: 0 4px 14px rgba(0,0,0,.12); border-radius: 7px; padding: 6px 9px; font-size: 12px; white-space: nowrap; z-index: 3; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.card h3 { margin: 0; font-size: 15px; font-weight: 600; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.card h3 .num { font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--muted); }
+.week { display: grid; grid-template-columns: 34px repeat(6, minmax(0, 1fr)); font-size: 11px; position: relative; }
+.week .dh { text-align: center; font-family: var(--mono); color: var(--muted); padding-bottom: 4px; }
+.week .hr { font-family: var(--mono); color: var(--muted); height: 22px; border-top: 1px solid var(--line); line-height: 1; padding-top: 2px; }
+.week .cell { border-top: 1px solid var(--line); border-left: 1px solid var(--line); height: 22px; }
+.blk { position: absolute; background: var(--block); color: var(--block-ink); border-radius: 3px; padding: 2px 3px; overflow: hidden; font-family: var(--mono); font-size: 10px; line-height: 1.15; border: 1px solid var(--bg); }
+.gapmark { position: absolute; background: repeating-linear-gradient(45deg, transparent 0 4px, var(--idle) 4px 5px); opacity: .45; border-radius: 3px; }
+.courses { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+details { max-width: 76ch; }
+details summary { cursor: pointer; font-weight: 600; }
+details li { margin-bottom: 6px; }
+.wide { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; font-variant-numeric: tabular-nums; }
+th, td { padding: 6px 9px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--muted); font-weight: 500; }
+tr.sel td { background: var(--plan-soft); }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.mini { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 6px; min-width: 0; cursor: pointer; text-align: left; font: inherit; color: inherit; }
+.mini:hover { border-color: var(--plan); }
+.mini.sel { border-color: var(--plan); box-shadow: inset 0 0 0 1px var(--plan); }
+.mini h3 { margin: 0; font-size: 14px; font-weight: 600; }
+.mini .meta { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.mini .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mini .pair div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mini .pair span { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.mini svg { width: 100%; height: auto; display: block; }
+.mini svg text { fill: var(--muted); font-size: 8px; font-family: var(--mono); }
+.hero { position: relative; overflow: hidden; border-radius: 14px; padding: 28px clamp(18px, 4vw, 36px) 30px; background: #0b2a5e; color: var(--hero-ink); isolation: isolate; }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+.hero .eyebrow { color: var(--hero-muted); }
+.hero h1 { color: var(--hero-ink); text-shadow: 0 1px 12px rgba(5, 20, 50, .45); }
+.hero .lede { color: var(--hero-ink); text-shadow: 0 1px 8px rgba(5, 20, 50, .5); }
+.hero .lede b { color: #ffffff; }
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <canvas id="crystal" aria-hidden="true"></canvas>
+    <div class="eyebrow">CityU · Semester A 2026/27</div>
+    <h1>How many fewer days each programme spends on campus</h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <div class="controls">
+    <div class="field">
+      <label for="prog">Programme</label>
+      <select id="prog"></select>
+    </div>
+  </div>
+
+  <div class="tiles" id="tiles"></div>
+
+  <section id="ranking">
+    <h2>Days on campus a week, by programme</h2>
+    <div class="legend"><span><i id="lg-base"></i><span id="lg-base-t">Today</span></span><span><i style="background: var(--plan)"></i>Planner</span></div>
+    <div class="chart" id="rank"></div>
+  </section>
+
+  <div class="two">
+    <section class="card">
+      <h2 id="histTitle">How many days students come in</h2>
+      <div class="chart" id="hist"></div>
+    </section>
+    <section class="card">
+      <h2>Week shape</h2>
+      <div class="chart" id="shape"></div>
+    </section>
+  </div>
+
+  <section id="examples">
+    <h2 id="exTitle">Example student</h2>
+    <div class="field">
+      <div class="seg" role="group" aria-label="Which example">
+        <button type="button" id="ex0" data-ex="0" aria-pressed="true">Biggest improvement</button>
+        <button type="button" id="ex1" data-ex="1" aria-pressed="false">Typical student</button>
+      </div>
+    </div>
+    <p class="courses" id="exCourses"></p>
+    <div class="two" id="exWeeks"></div>
+    <p class="note">Striped = idle time between classes.</p>
+  </section>
+
+  <section id="gallery-sec">
+    <h2>Before and after, every programme</h2>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <section>
+    <h2>All programmes</h2>
+    <div class="wide"><table id="table"></table></div>
+  </section>
+
+  <details>
+    <summary>Assumptions behind these numbers</summary>
+    <ul>
+      <li><b>Population.</b> 183 real Semester A timetables (from students' screenshots) were bootstrapped to about 14,600 undergraduates: each extra student copies the shape of a random real student's week, swapping courses within the same subject and level in proportion to the AIMS seats each course still had to fill. Three such populations were built; figures average them.</li>
+      <li><b>Programme.</b> Students carry no major, so the programme is the subject they take most, ignoring GE, PE, language and service maths/science courses. Business common-core (CB) courses mark most Year 1 and 2 business students. Programmes under 150 students are grouped as Other.</li>
+      <li><b>Today (random picks).</b> Each student holds a random clash-free mix of open sections. The real screenshots average more gap hours than this, so it understates today's problem.</li>
+      <li><b>Planner.</b> Re-assigns sections for everyone, worst timetables first, with seat swaps. Each day on campus costs as much as two idle hours, days over 8 hours and Saturday classes are penalised, every course is kept and busy buildings are avoided. Class times and seat caps never change.</li>
+      <li><b>Intervals.</b> 95% bootstrap intervals resample students within a programme against today's random picks.</li>
+    </ul>
+  </details>
+</div>
+
+<script>
+const D = /*DATA*/null;
+const S = { prog: 'All students', base: 'random', ex: 0 };
+const f1 = (v) => v.toFixed(1), f2 = (v) => v.toFixed(2), pct = (v) => Math.round(v * 100) + '%';
+const NAMES = { random: 'Today', fcfs: 'First come', planner: 'Planner' };
+const COL = { random: 'var(--today)', fcfs: 'var(--fcfs)', planner: 'var(--plan)' };
+const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs = {}, text) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; };
+const html = (tag, attrs = {}, text) => { const e = document.createElement(tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; };
+const group = () => S.prog === 'All students' ? D.overall : D.programmes[S.prog];
+const names = Object.keys(D.programmes);
+
+try { const saved = JSON.parse(localStorage.getItem('tt-explorer') || '{}'); if (saved.prog && (saved.prog === 'All students' || D.programmes[saved.prog])) S.prog = saved.prog; } catch (e) {}
+function save() { try { localStorage.setItem('tt-explorer', JSON.stringify({ prog: S.prog })); } catch (e) {} }
+
+function tipFor(box) { let t = box.querySelector('.tip'); if (!t) { t = html('div', { class: 'tip' }); t.hidden = true; box.appendChild(t); } return t; }
+function showTip(box, ev, text) { const t = tipFor(box); t.textContent = text; t.hidden = false; const b = box.getBoundingClientRect(); let x = ev.clientX - b.left + 12; x = Math.min(x, b.width - t.offsetWidth - 4); t.style.left = Math.max(0, x) + 'px'; t.style.top = Math.max(0, ev.clientY - b.top - 32) + 'px'; }
+function hideTip(box) { const t = box.querySelector('.tip'); if (t) t.hidden = true; }
+
+function lede() {
+  const o = D.overall, r = D.real;
+  const p = document.getElementById('lede');
+  p.replaceChildren();
+  const parts = [
+    'Across about ', [o.students.toLocaleString()], ' simulated undergraduates, the planner cuts days on campus from ',
+    [f2(o.random.days)], ' to ', [f2(o.planner.days)], ' a week per student, and idle time between classes from ',
+    [f2(o.random.gap)], ' to ', [f2(o.planner.gap)], ' hours. For the ', [String(r.students)], ' students whose real timetables we have, campus days fall from ',
+    [f1(r.actual.days)], ' to ', [f1(r.planner.days)], ' a week.'];
+  parts.forEach((x) => p.append(Array.isArray(x) ? html('b', {}, x[0]) : x));
+}
+
+function tiles() {
+  const g = group(), b = g[S.base], p = g.planner, box = document.getElementById('tiles');
+  box.replaceChildren();
+  const ci = S.base === 'random' ? g.ci_gap : null;
+  const items = [
+    ['Days on campus a week', f2(p.days), b.days, p.days, (v) => v.toFixed(2), ''],
+    ['Gap hours a week', f2(p.gap), b.gap, p.gap, f2, ''],
+    ['Longest day on campus', f1(p.long) + ' h', b.long, p.long, (v) => f1(v) + ' h'],
+    ['Students missing a course', pct(p.miss_share), b.miss_share, p.miss_share, pct],
+  ];
+  const t0 = html('div', { class: 'tile' });
+  t0.append(html('span', { class: 'k' }, 'Students'),
+    html('span', { class: 'v' }, g.students.toLocaleString()));
+  box.append(t0);
+  items.forEach(([k, v, from, to, fmt, extra]) => {
+    const t = html('div', { class: 'tile' });
+    const d = html('span', { class: 'd' });
+    const diff = to - from;
+    const cls = Math.abs(diff) < 1e-9 ? '' : diff < 0 ? 'good' : 'bad';
+    d.append(`from ${fmt(from)} with ${NAMES[S.base].toLowerCase()} `);
+    const mag = fmt === pct ? Math.round(Math.abs(diff) * 100) + ' pts' : fmt(Math.abs(diff)) + (fmt === f2 ? ' h' : '');
+    if (cls) d.append(html('span', { class: cls }, (diff < 0 ? '▼ ' : '▲ ') + mag));
+    t.append(html('span', { class: 'k' }, k), html('span', { class: 'v' }, v), d);
+    if (extra) t.append(html('span', { class: 'd' }, extra));
+    box.append(t);
+  });
+}
+
+function ranking() {
+  const box = document.getElementById('rank');
+  const W = box.clientWidth || 700;
+  const rows = names.map((n) => ({ n, b: D.programmes[n][S.base].days, p: D.programmes[n].planner.days, s: D.programmes[n].students }))
+    .sort((a, c) => (c.b - c.p) - (a.b - a.p));
+  const rowH = 24, top = 6, H = rows.length * rowH + top + 26;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Days on campus per week by programme: ' + rows.map((r) => `${r.n} ${f2(r.b)} to ${f2(r.p)}`).join('; ') });
+  box.replaceChildren(svg);
+  const probe = el('text', { class: 'lbl' }); svg.append(probe);
+  let left = 0; rows.forEach((r) => { probe.textContent = r.n; left = Math.max(left, probe.getComputedTextLength()); }); probe.remove();
+  left = Math.min(left + 14, W * 0.45);
+  const max = Math.ceil(Math.max(...rows.map((r) => Math.max(r.b, r.p)))) || 1;
+  const x = (v) => left + (W - left - 70) * v / max;
+  for (let t = 0; t <= max; t++) {
+    svg.append(el('line', { class: 'grid', x1: x(t), x2: x(t), y1: top - 4, y2: H - 22 }));
+    svg.append(el('text', { x: x(t), y: H - 6, 'text-anchor': 'middle' }, t + (t === max ? ' days' : '')));
+  }
+  rows.forEach((r, i) => {
+    const y = top + i * rowH + rowH / 2;
+    const g = el('g', { class: 'row' + (r.n === S.prog ? ' sel' : ''), tabindex: 0, role: 'button', 'aria-label': `Show ${r.n}` });
+    g.append(el('rect', { class: 'hit', x: 0, y: y - rowH / 2, width: W, height: rowH, fill: r.n === S.prog ? 'var(--plan-soft)' : 'transparent', rx: 4 }));
+    g.append(el('text', { class: 'lbl', x: 4, y, dy: '.35em' }, r.n));
+    g.append(el('line', { x1: x(r.b), x2: x(r.p), y1: y, y2: y, stroke: 'var(--muted)', 'stroke-width': 2 }));
+    g.append(el('circle', { cx: x(r.b), cy: y, r: 5, fill: COL[S.base] }));
+    g.append(el('circle', { cx: x(r.p), cy: y, r: 5, fill: COL.planner }));
+    g.append(el('text', { x: Math.max(x(r.b), x(r.p)) + 9, y, dy: '.35em' }, `−${f2(r.b - r.p)} days`));
+    g.addEventListener('click', () => pick(r.n));
+    g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(r.n); } });
+    g.addEventListener('pointermove', (e) => showTip(box, e, `${r.n} (${r.s.toLocaleString()} students): ${f2(r.b)} → ${f2(r.p)} days/week`));
+    g.addEventListener('pointerleave', () => hideTip(box));
+    svg.append(g);
+  });
+}
+
+function hist() {
+  const g = group(), box = document.getElementById('hist');
+  const W = box.clientWidth || 400, H = 200, L = 34, B = 26;
+  const a = g.days_hist[S.base].slice(1), p = g.days_hist.planner.slice(1);
+  const ta = a.reduce((s, v) => s + v, 0) || 1, tp = p.reduce((s, v) => s + v, 0) || 1;
+  const sa = a.map((v) => v / ta), sp = p.map((v) => v / tp);
+  const max = Math.max(...sa, ...sp, 0.1);
+  const ymax = Math.ceil(max * 10) / 10;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `Share of students by days on campus, ${NAMES[S.base]} vs planner: ` + sa.map((v, i) => `${i + 1} days ${pct(v)} vs ${pct(sp[i])}`).join(', ') });
+  box.replaceChildren(svg);
+  const bw = (W - L) / 6, y = (v) => (H - B) - (H - B - 8) * v / ymax;
+  for (let t = 0; t <= ymax + 1e-9; t += ymax / 2) {
+    svg.append(el('line', { class: 'grid', x1: L, x2: W, y1: y(t), y2: y(t) }));
+    svg.append(el('text', { x: L - 6, y: y(t), dy: '.35em', 'text-anchor': 'end' }, pct(t)));
+  }
+  for (let i = 0; i < 6; i++) {
+    const x0 = L + i * bw + bw * 0.12, w = bw * 0.36;
+    [[sa[i], COL[S.base], NAMES[S.base]], [sp[i], COL.planner, 'Planner']].forEach(([v, c, n], k) => {
+      const r = el('rect', { x: x0 + k * w, y: y(v), width: w - 1, height: Math.max(0, (H - B) - y(v)), fill: c, rx: 1.5 });
+      r.addEventListener('pointermove', (e) => showTip(box, e, `${n}: ${pct(v)} of students come in ${i + 1} day${i ? 's' : ''} a week`));
+      r.addEventListener('pointerleave', () => hideTip(box));
+      svg.append(r);
+    });
+    svg.append(el('text', { x: L + i * bw + bw / 2, y: H - 8, 'text-anchor': 'middle' }, String(i + 1)));
+  }
+  document.getElementById('histTitle').textContent = `How many days ${S.prog === 'All students' ? 'students' : S.prog + ' students'} come in`;
+}
+
+function shape() {
+  const g = group(), box = document.getElementById('shape');
+  const W = box.clientWidth || 400;
+  const ms = [['Days on campus', 'days', f2], ['Gap hours a week', 'gap', f2], ['Longest day (h)', 'long', f1], ['Uneven week', 'uneven', f2], ['Class hours a week', 'hours', f1]];
+  const rowH = 38, H = ms.length * rowH + 4;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': ms.map(([n, k, f]) => `${n}: ${f(g[S.base][k])} to ${f(g.planner[k])}`).join('; ') });
+  box.replaceChildren(svg);
+  const left = Math.min(130, W * 0.4);
+  ms.forEach(([n, k, f], i) => {
+    const y0 = i * rowH + 4, max = Math.max(g[S.base][k], g.planner[k], 0.01) * 1.15;
+    const x = (v) => left + (W - left - 44) * v / max;
+    svg.append(el('text', { class: 'lbl', x: 0, y: y0 + 14, dy: '.35em' }, n));
+    [[S.base, 0], ['planner', 1]].forEach(([s, j]) => {
+      const v = g[s][k], yy = y0 + j * 15 + 2;
+      svg.append(el('rect', { x: left, y: yy, width: Math.max(1, x(v) - left), height: 12, fill: COL[s], rx: 2 }));
+      svg.append(el('text', { x: x(v) + 5, y: yy + 6, dy: '.35em' }, f(v)));
+    });
+  });
+}
+
+function week(ex, scen) {
+  const card = html('div', { class: 'card' });
+  const st = ex[scen];
+  const h3 = html('h3'); h3.append(NAMES[scen] === 'Today' ? 'Today (random picks)' : NAMES[scen] === 'First come' ? 'First come, best pick' : 'Planner',
+    html('span', { class: 'num' }, `${st.days} days · ${st.gap} gap h · longest day ${st.long} h`));
+  card.append(h3);
+  const blocks = st.blocks.filter((b) => b[1] >= 0);
+  const hours = blocks.flatMap((b) => [b[2], b[2] + b[3]]);
+  const h0 = Math.min(9, ...hours), h1 = Math.max(18, ...hours);
+  const grid = html('div', { class: 'week', role: 'img', 'aria-label': `${NAMES[scen]} week: ` + blocks.map((b) => `${b[0]} ${DAYS[b[1]]} ${b[2]}:00 for ${b[3]} h`).join(', ') });
+  grid.append(html('div'));
+  DAYS.forEach((d) => grid.append(html('div', { class: 'dh' }, d)));
+  for (let h = h0; h < h1; h++) {
+    grid.append(html('div', { class: 'hr' }, String(h).padStart(2, '0')));
+    for (let d = 0; d < 6; d++) grid.append(html('div', { class: 'cell' }));
+  }
+  card.append(grid);
+  requestAnimationFrame(() => {
+    const cells = grid.querySelectorAll('.dh');
+    if (!cells.length) return;
+    const gb = grid.getBoundingClientRect();
+    const top = cells[0].offsetHeight, rowH = 22;
+    const pos = (d) => { const c = cells[d].getBoundingClientRect(); return [c.left - gb.left, c.width]; };
+    const byDay = {};
+    blocks.forEach((b) => { (byDay[b[1]] ||= []).push(b); });
+    Object.entries(byDay).forEach(([d, bs]) => {
+      const [x, w] = pos(+d);
+      const busy = new Set(); bs.forEach((b) => { for (let h = b[2]; h < b[2] + b[3]; h++) busy.add(h); });
+      const lo = Math.min(...busy), hi = Math.max(...busy);
+      for (let h = lo; h <= hi; h++) if (!busy.has(h)) {
+        const g = html('div', { class: 'gapmark', title: 'Idle hour' });
+        Object.assign(g.style, { left: x + 2 + 'px', width: w - 4 + 'px', top: top + (h - h0) * rowH + 1 + 'px', height: rowH - 2 + 'px' });
+        grid.append(g);
+      }
+      bs.forEach((b) => {
+        const k = html('div', { class: 'blk' }, b[0]);
+        Object.assign(k.style, { left: x + 1 + 'px', width: w - 2 + 'px', top: top + (b[2] - h0) * rowH + 1 + 'px', height: b[3] * rowH - 2 + 'px' });
+        grid.append(k);
+      });
+    });
+  });
+  return card;
+}
+
+function examples() {
+  const g = S.prog === 'All students' ? D.programmes[names[0]] : D.programmes[S.prog];
+  const exs = g.examples || [];
+  const ex = exs[Math.min(S.ex, exs.length - 1)];
+  document.getElementById('exTitle').textContent = `Example ${S.prog === 'All students' ? names[0] : S.prog} student`;
+  document.getElementById('ex1').hidden = exs.length < 2;
+  const wrap = document.getElementById('exWeeks');
+  wrap.replaceChildren();
+  if (!ex) { document.getElementById('exCourses').textContent = 'No example in this group.'; return; }
+  document.getElementById('exCourses').textContent = ex.courses.join(' · ');
+  wrap.append(week(ex, S.base), week(ex, 'planner'));
+}
+
+function table() {
+  const t = document.getElementById('table');
+  t.replaceChildren();
+  const head = html('tr');
+  ['Programme', 'Students', 'Days today', 'Days (planner)', 'Change', '95% interval vs today', 'Gap h today', 'Gap h (planner)', 'Longest day today', 'Longest day (planner)']
+    .forEach((h) => head.append(html('th', {}, h)));
+  const thead = html('thead'); thead.append(head); t.append(thead);
+  const tb = html('tbody');
+  [['All students', D.overall], ...names.map((n) => [n, D.programmes[n]])].forEach(([n, g]) => {
+    const tr = html('tr', { class: n === S.prog ? 'sel' : '' });
+    [n, g.students.toLocaleString(), f2(g[S.base].days), f2(g.planner.days), f2(g.planner.days - g[S.base].days),
+      `${f2(g.ci_days[1])} to ${f2(g.ci_days[2])}`, f2(g[S.base].gap), f2(g.planner.gap), f1(g[S.base].long), f1(g.planner.long)]
+      .forEach((v) => tr.append(html('td', {}, v)));
+    tr.style.cursor = 'pointer';
+    tr.addEventListener('click', () => pick(n));
+    tb.append(tr);
+  });
+  t.append(tb);
+}
+
+
+function miniWeek(st) {
+  const blocks = st.blocks.filter((b) => b[1] >= 0);
+  const h0 = 9, h1 = Math.max(19, ...blocks.map((b) => b[2] + b[3]));
+  const L = 14, T = 10, cw = 22, rh = 7, W = L + 6 * cw, H = T + (h1 - h0) * rh + 2;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': blocks.map((b) => `${b[0]} ${DAYS[b[1]]} ${b[2]}:00 ${b[3]}h`).join(', ') });
+  DAYS.forEach((d, i) => svg.append(el('text', { x: L + i * cw + cw / 2, y: 7, 'text-anchor': 'middle' }, d[0])));
+  for (let h = h0; h <= h1; h += 3) svg.append(el('text', { x: 0, y: T + (h - h0) * rh + 3 }, String(h)));
+  svg.append(el('rect', { x: L, y: T, width: 6 * cw, height: (h1 - h0) * rh, fill: 'var(--bg)', stroke: 'var(--line)', 'stroke-width': 0.5 }));
+  const busy = {};
+  blocks.forEach((b) => { for (let h = b[2]; h < b[2] + b[3]; h++) (busy[b[1]] ||= new Set()).add(h); });
+  Object.entries(busy).forEach(([d, set]) => {
+    const lo = Math.min(...set), hi = Math.max(...set);
+    for (let h = lo; h <= hi; h++) {
+      const x = L + d * cw + 1.5, y = T + (h - h0) * rh + 0.5;
+      if (set.has(h)) svg.append(el('rect', { x, y, width: cw - 3, height: rh - 1, fill: 'var(--block)', rx: 1 }));
+      else svg.append(el('rect', { x, y, width: cw - 3, height: rh - 1, fill: 'var(--idle)', opacity: 0.3, rx: 1 }));
+    }
+  });
+  return svg;
+}
+
+function gallery() {
+  const box = document.getElementById('gallery');
+  box.replaceChildren();
+  names.forEach((n) => {
+    const g = D.programmes[n], ex = (g.examples || [])[0];
+    if (!ex) return;
+    const card = html('button', { type: 'button', class: 'mini' + (n === S.prog ? ' sel' : ''), 'aria-label': `Open ${n}` });
+    card.append(html('h3', {}, n), html('span', { class: 'meta' },
+      `${f2(g.random.days)} → ${f2(g.planner.days)} days a week avg`));
+    const pair = html('div', { class: 'pair' });
+    [['random', 'Today'], ['planner', 'Planner']].forEach(([k, lab]) => {
+      const c = html('div');
+      c.append(html('span', {}, `${lab}: ${ex[k].days} days`), miniWeek(ex[k]));
+      pair.append(c);
+    });
+    card.append(pair);
+    card.addEventListener('click', () => { pick(n); document.getElementById('examples').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); });
+    box.append(card);
+  });
+}
+
+
+function crystal() {
+  const c = document.getElementById('crystal');
+  const w = c.clientWidth, h = c.clientHeight;
+  if (!w || !h) return;
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  c.width = w * dpr; c.height = h * dpr;
+  const g = c.getContext('2d'); g.scale(dpr, dpr);
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const step = 58, cols = Math.ceil(w / step) + 2, rows = Math.ceil(h / step) + 2;
+  const P = [];
+  for (let r = 0; r < rows; r++) { P.push([]); for (let q = 0; q < cols; q++) {
+    P[r].push([(q - 0.5) * step + (rnd() - .5) * step * .8, (r - 0.5) * step + (rnd() - .5) * step * .8]); } }
+  const tri = (a, b, d) => {
+    const cx = (a[0] + b[0] + d[0]) / 3, cy = (a[1] + b[1] + d[1]) / 3;
+    const t = cx / w * 0.6 + (1 - cy / h) * 0.4, n = rnd();
+    const l = 22 + t * 26 + n * 14, s = 70 + n * 15;
+    g.beginPath(); g.moveTo(...a); g.lineTo(...b); g.lineTo(...d); g.closePath();
+    g.fillStyle = `hsl(${212 + n * 10} ${s}% ${l}%)`; g.fill();
+    g.strokeStyle = `rgba(255,255,255,${0.05 + n * 0.12})`; g.lineWidth = 0.8; g.stroke();
+  };
+  for (let r = 0; r < rows - 1; r++) for (let q = 0; q < cols - 1; q++) {
+    const a = P[r][q], b = P[r][q + 1], d = P[r + 1][q], e = P[r + 1][q + 1];
+    if (rnd() > .5) { tri(a, b, e); tri(a, e, d); } else { tri(a, b, d); tri(b, e, d); }
+  }
+  const sh = g.createLinearGradient(0, 0, w, h);
+  sh.addColorStop(0, 'rgba(255,255,255,.10)'); sh.addColorStop(.5, 'rgba(255,255,255,0)'); sh.addColorStop(1, 'rgba(10,30,80,.25)');
+  g.fillStyle = sh; g.fillRect(0, 0, w, h);
+}
+
+function pick(n) { S.prog = n; S.ex = 0; document.getElementById('prog').value = n; save(); render(); }
+
+function render() {
+  document.querySelectorAll('[data-ex]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.ex === S.ex)));
+  document.getElementById('lg-base').style.background = COL[S.base];
+  document.getElementById('lg-base-t').textContent = S.base === 'random' ? 'Today (random picks)' : 'First come, best pick';
+  tiles(); ranking(); hist(); shape(); examples(); gallery(); table();
+}
+
+const sel = document.getElementById('prog');
+sel.append(new Option('All students', 'All students'));
+names.forEach((n) => sel.append(new Option(`${n} (${D.programmes[n].students.toLocaleString()})`, n)));
+sel.value = S.prog;
+sel.addEventListener('change', () => pick(sel.value));
+document.querySelectorAll('[data-ex]').forEach((b) => b.addEventListener('click', () => { S.ex = +b.dataset.ex; render(); }));
+let rt, lastW = 0;
+new ResizeObserver((es) => {
+  const w = Math.round(es[0].contentRect.width);
+  if (w === lastW) return;
+  lastW = w; clearTimeout(rt); rt = setTimeout(() => { crystal(); ranking(); hist(); shape(); examples(); gallery(); }, 120);
+}).observe(document.querySelector('.wrap'));
+lede();
+render();
+crystal();
+</script>

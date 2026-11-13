@@ -12,6 +12,7 @@ the higher-level course. Subjects map to programme families in PROGRAMMES.
 Usage: python3 scripts/citywide_majors.py
 """
 import gzip
+import os
 import json
 import random
 import statistics
@@ -19,7 +20,8 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / "results/explorer"
+TAG = os.environ.get("TAG", "")  # e.g. "_compact" for the fewest-days objective
+OUT = ROOT / f"results/explorer{TAG}"
 SCEN = ("random", "fcfs", "planner")
 IGNORE = {"GE", "PED", "LC", "CHIN"}
 SERVICE = {"MA", "PHY", "CHEM", "CSCI"}
@@ -104,7 +106,7 @@ def grid(week):
 
 def main():
     rng = random.Random(3)
-    files = sorted((ROOT / "results").glob("citywide_students_seed*.json.gz"))
+    files = sorted((ROOT / "results").glob(f"citywide_students{TAG}_seed*.json.gz"))
     people = []  # (seed, index, programme, is_real, stats per scenario, weeks)
     for f in files:
         data = json.load(gzip.open(f, "rt"))
@@ -127,10 +129,12 @@ def main():
                       for m in ("gap", "long", "days", "uneven", "hours")}
             out[k]["miss_share"] = round(sum(1 for p in group if p["st"][k]["miss"]) / len(group), 3)
             out[k]["gap3_share"] = round(sum(1 for p in group if p["st"][k]["gap"] >= 3) / len(group), 3)
-        for m in ("gap", "long", "uneven"):
+        for m in ("gap", "long", "uneven", "days"):
             out["ci_" + m] = ci([p["st"]["planner"][m] - p["st"]["random"][m] for p in group], rng)
         out["gap_hist"] = {k: [sum(1 for p in group if min(p["st"][k]["gap"], 8) == g) for g in range(9)]
                            for k in SCEN}
+        out["days_hist"] = {k: [sum(1 for p in group if p["st"][k]["days"] == d) for d in range(7)]
+                            for k in SCEN}
         return out
 
     progs = defaultdict(list)
@@ -143,8 +147,12 @@ def main():
         # timetables; first the biggest gap cut (then longest-day cut), then the median
         pool = [p for p in group if p["seed"] == group[0]["seed"] and 4 <= len(p["s"]["c"]) <= 7
                 and p["st"]["random"]["miss"] == 0 and p["st"]["planner"]["miss"] == 0]
-        pool.sort(key=lambda p: (p["st"]["planner"]["gap"] - p["st"]["random"]["gap"],
-                                 p["st"]["planner"]["long"] - p["st"]["random"]["long"]))
+        if TAG == "_compact":  # biggest cut in days, then in gaps
+            pool.sort(key=lambda p: (p["st"]["planner"]["days"] - p["st"]["random"]["days"],
+                                     p["st"]["planner"]["gap"] - p["st"]["random"]["gap"]))
+        else:
+            pool.sort(key=lambda p: (p["st"]["planner"]["gap"] - p["st"]["random"]["gap"],
+                                     p["st"]["planner"]["long"] - p["st"]["random"]["long"]))
         examples = []
         for q in (0.0, 0.5):  # the biggest improvement, then a typical student
             if pool:
@@ -160,7 +168,8 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "data.json").write_text(json.dumps(result, separators=(",", ":")))
     for name, r in result["programmes"].items():
-        print(f"{name:34} {r['students']:6}  gaps {r['random']['gap']:.2f} -> {r['planner']['gap']:.2f}"
+        print(f"{name:34} {r['students']:6}  days {r['random']['days']:.2f} -> {r['planner']['days']:.2f}"
+              f"  gaps {r['random']['gap']:.2f} -> {r['planner']['gap']:.2f}"
               f"  longest {r['random']['long']:.1f} -> {r['planner']['long']:.1f}")
 
 

@@ -53,6 +53,13 @@ TRIES = 6  # course picks tried per timetable slot before giving the slot up
 MISS = 150  # penalty per course left out
 GAP_W = 15  # one idle hour between classes costs as much as 3 hours of uneven week
 LOAD_SCALE = 1000  # planner: an hour in a building with 1,000 students in class costs 1
+# Objective. "even": spread classes evenly over Mon-Fri. "compact": as few days on
+# campus as possible, without very long days.
+OBJECTIVE = "even"
+DAY_W = 30  # compact: one day on campus costs as much as two idle hours
+LONG_DAY, LONG_W = 8, 5  # compact: each hour of a day's span beyond 8 h costs 5
+SAT_W = 5  # each Saturday class hour costs 5 (both objectives)
+TAG = ""  # suffix for output files of a non-default objective
 MAX_COMBOS = 600
 METRICS = ("gap_hours", "unevenness", "longest_day", "days_on_campus", "missing_courses")
 
@@ -109,7 +116,11 @@ def score_masks(reg):
     for m in reg:
         if m:
             gaps += m.bit_length() - ((m & -m).bit_length() - 1) - m.bit_count()
-    even = sum(abs(5 * hours[d] - total_h) for d in range(5)) + 5 * hours[5]
+    if OBJECTIVE == "compact":
+        spans = [(m.bit_length() - ((m & -m).bit_length() - 1)) if m else 0 for m in reg]
+        return (GAP_W * gaps + DAY_W * sum(1 for m in reg if m)
+                + LONG_W * sum(max(0, sp - LONG_DAY) for sp in spans) + SAT_W * hours[5])
+    even = sum(abs(5 * hours[d] - total_h) for d in range(5)) + SAT_W * hours[5]
     return GAP_W * gaps + even
 
 
@@ -540,7 +551,7 @@ def export(seed, pop, plans, real, sections):
                                 act[sections[crn].course][mt.day] |= 1 << (h - 9)
             row["actual"] = {c: act.get(c, [0] * 6) for c in courses}
         students.append(row)
-    path = OUT / f"citywide_students_seed{seed}.json.gz"
+    path = OUT / f"citywide_students{TAG}_seed{seed}.json.gz"
     with gzip.open(path, "wt", encoding="utf-8") as f:
         json.dump({"seed": seed, "students": students}, f, separators=(",", ":"))
     print(f"[seed {seed}] timetables -> {path}", flush=True)
@@ -552,7 +563,11 @@ def main():
     ap.add_argument("--planner-minutes", type=float, default=6)
     ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("--summary", default=str(OUT / "citywide_summary.json"))
+    ap.add_argument("--objective", choices=("even", "compact"), default="even")
     args = ap.parse_args()
+    global OBJECTIVE, TAG
+    OBJECTIVE = args.objective
+    TAG = "" if OBJECTIVE == "even" else "_" + OBJECTIVE
     sections = o.load_sections()
     times = {crn: s.meetings for crn, s in sections.items()}
     options = build_options(sections, {s.course for s in sections.values()})
