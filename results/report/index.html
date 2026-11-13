@@ -1,0 +1,284 @@
+<meta name="dash-one-writer">
+<style>
+.tt-page { display: flex; flex-direction: column; gap: var(--cds-gap-xl); max-width: 960px; }
+.tt-page h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+.tt-page h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; text-wrap: balance; }
+.tt-lede { font-size: var(--cds-font-size-body); line-height: 1.55; max-width: 68ch; margin: var(--cds-gap-sm) 0 0; }
+.tt-lede b { font-variant-numeric: tabular-nums; }
+.tt-note { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); line-height: 1.5; max-width: 72ch; margin: 0; }
+.tt-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--cds-gap-md); }
+.tt-tile { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: flex; flex-direction: column; gap: var(--cds-gap-xs); min-width: 0; }
+.tt-tile .k { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.tt-tile .v { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; }
+.tt-tile .d { font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; color: var(--color-fg-muted); }
+.tt-good { color: var(--color-ok); }
+.tt-section { display: flex; flex-direction: column; gap: var(--cds-gap-sm); }
+.tt-chart { position: relative; min-height: 220px; width: 100%; }
+.tt-chart svg { display: block; width: 100%; overflow: visible; }
+.tt-chart text { fill: var(--cds-text-secondary); font-size: var(--cds-font-size-caption); font-family: var(--font-anthropic-sans); }
+.tt-chart .lbl { fill: var(--color-fg); }
+.tt-chart .grid line { stroke: var(--cds-chart-grid); }
+.tt-chart .axis path, .tt-chart .axis line { stroke: var(--cds-chart-axis); }
+.tt-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); box-shadow: var(--cds-shadow-popover); border-radius: var(--cds-radius); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); white-space: nowrap; z-index: 2; }
+.tt-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.tt-legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; background: var(--sw); }
+.tt-wrap { overflow-x: auto; }
+.tt-table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.tt-table th, .tt-table td { padding: 6px 10px; border-bottom: 1px solid var(--color-border-line); text-align: right; white-space: nowrap; }
+.tt-table th:first-child, .tt-table td:first-child { text-align: left; }
+.tt-table thead th { color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); }
+.tt-page details { font-size: var(--cds-font-size-body); line-height: 1.55; max-width: 72ch; }
+.tt-page details summary { cursor: pointer; font-weight: var(--cds-font-weight-medium); }
+.tt-page details li { margin-bottom: var(--cds-gap-xs); }
+[data-dash-source-state=refreshing] { opacity: .5; }
+</style>
+
+<div class="tt-page">
+  <header id="intro">
+    <h1>How much better CityU timetables could be</h1>
+    <p class="tt-lede">The 183 students whose real Semester A timetables we have spend <b data-draw="realActualGaps" data-source="real" data-field="gap_hours" data-where="scenario=actual">—</b> hours a week waiting between classes. Given the same courses, the planner cuts that to <b data-draw="realPlannerGaps" data-source="real" data-field="gap_hours" data-where="scenario=planner">—</b> hours. Scaled to all <b data-draw="students" data-source="population" data-field="students" data-row="0">—</b> undergraduates, idle time falls by <b data-draw="allGapCut" data-source="effects" data-field="change" data-where="comparison=planner_vs_random&amp;metric=gap_hours">—</b> hours per student per week against today's way of picking sections.</p>
+  </header>
+
+  <section class="tt-tiles" id="tiles" aria-label="Headline figures">
+    <div class="tt-tile" id="tile-gaps">
+      <span class="k">Gap hours per week, real students</span>
+      <span class="v" data-draw="tileGaps" data-source="real" data-field="gap_hours" data-where="scenario=planner">—</span>
+      <span class="d">from <span data-draw="tileGapsFrom" data-source="real" data-field="gap_hours" data-where="scenario=actual">—</span> in their real timetables</span>
+    </div>
+    <div class="tt-tile" id="tile-long">
+      <span class="k">Longest day on campus, real students</span>
+      <span class="v" data-draw="tileLong" data-source="real" data-field="longest_day" data-where="scenario=planner">—</span>
+      <span class="d">hours, from <span data-draw="tileLongFrom" data-source="real" data-field="longest_day" data-where="scenario=actual">—</span></span>
+    </div>
+    <div class="tt-tile" id="tile-3h">
+      <span class="k">Students with 3+ gap hours a week, all CityU</span>
+      <span class="v" data-draw="tile3h" data-source="scenarios" data-field="share_with_3h_plus_gaps" data-where="scenario=planner">—</span>
+      <span class="d">from <span data-draw="tile3hFrom" data-source="scenarios" data-field="share_with_3h_plus_gaps" data-where="scenario=random">—</span> with random picks</span>
+    </div>
+    <div class="tt-tile" id="tile-miss">
+      <span class="k">Students left without a course they need</span>
+      <span class="v" data-draw="tileMiss" data-source="scenarios" data-field="share_missing_a_course" data-where="scenario=planner">—</span>
+      <span class="d">vs <span data-draw="tileMissFrom" data-source="scenarios" data-field="share_missing_a_course" data-where="scenario=fcfs">—</span> under first come, first served</span>
+    </div>
+  </section>
+
+  <section class="tt-section" id="real-students">
+    <h2>For the real students, the planner halves waiting time and shortens the longest day</h2>
+    <p class="tt-note">Same courses, same section times and seat caps. Hours per student per week, regular teaching weeks.</p>
+    <div class="tt-legend"><span style="--sw: var(--cds-chart-muted)">Real timetables</span><span data-swatch="1">First come, best pick</span><span data-swatch="0">Planner</span></div>
+    <div class="tt-chart" id="chart-real" data-draw="chartReal" data-source="real"></div>
+  </section>
+
+  <section class="tt-section" id="all-students">
+    <h2>Across all undergraduates, gaps fall the most against random section picks</h2>
+    <p class="tt-note">Bootstrapped CityU population, mean over the populations; the thin line spans the lowest and highest population.</p>
+    <div class="tt-legend"><span style="--sw: var(--cds-chart-muted)">Random clash-free (today)</span><span data-swatch="1">First come, best pick</span><span data-swatch="0">Planner</span></div>
+    <div class="tt-chart" id="chart-all" data-draw="chartAll" data-source="scenarios"></div>
+  </section>
+
+  <section class="tt-section" id="effects">
+    <h2>Every change is well clear of zero</h2>
+    <p class="tt-note">Change per student per week with the planner, and its 95% bootstrap interval (resampling students, widest over the populations). Negative is better except days on campus, which rises because the planner spreads classes over the week.</p>
+    <div class="tt-chart" id="chart-effects" data-draw="chartEffects" data-source="effects"></div>
+  </section>
+
+  <section class="tt-section" id="table">
+    <h2>All figures, whole population</h2>
+    <div class="tt-wrap">
+      <table class="tt-table" data-source="scenarios" data-row-key="scenario">
+        <thead><tr>
+          <th data-field="label">Scenario</th>
+          <th data-field="gap_hours">Gap h/week</th>
+          <th data-field="unevenness">Uneven week</th>
+          <th data-field="longest_day">Longest day h</th>
+          <th data-field="days_on_campus">Days on campus</th>
+          <th data-field="worst_10pct_gap_hours">Worst 10% gaps</th>
+          <th data-field="share_missing_a_course">Missing a course</th>
+          <th data-field="peak_students_in_class">Peak in class</th>
+          <th data-field="building_peak_sum">Building peaks</th>
+        </tr></thead>
+        <tbody data-draw="tableRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <details id="method">
+    <summary>How the numbers were made</summary>
+    <ul>
+      <li><b>Real timetables.</b> 199 screenshots shared by students were read by hand; 189 were Semester A 2026/27 and 183 had undergraduate courses with fixed times. Only course and section codes were kept.</li>
+      <li><b>Scaling to all of CityU (bootstrap).</b> The real students stay as they are. More students are made by drawing a real student at random and copying the shape of their week: each of their courses is kept or swapped for another course of the same subject and level, weighted by how many AIMS seats that course still has to fill. A course is only added where a seat that fits the student's week is left. Students are added until the AIMS undergraduate enrolment of all 740 timed courses is used up. The population count and coverage are in Sources.</li>
+      <li><b>Random clash-free (today).</b> Each student holds a random clash-free mix of open sections. The real screenshots look like this or worse, which makes it a cautious stand-in for today.</li>
+      <li><b>First come, best pick.</b> Students register in random order and each takes the best timetable still open. It is the best case for today's system, and late students can miss a course.</li>
+      <li><b>Planner.</b> Starting from today, sections are re-assigned for everyone, worst timetables first, with seat swaps between students. It scores one idle hour like three hours of uneven week, keeps every course, and avoids each building's busiest hours. Class times and seat caps never change.</li>
+      <li><b>Metrics.</b> Gap hours: idle hours between a student's first and last class each day. Uneven week: average distance of a weekday's hours from an even fifth of the week. Building peaks: sum over buildings of the busiest hour's students in class.</li>
+      <li><b>Limits.</b> Courses without fixed times, postgraduate-only courses and restrictions such as major-only sections are left out. The sample over-represents first-years; the demand matching corrects course mix but not personal preferences.</li>
+    </ul>
+  </details>
+</div>
+
+<script>
+window.tt = {
+  f1: d3.format('.1f'), f2: d3.format('.2f'), pct: d3.format('.0%'), int: d3.format(','),
+  row(id, where) {
+    const d = dash.data(id);
+    if (d.status !== 'ok') return null;
+    return d.data.find((r) => Object.entries(where).every(([k, v]) => String(r[k]) === v)) || null;
+  },
+  num(el, id, where, field, fmt) {
+    const r = tt.row(id, where);
+    el.textContent = r ? fmt(+r[field]) : '—';
+    el.classList.toggle('dash-skeleton', dash.data(id).status === 'loading');
+  },
+  tip(el) {
+    let t = el.querySelector('.tt-tip');
+    if (!t) { t = document.createElement('div'); t.className = 'tt-tip'; t.hidden = true; el.appendChild(t); }
+    return t;
+  },
+  placeTip(el, tip, ev, text) {
+    tip.textContent = text; tip.hidden = false;
+    const b = el.getBoundingClientRect();
+    let x = ev.clientX - b.left + 12, y = ev.clientY - b.top - 28;
+    x = Math.min(x, b.width - tip.offsetWidth - 4);
+    tip.style.left = Math.max(0, x) + 'px'; tip.style.top = Math.max(0, y) + 'px';
+  },
+  failed(el, id) {
+    const s = dash.data(id).status;
+    if (s === 'ok') return false;
+    el.replaceChildren();
+    if (s === 'error') { const p = document.createElement('p'); p.className = 'tt-note'; p.textContent = 'Failed to load'; el.appendChild(p); }
+    return true;
+  },
+};
+const q = (k, v) => ({ [k]: v });
+dash.draw('realActualGaps', (el) => tt.num(el, 'real', q('scenario', 'actual'), 'gap_hours', tt.f1));
+dash.draw('realPlannerGaps', (el) => tt.num(el, 'real', q('scenario', 'planner'), 'gap_hours', tt.f1));
+dash.draw('students', (el) => {
+  const d = dash.data('population');
+  el.textContent = d.status === 'ok' && d.data[0] ? tt.int(+d.data[0].students) : '—';
+});
+document.querySelectorAll('[data-swatch]').forEach((s) => { s.style.setProperty('--sw', dash.colors[+s.dataset.swatch]); });
+dash.draw('allGapCut', (el) => tt.num(el, 'effects', { comparison: 'planner_vs_random', metric: 'gap_hours' }, 'change', (v) => tt.f1(-v)));
+dash.draw('tileGaps', (el) => tt.num(el, 'real', q('scenario', 'planner'), 'gap_hours', tt.f1));
+dash.draw('tileGapsFrom', (el) => tt.num(el, 'real', q('scenario', 'actual'), 'gap_hours', tt.f1));
+dash.draw('tileLong', (el) => tt.num(el, 'real', q('scenario', 'planner'), 'longest_day', tt.f1));
+dash.draw('tileLongFrom', (el) => tt.num(el, 'real', q('scenario', 'actual'), 'longest_day', tt.f1));
+dash.draw('tile3h', (el) => tt.num(el, 'scenarios', q('scenario', 'planner'), 'share_with_3h_plus_gaps', tt.pct));
+dash.draw('tile3hFrom', (el) => tt.num(el, 'scenarios', q('scenario', 'random'), 'share_with_3h_plus_gaps', tt.pct));
+dash.draw('tileMiss', (el) => tt.num(el, 'scenarios', q('scenario', 'planner'), 'share_missing_a_course', d3.format('.1%')));
+dash.draw('tileMissFrom', (el) => tt.num(el, 'scenarios', q('scenario', 'fcfs'), 'share_missing_a_course', d3.format('.1%')));
+</script>
+
+<script>
+// grouped horizontal bars: one group per metric, one bar per scenario
+window.ttBars = function (el, id, scenarios, metrics, withRange) {
+  if (tt.failed(el, id)) return;
+  const rows = dash.data(id).data;
+  const colors = { actual: 'var(--cds-chart-muted)', random: 'var(--cds-chart-muted)', fcfs: dash.colors[1], planner: dash.colors[0] };
+  const W = el.clientWidth || 600, barH = 16, gap = 4, groupGap = 18;
+  const groupH = scenarios.length * (barH + gap);
+  const H = metrics.length * (groupH + groupGap) + 10;
+  const tip = tt.tip(el);
+  let svg = d3.select(el).select('svg');
+  if (svg.empty()) svg = d3.select(el).insert('svg', ':first-child').attr('role', 'img');
+  svg.attr('viewBox', `0 0 ${W} ${H}`).attr('height', H)
+    .attr('aria-label', metrics.map((m) => m.label + ': ' + scenarios.map((s) => {
+      const r = rows.find((x) => x.scenario === s); return r ? s + ' ' + tt.f2(+r[m.key]) : '';
+    }).join(', ')).join('; '));
+  svg.selectAll('*').remove();
+  // measure the widest metric label for the left margin
+  const probe = svg.append('text').attr('class', 'lbl');
+  let left = 0;
+  metrics.forEach((m) => { probe.text(m.label); left = Math.max(left, probe.node().getComputedTextLength()); });
+  probe.remove();
+  left = Math.min(left + 12, W * 0.42);
+  const right = 44;
+  metrics.forEach((m, i) => {
+    const y0 = i * (groupH + groupGap);
+    const max = d3.max(rows, (r) => +(withRange ? r[m.key + '_max'] ?? r[m.key] : r[m.key])) || 1;
+    const x = d3.scaleLinear().domain([0, max]).range([left, W - right]);
+    svg.append('text').attr('class', 'lbl').attr('x', 0).attr('y', y0 + groupH / 2).attr('dy', '.35em').text(m.label);
+    scenarios.forEach((s, j) => {
+      const r = rows.find((x) => x.scenario === s);
+      if (!r) return;
+      const v = +r[m.key], y = y0 + j * (barH + gap);
+      svg.append('rect').attr('x', left).attr('y', y).attr('height', barH).attr('rx', 2)
+        .attr('width', Math.max(1, x(v) - left)).style('fill', colors[s])
+        .on('pointermove', (ev) => tt.placeTip(el, tip, ev, `${r.label}: ${m.fmt(v)} ${m.unit}`))
+        .on('pointerleave', () => { tip.hidden = true; });
+      if (withRange && r[m.key + '_min'] != null) {
+        svg.append('line').attr('x1', x(+r[m.key + '_min'])).attr('x2', x(+r[m.key + '_max']))
+          .attr('y1', y + barH / 2).attr('y2', y + barH / 2).style('stroke', 'var(--color-fg)').style('stroke-width', 1.5);
+      }
+      svg.append('text').attr('x', x(v) + 6).attr('y', y + barH / 2).attr('dy', '.35em').text(m.fmt(v));
+    });
+  });
+};
+dash.draw('chartReal', (el) => ttBars(el, 'real', ['actual', 'fcfs', 'planner'], [
+  { key: 'gap_hours', label: 'Gap hours a week', fmt: tt.f1, unit: 'h' },
+  { key: 'longest_day', label: 'Longest day (h)', fmt: tt.f1, unit: 'h' },
+  { key: 'worst_10pct_gap_hours', label: 'Gaps, worst 10%', fmt: tt.f1, unit: 'h' },
+  { key: 'unevenness', label: 'Uneven week', fmt: tt.f2, unit: '' },
+], false));
+dash.draw('chartAll', (el) => ttBars(el, 'scenarios', ['random', 'fcfs', 'planner'], [
+  { key: 'gap_hours', label: 'Gap hours a week', fmt: tt.f2, unit: 'h' },
+  { key: 'longest_day', label: 'Longest day (h)', fmt: tt.f1, unit: 'h' },
+  { key: 'worst_10pct_gap_hours', label: 'Gaps, worst 10%', fmt: tt.f1, unit: 'h' },
+  { key: 'unevenness', label: 'Uneven week', fmt: tt.f2, unit: '' },
+], true));
+</script>
+
+<script>
+dash.draw('chartEffects', (el) => {
+  if (tt.failed(el, 'effects')) return;
+  const rows = dash.data('effects').data.filter((r) => r.metric !== 'missing_courses' || r.comparison === 'planner_vs_fcfs');
+  const names = { gap_hours: 'Gap hours', unevenness: 'Uneven week', longest_day: 'Longest day', days_on_campus: 'Days on campus', missing_courses: 'Missing courses' };
+  const comps = [['real_planner_vs_actual', 'vs real timetables'], ['planner_vs_random', 'vs random (all)'], ['planner_vs_fcfs', 'vs first come (all)']];
+  const W = el.clientWidth || 600, rowH = 22, H = rows.length * rowH + 34;
+  const tip = tt.tip(el);
+  let svg = d3.select(el).select('svg');
+  if (svg.empty()) svg = d3.select(el).insert('svg', ':first-child').attr('role', 'img');
+  svg.attr('viewBox', `0 0 ${W} ${H}`).attr('height', H)
+    .attr('aria-label', 'Change with the planner and 95% intervals: ' + rows.map((r) => `${names[r.metric]} ${r.label}: ${tt.f2(+r.change)}`).join('; '));
+  svg.selectAll('*').remove();
+  const order = [];
+  comps.forEach(([c, lab]) => rows.filter((r) => r.comparison === c).forEach((r) => order.push({ ...r, name: `${names[r.metric]}, ${lab}` })));
+  const probe = svg.append('text').attr('class', 'lbl');
+  let left = 0;
+  order.forEach((r) => { probe.text(r.name); left = Math.max(left, probe.node().getComputedTextLength()); });
+  probe.remove();
+  left = Math.min(left + 12, W * 0.5);
+  const lo = Math.min(0, d3.min(order, (r) => +r.lo)), hi = Math.max(0, d3.max(order, (r) => +r.hi));
+  const x = d3.scaleLinear().domain([lo, hi]).nice().range([left, W - 16]);
+  const ticks = x.ticks(Math.max(2, Math.floor((W - left) / 70)));
+  const g = svg.append('g').attr('class', 'grid');
+  ticks.forEach((t) => {
+    g.append('line').attr('x1', x(t)).attr('x2', x(t)).attr('y1', 0).attr('y2', H - 24);
+    svg.append('text').attr('x', x(t)).attr('y', H - 8).attr('text-anchor', 'middle').text(d3.format('+.1f')(t).replace('+0.0', '0'));
+  });
+  svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', H - 24).style('stroke', 'var(--cds-chart-reference)');
+  order.forEach((r, i) => {
+    const y = i * rowH + rowH / 2;
+    const better = r.metric === 'days_on_campus' ? null : +r.change < 0;
+    const col = better === null ? 'var(--cds-chart-muted)' : better ? dash.colors[0] : 'var(--cds-chart-status-critical)';
+    svg.append('text').attr('class', 'lbl').attr('x', 0).attr('y', y).attr('dy', '.35em').text(r.name);
+    svg.append('line').attr('x1', x(+r.lo)).attr('x2', x(+r.hi)).attr('y1', y).attr('y2', y).style('stroke', col).style('stroke-width', 2);
+    svg.append('circle').attr('cx', x(+r.change)).attr('cy', y).attr('r', 4.5).style('fill', col)
+      .on('pointermove', (ev) => tt.placeTip(el, tip, ev, `${r.name}: ${d3.format('+.2f')(+r.change)} (95% ${tt.f2(+r.lo)} to ${tt.f2(+r.hi)})`))
+      .on('pointerleave', () => { tip.hidden = true; });
+  });
+});
+
+dash.draw('tableRows', (tb) => {
+  const d = dash.data('scenarios');
+  tb.replaceChildren();
+  if (d.status !== 'ok') return;
+  const cols = [['label', String], ['gap_hours', tt.f2], ['unevenness', tt.f2], ['longest_day', tt.f2], ['days_on_campus', tt.f2],
+    ['worst_10pct_gap_hours', tt.f1], ['share_missing_a_course', d3.format('.1%')], ['peak_students_in_class', tt.int], ['building_peak_sum', tt.int]];
+  d.data.forEach((r) => {
+    const tr = document.createElement('tr');
+    tr.dataset.key = r.scenario;
+    cols.forEach(([k, f]) => { const td = document.createElement('td'); td.textContent = k === 'label' ? r[k] : f(+r[k]); tr.appendChild(td); });
+    tb.appendChild(tr);
+  });
+});
+</script>
