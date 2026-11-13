@@ -3,23 +3,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one column of control bar, figures, ranked programmes, then example weeks drawn like the CityUHK timetable grid */
+/* Layout: crystal-blue header band, then one column of control bar, figures, ranked programmes, then example weeks drawn like the CityUHK timetable grid */
 :root {
-  --bg: #f6f7f4; --panel: #ffffff; --ink: #1d2320; --muted: #5d6762; --line: #dfe3df;
-  --today: #b9c0bb; --fcfs: #d19a2a; --plan: #1f7a5c; --plan-soft: #d8ece4; --warn: #b4472f;
-  --block: #f5c35c; --block-ink: #4a3a10;
+  --bg: #f3f7fd; --panel: #ffffff; --ink: #0d2340; --muted: #4f6684; --line: #d5e1f0;
+  --today: #a7bbd5; --plan: #1a5fd0; --plan-soft: #e3eefd; --warn: #c2410c; --idle: #0d2a5c;
+  --block: #bcd6fb; --block-ink: #0d2a5c; --hero-ink: #ffffff; --hero-muted: #c9dcf7;
   --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #121614; --panel: #1a201d; --ink: #e8ece9; --muted: #9aa49f; --line: #2c3430;
-  --today: #5c6560; --fcfs: #e0ad45; --plan: #4cc49a; --plan-soft: #1d3a30; --warn: #e2765c;
-  --block: #c9952f; --block-ink: #1b1405; color-scheme: dark } }
+  --bg: #07142a; --panel: #0e2140; --ink: #e6effb; --muted: #93a9c8; --line: #1d3961;
+  --today: #4d6587; --plan: #5b9bff; --plan-soft: #12305a; --warn: #f08a5d; --idle: #9cc2ff;
+  --block: #2b58a0; --block-ink: #eaf2ff; color-scheme: dark } }
 :root[data-theme="dark"] {
-  --bg: #121614; --panel: #1a201d; --ink: #e8ece9; --muted: #9aa49f; --line: #2c3430;
-  --today: #5c6560; --fcfs: #e0ad45; --plan: #4cc49a; --plan-soft: #1d3a30; --warn: #e2765c;
-  --block: #c9952f; --block-ink: #1b1405; color-scheme: dark }
+  --bg: #07142a; --panel: #0e2140; --ink: #e6effb; --muted: #93a9c8; --line: #1d3961;
+  --today: #4d6587; --plan: #5b9bff; --plan-soft: #12305a; --warn: #f08a5d; --idle: #9cc2ff;
+  --block: #2b58a0; --block-ink: #eaf2ff; color-scheme: dark }
 body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5; }
 .wrap { max-width: 1080px; margin: 0 auto; padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 28px; }
 h1 { font-family: var(--display); font-size: clamp(26px, 4vw, 38px); font-weight: 700; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
@@ -66,7 +66,7 @@ section { display: flex; flex-direction: column; gap: 10px; }
 .week .hr { font-family: var(--mono); color: var(--muted); height: 22px; border-top: 1px solid var(--line); line-height: 1; padding-top: 2px; }
 .week .cell { border-top: 1px solid var(--line); border-left: 1px solid var(--line); height: 22px; }
 .blk { position: absolute; background: var(--block); color: var(--block-ink); border-radius: 3px; padding: 2px 3px; overflow: hidden; font-family: var(--mono); font-size: 10px; line-height: 1.15; border: 1px solid var(--bg); }
-.gapmark { position: absolute; background: repeating-linear-gradient(45deg, transparent 0 4px, var(--warn) 4px 5px); opacity: .55; border-radius: 3px; }
+.gapmark { position: absolute; background: repeating-linear-gradient(45deg, transparent 0 4px, var(--idle) 4px 5px); opacity: .45; border-radius: 3px; }
 .courses { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 details { max-width: 76ch; }
 details summary { cursor: pointer; font-weight: 600; }
@@ -77,10 +77,28 @@ th, td { padding: 6px 9px; border-bottom: 1px solid var(--line); text-align: rig
 th:first-child, td:first-child { text-align: left; }
 th { color: var(--muted); font-weight: 500; }
 tr.sel td { background: var(--plan-soft); }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.mini { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 6px; min-width: 0; cursor: pointer; text-align: left; font: inherit; color: inherit; }
+.mini:hover { border-color: var(--plan); }
+.mini.sel { border-color: var(--plan); box-shadow: inset 0 0 0 1px var(--plan); }
+.mini h3 { margin: 0; font-size: 14px; font-weight: 600; }
+.mini .meta { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.mini .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mini .pair div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mini .pair span { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.mini svg { width: 100%; height: auto; display: block; }
+.mini svg text { fill: var(--muted); font-size: 8px; font-family: var(--mono); }
+.hero { position: relative; overflow: hidden; border-radius: 14px; padding: 28px clamp(18px, 4vw, 36px) 30px; background: #0b2a5e; color: var(--hero-ink); isolation: isolate; }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+.hero .eyebrow { color: var(--hero-muted); }
+.hero h1 { color: var(--hero-ink); text-shadow: 0 1px 12px rgba(5, 20, 50, .45); }
+.hero .lede { color: var(--hero-ink); text-shadow: 0 1px 8px rgba(5, 20, 50, .5); }
+.hero .lede b { color: #ffffff; }
 </style>
 
 <div class="wrap">
-  <header>
+  <header class="hero">
+    <canvas id="crystal" aria-hidden="true"></canvas>
     <div class="eyebrow">City University of Hong Kong · Semester A 2026/27 · bootstrapped to all undergraduates</div>
     <h1>How much each programme gains from the timetable planner</h1>
     <p class="lede" id="lede"></p>
@@ -126,6 +144,12 @@ tr.sel td { background: var(--plan-soft); }
     <p class="courses" id="exCourses"></p>
     <div class="two" id="exWeeks"></div>
     <p class="note">Same courses and class times in both weeks; only the sections differ. Striped bars mark idle time between classes. Regular teaching weeks shown.</p>
+  </section>
+
+  <section id="gallery-sec">
+    <h2>Before and after, every programme</h2>
+    <p class="note">One typical student from each programme: their week today (random picks) and with the planner, same courses and class times. Striped cells are idle hours between classes. Select a card to open that programme above.</p>
+    <div class="gallery" id="gallery"></div>
   </section>
 
   <section>
@@ -364,13 +388,86 @@ function table() {
   t.append(tb);
 }
 
+
+function miniWeek(st) {
+  const blocks = st.blocks.filter((b) => b[1] >= 0);
+  const h0 = 9, h1 = Math.max(19, ...blocks.map((b) => b[2] + b[3]));
+  const L = 14, T = 10, cw = 22, rh = 7, W = L + 6 * cw, H = T + (h1 - h0) * rh + 2;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': blocks.map((b) => `${b[0]} ${DAYS[b[1]]} ${b[2]}:00 ${b[3]}h`).join(', ') });
+  DAYS.forEach((d, i) => svg.append(el('text', { x: L + i * cw + cw / 2, y: 7, 'text-anchor': 'middle' }, d[0])));
+  for (let h = h0; h <= h1; h += 3) svg.append(el('text', { x: 0, y: T + (h - h0) * rh + 3 }, String(h)));
+  svg.append(el('rect', { x: L, y: T, width: 6 * cw, height: (h1 - h0) * rh, fill: 'var(--bg)', stroke: 'var(--line)', 'stroke-width': 0.5 }));
+  const busy = {};
+  blocks.forEach((b) => { for (let h = b[2]; h < b[2] + b[3]; h++) (busy[b[1]] ||= new Set()).add(h); });
+  Object.entries(busy).forEach(([d, set]) => {
+    const lo = Math.min(...set), hi = Math.max(...set);
+    for (let h = lo; h <= hi; h++) {
+      const x = L + d * cw + 1.5, y = T + (h - h0) * rh + 0.5;
+      if (set.has(h)) svg.append(el('rect', { x, y, width: cw - 3, height: rh - 1, fill: 'var(--block)', rx: 1 }));
+      else svg.append(el('rect', { x, y, width: cw - 3, height: rh - 1, fill: 'var(--idle)', opacity: 0.3, rx: 1 }));
+    }
+  });
+  return svg;
+}
+
+function gallery() {
+  const box = document.getElementById('gallery');
+  box.replaceChildren();
+  names.forEach((n) => {
+    const g = D.programmes[n], ex = (g.examples || [])[0];
+    if (!ex) return;
+    const card = html('button', { type: 'button', class: 'mini' + (n === S.prog ? ' sel' : ''), 'aria-label': `Open ${n}` });
+    card.append(html('h3', {}, n), html('span', { class: 'meta' },
+      `Programme avg gaps ${f2(g.random.gap)} → ${f2(g.planner.gap)} h · longest day ${f1(g.random.long)} → ${f1(g.planner.long)} h`));
+    const pair = html('div', { class: 'pair' });
+    [['random', 'Today'], ['planner', 'Planner']].forEach(([k, lab]) => {
+      const c = html('div');
+      c.append(html('span', {}, `${lab}: ${ex[k].gap} gap h · ${ex[k].long} h day`), miniWeek(ex[k]));
+      pair.append(c);
+    });
+    card.append(pair);
+    card.addEventListener('click', () => { pick(n); document.getElementById('examples').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); });
+    box.append(card);
+  });
+}
+
+
+function crystal() {
+  const c = document.getElementById('crystal');
+  const w = c.clientWidth, h = c.clientHeight;
+  if (!w || !h) return;
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  c.width = w * dpr; c.height = h * dpr;
+  const g = c.getContext('2d'); g.scale(dpr, dpr);
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const step = 58, cols = Math.ceil(w / step) + 2, rows = Math.ceil(h / step) + 2;
+  const P = [];
+  for (let r = 0; r < rows; r++) { P.push([]); for (let q = 0; q < cols; q++) {
+    P[r].push([(q - 0.5) * step + (rnd() - .5) * step * .8, (r - 0.5) * step + (rnd() - .5) * step * .8]); } }
+  const tri = (a, b, d) => {
+    const cx = (a[0] + b[0] + d[0]) / 3, cy = (a[1] + b[1] + d[1]) / 3;
+    const t = cx / w * 0.6 + (1 - cy / h) * 0.4, n = rnd();
+    const l = 22 + t * 26 + n * 14, s = 70 + n * 15;
+    g.beginPath(); g.moveTo(...a); g.lineTo(...b); g.lineTo(...d); g.closePath();
+    g.fillStyle = `hsl(${212 + n * 10} ${s}% ${l}%)`; g.fill();
+    g.strokeStyle = `rgba(255,255,255,${0.05 + n * 0.12})`; g.lineWidth = 0.8; g.stroke();
+  };
+  for (let r = 0; r < rows - 1; r++) for (let q = 0; q < cols - 1; q++) {
+    const a = P[r][q], b = P[r][q + 1], d = P[r + 1][q], e = P[r + 1][q + 1];
+    if (rnd() > .5) { tri(a, b, e); tri(a, e, d); } else { tri(a, b, d); tri(b, e, d); }
+  }
+  const sh = g.createLinearGradient(0, 0, w, h);
+  sh.addColorStop(0, 'rgba(255,255,255,.10)'); sh.addColorStop(.5, 'rgba(255,255,255,0)'); sh.addColorStop(1, 'rgba(10,30,80,.25)');
+  g.fillStyle = sh; g.fillRect(0, 0, w, h);
+}
+
 function pick(n) { S.prog = n; S.ex = 0; document.getElementById('prog').value = n; save(); render(); }
 
 function render() {
   document.querySelectorAll('[data-ex]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.ex === S.ex)));
   document.getElementById('lg-base').style.background = COL[S.base];
   document.getElementById('lg-base-t').textContent = S.base === 'random' ? 'Today (random picks)' : 'First come, best pick';
-  tiles(); ranking(); hist(); shape(); examples(); table();
+  tiles(); ranking(); hist(); shape(); examples(); gallery(); table();
 }
 
 const sel = document.getElementById('prog');
@@ -383,8 +480,9 @@ let rt, lastW = 0;
 new ResizeObserver((es) => {
   const w = Math.round(es[0].contentRect.width);
   if (w === lastW) return;
-  lastW = w; clearTimeout(rt); rt = setTimeout(() => { ranking(); hist(); shape(); examples(); }, 120);
+  lastW = w; clearTimeout(rt); rt = setTimeout(() => { crystal(); ranking(); hist(); shape(); examples(); gallery(); }, 120);
 }).observe(document.querySelector('.wrap'));
 lede();
 render();
+crystal();
 </script>
