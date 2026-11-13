@@ -139,13 +139,14 @@ def main():
     result = {"seeds": nseeds, "overall": summary(people), "programmes": {}}
     for name, group in sorted(progs.items(), key=lambda x: -len(x[1])):
         res = summary(group)
-        # example: a seed-1 student with 4-7 courses whose gap cut is the group's median
+        # examples: seed-1 students with 4-7 courses who keep every course in both
+        # timetables; first the biggest gap cut (then longest-day cut), then the median
         pool = [p for p in group if p["seed"] == group[0]["seed"] and 4 <= len(p["s"]["c"]) <= 7
                 and p["st"]["random"]["miss"] == 0 and p["st"]["planner"]["miss"] == 0]
         pool.sort(key=lambda p: (p["st"]["planner"]["gap"] - p["st"]["random"]["gap"],
                                  p["st"]["planner"]["long"] - p["st"]["random"]["long"]))
         examples = []
-        for q in (0.5, 0.2):  # a typical and a clearly-helped student
+        for q in (0.0, 0.5):  # the biggest improvement, then a typical student
             if pool:
                 p = pool[int(q * (len(pool) - 1))]
                 examples.append({"courses": p["s"]["c"], "real": p["real"],
