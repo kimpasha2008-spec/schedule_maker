@@ -91,20 +91,13 @@ tr.sel td { background: var(--plan-soft); }
       <label for="prog">Programme</label>
       <select id="prog"></select>
     </div>
-    <div class="field">
-      <span class="lab" id="baseLab">Compare the planner with</span>
-      <div class="seg" role="group" aria-labelledby="baseLab">
-        <button type="button" id="b-random" data-base="random" aria-pressed="true">Today (random picks)</button>
-        <button type="button" id="b-fcfs" data-base="fcfs" aria-pressed="false">First come, best pick</button>
-      </div>
-    </div>
   </div>
 
   <div class="tiles" id="tiles"></div>
 
   <section id="ranking">
     <h2>Idle hours between classes, by programme</h2>
-    <p class="note">Average gap hours per student per week. Each line runs from the comparison to the planner. Select a programme to see its detail.</p>
+    <p class="note">Average gap hours per student per week. Each line runs from today's random picks to the planner. Select a programme to see its detail.</p>
     <div class="legend"><span><i id="lg-base"></i><span id="lg-base-t">Today</span></span><span><i style="background: var(--plan)"></i>Planner</span></div>
     <div class="chart" id="rank"></div>
   </section>
@@ -117,7 +110,7 @@ tr.sel td { background: var(--plan-soft); }
     </section>
     <section class="card">
       <h2>Week shape</h2>
-      <p class="note">Per student per week, the comparison then the planner.</p>
+      <p class="note">Per student per week, today then the planner.</p>
       <div class="chart" id="shape"></div>
     </section>
   </div>
@@ -146,7 +139,6 @@ tr.sel td { background: var(--plan-soft); }
       <li><b>Population.</b> 183 real Semester A timetables (from students' screenshots) were bootstrapped to about 14,600 undergraduates: each extra student copies the shape of a random real student's week, swapping courses within the same subject and level in proportion to the AIMS seats each course still had to fill. Three such populations were built; figures average them.</li>
       <li><b>Programme.</b> Students carry no major, so the programme is the subject they take most, ignoring GE, PE, language and service maths/science courses. Business common-core (CB) courses mark most Year 1 and 2 business students. Programmes under 150 students are grouped as Other.</li>
       <li><b>Today (random picks).</b> Each student holds a random clash-free mix of open sections. The real screenshots average more gap hours than this, so it understates today's problem.</li>
-      <li><b>First come, best pick.</b> Students register in random order and each takes the best timetable still open; late students can miss a course.</li>
       <li><b>Planner.</b> Re-assigns sections for everyone, worst timetables first, with seat swaps. One idle hour costs as much as three hours of uneven week; every course is kept; busy buildings are avoided. Class times and seat caps never change.</li>
       <li><b>Intervals.</b> 95% bootstrap intervals resample students within a programme against today's random picks.</li>
     </ul>
@@ -166,8 +158,8 @@ const html = (tag, attrs = {}, text) => { const e = document.createElement(tag);
 const group = () => S.prog === 'All students' ? D.overall : D.programmes[S.prog];
 const names = Object.keys(D.programmes);
 
-try { const saved = JSON.parse(localStorage.getItem('tt-explorer') || '{}'); if (saved.prog && (saved.prog === 'All students' || D.programmes[saved.prog])) S.prog = saved.prog; if (saved.base) S.base = saved.base; } catch (e) {}
-function save() { try { localStorage.setItem('tt-explorer', JSON.stringify({ prog: S.prog, base: S.base })); } catch (e) {} }
+try { const saved = JSON.parse(localStorage.getItem('tt-explorer') || '{}'); if (saved.prog && (saved.prog === 'All students' || D.programmes[saved.prog])) S.prog = saved.prog; } catch (e) {}
+function save() { try { localStorage.setItem('tt-explorer', JSON.stringify({ prog: S.prog })); } catch (e) {} }
 
 function tipFor(box) { let t = box.querySelector('.tip'); if (!t) { t = html('div', { class: 'tip' }); t.hidden = true; box.appendChild(t); } return t; }
 function showTip(box, ev, text) { const t = tipFor(box); t.textContent = text; t.hidden = false; const b = box.getBoundingClientRect(); let x = ev.clientX - b.left + 12; x = Math.min(x, b.width - t.offsetWidth - 4); t.style.left = Math.max(0, x) + 'px'; t.style.top = Math.max(0, ev.clientY - b.top - 32) + 'px'; }
@@ -190,7 +182,7 @@ function tiles() {
   box.replaceChildren();
   const ci = S.base === 'random' ? g.ci_gap : null;
   const items = [
-    ['Gap hours a week', f2(p.gap), b.gap, p.gap, f2, ci ? `95% interval ${f2(-ci[2])} to ${f2(-ci[1])} h less` : 'interval shown against today only'],
+    ['Gap hours a week', f2(p.gap), b.gap, p.gap, f2, ci ? `95% interval ${f2(-ci[2])} to ${f2(-ci[1])} h less` : ''],
     ['Longest day on campus', f1(p.long) + ' h', b.long, p.long, (v) => f1(v) + ' h'],
     ['Students with 3+ gap hours', pct(p.gap3_share), b.gap3_share, p.gap3_share, pct],
     ['Students missing a course', pct(p.miss_share), b.miss_share, p.miss_share, pct],
@@ -375,7 +367,6 @@ function table() {
 function pick(n) { S.prog = n; S.ex = 0; document.getElementById('prog').value = n; save(); render(); }
 
 function render() {
-  document.querySelectorAll('[data-base]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.base === S.base)));
   document.querySelectorAll('[data-ex]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.ex === S.ex)));
   document.getElementById('lg-base').style.background = COL[S.base];
   document.getElementById('lg-base-t').textContent = S.base === 'random' ? 'Today (random picks)' : 'First come, best pick';
@@ -387,7 +378,6 @@ sel.append(new Option('All students', 'All students'));
 names.forEach((n) => sel.append(new Option(`${n} (${D.programmes[n].students.toLocaleString()})`, n)));
 sel.value = S.prog;
 sel.addEventListener('change', () => pick(sel.value));
-document.querySelectorAll('[data-base]').forEach((b) => b.addEventListener('click', () => { S.base = b.dataset.base; save(); render(); }));
 document.querySelectorAll('[data-ex]').forEach((b) => b.addEventListener('click', () => { S.ex = +b.dataset.ex; render(); }));
 let rt, lastW = 0;
 new ResizeObserver((es) => {
