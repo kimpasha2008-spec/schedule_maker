@@ -26,6 +26,12 @@ def avg(v):
     return round(statistics.fmean(v), 4)
 
 
+def share(group, scen, lo, hi):
+    """Share of students whose days on campus is in [lo, hi)."""
+    hist = group["days_hist"][scen]
+    return round(sum(hist[lo:hi]) / sum(hist), 4)
+
+
 def new(wb, name, title, note=None, first=False):
     ws = wb.active if first else wb.create_sheet(name)
     ws.title = name
@@ -84,8 +90,10 @@ def main():
         ["Longest day on campus (h)", al("random", "longest_day"), al("planner", "longest_day"), "=C{r}-B{r}", "=(C{r}-B{r})/B{r}"],
         ["Share with 3+ gap hours", al("random", "share_with_3h_plus_gaps"), al("planner", "share_with_3h_plus_gaps"), "=C{r}-B{r}", "=(C{r}-B{r})/B{r}"],
         ["Share missing a course", al("random", "share_missing_a_course"), al("planner", "share_missing_a_course"), "=C{r}-B{r}", None],
+        ["Share on campus 5+ days a week", share(o, "random", 5, 7), share(o, "planner", 5, 7), "=C{r}-B{r}", "=(C{r}-B{r})/B{r}"],
+        ["Share on campus 3 days or fewer", share(o, "random", 0, 4), share(o, "planner", 0, 4), "=C{r}-B{r}", "=(C{r}-B{r})/B{r}"],
     ], fm, [40, 18, 18, 14, 14])
-    for rr in (row + 5, row + 6):
+    for rr in (row + 5, row + 6, row + 7, row + 8):
         for c in "BCD":
             ws[f"{c}{rr}"].number_format = "0.0%"
     ws.cell(row=nxt, column=1, value=f"95% interval for the change in days: {o['ci_days'][1]:.2f} to {o['ci_days'][2]:.2f} days a week.").font = NOTE

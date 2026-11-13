@@ -228,7 +228,7 @@ function tiles() {
 function ranking() {
   const box = document.getElementById('rank');
   const W = box.clientWidth || 700;
-  const rows = names.map((n) => ({ n, b: D.programmes[n][S.base].days, p: D.programmes[n].planner.days, s: D.programmes[n].students }))
+  const rows = names.filter((n) => n !== 'First-year general education').map((n) => ({ n, b: D.programmes[n][S.base].days, p: D.programmes[n].planner.days, s: D.programmes[n].students }))
     .sort((a, c) => (c.b - c.p) - (a.b - a.p));
   const rowH = 24, top = 6, H = rows.length * rowH + top + 26;
   const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Days on campus per week by programme: ' + rows.map((r) => `${r.n} ${f2(r.b)} to ${f2(r.p)}`).join('; ') });
@@ -237,8 +237,9 @@ function ranking() {
   let left = 0; rows.forEach((r) => { probe.textContent = r.n; left = Math.max(left, probe.getComputedTextLength()); }); probe.remove();
   left = Math.min(left + 14, W * 0.45);
   const max = Math.ceil(Math.max(...rows.map((r) => Math.max(r.b, r.p)))) || 1;
-  const x = (v) => left + (W - left - 70) * v / max;
-  for (let t = 0; t <= max; t++) {
+  const lo = Math.floor(Math.min(...rows.map((r) => Math.min(r.b, r.p))));
+  const x = (v) => left + (W - left - 80) * (v - lo) / (max - lo);
+  for (let t = lo; t <= max; t += 0.5) {
     svg.append(el('line', { class: 'grid', x1: x(t), x2: x(t), y1: top - 4, y2: H - 22 }));
     svg.append(el('text', { x: x(t), y: H - 6, 'text-anchor': 'middle' }, t + (t === max ? ' days' : '')));
   }

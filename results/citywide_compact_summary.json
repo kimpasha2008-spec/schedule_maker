@@ -1,0 +1,614 @@
+[
+  {
+    "seed": 1,
+    "population": {
+      "students": 14663,
+      "real_students": 183,
+      "target_enrolments": 79057,
+      "simulated_enrolments": 73318,
+      "demand_covered": 0.9274,
+      "courses": 740,
+      "mean_courses_per_student": 5.0,
+      "real_mean_courses_per_student": 5.48
+    },
+    "all_students": {
+      "random": {
+        "gap_hours": 3.005,
+        "unevenness": 1.727,
+        "longest_day": 7.799,
+        "days_on_campus": 4.021,
+        "saturday_hours": 0.443,
+        "missing_courses": 0.001,
+        "share_with_3h_plus_gaps": 0.5119,
+        "share_with_no_gaps": 0.2787,
+        "worst_10pct_gap_hours": 9.29,
+        "share_missing_a_course": 0.0012,
+        "peak_students_in_class": 5303,
+        "hourly_load_std": 1802.9,
+        "building_peak_sum": 6351,
+        "building_peaks": {
+          "YEUNG": 2996,
+          "LI": 1352,
+          "CMC": 726,
+          "BOC": 449,
+          "MMW": 396,
+          "LAU": 317,
+          "FYW": 75,
+          "JCT": 25
+        }
+      },
+      "fcfs": {
+        "gap_hours": 1.413,
+        "unevenness": 2.019,
+        "longest_day": 7.38,
+        "days_on_campus": 3.643,
+        "saturday_hours": 0.412,
+        "missing_courses": 0.076,
+        "share_with_3h_plus_gaps": 0.2283,
+        "share_with_no_gaps": 0.4606,
+        "worst_10pct_gap_hours": 5.79,
+        "share_missing_a_course": 0.0724,
+        "peak_students_in_class": 5374,
+        "hourly_load_std": 1787.8,
+        "building_peak_sum": 6242,
+        "building_peaks": {
+          "YEUNG": 2882,
+          "LI": 1352,
+          "CMC": 745,
+          "BOC": 431,
+          "MMW": 390,
+          "LAU": 332,
+          "FYW": 69,
+          "JCT": 26
+        }
+      },
+      "planner": {
+        "gap_hours": 1.272,
+        "unevenness": 2.104,
+        "longest_day": 7.476,
+        "days_on_campus": 3.592,
+        "saturday_hours": 0.413,
+        "missing_courses": 0.001,
+        "share_with_3h_plus_gaps": 0.1993,
+        "share_with_no_gaps": 0.4811,
+        "worst_10pct_gap_hours": 5.4,
+        "share_missing_a_course": 0.0005,
+        "peak_students_in_class": 5420,
+        "hourly_load_std": 1803.5,
+        "building_peak_sum": 6307,
+        "building_peaks": {
+          "YEUNG": 2957,
+          "LI": 1344,
+          "CMC": 732,
+          "BOC": 449,
+          "MMW": 397,
+          "LAU": 314,
+          "FYW": 74,
+          "JCT": 25
+        }
+      }
+    },
+    "planner_vs_random": {
+      "gap_hours": [
+        -1.733,
+        -1.773,
+        -1.692
+      ],
+      "unevenness": [
+        0.377,
+        0.367,
+        0.389
+      ],
+      "longest_day": [
+        -0.323,
+        -0.352,
+        -0.295
+      ],
+      "days_on_campus": [
+        -0.428,
+        -0.44,
+        -0.417
+      ],
+      "missing_courses": [
+        -0.001,
+        -0.001,
+        0.0
+      ]
+    },
+    "planner_vs_fcfs": {
+      "gap_hours": [
+        -0.141,
+        -0.16,
+        -0.12
+      ],
+      "unevenness": [
+        0.085,
+        0.076,
+        0.093
+      ],
+      "longest_day": [
+        0.096,
+        0.073,
+        0.119
+      ],
+      "days_on_campus": [
+        -0.051,
+        -0.059,
+        -0.042
+      ],
+      "missing_courses": [
+        -0.075,
+        -0.08,
+        -0.071
+      ]
+    },
+    "real_students": {
+      "actual": {
+        "gap_hours": 3.842,
+        "unevenness": 1.858,
+        "longest_day": 8.361,
+        "days_on_campus": 4.087,
+        "saturday_hours": 0.754,
+        "missing_courses": 0,
+        "share_with_3h_plus_gaps": 0.6284,
+        "share_with_no_gaps": 0.1639,
+        "worst_10pct_gap_hours": 10.89,
+        "share_missing_a_course": 0.0
+      },
+      "fcfs": {
+        "gap_hours": 1.415,
+        "unevenness": 2.126,
+        "longest_day": 7.639,
+        "days_on_campus": 3.776,
+        "saturday_hours": 0.656,
+        "missing_courses": 0.131,
+        "share_with_3h_plus_gaps": 0.1913,
+        "share_with_no_gaps": 0.4372,
+        "worst_10pct_gap_hours": 6.72,
+        "share_missing_a_course": 0.1093
+      },
+      "planner": {
+        "gap_hours": 1.415,
+        "unevenness": 2.249,
+        "longest_day": 7.847,
+        "days_on_campus": 3.705,
+        "saturday_hours": 0.721,
+        "missing_courses": 0,
+        "share_with_3h_plus_gaps": 0.2077,
+        "share_with_no_gaps": 0.4863,
+        "worst_10pct_gap_hours": 7.06,
+        "share_missing_a_course": 0.0
+      }
+    },
+    "real_planner_vs_actual": {
+      "gap_hours": [
+        -2.426,
+        -2.858,
+        -1.989
+      ],
+      "unevenness": [
+        0.391,
+        0.291,
+        0.492
+      ],
+      "longest_day": [
+        -0.514,
+        -0.776,
+        -0.251
+      ],
+      "days_on_campus": [
+        -0.383,
+        -0.486,
+        -0.29
+      ]
+    }
+  },
+  {
+    "seed": 2,
+    "population": {
+      "students": 14630,
+      "real_students": 183,
+      "target_enrolments": 79057,
+      "simulated_enrolments": 73077,
+      "demand_covered": 0.9244,
+      "courses": 740,
+      "mean_courses_per_student": 5.0,
+      "real_mean_courses_per_student": 5.48
+    },
+    "all_students": {
+      "random": {
+        "gap_hours": 3.03,
+        "unevenness": 1.729,
+        "longest_day": 7.828,
+        "days_on_campus": 4.019,
+        "saturday_hours": 0.448,
+        "missing_courses": 0.001,
+        "share_with_3h_plus_gaps": 0.5185,
+        "share_with_no_gaps": 0.2766,
+        "worst_10pct_gap_hours": 9.33,
+        "share_missing_a_course": 0.0012,
+        "peak_students_in_class": 5266,
+        "hourly_load_std": 1795.4,
+        "building_peak_sum": 6294,
+        "building_peaks": {
+          "YEUNG": 2975,
+          "LI": 1327,
+          "CMC": 726,
+          "BOC": 449,
+          "MMW": 396,
+          "LAU": 314,
+          "FYW": 67,
+          "JCT": 25
+        }
+      },
+      "fcfs": {
+        "gap_hours": 1.45,
+        "unevenness": 2.025,
+        "longest_day": 7.422,
+        "days_on_campus": 3.639,
+        "saturday_hours": 0.414,
+        "missing_courses": 0.071,
+        "share_with_3h_plus_gaps": 0.236,
+        "share_with_no_gaps": 0.4556,
+        "worst_10pct_gap_hours": 5.87,
+        "share_missing_a_course": 0.0662,
+        "peak_students_in_class": 5348,
+        "hourly_load_std": 1782.0,
+        "building_peak_sum": 6266,
+        "building_peaks": {
+          "YEUNG": 2886,
+          "LI": 1358,
+          "CMC": 747,
+          "BOC": 430,
+          "MMW": 402,
+          "LAU": 336,
+          "FYW": 67,
+          "JCT": 25
+        }
+      },
+      "planner": {
+        "gap_hours": 1.273,
+        "unevenness": 2.103,
+        "longest_day": 7.497,
+        "days_on_campus": 3.593,
+        "saturday_hours": 0.413,
+        "missing_courses": 0.001,
+        "share_with_3h_plus_gaps": 0.2006,
+        "share_with_no_gaps": 0.4828,
+        "worst_10pct_gap_hours": 5.37,
+        "share_missing_a_course": 0.0006,
+        "peak_students_in_class": 5418,
+        "hourly_load_std": 1799.2,
+        "building_peak_sum": 6299,
+        "building_peaks": {
+          "YEUNG": 2939,
+          "LI": 1345,
+          "CMC": 738,
+          "BOC": 449,
+          "MMW": 393,
+          "LAU": 318,
+          "FYW": 77,
+          "JCT": 25
+        }
+      }
+    },
+    "planner_vs_random": {
+      "gap_hours": [
+        -1.756,
+        -1.797,
+        -1.715
+      ],
+      "unevenness": [
+        0.375,
+        0.363,
+        0.386
+      ],
+      "longest_day": [
+        -0.331,
+        -0.36,
+        -0.3
+      ],
+      "days_on_campus": [
+        -0.426,
+        -0.437,
+        -0.414
+      ],
+      "missing_courses": [
+        -0.001,
+        -0.001,
+        0.0
+      ]
+    },
+    "planner_vs_fcfs": {
+      "gap_hours": [
+        -0.177,
+        -0.195,
+        -0.157
+      ],
+      "unevenness": [
+        0.078,
+        0.07,
+        0.087
+      ],
+      "longest_day": [
+        0.075,
+        0.053,
+        0.098
+      ],
+      "days_on_campus": [
+        -0.046,
+        -0.055,
+        -0.036
+      ],
+      "missing_courses": [
+        -0.07,
+        -0.074,
+        -0.066
+      ]
+    },
+    "real_students": {
+      "actual": {
+        "gap_hours": 3.842,
+        "unevenness": 1.858,
+        "longest_day": 8.361,
+        "days_on_campus": 4.087,
+        "saturday_hours": 0.754,
+        "missing_courses": 0,
+        "share_with_3h_plus_gaps": 0.6284,
+        "share_with_no_gaps": 0.1639,
+        "worst_10pct_gap_hours": 10.89,
+        "share_missing_a_course": 0.0
+      },
+      "fcfs": {
+        "gap_hours": 1.596,
+        "unevenness": 2.118,
+        "longest_day": 7.738,
+        "days_on_campus": 3.765,
+        "saturday_hours": 0.656,
+        "missing_courses": 0.126,
+        "share_with_3h_plus_gaps": 0.2131,
+        "share_with_no_gaps": 0.388,
+        "worst_10pct_gap_hours": 7.17,
+        "share_missing_a_course": 0.1038
+      },
+      "planner": {
+        "gap_hours": 1.415,
+        "unevenness": 2.294,
+        "longest_day": 7.978,
+        "days_on_campus": 3.672,
+        "saturday_hours": 0.721,
+        "missing_courses": 0,
+        "share_with_3h_plus_gaps": 0.2022,
+        "share_with_no_gaps": 0.4809,
+        "worst_10pct_gap_hours": 6.83,
+        "share_missing_a_course": 0.0
+      }
+    },
+    "real_planner_vs_actual": {
+      "gap_hours": [
+        -2.426,
+        -2.88,
+        -2.0
+      ],
+      "unevenness": [
+        0.436,
+        0.333,
+        0.546
+      ],
+      "longest_day": [
+        -0.383,
+        -0.628,
+        -0.131
+      ],
+      "days_on_campus": [
+        -0.415,
+        -0.525,
+        -0.317
+      ]
+    }
+  },
+  {
+    "seed": 3,
+    "population": {
+      "students": 14621,
+      "real_students": 183,
+      "target_enrolments": 79057,
+      "simulated_enrolments": 73262,
+      "demand_covered": 0.9267,
+      "courses": 740,
+      "mean_courses_per_student": 5.01,
+      "real_mean_courses_per_student": 5.48
+    },
+    "all_students": {
+      "random": {
+        "gap_hours": 2.994,
+        "unevenness": 1.725,
+        "longest_day": 7.787,
+        "days_on_campus": 4.027,
+        "saturday_hours": 0.443,
+        "missing_courses": 0.001,
+        "share_with_3h_plus_gaps": 0.5047,
+        "share_with_no_gaps": 0.2879,
+        "worst_10pct_gap_hours": 9.42,
+        "share_missing_a_course": 0.0012,
+        "peak_students_in_class": 5270,
+        "hourly_load_std": 1800.1,
+        "building_peak_sum": 6291,
+        "building_peaks": {
+          "YEUNG": 2993,
+          "LI": 1323,
+          "CMC": 726,
+          "BOC": 449,
+          "MMW": 388,
+          "LAU": 315,
+          "FYW": 57,
+          "JCT": 25
+        }
+      },
+      "fcfs": {
+        "gap_hours": 1.419,
+        "unevenness": 2.022,
+        "longest_day": 7.387,
+        "days_on_campus": 3.643,
+        "saturday_hours": 0.414,
+        "missing_courses": 0.077,
+        "share_with_3h_plus_gaps": 0.2265,
+        "share_with_no_gaps": 0.4595,
+        "worst_10pct_gap_hours": 5.83,
+        "share_missing_a_course": 0.0738,
+        "peak_students_in_class": 5357,
+        "hourly_load_std": 1786.4,
+        "building_peak_sum": 6247,
+        "building_peaks": {
+          "YEUNG": 2875,
+          "LI": 1351,
+          "CMC": 741,
+          "BOC": 436,
+          "MMW": 401,
+          "LAU": 335,
+          "FYW": 67,
+          "JCT": 26
+        }
+      },
+      "planner": {
+        "gap_hours": 1.246,
+        "unevenness": 2.103,
+        "longest_day": 7.462,
+        "days_on_campus": 3.599,
+        "saturday_hours": 0.414,
+        "missing_courses": 0.001,
+        "share_with_3h_plus_gaps": 0.1931,
+        "share_with_no_gaps": 0.4869,
+        "worst_10pct_gap_hours": 5.32,
+        "share_missing_a_course": 0.0008,
+        "peak_students_in_class": 5434,
+        "hourly_load_std": 1802.6,
+        "building_peak_sum": 6301,
+        "building_peaks": {
+          "YEUNG": 2936,
+          "LI": 1351,
+          "CMC": 726,
+          "BOC": 449,
+          "MMW": 405,
+          "LAU": 319,
+          "FYW": 75,
+          "JCT": 25
+        }
+      }
+    },
+    "planner_vs_random": {
+      "gap_hours": [
+        -1.748,
+        -1.786,
+        -1.706
+      ],
+      "unevenness": [
+        0.378,
+        0.367,
+        0.39
+      ],
+      "longest_day": [
+        -0.325,
+        -0.354,
+        -0.295
+      ],
+      "days_on_campus": [
+        -0.428,
+        -0.44,
+        -0.416
+      ],
+      "missing_courses": [
+        -0.0,
+        -0.001,
+        0.0
+      ]
+    },
+    "planner_vs_fcfs": {
+      "gap_hours": [
+        -0.173,
+        -0.193,
+        -0.155
+      ],
+      "unevenness": [
+        0.082,
+        0.073,
+        0.091
+      ],
+      "longest_day": [
+        0.075,
+        0.052,
+        0.098
+      ],
+      "days_on_campus": [
+        -0.044,
+        -0.053,
+        -0.035
+      ],
+      "missing_courses": [
+        -0.076,
+        -0.081,
+        -0.071
+      ]
+    },
+    "real_students": {
+      "actual": {
+        "gap_hours": 3.842,
+        "unevenness": 1.858,
+        "longest_day": 8.361,
+        "days_on_campus": 4.087,
+        "saturday_hours": 0.754,
+        "missing_courses": 0,
+        "share_with_3h_plus_gaps": 0.6284,
+        "share_with_no_gaps": 0.1639,
+        "worst_10pct_gap_hours": 10.89,
+        "share_missing_a_course": 0.0
+      },
+      "fcfs": {
+        "gap_hours": 1.514,
+        "unevenness": 2.173,
+        "longest_day": 7.792,
+        "days_on_campus": 3.76,
+        "saturday_hours": 0.689,
+        "missing_courses": 0.104,
+        "share_with_3h_plus_gaps": 0.1967,
+        "share_with_no_gaps": 0.4153,
+        "worst_10pct_gap_hours": 7,
+        "share_missing_a_course": 0.0929
+      },
+      "planner": {
+        "gap_hours": 1.361,
+        "unevenness": 2.264,
+        "longest_day": 7.978,
+        "days_on_campus": 3.699,
+        "saturday_hours": 0.71,
+        "missing_courses": 0,
+        "share_with_3h_plus_gaps": 0.2022,
+        "share_with_no_gaps": 0.5082,
+        "worst_10pct_gap_hours": 6.78,
+        "share_missing_a_course": 0.0
+      }
+    },
+    "real_planner_vs_actual": {
+      "gap_hours": [
+        -2.481,
+        -2.923,
+        -2.044
+      ],
+      "unevenness": [
+        0.406,
+        0.306,
+        0.512
+      ],
+      "longest_day": [
+        -0.383,
+        -0.628,
+        -0.098
+      ],
+      "days_on_campus": [
+        -0.388,
+        -0.492,
+        -0.295
+      ]
+    }
+  }
+]
