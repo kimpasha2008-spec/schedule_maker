@@ -29,6 +29,7 @@ Writes results/citywide_summary.json.
 """
 import argparse
 import csv
+import gzip
 import json
 import random
 import statistics
@@ -505,6 +506,7 @@ def run(seed, real, options, sections, times, target, minutes):
     rows = {k: [per_student(p) for p in v] for k, v in plans.items()}
     n = info["real_students"]
     actual = actual_rows(real, times)
+    export(seed, pop, plans, real, sections)
     return {
         "seed": seed,
         "population": info,
@@ -518,11 +520,38 @@ def run(seed, real, options, sections, times, target, minutes):
     }
 
 
+def week_of(chosen):
+    """course -> six day bitmasks (bit 0 = 09:00) of regular classes, or None if missing."""
+    return {c: (list(op.reg) if op is not None else None) for c, op in chosen.items()}
+
+
+def export(seed, pop, plans, real, sections):
+    """Every student's weekly timetable in each scenario, for per-programme analysis."""
+    students = []
+    for i, courses in enumerate(pop):
+        row = {"c": courses, **{k: week_of(v[i]) for k, v in plans.items()}}
+        if i < len(real):
+            act = defaultdict(lambda: [0] * 6)
+            for crn in real[i][1]:
+                for mt in sections[crn].meetings:
+                    if mt.day < 6 and mt.regular:
+                        for h in mt.hours():
+                            if 9 <= h <= 22:
+                                act[sections[crn].course][mt.day] |= 1 << (h - 9)
+            row["actual"] = {c: act.get(c, [0] * 6) for c in courses}
+        students.append(row)
+    path = OUT / f"citywide_students_seed{seed}.json.gz"
+    with gzip.open(path, "wt", encoding="utf-8") as f:
+        json.dump({"seed": seed, "students": students}, f, separators=(",", ":"))
+    print(f"[seed {seed}] timetables -> {path}", flush=True)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--replicates", type=int, default=3)
     ap.add_argument("--planner-minutes", type=float, default=6)
     ap.add_argument("--seed", type=int, default=1)
+    ap.add_argument("--summary", default=str(OUT / "citywide_summary.json"))
     args = ap.parse_args()
     sections = o.load_sections()
     times = {crn: s.meetings for crn, s in sections.items()}
@@ -536,7 +565,7 @@ def main():
     for r in range(args.replicates):
         results.append(run(args.seed + r, real, options, sections, times, target,
                            args.planner_minutes))
-        (OUT / "citywide_summary.json").write_text(json.dumps(results, indent=2) + "\n")
+        Path(args.summary).write_text(json.dumps(results, indent=2) + "\n")
     print(json.dumps({k: v for k, v in results[-1].items() if k != "population"}, indent=1))
 
 

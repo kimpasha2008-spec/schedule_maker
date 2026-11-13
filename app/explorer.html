@@ -1,0 +1,400 @@
+<title>CityU Timetable Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column of control bar, figures, ranked programmes, then example weeks drawn like the CityUHK timetable grid */
+:root {
+  --bg: #f6f7f4; --panel: #ffffff; --ink: #1d2320; --muted: #5d6762; --line: #dfe3df;
+  --today: #b9c0bb; --fcfs: #d19a2a; --plan: #1f7a5c; --plan-soft: #d8ece4; --warn: #b4472f;
+  --block: #f5c35c; --block-ink: #4a3a10;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121614; --panel: #1a201d; --ink: #e8ece9; --muted: #9aa49f; --line: #2c3430;
+  --today: #5c6560; --fcfs: #e0ad45; --plan: #4cc49a; --plan-soft: #1d3a30; --warn: #e2765c;
+  --block: #c9952f; --block-ink: #1b1405; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121614; --panel: #1a201d; --ink: #e8ece9; --muted: #9aa49f; --line: #2c3430;
+  --today: #5c6560; --fcfs: #e0ad45; --plan: #4cc49a; --plan-soft: #1d3a30; --warn: #e2765c;
+  --block: #c9952f; --block-ink: #1b1405; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 28px; }
+h1 { font-family: var(--display); font-size: clamp(26px, 4vw, 38px); font-weight: 700; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+h2 { font-size: 19px; font-weight: 600; margin: 0; text-wrap: balance; }
+.lede { max-width: 68ch; margin: 8px 0 0; color: var(--ink); }
+.lede b, .num { font-variant-numeric: tabular-nums; }
+.note { color: var(--muted); font-size: 13px; max-width: 74ch; margin: 0; }
+.eyebrow { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.controls { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.field label, .field .lab { font-size: 12px; color: var(--muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+select { font: inherit; padding: 7px 10px; border-radius: 7px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); max-width: 100%; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+.seg button { font: inherit; font-size: 14px; border: 0; background: var(--bg); color: var(--ink); padding: 7px 12px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+button:focus-visible, select:focus-visible, .row:focus-visible { outline: 2px solid var(--plan); outline-offset: 2px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.tile { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.tile .k { font-size: 13px; color: var(--muted); }
+.tile .v { font-family: var(--display); font-size: 30px; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.tile .v small { font-size: 15px; font-weight: 500; color: var(--muted); }
+.tile .d { font-size: 13px; font-variant-numeric: tabular-nums; }
+.good { color: var(--plan); font-weight: 600; }
+.bad { color: var(--warn); font-weight: 600; }
+section { display: flex; flex-direction: column; gap: 10px; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--muted); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+.chart { position: relative; width: 100%; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { fill: var(--muted); font-size: 12px; font-family: var(--body); }
+.chart .lbl { fill: var(--ink); font-size: 13px; }
+.chart .sel .lbl { font-weight: 700; }
+.chart .grid { stroke: var(--line); }
+.row { cursor: pointer; }
+.row:hover .hit { fill: var(--plan-soft); }
+.tip { position: absolute; pointer-events: none; background: var(--panel); border: 1px solid var(--line); box-shadow: 0 4px 14px rgba(0,0,0,.12); border-radius: 7px; padding: 6px 9px; font-size: 12px; white-space: nowrap; z-index: 3; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.card h3 { margin: 0; font-size: 15px; font-weight: 600; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.card h3 .num { font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--muted); }
+.week { display: grid; grid-template-columns: 34px repeat(6, minmax(0, 1fr)); font-size: 11px; position: relative; }
+.week .dh { text-align: center; font-family: var(--mono); color: var(--muted); padding-bottom: 4px; }
+.week .hr { font-family: var(--mono); color: var(--muted); height: 22px; border-top: 1px solid var(--line); line-height: 1; padding-top: 2px; }
+.week .cell { border-top: 1px solid var(--line); border-left: 1px solid var(--line); height: 22px; }
+.blk { position: absolute; background: var(--block); color: var(--block-ink); border-radius: 3px; padding: 2px 3px; overflow: hidden; font-family: var(--mono); font-size: 10px; line-height: 1.15; border: 1px solid var(--bg); }
+.gapmark { position: absolute; background: repeating-linear-gradient(45deg, transparent 0 4px, var(--warn) 4px 5px); opacity: .55; border-radius: 3px; }
+.courses { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+details { max-width: 76ch; }
+details summary { cursor: pointer; font-weight: 600; }
+details li { margin-bottom: 6px; }
+.wide { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; font-variant-numeric: tabular-nums; }
+th, td { padding: 6px 9px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--muted); font-weight: 500; }
+tr.sel td { background: var(--plan-soft); }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">City University of Hong Kong · Semester A 2026/27 · bootstrapped to all undergraduates</div>
+    <h1>How much each programme gains from the timetable planner</h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <div class="controls">
+    <div class="field">
+      <label for="prog">Programme</label>
+      <select id="prog"></select>
+    </div>
+    <div class="field">
+      <span class="lab" id="baseLab">Compare the planner with</span>
+      <div class="seg" role="group" aria-labelledby="baseLab">
+        <button type="button" id="b-random" data-base="random" aria-pressed="true">Today (random picks)</button>
+        <button type="button" id="b-fcfs" data-base="fcfs" aria-pressed="false">First come, best pick</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tiles" id="tiles"></div>
+
+  <section id="ranking">
+    <h2>Idle hours between classes, by programme</h2>
+    <p class="note">Average gap hours per student per week. Each line runs from the comparison to the planner. Select a programme to see its detail.</p>
+    <div class="legend"><span><i id="lg-base"></i><span id="lg-base-t">Today</span></span><span><i style="background: var(--plan)"></i>Planner</span></div>
+    <div class="chart" id="rank"></div>
+  </section>
+
+  <div class="two">
+    <section class="card">
+      <h2 id="histTitle">How many gap hours students have</h2>
+      <p class="note">Share of the programme's students by weekly gap hours (8 means 8 or more).</p>
+      <div class="chart" id="hist"></div>
+    </section>
+    <section class="card">
+      <h2>Week shape</h2>
+      <p class="note">Per student per week, the comparison then the planner.</p>
+      <div class="chart" id="shape"></div>
+    </section>
+  </div>
+
+  <section id="examples">
+    <h2 id="exTitle">Example student</h2>
+    <div class="field">
+      <div class="seg" role="group" aria-label="Which example">
+        <button type="button" id="ex0" data-ex="0" aria-pressed="true">Typical student</button>
+        <button type="button" id="ex1" data-ex="1" aria-pressed="false">Large improvement</button>
+      </div>
+    </div>
+    <p class="courses" id="exCourses"></p>
+    <div class="two" id="exWeeks"></div>
+    <p class="note">Same courses and class times in both weeks; only the sections differ. Striped bars mark idle time between classes. Regular teaching weeks shown.</p>
+  </section>
+
+  <section>
+    <h2>All programmes</h2>
+    <div class="wide"><table id="table"></table></div>
+  </section>
+
+  <details>
+    <summary>Assumptions behind these numbers</summary>
+    <ul>
+      <li><b>Population.</b> 183 real Semester A timetables (from students' screenshots) were bootstrapped to about 14,600 undergraduates: each extra student copies the shape of a random real student's week, swapping courses within the same subject and level in proportion to the AIMS seats each course still had to fill. Three such populations were built; figures average them.</li>
+      <li><b>Programme.</b> Students carry no major, so the programme is the subject they take most, ignoring GE, PE, language and service maths/science courses. Business common-core (CB) courses mark most Year 1 and 2 business students. Programmes under 150 students are grouped as Other.</li>
+      <li><b>Today (random picks).</b> Each student holds a random clash-free mix of open sections. The real screenshots average more gap hours than this, so it understates today's problem.</li>
+      <li><b>First come, best pick.</b> Students register in random order and each takes the best timetable still open; late students can miss a course.</li>
+      <li><b>Planner.</b> Re-assigns sections for everyone, worst timetables first, with seat swaps. One idle hour costs as much as three hours of uneven week; every course is kept; busy buildings are avoided. Class times and seat caps never change.</li>
+      <li><b>Intervals.</b> 95% bootstrap intervals resample students within a programme against today's random picks.</li>
+    </ul>
+  </details>
+</div>
+
+<script>
+const D = {"seeds":1,"overall":{"students":14663,"random":{"gap":3.0,"long":7.8,"days":4.02,"uneven":1.73,"hours":15.96,"miss_share":0.001,"gap3_share":0.512},"fcfs":{"gap":1.23,"long":6.38,"days":4.34,"uneven":1.39,"hours":15.69,"miss_share":0.067,"gap3_share":0.209},"planner":{"gap":1.13,"long":6.4,"days":4.39,"uneven":1.39,"hours":15.95,"miss_share":0.001,"gap3_share":0.19},"ci_gap":[-1.87,-1.91,-1.83],"ci_long":[-1.4,-1.43,-1.36],"ci_uneven":[-0.34,-0.35,-0.33],"gap_hist":{"random":[4086,1819,1252,2128,1629,956,853,684,1256],"fcfs":[8095,2288,1210,1319,807,340,245,173,186],"planner":[8279,2398,1206,1247,717,324,209,152,131]}},"programmes":{"Business (common core)":{"students":2753,"random":{"gap":3.95,"long":8.21,"days":4.27,"uneven":1.69,"hours":16.44,"miss_share":0.004,"gap3_share":0.647},"fcfs":{"gap":0.67,"long":5.63,"days":4.84,"uneven":1.05,"hours":16.15,"miss_share":0.066,"gap3_share":0.095},"planner":{"gap":0.52,"long":5.67,"days":4.88,"uneven":1.08,"hours":16.4,"miss_share":0.001,"gap3_share":0.061},"ci_gap":[-3.43,-3.54,-3.31],"ci_long":[-2.54,-2.62,-2.46],"ci_uneven":[-0.62,-0.64,-0.59],"gap_hist":{"random":[401,329,242,392,364,242,232,195,356],"fcfs":[1871,429,192,131,72,30,8,11,9],"planner":[1956,449,180,101,37,17,8,5,0]},"examples":[{"courses":["CB2201","CB2402","COM2201","GE1109","GE1401","GE2106"],"real":false,"random":{"blocks":[["CB2201",0,15,3],["CB2402",4,12,3],["COM2201",1,9,3],["GE1109",4,9,3],["GE1401",2,15,3],["GE2106",2,9,3]],"gap":3,"long":9,"days":4,"uneven":1.92,"miss":0,"hours":18},"fcfs":{"blocks":[["CB2201",0,15,3],["CB2402",3,15,3],["COM2201",1,9,3],["GE1109",4,9,3],["GE1401",4,12,3],["GE2106",2,9,3]],"gap":0,"long":6,"days":5,"uneven":0.96,"miss":0,"hours":18},"planner":{"blocks":[["CB2201",3,15,3],["CB2402",4,12,3],["COM2201",1,9,3],["GE1109",1,12,3],["GE1401",0,16,3],["GE2106",2,9,3]],"gap":0,"long":6,"days":5,"uneven":0.96,"miss":0,"hours":18}},{"courses":["CAH2536","CB2100","CB2101","CB2200","GE1109"],"real":false,"random":{"blocks":[["CAH2536",0,9,3],["CB2100",0,16,1],["CB2100",4,15,2],["CB2101",3,14,1],["CB2101",4,10,2],["CB2200",3,12,2],["GE1109",1,12,3]],"gap":7,"long":8,"days":4,"uneven":1.12,"miss":0,"hours":14},"fcfs":{"blocks":[["CAH2536",0,9,3],["CB2100",1,10,1],["CB2100",1,16,2],["CB2101",2,13,3],["CB2200",3,13,3],["GE1109",1,12,3]],"gap":2,"long":8,"days":4,"uneven":1.2,"miss":0,"hours":15},"planner":{"blocks":[["CAH2536",0,9,3],["CB2100",1,10,1],["CB2100",4,15,2],["CB2101",3,15,3],["CB2200",2,13,1],["CB2200",4,17,2],["GE1109",1,12,3]],"gap":1,"long":5,"days":5,"uneven":0.8,"miss":0,"hours":15}}]},"Social & Behavioural Sciences":{"students":1484,"random":{"gap":2.45,"long":7.57,"days":3.84,"uneven":1.74,"hours":15.23,"miss_share":0.0,"gap3_share":0.44},"fcfs":{"gap":1.34,"long":6.53,"days":4.09,"uneven":1.49,"hours":15.02,"miss_share":0.044,"gap3_share":0.245},"planner":{"gap":1.25,"long":6.54,"days":4.13,"uneven":1.48,"hours":15.21,"miss_share":0.001,"gap3_share":0.229},"ci_gap":[-1.2,-1.31,-1.1],"ci_long":[-1.03,-1.13,-0.93],"ci_uneven":[-0.26,-0.29,-0.23],"gap_hist":{"random":[522,196,113,210,171,66,70,49,87],"fcfs":[790,230,100,144,117,37,28,17,21],"planner":[814,235,95,147,102,31,27,16,17]},"examples":[{"courses":["BMS2005","GE1401","MA2158","SS2029"],"real":false,"random":{"blocks":[["BMS2005",2,14,3],["GE1401",1,12,3],["MA2158",1,9,3],["MA2158",4,18,1],["SS2029",1,16,3]],"gap":1,"long":10,"days":3,"uneven":2.72,"miss":0,"hours":13},"fcfs":{"blocks":[["BMS2005",2,14,3],["GE1401",1,12,3],["MA2158",1,9,3],["MA2158",4,18,1],["SS2029",1,16,3]],"gap":1,"long":10,"days":3,"uneven":2.72,"miss":0,"hours":13},"planner":{"blocks":[["BMS2005",2,14,3],["GE1401",1,12,3],["MA2158",1,9,3],["MA2158",4,18,1],["SS2029",1,16,3]],"gap":1,"long":10,"days":3,"uneven":2.72,"miss":0,"hours":13}},{"courses":["AC4301","IS4834","PIA3306","SS4206"],"real":false,"random":{"blocks":[["AC4301",0,12,3],["IS4834",2,9,2],["IS4834",4,15,1],["PIA3306",4,9,3],["SS4206",0,15,3]],"gap":3,"long":7,"days":3,"uneven":2.08,"miss":0,"hours":12},"fcfs":{"blocks":[["AC4301",0,12,3],["IS4834",2,9,2],["IS4834",3,18,1],["PIA3306",4,9,3],["SS4206",0,15,3]],"gap":0,"long":6,"days":4,"uneven":1.68,"miss":0,"hours":12},"planner":{"blocks":[["AC4301",0,12,3],["IS4834",2,9,2],["IS4834",3,18,1],["PIA3306",4,9,3],["SS4206",0,15,3]],"gap":0,"long":6,"days":4,"uneven":1.68,"miss":0,"hours":12}}]},"Computer Science":{"students":1446,"random":{"gap":4.46,"long":8.91,"days":4.46,"uneven":1.81,"hours":19.17,"miss_share":0.001,"gap3_share":0.666},"fcfs":{"gap":1.83,"long":7.51,"days":4.74,"uneven":1.54,"hours":18.76,"miss_share":0.095,"gap3_share":0.278},"planner":{"gap":1.69,"long":7.53,"days":4.79,"uneven":1.52,"hours":19.17,"miss_share":0.002,"gap3_share":0.263},"ci_gap":[-2.78,-2.91,-2.64],"ci_long":[-1.38,-1.47,-1.28],"ci_uneven":[-0.29,-0.32,-0.26],"gap_hist":{"random":[162,130,191,192,148,152,105,97,269],"fcfs":[547,290,207,133,86,68,47,26,42],"planner":[574,281,210,146,82,67,36,21,29]},"examples":[{"courses":["AC3202","CB2601","CHEM3083","COM3408","CS3483","SS2105"],"real":false,"random":{"blocks":[["AC3202",4,16,3],["CB2601",1,16,3],["COM3408",2,9,3],["CS3483",0,15,1],["CS3483",0,18,4]],"gap":2,"long":7,"days":4,"uneven":1.12,"miss":0,"hours":14},"fcfs":{"blocks":[["AC3202",3,15,3],["CB2601",1,12,3],["COM3408",2,9,3],["CS3483",0,15,1],["CS3483",0,18,4]],"gap":2,"long":7,"days":4,"uneven":1.12,"miss":0,"hours":14},"planner":{"blocks":[["AC3202",4,16,3],["CB2601",3,16,3],["COM3408",2,9,3],["CS3483",0,18,5]],"gap":0,"long":5,"days":4,"uneven":1.12,"miss":0,"hours":14}},{"courses":["CS2115","GE1355","GE1362","GE1401","MA1508","PED1305"],"real":false,"random":{"blocks":[["CS2115",0,10,1],["CS2115",0,12,3],["GE1355",1,15,3],["GE1362",3,16,3],["GE1401",0,16,3],["MA1508",1,9,3],["MA1508",2,12,1]],"gap":5,"long":9,"days":4,"uneven":2.48,"miss":0,"hours":17},"fcfs":{"blocks":[["CS2115",0,12,3],["CS2115",0,16,1],["GE1355",1,15,3],["GE1362",3,16,3],["GE1401",4,9,3],["MA1508",0,15,1],["MA1508",1,12,3]],"gap":0,"long":6,"days":4,"uneven":1.68,"miss":0,"hours":17},"planner":{"blocks":[["CS2115",0,12,3],["CS2115",0,16,1],["GE1355",1,15,3],["GE1362",3,16,3],["GE1401",4,15,3],["MA1508",0,15,1],["MA1508",1,12,3]],"gap":0,"long":6,"days":4,"uneven":1.68,"miss":0,"hours":17}}]},"Public & International Affairs":{"students":1128,"random":{"gap":2.41,"long":7.66,"days":3.91,"uneven":1.78,"hours":15.7,"miss_share":0.001,"gap3_share":0.457},"fcfs":{"gap":1.28,"long":6.62,"days":4.19,"uneven":1.5,"hours":15.43,"miss_share":0.071,"gap3_share":0.236},"planner":{"gap":1.18,"long":6.65,"days":4.24,"uneven":1.49,"hours":15.7,"miss_share":0.0,"gap3_share":0.215},"ci_gap":[-1.23,-1.35,-1.12],"ci_long":[-1.01,-1.12,-0.91],"ci_uneven":[-0.29,-0.32,-0.25],"gap_hist":{"random":[381,146,86,182,132,65,49,41,46],"fcfs":[626,154,82,120,75,25,18,19,9],"planner":[631,172,83,112,68,27,15,15,5]},"examples":[{"courses":["EE3801","PIA2012","PIA3120","PIA3207","VM2106"],"real":false,"random":{"blocks":[["EE3801",0,12,3],["EE3801",4,9,3],["PIA2012",2,12,3],["PIA3120",3,9,3],["PIA3207",2,9,3],["VM2106",1,9,2]],"gap":0,"long":6,"days":5,"uneven":1.04,"miss":0,"hours":17},"fcfs":{"blocks":[["EE3801",0,12,3],["EE3801",4,9,3],["PIA2012",3,12,3],["PIA3120",3,9,3],["PIA3207",2,9,3],["VM2106",1,9,2]],"gap":0,"long":6,"days":5,"uneven":1.04,"miss":0,"hours":17},"planner":{"blocks":[["EE3801",0,12,3],["EE3801",4,9,3],["PIA2012",2,12,3],["PIA3120",3,9,3],["PIA3207",2,9,3],["VM2106",1,9,2]],"gap":0,"long":6,"days":5,"uneven":1.04,"miss":0,"hours":17}},{"courses":["CB2500","GE1352","GE1401","LC2973","PIA2308"],"real":false,"random":{"blocks":[["CB2500",0,18,1],["CB2500",4,12,2],["GE1352",0,17,1],["GE1352",4,9,2],["GE1401",2,15,3],["LC2973",0,12,3],["PIA2308",1,15,3]],"gap":3,"long":7,"days":4,"uneven":1.2,"miss":0,"hours":15},"fcfs":{"blocks":[["CB2500",3,11,3],["GE1352",0,15,1],["GE1352",4,9,2],["GE1401",0,16,3],["LC2973",2,16,3],["PIA2308",1,15,3]],"gap":0,"long":4,"days":5,"uneven":0.4,"miss":0,"hours":15},"planner":{"blocks":[["CB2500",0,15,1],["CB2500",3,12,2],["GE1352",0,16,1],["GE1352",4,9,2],["GE1401",2,15,3],["LC2973",0,12,3],["PIA2308",1,15,3]],"gap":0,"long":5,"days":5,"uneven":0.8,"miss":0,"hours":15}}]},"Creative Media":{"students":819,"random":{"gap":2.43,"long":7.49,"days":3.93,"uneven":1.72,"hours":15.3,"miss_share":0.0,"gap3_share":0.429},"fcfs":{"gap":1.15,"long":6.29,"days":4.23,"uneven":1.4,"hours":15.09,"miss_share":0.066,"gap3_share":0.193},"planner":{"gap":1.05,"long":6.32,"days":4.27,"uneven":1.41,"hours":15.31,"miss_share":0.0,"gap3_share":0.171},"ci_gap":[-1.38,-1.53,-1.24],"ci_long":[-1.17,-1.29,-1.04],"ci_uneven":[-0.31,-0.35,-0.28],"gap_hist":{"random":[288,102,78,126,67,51,32,31,44],"fcfs":[474,115,72,75,37,13,16,8,9],"planner":[480,124,75,65,32,20,9,8,6]},"examples":[{"courses":["CB2200","CB2400","CS3334","EN3578","SM2291","SM2706","SS3423"],"real":false,"random":{"blocks":[["CB2200",0,12,2],["CB2200",2,15,1],["CB2400",2,12,3],["CS3334",1,14,1],["CS3334",2,9,3],["EN3578",3,15,3],["SM2291",4,9,3],["SM2706",0,9,3],["SS3423",4,12,3]],"gap":0,"long":7,"days":5,"uneven":1.92,"miss":0,"hours":22},"fcfs":{"blocks":[["CB2200",2,14,1],["CB2200",3,13,2],["CB2400",2,15,3],["CS3334",1,11,1],["CS3334",2,9,3],["EN3578",3,15,3],["SM2291",4,9,3],["SM2706",0,9,3],["SS3423",4,12,3]],"gap":2,"long":9,"days":5,"uneven":1.92,"miss":0,"hours":22},"planner":{"blocks":[["CB2200",0,12,1],["CB2200",3,13,2],["CB2400",2,12,3],["CS3334",1,14,1],["CS3334",2,9,3],["EN3578",3,15,3],["SM2291",4,9,3],["SM2706",0,9,3],["SS3423",4,12,3]],"gap":0,"long":6,"days":5,"uneven":1.52,"miss":0,"hours":22}},{"courses":["CHIN1001","LC0200A","SM1013","SM1103A","SM1702A"],"real":false,"random":{"blocks":[["CHIN1001",4,9,3],["LC0200A",2,9,3],["SM1013",1,12,2],["SM1013",2,15,2],["SM1103A",3,9,3],["SM1702A",0,9,4]],"gap":3,"long":8,"days":5,"uneven":0.88,"miss":0,"hours":17},"fcfs":{"blocks":[["CHIN1001",3,9,3],["LC0200A",1,9,3],["SM1013",1,12,2],["SM1013",2,17,2],["SM1103A",4,9,3],["SM1702A",0,9,4]],"gap":0,"long":5,"days":5,"uneven":0.88,"miss":0,"hours":17},"planner":{"blocks":[["CHIN1001",4,9,3],["LC0200A",3,9,3],["SM1013",1,12,2],["SM1013",2,15,2],["SM1103A",2,12,3],["SM1702A",0,9,4]],"gap":0,"long":5,"days":5,"uneven":0.88,"miss":0,"hours":17}}]},"Electrical Engineering":{"students":698,"random":{"gap":2.55,"long":7.52,"days":3.95,"uneven":1.7,"hours":15.53,"miss_share":0.0,"gap3_share":0.458},"fcfs":{"gap":1.23,"long":6.48,"days":4.19,"uneven":1.47,"hours":15.34,"miss_share":0.047,"gap3_share":0.222},"planner":{"gap":1.17,"long":6.44,"days":4.25,"uneven":1.45,"hours":15.53,"miss_share":0.001,"gap3_share":0.211},"ci_gap":[-1.39,-1.56,-1.23],"ci_long":[-1.07,-1.2,-0.95],"ci_uneven":[-0.26,-0.29,-0.22],"gap_hist":{"random":[226,109,43,97,76,39,48,24,36],"fcfs":[379,121,43,67,46,12,17,7,6],"planner":[384,125,42,63,45,14,15,8,2]},"examples":[{"courses":["CA1167","CS1302A","EE1004","GE1501","PED1305","PED1309"],"real":false,"random":{"blocks":[["CA1167",0,12,3],["CA1167",1,9,3],["CS1302A",1,12,1],["CS1302A",2,9,3],["EE1004",3,12,3],["GE1501",0,9,3],["PED1309",3,15,1]],"gap":0,"long":6,"days":4,"uneven":1.52,"miss":0,"hours":17},"fcfs":{"blocks":[["CA1167",0,12,3],["CA1167",1,9,3],["CS1302A",1,12,1],["CS1302A",2,9,3],["EE1004",3,12,3],["GE1501",4,9,3],["PED1309",3,15,1]],"gap":0,"long":4,"days":5,"uneven":0.48,"miss":0,"hours":17},"planner":{"blocks":[["CA1167",0,12,3],["CA1167",1,9,3],["CS1302A",0,15,1],["CS1302A",2,9,3],["EE1004",3,12,3],["GE1501",4,9,3],["PED1309",3,15,1]],"gap":0,"long":4,"days":5,"uneven":0.48,"miss":0,"hours":17}},{"courses":["DSC1001","EE1002","GE1105","GE1401","MA1400","PED1305"],"real":false,"random":{"blocks":[["DSC1001",0,12,3],["EE1002",1,9,3],["GE1105",3,9,3],["GE1401",1,15,3],["MA1400",2,12,3],["MA1400",3,13,1]],"gap":4,"long":9,"days":4,"uneven":1.44,"miss":0,"hours":16},"fcfs":{"blocks":[["DSC1001",0,12,3],["EE1002",1,9,3],["GE1105",3,9,3],["GE1401",4,15,3],["MA1400",2,12,3],["MA1400",3,13,1]],"gap":1,"long":5,"days":5,"uneven":0.32,"miss":0,"hours":16},"planner":{"blocks":[["DSC1001",0,12,3],["EE1002",1,9,3],["GE1105",3,9,3],["GE1401",4,15,3],["MA1400",2,12,3],["MA1400",3,13,1]],"gap":1,"long":5,"days":5,"uneven":0.32,"miss":0,"hours":16}}]},"Law":{"students":554,"random":{"gap":3.27,"long":7.87,"days":4.1,"uneven":1.72,"hours":15.81,"miss_share":0.0,"gap3_share":0.563},"fcfs":{"gap":1.59,"long":6.75,"days":4.37,"uneven":1.49,"hours":15.54,"miss_share":0.072,"gap3_share":0.289},"planner":{"gap":1.45,"long":6.77,"days":4.44,"uneven":1.49,"hours":15.8,"miss_share":0.002,"gap3_share":0.258},"ci_gap":[-1.82,-2.0,-1.63],"ci_long":[-1.1,-1.25,-0.96],"ci_uneven":[-0.23,-0.28,-0.19],"gap_hist":{"random":[121,73,48,80,72,50,33,29,48],"fcfs":[255,86,53,65,51,13,12,10,9],"planner":[251,104,56,57,49,17,8,9,3]},"examples":[{"courses":["BMS2202","LC0200A","LW2602A","LW2605","LW2903","SS2030"],"real":false,"random":{"blocks":[["BMS2202",0,10,2],["BMS2202",1,13,1],["LC0200A",0,12,3],["LW2602A",3,14,2],["LW2602A",4,9,2],["LW2903",1,9,3],["SS2030",0,16,3]],"gap":2,"long":9,"days":4,"uneven":2.24,"miss":0,"hours":16},"fcfs":{"blocks":[["BMS2202",0,10,2],["BMS2202",1,13,1],["LC0200A",0,12,3],["LW2602A",3,14,2],["LW2602A",4,9,2],["LW2903",2,9,3],["SS2030",0,16,3]],"gap":1,"long":9,"days":5,"uneven":1.92,"miss":0,"hours":16},"planner":{"blocks":[["BMS2202",0,10,2],["BMS2202",1,11,1],["LC0200A",0,12,3],["LW2602A",3,14,2],["LW2602A",4,9,2],["LW2903",2,9,3],["SS2030",0,16,3]],"gap":1,"long":9,"days":5,"uneven":1.92,"miss":0,"hours":16}},{"courses":["CB2200","EF2452","GE1356","GE2234","LW2903"],"real":false,"random":{"blocks":[["CB2200",0,18,1],["CB2200",3,12,2],["EF2452",0,9,3],["GE1356",0,12,3],["GE2234",1,15,3],["LW2903",2,9,3]],"gap":3,"long":10,"days":4,"uneven":1.6,"miss":0,"hours":15},"fcfs":{"blocks":[["CB2200",3,12,3],["EF2452",4,12,3],["GE1356",0,12,3],["GE2234",1,15,3],["LW2903",2,9,3]],"gap":0,"long":3,"days":5,"uneven":0.0,"miss":0,"hours":15},"planner":{"blocks":[["CB2200",3,11,3],["EF2452",0,9,3],["GE1356",0,12,3],["GE2234",1,15,3],["LW2903",2,9,3]],"gap":0,"long":6,"days":4,"uneven":1.2,"miss":0,"hours":15}}]},"Mechanical Engineering":{"students":521,"random":{"gap":3.15,"long":7.9,"days":3.99,"uneven":1.79,"hours":15.84,"miss_share":0.002,"gap3_share":0.555},"fcfs":{"gap":1.67,"long":6.73,"days":4.22,"uneven":1.51,"hours":15.35,"miss_share":0.152,"gap3_share":0.307},"planner":{"gap":1.73,"long":6.95,"days":4.26,"uneven":1.55,"hours":15.82,"miss_share":0.0,"gap3_share":0.324},"ci_gap":[-1.42,-1.63,-1.23],"ci_long":[-0.95,-1.12,-0.79],"ci_uneven":[-0.24,-0.28,-0.19],"gap_hist":{"random":[153,52,27,93,40,45,32,23,56],"fcfs":[240,78,43,73,26,26,13,12,10],"planner":[235,80,37,73,29,30,14,13,10]},"examples":[{"courses":["CB3410","MNE3007","MNE3120","SM3611","SS3711"],"real":false,"random":{"blocks":[["CB3410",0,12,3],["MNE3007",2,17,2],["MNE3120",3,15,3],["SM3611",3,12,3],["SS3711",3,9,3]],"gap":0,"long":9,"days":3,"uneven":2.56,"miss":0,"hours":14},"fcfs":{"blocks":[["CB3410",0,12,3],["MNE3007",2,17,2],["MNE3120",3,15,3],["SM3611",3,12,3],["SS3711",3,9,3]],"gap":0,"long":9,"days":3,"uneven":2.56,"miss":0,"hours":14},"planner":{"blocks":[["CB3410",0,12,3],["MNE3007",2,17,2],["MNE3120",3,15,3],["SM3611",3,12,3],["SS3711",3,9,3]],"gap":0,"long":9,"days":3,"uneven":2.56,"miss":0,"hours":14}},{"courses":["IS2505","LW2603A","MA2509","MNE2116"],"real":false,"random":{"blocks":[["IS2505",0,14,1],["IS2505",4,12,2],["LW2603A",1,15,2],["LW2603A",3,12,2],["MA2509",0,10,2],["MA2509",2,10,2],["MNE2116",1,9,2],["MNE2116",4,9,3]],"gap":6,"long":8,"days":5,"uneven":1.04,"miss":0,"hours":16},"fcfs":{"blocks":[["IS2505",0,14,1],["IS2505",4,12,2],["LW2603A",1,12,2],["LW2603A",3,12,2],["MA2509",0,10,2],["MA2509",2,10,2],["MNE2116",1,9,2],["MNE2116",3,9,3]],"gap":3,"long":5,"days":5,"uneven":1.04,"miss":0,"hours":16},"planner":{"blocks":[["IS2505",0,14,1],["IS2505",4,12,2],["LW2603A",1,12,2],["LW2603A",3,12,2],["MA2509",0,10,2],["MA2509",2,10,2],["MNE2116",1,9,2],["MNE2116",4,9,3]],"gap":3,"long":5,"days":5,"uneven":1.04,"miss":0,"hours":16}}]},"Other":{"students":512,"random":{"gap":3.09,"long":7.85,"days":3.97,"uneven":1.75,"hours":15.83,"miss_share":0.0,"gap3_share":0.514},"fcfs":{"gap":1.44,"long":6.61,"days":4.25,"uneven":1.48,"hours":15.56,"miss_share":0.076,"gap3_share":0.236},"planner":{"gap":1.39,"long":6.62,"days":4.28,"uneven":1.5,"hours":15.82,"miss_share":0.002,"gap3_share":0.213},"ci_gap":[-1.7,-1.91,-1.49],"ci_long":[-1.23,-1.4,-1.07],"ci_uneven":[-0.26,-0.3,-0.21],"gap_hist":{"random":[144,70,35,58,67,28,33,25,52],"fcfs":[251,93,47,40,36,15,12,8,10],"planner":[254,104,45,33,32,13,11,8,12]},"examples":[{"courses":["CHEM1200","CHEM1300","GE1226","GE1501","GE2327","PED1708"],"real":false,"random":{"blocks":[["CHEM1200",2,9,3],["CHEM1300",4,9,2],["GE1226",1,12,3],["GE1501",3,12,3],["GE2327",3,9,3]],"gap":0,"long":6,"days":4,"uneven":1.44,"miss":0,"hours":14},"fcfs":{"blocks":[["CHEM1200",2,9,3],["CHEM1300",4,9,2],["GE1226",1,12,3],["GE1501",0,9,3],["GE2327",3,9,3]],"gap":0,"long":3,"days":5,"uneven":0.32,"miss":0,"hours":14},"planner":{"blocks":[["CHEM1200",2,9,3],["CHEM1300",4,9,2],["GE1226",1,12,3],["GE1501",0,9,3],["GE2327",3,9,3]],"gap":0,"long":3,"days":5,"uneven":0.32,"miss":0,"hours":14}},{"courses":["CS2613","EF3320","LT2229","LT2231","MA2001","MNE3118"],"real":false,"random":{"blocks":[["CS2613",4,17,2],["EF3320",0,12,3],["LT2229",1,12,3],["LT2231",0,9,3],["MA2001",1,15,1],["MA2001",1,17,2],["MA2001",4,12,2],["MNE3118",3,9,3]],"gap":4,"long":7,"days":4,"uneven":1.84,"miss":0,"hours":19},"fcfs":{"blocks":[["CS2613",4,17,2],["EF3320",0,12,3],["LT2229",1,12,3],["LT2231",0,9,3],["MA2001",1,15,1],["MA2001",2,13,2],["MA2001",4,15,2],["MNE3118",3,9,3]],"gap":0,"long":6,"days":5,"uneven":1.04,"miss":0,"hours":19},"planner":{"blocks":[["CS2613",4,17,2],["EF3320",0,12,3],["LT2229",1,12,3],["LT2231",0,9,3],["MA2001",1,15,1],["MA2001",2,13,2],["MA2001",4,15,2],["MNE3118",3,9,3]],"gap":0,"long":6,"days":5,"uneven":1.04,"miss":0,"hours":19}}]},"Energy & Environment":{"students":433,"random":{"gap":3.01,"long":7.96,"days":4.22,"uneven":1.72,"hours":16.73,"miss_share":0.0,"gap3_share":0.51},"fcfs":{"gap":1.6,"long":6.9,"days":4.46,"uneven":1.5,"hours":16.58,"miss_share":0.042,"gap3_share":0.291},"planner":{"gap":1.55,"long":6.91,"days":4.51,"uneven":1.49,"hours":16.73,"miss_share":0.0,"gap3_share":0.277},"ci_gap":[-1.46,-1.66,-1.25],"ci_long":[-1.04,-1.23,-0.87],"ci_uneven":[-0.23,-0.28,-0.18],"gap_hist":{"random":[123,59,30,63,42,21,31,29,35],"fcfs":[201,66,40,60,31,9,8,9,9],"planner":[204,68,41,52,37,9,7,5,10]},"examples":[{"courses":["CA1167","GE2213","IS2022","LW2602A","SEE2203","SEE2204"],"real":false,"random":{"blocks":[["CA1167",0,12,3],["CA1167",2,9,3],["GE2213",0,9,3],["IS2022",4,12,3],["LW2602A",3,9,2],["LW2602A",4,9,2],["SEE2203",1,14,3],["SEE2204",2,12,3]],"gap":1,"long":6,"days":5,"uneven":1.52,"miss":0,"hours":22},"fcfs":{"blocks":[["CA1167",0,12,3],["CA1167",2,9,3],["GE2213",0,9,3],["IS2022",4,12,3],["LW2602A",3,9,2],["LW2602A",4,9,2],["SEE2203",1,14,3],["SEE2204",2,12,3]],"gap":1,"long":6,"days":5,"uneven":1.52,"miss":0,"hours":22},"planner":{"blocks":[["CA1167",0,12,3],["CA1167",2,9,3],["GE2213",0,9,3],["IS2022",4,12,3],["LW2602A",3,16,2],["LW2602A",4,9,2],["SEE2203",1,14,3],["SEE2204",2,12,3]],"gap":1,"long":6,"days":5,"uneven":1.52,"miss":0,"hours":22}},{"courses":["CB2240","COM2401","EN2808","PHY2212","SEE2000"],"real":false,"random":{"blocks":[["CB2240",3,15,3],["COM2401",1,12,3],["EN2808",1,9,3],["PHY2212",2,9,3],["PHY2212",3,9,3],["SEE2000",4,9,3]],"gap":3,"long":9,"days":4,"uneven":1.92,"miss":0,"hours":18},"fcfs":{"blocks":[["CB2240",0,15,3],["COM2401",1,12,3],["EN2808",1,9,3],["PHY2212",2,9,3],["PHY2212",3,9,3],["SEE2000",4,9,3]],"gap":0,"long":6,"days":5,"uneven":0.96,"miss":0,"hours":18},"planner":{"blocks":[["CB2240",0,15,3],["COM2401",1,12,3],["EN2808",1,9,3],["PHY2212",2,9,3],["PHY2212",3,9,3],["SEE2000",4,9,3]],"gap":0,"long":6,"days":5,"uneven":0.96,"miss":0,"hours":18}}]},"Marketing":{"students":417,"random":{"gap":2.1,"long":7.39,"days":3.76,"uneven":1.73,"hours":14.93,"miss_share":0.0,"gap3_share":0.417},"fcfs":{"gap":1.0,"long":5.92,"days":4.14,"uneven":1.34,"hours":14.7,"miss_share":0.048,"gap3_share":0.194},"planner":{"gap":0.91,"long":5.95,"days":4.2,"uneven":1.31,"hours":14.93,"miss_share":0.0,"gap3_share":0.173},"ci_gap":[-1.18,-1.36,-1.01],"ci_long":[-1.44,-1.65,-1.23],"ci_uneven":[-0.42,-0.48,-0.36],"gap_hist":{"random":[178,43,22,76,37,11,21,17,12],"fcfs":[271,51,14,38,24,6,3,6,4],"planner":[275,54,16,35,19,7,2,7,2]},"examples":[{"courses":["CB4303","EE3301","MA2001","MKT4611","MKT4625"],"real":false,"random":{"blocks":[["CB4303",4,9,3],["EE3301",1,12,3],["MA2001",1,17,2],["MA2001",2,15,1],["MA2001",4,12,2],["MKT4611",3,15,3],["MKT4625",4,15,3]],"gap":3,"long":9,"days":4,"uneven":2.48,"miss":0,"hours":17},"fcfs":{"blocks":[["CB4303",0,15,3],["EE3301",1,12,3],["MA2001",1,15,1],["MA2001",1,17,2],["MA2001",4,12,2],["MKT4611",3,15,3],["MKT4625",4,15,3]],"gap":2,"long":7,"days":4,"uneven":1.68,"miss":0,"hours":17},"planner":{"blocks":[["CB4303",0,15,3],["EE3301",1,12,3],["MA2001",1,17,2],["MA2001",2,15,1],["MA2001",4,12,2],["MKT4611",3,15,3],["MKT4625",4,15,3]],"gap":3,"long":7,"days":5,"uneven":1.28,"miss":0,"hours":17}},{"courses":["CB2203","IS3240","MKT3603","PED1310","PIA2073"],"real":false,"random":{"blocks":[["CB2203",4,10,2],["CB2203",4,13,1],["IS3240",2,12,3],["MKT3603",0,12,3],["PED1310",3,14,1],["PIA2073",3,9,3]],"gap":3,"long":6,"days":4,"uneven":1.04,"miss":0,"hours":13},"fcfs":{"blocks":[["CB2203",1,13,1],["CB2203",4,10,2],["IS3240",2,12,3],["MKT3603",0,12,3],["PED1310",1,14,1],["PIA2073",3,9,3]],"gap":0,"long":3,"days":5,"uneven":0.48,"miss":0,"hours":13},"planner":{"blocks":[["CB2203",1,13,1],["CB2203",4,15,2],["IS3240",2,12,3],["MKT3603",0,12,3],["PED1310",1,14,1],["PIA2073",3,9,3]],"gap":0,"long":3,"days":5,"uneven":0.48,"miss":0,"hours":13}}]},"Management":{"students":360,"random":{"gap":2.12,"long":7.41,"days":3.68,"uneven":1.77,"hours":14.5,"miss_share":0.0,"gap3_share":0.408},"fcfs":{"gap":0.98,"long":5.97,"days":3.96,"uneven":1.46,"hours":14.15,"miss_share":0.078,"gap3_share":0.181},"planner":{"gap":0.93,"long":6.11,"days":4.05,"uneven":1.45,"hours":14.5,"miss_share":0.0,"gap3_share":0.172},"ci_gap":[-1.2,-1.41,-1.0],"ci_long":[-1.3,-1.53,-1.09],"ci_uneven":[-0.32,-0.37,-0.26],"gap_hist":{"random":[136,49,28,62,44,7,11,9,14],"fcfs":[225,45,25,36,18,4,2,1,4],"planner":[227,44,27,33,21,3,3,1,1]},"examples":[{"courses":["GE2258","MGT4227","MNE3118","PED1305","PIA2530"],"real":false,"random":{"blocks":[["GE2258",0,15,3],["MGT4227",2,9,3],["MNE3118",3,9,3],["PIA2530",1,9,3]],"gap":0,"long":3,"days":4,"uneven":0.96,"miss":0,"hours":12},"fcfs":{"blocks":[["GE2258",0,15,3],["MGT4227",2,9,3],["MNE3118",3,9,3],["PIA2530",1,9,3]],"gap":0,"long":3,"days":4,"uneven":0.96,"miss":0,"hours":12},"planner":{"blocks":[["GE2258",0,15,3],["MGT4227",2,9,3],["MNE3118",3,9,3],["PIA2530",1,9,3]],"gap":0,"long":3,"days":4,"uneven":0.96,"miss":0,"hours":12}},{"courses":["CHEM3081","CHIN1001","EE3001","GE2134","GE3207","MGT4315"],"real":false,"random":{"blocks":[["CHEM3081",4,9,3],["CHIN1001",4,15,3],["EE3001",3,16,3],["GE2134",1,12,3],["GE3207",2,12,3],["MGT4315",1,9,3]],"gap":3,"long":9,"days":4,"uneven":1.92,"miss":0,"hours":18},"fcfs":{"blocks":[["CHEM3081",4,9,3],["CHIN1001",0,15,3],["EE3001",3,16,3],["GE2134",1,12,3],["GE3207",2,12,3],["MGT4315",1,9,3]],"gap":0,"long":6,"days":5,"uneven":0.96,"miss":0,"hours":18},"planner":{"blocks":[["CHEM3081",4,9,3],["CHIN1001",0,15,3],["EE3001",3,16,3],["GE2134",1,12,3],["GE3207",2,12,3],["MGT4315",1,9,3]],"gap":0,"long":6,"days":5,"uneven":0.96,"miss":0,"hours":18}}]},"Information Systems":{"students":357,"random":{"gap":2.49,"long":7.34,"days":3.92,"uneven":1.71,"hours":14.54,"miss_share":0.0,"gap3_share":0.448},"fcfs":{"gap":1.25,"long":6.25,"days":4.25,"uneven":1.43,"hours":14.39,"miss_share":0.048,"gap3_share":0.216},"planner":{"gap":1.18,"long":6.24,"days":4.29,"uneven":1.44,"hours":14.54,"miss_share":0.0,"gap3_share":0.199},"ci_gap":[-1.32,-1.53,-1.09],"ci_long":[-1.1,-1.3,-0.92],"ci_uneven":[-0.28,-0.33,-0.22],"gap_hist":{"random":[112,54,31,57,38,22,14,10,19],"fcfs":[190,57,33,36,23,8,1,4,5],"planner":[194,61,31,37,16,7,3,3,5]},"examples":[{"courses":["CB2203","CS3201","IS3331","PIA2308"],"real":false,"random":{"blocks":[["CB2203",2,10,1],["CB2203",3,10,2],["CS3201",1,14,1],["CS3201",5,9,3],["IS3331",0,15,3],["PIA2308",1,15,3]],"gap":0,"long":4,"days":5,"uneven":1.32,"miss":0,"hours":13},"fcfs":{"blocks":[["CB2203",3,12,2],["CB2203",4,15,1],["CS3201",1,14,1],["CS3201",5,9,3],["IS3331",0,15,3],["PIA2308",1,15,3]],"gap":0,"long":4,"days":5,"uneven":1.32,"miss":0,"hours":13},"planner":{"blocks":[["CB2203",2,13,2],["CB2203",4,13,1],["CS3201",3,13,1],["CS3201",5,9,3],["IS3331",0,15,3],["PIA2308",1,15,3]],"gap":0,"long":3,"days":6,"uneven":0.92,"miss":0,"hours":13}},{"courses":["AC4391","CS4335","IS4532","PIA3921"],"real":false,"random":{"blocks":[["AC4391",0,12,3],["CS4335",4,15,4],["IS4532",1,18,1],["IS4532",3,15,2],["PIA3921",1,12,3]],"gap":3,"long":7,"days":4,"uneven":1.28,"miss":0,"hours":13},"fcfs":{"blocks":[["AC4391",0,12,3],["CS4335",4,15,4],["IS4532",2,12,1],["IS4532",3,15,2],["PIA3921",1,12,3]],"gap":0,"long":4,"days":5,"uneven":0.88,"miss":0,"hours":13},"planner":{"blocks":[["AC4391",0,12,3],["CS4335",4,15,4],["IS4532",2,12,1],["IS4532",3,15,2],["PIA3921",1,12,3]],"gap":0,"long":4,"days":5,"uneven":0.88,"miss":0,"hours":13}}]},"Systems Engineering":{"students":347,"random":{"gap":2.39,"long":7.47,"days":3.94,"uneven":1.7,"hours":15.37,"miss_share":0.0,"gap3_share":0.455},"fcfs":{"gap":1.44,"long":6.76,"days":4.07,"uneven":1.54,"hours":15.15,"miss_share":0.063,"gap3_share":0.28},"planner":{"gap":1.37,"long":6.7,"days":4.13,"uneven":1.52,"hours":15.35,"miss_share":0.0,"gap3_share":0.259},"ci_gap":[-1.02,-1.2,-0.85],"ci_long":[-0.77,-0.94,-0.62],"ci_uneven":[-0.18,-0.23,-0.13],"gap_hist":{"random":[128,34,27,57,43,14,13,18,13],"fcfs":[182,35,33,47,25,7,9,5,4],"planner":[185,40,32,47,20,5,8,6,4]},"examples":[{"courses":["CA1167","CHEM3082","EN2801","GE1401","SEE2002","SYE4024"],"real":false,"random":{"blocks":[["CA1167",0,12,3],["CA1167",1,9,3],["CHEM3082",2,9,3],["EN2801",1,12,3],["GE1401",2,12,3],["SEE2002",0,16,3],["SEE2002",4,18,3],["SYE4024",3,15,3]],"gap":1,"long":7,"days":5,"uneven":1.44,"miss":0,"hours":24},"fcfs":{"blocks":[["CA1167",0,12,3],["CA1167",3,12,3],["CHEM3082",2,9,3],["EN2801",1,12,3],["GE1401",2,12,3],["SEE2002",0,16,3],["SEE2002",4,18,3],["SYE4024",3,15,3]],"gap":1,"long":7,"days":5,"uneven":1.44,"miss":0,"hours":24},"planner":{"blocks":[["CA1167",0,12,3],["CA1167",1,9,3],["CHEM3082",2,9,3],["EN2801",1,12,3],["GE1401",4,15,3],["SEE2002",0,16,3],["SEE2002",4,18,3],["SYE4024",3,15,3]],"gap":1,"long":7,"days":5,"uneven":1.44,"miss":0,"hours":24}},{"courses":["CS3201","LW4641","SEE4997","SS3711","SYE4002"],"real":false,"random":{"blocks":[["CS3201",1,18,1],["CS3201",5,9,3],["LW4641",1,12,3],["SEE4997",5,13,3],["SS3711",3,9,3],["SYE4002",4,19,3]],"gap":4,"long":7,"days":4,"uneven":1.52,"miss":0,"hours":16},"fcfs":{"blocks":[["CS3201",0,18,1],["CS3201",5,9,3],["LW4641",1,12,3],["SEE4997",5,13,3],["SS3711",3,9,3],["SYE4002",4,19,3]],"gap":1,"long":7,"days":5,"uneven":1.2,"miss":0,"hours":16},"planner":{"blocks":[["CS3201",0,18,1],["CS3201",5,9,3],["LW4641",1,12,3],["SEE4997",5,13,3],["SS3711",3,9,3],["SYE4002",4,19,3]],"gap":1,"long":7,"days":5,"uneven":1.2,"miss":0,"hours":16}}]},"Accountancy":{"students":343,"random":{"gap":1.78,"long":6.94,"days":3.76,"uneven":1.73,"hours":14.69,"miss_share":0.0,"gap3_share":0.321},"fcfs":{"gap":0.78,"long":5.71,"days":4.1,"uneven":1.36,"hours":14.55,"miss_share":0.035,"gap3_share":0.117},"planner":{"gap":0.77,"long":5.62,"days":4.17,"uneven":1.31,"hours":14.68,"miss_share":0.0,"gap3_share":0.114},"ci_gap":[-1.01,-1.22,-0.83],"ci_long":[-1.32,-1.56,-1.09],"ci_uneven":[-0.42,-0.5,-0.36],"gap_hist":{"random":[154,54,25,35,32,14,8,15,6],"fcfs":[226,51,26,19,10,6,2,2,1],"planner":[228,52,24,18,9,6,2,2,2]},"examples":[{"courses":["AC4332","CHEM3015","EE3206","GE2327","SEE2000"],"real":false,"random":{"blocks":[["AC4332",4,12,3],["CHEM3015",0,13,2],["CHEM3015",2,12,2],["EE3206",5,13,3],["GE2327",3,9,3],["SEE2000",4,9,3]],"gap":0,"long":6,"days":5,"uneven":1.72,"miss":0,"hours":16},"fcfs":{"blocks":[["AC4332",4,12,3],["CHEM3015",0,13,2],["CHEM3015",2,12,2],["EE3206",5,13,3],["GE2327",3,9,3],["SEE2000",4,9,3]],"gap":0,"long":6,"days":5,"uneven":1.72,"miss":0,"hours":16},"planner":{"blocks":[["AC4332",4,12,3],["CHEM3015",0,13,2],["CHEM3015",2,12,2],["EE3206",5,13,3],["GE2327",3,9,3],["SEE2000",4,9,3]],"gap":0,"long":6,"days":5,"uneven":1.72,"miss":0,"hours":16}},{"courses":["AC4332","BME3104","CB3410","LW3605B","MKT3602","VM2102"],"real":false,"random":{"blocks":[["AC4332",0,16,3],["BME3104",4,12,3],["CB3410",3,16,3],["LW3605B",0,10,2],["LW3605B",3,15,1],["MKT3602",4,15,3],["VM2102",1,13,5],["VM2102",2,9,9]],"gap":4,"long":9,"days":5,"uneven":1.36,"miss":0,"hours":29},"fcfs":{"blocks":[["AC4332",0,16,3],["BME3104",4,12,3],["CB3410",0,12,3],["LW3605B",0,10,2],["LW3605B",3,15,1],["MKT3602",4,15,3],["VM2102",1,13,5],["VM2102",2,9,9]],"gap":1,"long":9,"days":5,"uneven":2.24,"miss":0,"hours":29},"planner":{"blocks":[["AC4332",0,16,3],["BME3104",4,12,3],["CB3410",0,12,3],["LW3605B",0,10,2],["LW3605B",3,15,1],["MKT3602",4,15,3],["VM2102",1,13,5],["VM2102",2,9,9]],"gap":1,"long":9,"days":5,"uneven":2.24,"miss":0,"hours":29}}]},"Architecture & Civil Engineering":{"students":323,"random":{"gap":3.22,"long":8.24,"days":4.11,"uneven":1.84,"hours":17.81,"miss_share":0.0,"gap3_share":0.529},"fcfs":{"gap":1.24,"long":6.99,"days":4.34,"uneven":1.56,"hours":17.34,"miss_share":0.108,"gap3_share":0.198},"planner":{"gap":1.24,"long":7.07,"days":4.44,"uneven":1.52,"hours":17.82,"miss_share":0.0,"gap3_share":0.211},"ci_gap":[-1.98,-2.28,-1.67],"ci_long":[-1.16,-1.38,-0.96],"ci_uneven":[-0.31,-0.38,-0.25],"gap_hist":{"random":[84,48,20,47,29,26,25,6,38],"fcfs":[156,72,31,24,20,11,6,1,2],"planner":[148,81,26,30,22,9,6,1,0]},"examples":[{"courses":["CA2674","CHEM1200","CHIN1001","MA1200","PHY1201"],"real":false,"random":{"blocks":[["CA2674",0,9,3],["CA2674",3,9,3],["CHEM1200",3,12,3],["CHIN1001",1,15,3],["MA1200",0,12,2],["MA1200",1,12,1],["MA1200",4,17,2],["PHY1201",0,15,3],["PHY1201",1,13,1],["PHY1201",3,15,3]],"gap":2,"long":9,"days":4,"uneven":3.04,"miss":0,"hours":24},"fcfs":{"blocks":[["CA2674",1,12,3],["CA2674",3,9,3],["CHEM1200",3,12,3],["CHIN1001",2,15,3],["MA1200",0,12,2],["MA1200",1,18,1],["MA1200",4,17,2],["PHY1201",1,10,1],["PHY1201",1,15,3],["PHY1201",3,15,3]],"gap":1,"long":9,"days":5,"uneven":2.96,"miss":0,"hours":24},"planner":{"blocks":[["CA2674",0,9,3],["CA2674",3,9,3],["CHEM1200",3,12,3],["CHIN1001",1,15,3],["MA1200",0,12,2],["MA1200",1,18,1],["MA1200",4,17,2],["PHY1201",1,13,1],["PHY1201",2,12,3],["PHY1201",3,15,3]],"gap":1,"long":9,"days":5,"uneven":1.84,"miss":0,"hours":24}},{"courses":["CA1167","CA2169","GE1401","GE2327","SEE3101","SYE4024"],"real":false,"random":{"blocks":[["CA1167",0,12,3],["CA1167",3,12,3],["CA2169",1,16,3],["GE1401",1,9,3],["GE2327",3,9,3],["SEE3101",2,9,3],["SEE3101",4,15,3],["SYE4024",3,15,3]],"gap":4,"long":10,"days":5,"uneven":2.16,"miss":0,"hours":24},"fcfs":{"blocks":[["CA1167",0,12,3],["CA1167",3,12,3],["CA2169",1,16,3],["GE1401",2,12,3],["GE2327",3,9,3],["SEE3101",2,9,3],["SEE3101",4,15,3],["SYE4024",3,15,3]],"gap":0,"long":9,"days":5,"uneven":2.16,"miss":0,"hours":24},"planner":{"blocks":[["CA1167",0,12,3],["CA1167",3,12,3],["CA2169",1,16,3],["GE1401",2,12,3],["GE2327",3,9,3],["SEE3101",2,9,3],["SEE3101",4,15,3],["SYE4024",3,15,3]],"gap":0,"long":9,"days":5,"uneven":2.16,"miss":0,"hours":24}}]},"Economics & Finance":{"students":323,"random":{"gap":2.29,"long":7.6,"days":3.86,"uneven":1.73,"hours":15.61,"miss_share":0.0,"gap3_share":0.421},"fcfs":{"gap":1.14,"long":6.29,"days":4.21,"uneven":1.38,"hours":15.31,"miss_share":0.084,"gap3_share":0.201},"planner":{"gap":1.02,"long":6.29,"days":4.27,"uneven":1.37,"hours":15.6,"miss_share":0.0,"gap3_share":0.176},"ci_gap":[-1.28,-1.49,-1.05],"ci_long":[-1.31,-1.53,-1.1],"ci_uneven":[-0.36,-0.43,-0.31],"gap_hist":{"random":[108,52,27,46,43,13,12,8,14],"fcfs":[186,53,19,30,17,5,6,2,5],"planner":[190,55,21,30,14,3,6,1,3]},"examples":[{"courses":["BME3104","DSC3006","EF4312","IS3501","SM3611"],"real":false,"random":{"blocks":[["BME3104",4,12,3],["DSC3006",1,15,4],["EF4312",0,16,3],["IS3501",2,15,3],["SM3611",2,12,3]],"gap":0,"long":6,"days":4,"uneven":1.44,"miss":0,"hours":16},"fcfs":{"blocks":[["BME3104",4,12,3],["DSC3006",1,15,4],["EF4312",0,16,3],["IS3501",2,15,3],["SM3611",3,9,3]],"gap":0,"long":4,"days":5,"uneven":0.32,"miss":0,"hours":16},"planner":{"blocks":[["BME3104",4,12,3],["DSC3006",1,15,4],["EF4312",0,16,3],["IS3501",2,15,3],["SM3611",3,9,3]],"gap":0,"long":4,"days":5,"uneven":0.32,"miss":0,"hours":16}},{"courses":["CB2400","CS3103","EF2452","EF3320","MA2510","MKT3603"],"real":false,"random":{"blocks":[["CB2400",2,9,3],["CS3103",2,13,1],["CS3103",3,12,3],["EF2452",0,9,3],["EF3320",0,12,3],["MA2510",2,16,2],["MA2510",5,9,2],["MKT3603",1,12,3]],"gap":3,"long":9,"days":5,"uneven":2.0,"miss":0,"hours":20},"fcfs":{"blocks":[["CB2400",1,9,3],["CS3103",3,12,3],["CS3103",4,15,1],["EF2452",4,12,3],["EF3320",-1,0,0],["MA2510",2,16,2],["MA2510",5,9,2],["MKT3603",0,12,3]],"gap":0,"long":4,"days":6,"uneven":0.64,"miss":1,"hours":17},"planner":{"blocks":[["CB2400",1,9,3],["CS3103",3,12,3],["CS3103",4,12,1],["EF2452",0,9,3],["EF3320",0,12,3],["MA2510",2,16,2],["MA2510",5,9,2],["MKT3603",1,12,3]],"gap":0,"long":6,"days":6,"uneven":2.0,"miss":0,"hours":20}}]},"Management Sciences":{"students":253,"random":{"gap":2.25,"long":7.62,"days":3.77,"uneven":1.83,"hours":15.03,"miss_share":0.0,"gap3_share":0.431},"fcfs":{"gap":1.3,"long":6.68,"days":3.96,"uneven":1.59,"hours":14.8,"miss_share":0.059,"gap3_share":0.237},"planner":{"gap":1.17,"long":6.71,"days":4.0,"uneven":1.62,"hours":15.03,"miss_share":0.0,"gap3_share":0.217},"ci_gap":[-1.08,-1.3,-0.85],"ci_long":[-0.91,-1.11,-0.69],"ci_uneven":[-0.21,-0.27,-0.15],"gap_hist":{"random":[85,39,20,37,37,13,8,6,8],"fcfs":[133,37,23,26,18,6,5,3,2],"planner":[140,36,22,27,14,7,4,3,0]},"examples":[{"courses":["CAH2141","CB2240","EN2711","GE1218","GE2223","MS2602"],"real":false,"random":{"blocks":[["CAH2141",2,12,3],["CB2240",0,9,3],["EN2711",2,15,3],["GE1218",1,16,3],["GE2223",0,12,3],["MS2602",3,9,3]],"gap":0,"long":6,"days":4,"uneven":1.92,"miss":0,"hours":18},"fcfs":{"blocks":[["CAH2141",2,12,3],["CB2240",0,15,3],["EN2711",2,15,3],["GE1218",1,16,3],["GE2223",0,12,3],["MS2602",3,9,3]],"gap":0,"long":6,"days":4,"uneven":1.92,"miss":0,"hours":18},"planner":{"blocks":[["CAH2141",2,12,3],["CB2240",0,9,3],["EN2711",2,15,3],["GE1218",1,16,3],["GE2223",0,12,3],["MS2602",3,9,3]],"gap":0,"long":6,"days":4,"uneven":1.92,"miss":0,"hours":18}},{"courses":["EE3001","MS3124","MS3252","MSE3130"],"real":false,"random":{"blocks":[["EE3001",3,16,3],["MS3124",1,9,3],["MS3252",4,12,3],["MSE3130",3,10,1],["MSE3130",4,9,3],["MSE3130",5,9,3]],"gap":5,"long":9,"days":4,"uneven":2.04,"miss":0,"hours":16},"fcfs":{"blocks":[["EE3001",3,16,3],["MS3124",1,9,3],["MS3252",0,9,3],["MSE3130",3,10,1],["MSE3130",3,12,3],["MSE3130",4,9,3]],"gap":2,"long":9,"days":4,"uneven":1.52,"miss":0,"hours":16},"planner":{"blocks":[["EE3001",3,16,3],["MS3124",1,9,3],["MS3252",0,9,3],["MSE3130",3,10,1],["MSE3130",3,12,3],["MSE3130",4,9,3]],"gap":2,"long":9,"days":4,"uneven":1.52,"miss":0,"hours":16}}]},"Media & Communication":{"students":245,"random":{"gap":2.3,"long":7.4,"days":3.92,"uneven":1.72,"hours":15.2,"miss_share":0.004,"gap3_share":0.396},"fcfs":{"gap":1.18,"long":6.35,"days":4.19,"uneven":1.45,"hours":15.07,"miss_share":0.045,"gap3_share":0.212},"planner":{"gap":0.98,"long":6.32,"days":4.21,"uneven":1.45,"hours":15.21,"miss_share":0.0,"gap3_share":0.163},"ci_gap":[-1.31,-1.6,-1.07],"ci_long":[-1.08,-1.36,-0.83],"ci_uneven":[-0.27,-0.35,-0.2],"gap_hist":{"random":[89,39,20,28,29,10,9,10,11],"fcfs":[144,34,15,25,11,5,4,2,5],"planner":[144,41,20,22,8,3,3,3,1]},"examples":[{"courses":["COM3411","COM4307","EE2000","GE2211","GE2213","PHY3251"],"real":false,"random":{"blocks":[["COM3411",4,19,3],["COM4307",5,9,3],["EE2000",0,18,1],["EE2000",3,12,3],["GE2211",2,12,3],["GE2213",0,9,3],["PHY3251",0,15,3]],"gap":3,"long":10,"days":5,"uneven":1.88,"miss":0,"hours":19},"fcfs":{"blocks":[["COM3411",4,19,3],["COM4307",5,9,3],["EE2000",0,18,1],["EE2000",3,12,3],["GE2211",2,12,3],["GE2213",0,9,3],["PHY3251",0,15,3]],"gap":3,"long":10,"days":5,"uneven":1.88,"miss":0,"hours":19},"planner":{"blocks":[["COM3411",4,19,3],["COM4307",5,9,3],["EE2000",2,15,1],["EE2000",3,12,3],["GE2211",2,12,3],["GE2213",0,9,3],["PHY3251",0,15,3]],"gap":3,"long":9,"days":5,"uneven":1.56,"miss":0,"hours":19}},{"courses":["CAH2503","COM3413","GE1401","GE1601","LW2903","VM2001"],"real":false,"random":{"blocks":[["CAH2503",1,9,3],["COM3413",0,16,3],["GE1401",4,12,3],["GE1601",1,12,2],["LW2903",2,9,3],["VM2001",0,9,3]],"gap":4,"long":10,"days":4,"uneven":1.68,"miss":0,"hours":17},"fcfs":{"blocks":[["CAH2503",1,9,3],["COM3413",0,16,3],["GE1401",0,12,3],["GE1601",1,12,2],["LW2903",2,9,3],["VM2001",0,9,3]],"gap":1,"long":10,"days":3,"uneven":2.88,"miss":0,"hours":17},"planner":{"blocks":[["CAH2503",1,9,3],["COM3413",0,16,3],["GE1401",0,12,3],["GE1601",1,12,2],["LW2903",2,9,3],["VM2001",0,9,3]],"gap":1,"long":10,"days":3,"uneven":2.88,"miss":0,"hours":17}}]},"Data Science":{"students":231,"random":{"gap":2.15,"long":7.49,"days":3.84,"uneven":1.77,"hours":15.81,"miss_share":0.004,"gap3_share":0.39},"fcfs":{"gap":1.16,"long":6.46,"days":4.16,"uneven":1.47,"hours":15.69,"miss_share":0.035,"gap3_share":0.216},"planner":{"gap":1.07,"long":6.43,"days":4.2,"uneven":1.46,"hours":15.82,"miss_share":0.0,"gap3_share":0.195},"ci_gap":[-1.07,-1.32,-0.84],"ci_long":[-1.06,-1.29,-0.84],"ci_uneven":[-0.31,-0.37,-0.24],"gap_hist":{"random":[94,28,19,29,24,8,13,6,10],"fcfs":[127,34,20,28,12,1,6,2,1],"planner":[138,27,21,24,12,1,4,2,2]},"examples":[{"courses":["CS1302A","DSC1001","GE1401","LC0200A","MA2508","PED1305"],"real":false,"random":{"blocks":[["CS1302A",0,15,1],["CS1302A",2,9,3],["DSC1001",0,12,3],["GE1401",4,9,3],["LC0200A",1,12,3],["MA2508",1,15,2],["MA2508",5,11,2]],"gap":0,"long":5,"days":5,"uneven":1.28,"miss":0,"hours":17},"fcfs":{"blocks":[["CS1302A",-1,0,0],["DSC1001",0,12,3],["GE1401",4,15,3],["LC0200A",1,15,3],["MA2508",2,9,2],["MA2508",5,11,2]],"gap":0,"long":3,"days":5,"uneven":0.88,"miss":1,"hours":13},"planner":{"blocks":[["CS1302A",0,15,1],["CS1302A",2,9,3],["DSC1001",0,12,3],["GE1401",4,9,3],["LC0200A",3,9,3],["MA2508",1,15,2],["MA2508",5,11,2]],"gap":0,"long":4,"days":6,"uneven":0.64,"miss":0,"hours":17}},{"courses":["COM3119","DSC3001","DSC3008","EF4321","GE2412","LW4614"],"real":false,"random":{"blocks":[["COM3119",0,9,3],["DSC3001",0,12,3],["DSC3008",2,9,3],["EF4321",2,15,3],["GE2412",1,15,3],["LW4614",3,13,3]],"gap":3,"long":9,"days":4,"uneven":1.92,"miss":0,"hours":18},"fcfs":{"blocks":[["COM3119",0,9,3],["DSC3001",0,12,3],["DSC3008",2,9,3],["EF4321",4,15,3],["GE2412",1,16,3],["LW4614",3,13,3]],"gap":0,"long":6,"days":5,"uneven":0.96,"miss":0,"hours":18},"planner":{"blocks":[["COM3119",0,9,3],["DSC3001",0,12,3],["DSC3008",2,9,3],["EF4321",4,15,3],["GE2412",1,16,3],["LW4614",3,13,3]],"gap":0,"long":6,"days":5,"uneven":0.96,"miss":0,"hours":18}}]},"English":{"students":226,"random":{"gap":2.31,"long":7.41,"days":3.88,"uneven":1.75,"hours":15.48,"miss_share":0.0,"gap3_share":0.425},"fcfs":{"gap":1.07,"long":6.32,"days":4.12,"uneven":1.53,"hours":15.35,"miss_share":0.035,"gap3_share":0.199},"planner":{"gap":0.95,"long":6.31,"days":4.13,"uneven":1.53,"hours":15.47,"miss_share":0.0,"gap3_share":0.168},"ci_gap":[-1.35,-1.65,-1.07],"ci_long":[-1.11,-1.32,-0.88],"ci_uneven":[-0.22,-0.28,-0.14],"gap_hist":{"random":[83,26,21,40,23,6,9,6,12],"fcfs":[129,40,12,25,13,1,2,2,2],"planner":[130,41,17,23,12,0,2,0,1]},"examples":[{"courses":["CB2100","CS1102","EN2321","GE1355","GE1356"],"real":false,"random":{"blocks":[["CB2100",0,15,1],["CB2100",4,15,2],["CS1102",0,9,3],["CS1102",0,16,1],["EN2321",2,12,3],["GE1355",1,15,3],["GE1356",0,12,3]],"gap":0,"long":8,"days":4,"uneven":1.92,"miss":0,"hours":16},"fcfs":{"blocks":[["CB2100",1,10,1],["CB2100",4,15,2],["CS1102",0,9,3],["CS1102",1,11,1],["EN2321",2,12,3],["GE1355",1,15,3],["GE1356",0,12,3]],"gap":3,"long":8,"days":4,"uneven":1.84,"miss":0,"hours":16},"planner":{"blocks":[["CB2100",3,10,1],["CB2100",4,15,2],["CS1102",0,9,3],["CS1102",0,15,1],["EN2321",2,12,3],["GE1355",1,15,3],["GE1356",0,12,3]],"gap":0,"long":7,"days":5,"uneven":1.52,"miss":0,"hours":16}},{"courses":["BMS1901","CS1315","EN2808","GE1137","GE1401","GE1501"],"real":false,"random":{"blocks":[["BMS1901",0,13,3],["CS1315",1,15,1],["CS1315",4,12,3],["EN2808",1,9,3],["GE1137",4,9,3],["GE1401",3,18,3],["GE1501",0,9,3]],"gap":4,"long":7,"days":4,"uneven":1.84,"miss":0,"hours":19},"fcfs":{"blocks":[["BMS1901",0,13,3],["CS1315",0,17,1],["CS1315",4,12,3],["EN2808",1,9,3],["GE1137",4,9,3],["GE1401",2,9,3],["GE1501",3,16,3]],"gap":1,"long":6,"days":5,"uneven":0.96,"miss":0,"hours":19},"planner":{"blocks":[["BMS1901",0,13,3],["CS1315",0,17,1],["CS1315",4,12,3],["EN2808",1,9,3],["GE1137",4,9,3],["GE1401",3,18,3],["GE1501",2,12,3]],"gap":1,"long":6,"days":5,"uneven":0.96,"miss":0,"hours":19}}]},"Biomedical Sciences":{"students":221,"random":{"gap":2.59,"long":7.11,"days":3.96,"uneven":1.57,"hours":14.28,"miss_share":0.0,"gap3_share":0.398},"fcfs":{"gap":1.43,"long":6.01,"days":4.14,"uneven":1.35,"hours":14.04,"miss_share":0.077,"gap3_share":0.226},"planner":{"gap":1.41,"long":6.1,"days":4.19,"uneven":1.35,"hours":14.28,"miss_share":0.0,"gap3_share":0.231},"ci_gap":[-1.18,-1.43,-0.96],"ci_long":[-1.02,-1.26,-0.78],"ci_uneven":[-0.22,-0.29,-0.15],"gap_hist":{"random":[64,31,38,23,20,10,10,11,14],"fcfs":[115,25,31,17,14,6,7,4,2],"planner":[114,29,27,18,13,7,7,4,2]},"examples":[{"courses":["BMS2202","BMS2803","BMS2804","PHY2400","VM2106"],"real":true,"random":{"blocks":[["BMS2202",0,10,2],["BMS2202",1,11,1],["BMS2803",0,16,2],["BMS2803",2,15,1],["BMS2804",0,13,2],["PHY2400",4,9,3],["VM2106",1,9,2]],"gap":2,"long":8,"days":4,"uneven":1.68,"miss":0,"hours":13},"fcfs":{"blocks":[["BMS2202",0,10,2],["BMS2202",1,11,1],["BMS2803",0,16,2],["BMS2803",2,15,1],["BMS2804",0,13,2],["PHY2400",4,9,3],["VM2106",1,9,2]],"gap":2,"long":8,"days":4,"uneven":1.68,"miss":0,"hours":13},"planner":{"blocks":[["BMS2202",0,10,2],["BMS2202",1,11,1],["BMS2803",0,16,2],["BMS2803",2,15,1],["BMS2804",0,13,2],["PHY2400",4,9,3],["VM2106",1,9,2]],"gap":2,"long":8,"days":4,"uneven":1.68,"miss":0,"hours":13}},{"courses":["BMS2007","BMS2803","EE2302","EF2452","GE2129","PED1305"],"real":false,"random":{"blocks":[["BMS2007",4,9,3],["BMS2803",0,16,2],["BMS2803",2,15,1],["EE2302",1,12,3],["EF2452",0,9,3],["GE2129",3,9,3]],"gap":4,"long":9,"days":5,"uneven":0.8,"miss":0,"hours":15},"fcfs":{"blocks":[["BMS2007",4,9,3],["BMS2803",0,16,2],["BMS2803",2,15,1],["EE2302",1,12,3],["EF2452",0,9,3],["GE2129",0,12,3]],"gap":1,"long":9,"days":4,"uneven":2.0,"miss":0,"hours":15},"planner":{"blocks":[["BMS2007",4,9,3],["BMS2803",0,16,2],["BMS2803",2,15,1],["EE2302",1,12,3],["EF2452",0,9,3],["GE2129",0,12,3]],"gap":1,"long":9,"days":4,"uneven":2.0,"miss":0,"hours":15}}]},"Veterinary Medicine":{"students":183,"random":{"gap":3.42,"long":8.67,"days":4.32,"uneven":1.89,"hours":19.55,"miss_share":0.0,"gap3_share":0.541},"fcfs":{"gap":2.77,"long":8.32,"days":4.45,"uneven":1.75,"hours":19.36,"miss_share":0.038,"gap3_share":0.421},"planner":{"gap":2.65,"long":8.24,"days":4.48,"uneven":1.74,"hours":19.55,"miss_share":0.0,"gap3_share":0.404},"ci_gap":[-0.77,-0.99,-0.55],"ci_long":[-0.43,-0.62,-0.28],"ci_uneven":[-0.14,-0.2,-0.09],"gap_hist":{"random":[33,24,27,27,20,14,10,9,19],"fcfs":[49,37,20,17,16,14,9,10,11],"planner":[52,36,21,19,17,12,5,8,13]},"examples":[{"courses":["EE2000","EN2711","LW2604","VM2106"],"real":false,"random":{"blocks":[["EE2000",0,18,1],["EE2000",3,12,3],["EN2711",2,15,3],["LW2604",0,14,2],["LW2604",4,19,1],["VM2106",1,9,2]],"gap":2,"long":5,"days":5,"uneven":0.72,"miss":0,"hours":12},"fcfs":{"blocks":[["EE2000",0,18,1],["EE2000",3,12,3],["EN2711",2,15,3],["LW2604",-1,0,0],["VM2106",1,9,2]],"gap":0,"long":3,"days":4,"uneven":1.04,"miss":1,"hours":9},"planner":{"blocks":[["EE2000",0,18,1],["EE2000",3,12,3],["EN2711",2,15,3],["LW2604",0,14,2],["LW2604",4,19,1],["VM2106",1,9,2]],"gap":2,"long":5,"days":5,"uneven":0.72,"miss":0,"hours":12}},{"courses":["CAH3165","COM3211","CS3201","GE2256","VM4001"],"real":false,"random":{"blocks":[["CAH3165",1,15,3],["COM3211",0,9,3],["CS3201",3,13,1],["CS3201",5,9,3],["GE2256",2,12,3],["VM4001",2,16,2],["VM4001",3,16,1]],"gap":3,"long":6,"days":5,"uneven":1.32,"miss":0,"hours":16},"fcfs":{"blocks":[["CAH3165",1,15,3],["COM3211",0,9,3],["CS3201",1,14,1],["CS3201",5,9,3],["GE2256",2,12,3],["VM4001",2,16,2],["VM4001",3,16,1]],"gap":1,"long":6,"days":5,"uneven":1.64,"miss":0,"hours":16},"planner":{"blocks":[["CAH3165",1,15,3],["COM3211",0,9,3],["CS3201",1,18,1],["CS3201",5,9,3],["GE2256",2,12,3],["VM4001",2,16,2],["VM4001",3,16,1]],"gap":1,"long":6,"days":5,"uneven":1.64,"miss":0,"hours":16}}]},"Mathematics":{"students":174,"random":{"gap":3.72,"long":7.99,"days":4.21,"uneven":1.6,"hours":15.05,"miss_share":0.0,"gap3_share":0.603},"fcfs":{"gap":1.14,"long":5.84,"days":4.63,"uneven":1.16,"hours":14.93,"miss_share":0.057,"gap3_share":0.201},"planner":{"gap":0.86,"long":5.68,"days":4.7,"uneven":1.15,"hours":15.05,"miss_share":0.0,"gap3_share":0.121},"ci_gap":[-2.86,-3.28,-2.44],"ci_long":[-2.3,-2.66,-1.97],"ci_uneven":[-0.45,-0.54,-0.35],"gap_hist":{"random":[36,10,23,32,15,18,14,3,23],"fcfs":[99,26,14,20,3,7,2,1,2],"planner":[104,29,20,15,1,3,0,1,1]},"examples":[{"courses":["GE1105","GE1401","GE1501","MA1400","MA2172","PHY1201"],"real":false,"random":{"blocks":[["GE1105",3,9,3],["GE1401",2,9,3],["GE1501",4,12,3],["MA1400",2,12,3],["MA1400",3,13,1],["MA2172",0,9,3],["MA2172",4,18,1],["PHY1201",1,10,1],["PHY1201",1,15,3],["PHY1201",4,15,3]],"gap":5,"long":8,"days":5,"uneven":1.36,"miss":0,"hours":24},"fcfs":{"blocks":[["GE1105",3,9,3],["GE1401",0,12,3],["GE1501",4,15,3],["MA1400",2,12,3],["MA1400",3,13,1],["MA2172",0,9,3],["MA2172",4,18,1],["PHY1201",1,13,1],["PHY1201",1,15,3],["PHY1201",3,15,3]],"gap":3,"long":9,"days":5,"uneven":1.36,"miss":0,"hours":24},"planner":{"blocks":[["GE1105",3,9,3],["GE1401",2,9,3],["GE1501",4,12,3],["MA1400",2,12,3],["MA1400",3,13,1],["MA2172",0,9,3],["MA2172",4,18,1],["PHY1201",1,13,1],["PHY1201",1,15,3],["PHY1201",4,15,3]],"gap":2,"long":7,"days":5,"uneven":1.36,"miss":0,"hours":24}},{"courses":["GE1362","GE1401","MA1200","MA1502","PED1305"],"real":false,"random":{"blocks":[["GE1362",3,16,3],["GE1401",1,12,3],["MA1200",0,18,1],["MA1200",2,17,2],["MA1200",4,12,2],["MA1502",2,9,3]],"gap":5,"long":10,"days":5,"uneven":1.04,"miss":0,"hours":14},"fcfs":{"blocks":[["GE1362",3,16,3],["GE1401",1,9,3],["MA1200",0,12,2],["MA1200",1,12,1],["MA1200",4,17,2],["MA1502",2,9,3]],"gap":0,"long":4,"days":5,"uneven":0.64,"miss":0,"hours":14},"planner":{"blocks":[["GE1362",3,16,3],["GE1401",0,9,3],["MA1200",0,12,2],["MA1200",1,18,1],["MA1200",4,17,2],["MA1502",2,9,3]],"gap":0,"long":5,"days":5,"uneven":1.04,"miss":0,"hours":14}}]},"First-year general education":{"students":160,"random":{"gap":0.36,"long":1.94,"days":0.98,"uneven":0.53,"hours":3.24,"miss_share":0.0,"gap3_share":0.081},"fcfs":{"gap":0.22,"long":1.6,"days":1.07,"uneven":0.43,"hours":3.19,"miss_share":0.019,"gap3_share":0.05},"planner":{"gap":0.19,"long":1.59,"days":1.09,"uneven":0.43,"hours":3.24,"miss_share":0.0,"gap3_share":0.044},"ci_gap":[-0.17,-0.31,-0.06],"ci_long":[-0.35,-0.57,-0.16],"ci_uneven":[-0.1,-0.16,-0.04],"gap_hist":{"random":[141,5,1,9,1,0,1,2,0],"fcfs":[149,3,0,6,0,0,1,0,1],"planner":[150,3,0,5,0,0,1,1,0]},"examples":[{"courses":["GE2211","GE2213","GE2262","GE2336"],"real":false,"random":{"blocks":[["GE2211",2,12,3],["GE2213",0,9,3],["GE2262",1,12,2],["GE2262",4,10,1],["GE2336",1,9,3]],"gap":0,"long":5,"days":4,"uneven":1.52,"miss":0,"hours":12},"fcfs":{"blocks":[["GE2211",2,12,3],["GE2213",0,9,3],["GE2262",1,12,2],["GE2262",3,17,1],["GE2336",1,9,3]],"gap":0,"long":5,"days":4,"uneven":1.52,"miss":0,"hours":12},"planner":{"blocks":[["GE2211",2,12,3],["GE2213",0,9,3],["GE2262",1,12,2],["GE2262",4,10,1],["GE2336",1,9,3]],"gap":0,"long":5,"days":4,"uneven":1.52,"miss":0,"hours":12}},{"courses":["GE1138","GE1305","GE1401","GE1501","LC2956","PED1606"],"real":false,"random":{"blocks":[["GE1138",3,12,3],["GE1305",2,12,3],["GE1401",5,9,3],["GE1501",3,16,3],["LC2956",2,9,3]],"gap":1,"long":7,"days":3,"uneven":3.0,"miss":0,"hours":15},"fcfs":{"blocks":[["GE1138",3,12,3],["GE1305",2,12,3],["GE1401",4,13,3],["GE1501",0,9,3],["LC2956",2,9,3],["PED1606",-1,0,0]],"gap":0,"long":6,"days":4,"uneven":1.2,"miss":1,"hours":15},"planner":{"blocks":[["GE1138",3,12,3],["GE1305",2,12,3],["GE1401",4,16,3],["GE1501",1,15,3],["LC2956",2,9,3]],"gap":0,"long":6,"days":4,"uneven":1.2,"miss":0,"hours":15}}]},"Materials Science":{"students":152,"random":{"gap":3.09,"long":8.03,"days":4.43,"uneven":1.77,"hours":17.51,"miss_share":0.0,"gap3_share":0.559},"fcfs":{"gap":1.16,"long":6.6,"days":4.64,"uneven":1.45,"hours":16.86,"miss_share":0.132,"gap3_share":0.204},"planner":{"gap":1.22,"long":6.7,"days":4.72,"uneven":1.48,"hours":17.49,"miss_share":0.0,"gap3_share":0.204},"ci_gap":[-1.87,-2.26,-1.49],"ci_long":[-1.33,-1.68,-1.05],"ci_uneven":[-0.3,-0.39,-0.19],"gap_hist":{"random":[40,17,10,30,15,11,10,5,14],"fcfs":[80,26,15,17,6,5,1,1,1],"planner":[77,27,17,15,6,6,3,1,0]},"examples":[{"courses":["CAH2536","EE3001","MSE4170","PHY3202","SS3724"],"real":false,"random":{"blocks":[["CAH2536",0,9,3],["EE3001",3,16,3],["MSE4170",1,18,3],["MSE4170",2,9,3],["PHY3202",2,14,3],["PHY3202",3,12,3],["SS3724",4,9,3]],"gap":3,"long":8,"days":5,"uneven":1.44,"miss":0,"hours":21},"fcfs":{"blocks":[["CAH2536",0,9,3],["EE3001",3,16,3],["MSE4170",0,12,3],["MSE4170",2,9,3],["PHY3202",1,18,3],["PHY3202",2,14,3],["SS3724",4,9,3]],"gap":2,"long":8,"days":5,"uneven":1.44,"miss":0,"hours":21},"planner":{"blocks":[["CAH2536",0,9,3],["EE3001",3,16,3],["MSE4170",2,9,3],["MSE4170",4,12,3],["PHY3202",1,18,3],["PHY3202",2,14,3],["SS3724",4,9,3]],"gap":2,"long":8,"days":5,"uneven":1.44,"miss":0,"hours":21}},{"courses":["CS1302","GE1109","GE2265","MA1200","MSE1001","PED1305","PHY1201"],"real":false,"random":{"blocks":[["CS1302",0,9,3],["CS1302",2,12,1],["GE1109",1,12,3],["GE2265",0,15,3],["MA1200",0,12,2],["MA1200",3,11,1],["MA1200",4,17,2],["PHY1201",1,10,1],["PHY1201",1,15,3],["PHY1201",3,15,3]],"gap":5,"long":9,"days":5,"uneven":2.48,"miss":0,"hours":22},"fcfs":{"blocks":[["CS1302",0,14,1],["CS1302",4,15,3],["GE1109",1,12,3],["GE2265",0,15,3],["MA1200",1,11,1],["MA1200",2,17,2],["MA1200",4,12,2],["PHY1201",1,10,1],["PHY1201",1,15,3],["PHY1201",3,15,3]],"gap":1,"long":8,"days":5,"uneven":1.68,"miss":0,"hours":22},"planner":{"blocks":[["CS1302",0,9,3],["CS1302",0,14,1],["GE1109",1,12,3],["GE2265",0,15,3],["MA1200",0,12,2],["MA1200",1,18,1],["MA1200",4,17,2],["PHY1201",1,10,1],["PHY1201",1,15,3],["PHY1201",3,15,3]],"gap":1,"long":9,"days":4,"uneven":3.28,"miss":0,"hours":22}}]}},"real":{"students":183,"actual":{"gap":3.84,"long":8.36,"days":4.09,"uneven":1.86},"random":{"gap":3.82,"long":8.35,"days":4.05,"uneven":1.86},"fcfs":{"gap":1.31,"long":6.72,"days":4.54,"uneven":1.41},"planner":{"gap":1.24,"long":6.79,"days":4.55,"uneven":1.42}}};
+const S = { prog: 'All students', base: 'random', ex: 0 };
+const f1 = (v) => v.toFixed(1), f2 = (v) => v.toFixed(2), pct = (v) => Math.round(v * 100) + '%';
+const NAMES = { random: 'Today', fcfs: 'First come', planner: 'Planner' };
+const COL = { random: 'var(--today)', fcfs: 'var(--fcfs)', planner: 'var(--plan)' };
+const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs = {}, text) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; };
+const html = (tag, attrs = {}, text) => { const e = document.createElement(tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; };
+const group = () => S.prog === 'All students' ? D.overall : D.programmes[S.prog];
+const names = Object.keys(D.programmes);
+
+try { const saved = JSON.parse(localStorage.getItem('tt-explorer') || '{}'); if (saved.prog && (saved.prog === 'All students' || D.programmes[saved.prog])) S.prog = saved.prog; if (saved.base) S.base = saved.base; } catch (e) {}
+function save() { try { localStorage.setItem('tt-explorer', JSON.stringify({ prog: S.prog, base: S.base })); } catch (e) {} }
+
+function tipFor(box) { let t = box.querySelector('.tip'); if (!t) { t = html('div', { class: 'tip' }); t.hidden = true; box.appendChild(t); } return t; }
+function showTip(box, ev, text) { const t = tipFor(box); t.textContent = text; t.hidden = false; const b = box.getBoundingClientRect(); let x = ev.clientX - b.left + 12; x = Math.min(x, b.width - t.offsetWidth - 4); t.style.left = Math.max(0, x) + 'px'; t.style.top = Math.max(0, ev.clientY - b.top - 32) + 'px'; }
+function hideTip(box) { const t = box.querySelector('.tip'); if (t) t.hidden = true; }
+
+function lede() {
+  const o = D.overall, r = D.real;
+  const p = document.getElementById('lede');
+  p.replaceChildren();
+  const parts = [
+    'Across about ', [o.students.toLocaleString()], ' simulated undergraduates, the planner cuts idle time between classes from ',
+    [f2(o.random.gap)], ' to ', [f2(o.planner.gap)], ' hours per student per week, and the longest day from ',
+    [f1(o.random.long)], ' to ', [f1(o.planner.long)], ' hours. For the ', [String(r.students)], ' students whose real timetables we have, gaps fall from ',
+    [f1(r.actual.gap)], ' to ', [f1(r.planner.gap)], ' hours.'];
+  parts.forEach((x) => p.append(Array.isArray(x) ? html('b', {}, x[0]) : x));
+}
+
+function tiles() {
+  const g = group(), b = g[S.base], p = g.planner, box = document.getElementById('tiles');
+  box.replaceChildren();
+  const ci = S.base === 'random' ? g.ci_gap : null;
+  const items = [
+    ['Gap hours a week', f2(p.gap), b.gap, p.gap, f2, ci ? `95% interval ${f2(-ci[2])} to ${f2(-ci[1])} h less` : 'interval shown against today only'],
+    ['Longest day on campus', f1(p.long) + ' h', b.long, p.long, (v) => f1(v) + ' h'],
+    ['Students with 3+ gap hours', pct(p.gap3_share), b.gap3_share, p.gap3_share, pct],
+    ['Students missing a course', pct(p.miss_share), b.miss_share, p.miss_share, pct],
+  ];
+  const t0 = html('div', { class: 'tile' });
+  t0.append(html('span', { class: 'k' }, S.prog === 'All students' ? 'Students in the population' : 'Students in this programme'),
+    html('span', { class: 'v' }, g.students.toLocaleString()), html('span', { class: 'd' }, 'average of 3 bootstrap populations'));
+  box.append(t0);
+  items.forEach(([k, v, from, to, fmt, extra]) => {
+    const t = html('div', { class: 'tile' });
+    const d = html('span', { class: 'd' });
+    const diff = to - from;
+    const cls = Math.abs(diff) < 1e-9 ? '' : diff < 0 ? 'good' : 'bad';
+    d.append(`from ${fmt(from)} with ${NAMES[S.base].toLowerCase()} `);
+    const mag = fmt === pct ? Math.round(Math.abs(diff) * 100) + ' pts' : fmt(Math.abs(diff)) + (fmt === f2 ? ' h' : '');
+    if (cls) d.append(html('span', { class: cls }, (diff < 0 ? '▼ ' : '▲ ') + mag));
+    t.append(html('span', { class: 'k' }, k), html('span', { class: 'v' }, v), d);
+    if (extra) t.append(html('span', { class: 'd' }, extra));
+    box.append(t);
+  });
+}
+
+function ranking() {
+  const box = document.getElementById('rank');
+  const W = box.clientWidth || 700;
+  const rows = names.map((n) => ({ n, b: D.programmes[n][S.base].gap, p: D.programmes[n].planner.gap, s: D.programmes[n].students }))
+    .sort((a, c) => (c.b - c.p) - (a.b - a.p));
+  const rowH = 24, top = 6, H = rows.length * rowH + top + 26;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Gap hours per week by programme: ' + rows.map((r) => `${r.n} ${f2(r.b)} to ${f2(r.p)}`).join('; ') });
+  box.replaceChildren(svg);
+  const probe = el('text', { class: 'lbl' }); svg.append(probe);
+  let left = 0; rows.forEach((r) => { probe.textContent = r.n; left = Math.max(left, probe.getComputedTextLength()); }); probe.remove();
+  left = Math.min(left + 14, W * 0.45);
+  const max = Math.ceil(Math.max(...rows.map((r) => Math.max(r.b, r.p)))) || 1;
+  const x = (v) => left + (W - left - 70) * v / max;
+  for (let t = 0; t <= max; t++) {
+    svg.append(el('line', { class: 'grid', x1: x(t), x2: x(t), y1: top - 4, y2: H - 22 }));
+    svg.append(el('text', { x: x(t), y: H - 6, 'text-anchor': 'middle' }, t + (t === max ? ' h' : '')));
+  }
+  rows.forEach((r, i) => {
+    const y = top + i * rowH + rowH / 2;
+    const g = el('g', { class: 'row' + (r.n === S.prog ? ' sel' : ''), tabindex: 0, role: 'button', 'aria-label': `Show ${r.n}` });
+    g.append(el('rect', { class: 'hit', x: 0, y: y - rowH / 2, width: W, height: rowH, fill: r.n === S.prog ? 'var(--plan-soft)' : 'transparent', rx: 4 }));
+    g.append(el('text', { class: 'lbl', x: 4, y, dy: '.35em' }, r.n));
+    g.append(el('line', { x1: x(r.b), x2: x(r.p), y1: y, y2: y, stroke: 'var(--muted)', 'stroke-width': 2 }));
+    g.append(el('circle', { cx: x(r.b), cy: y, r: 5, fill: COL[S.base] }));
+    g.append(el('circle', { cx: x(r.p), cy: y, r: 5, fill: COL.planner }));
+    g.append(el('text', { x: Math.max(x(r.b), x(r.p)) + 9, y, dy: '.35em' }, `−${f1(r.b - r.p)} h`));
+    g.addEventListener('click', () => pick(r.n));
+    g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(r.n); } });
+    g.addEventListener('pointermove', (e) => showTip(box, e, `${r.n} (${r.s.toLocaleString()} students): ${f2(r.b)} → ${f2(r.p)} gap h/week`));
+    g.addEventListener('pointerleave', () => hideTip(box));
+    svg.append(g);
+  });
+}
+
+function hist() {
+  const g = group(), box = document.getElementById('hist');
+  const W = box.clientWidth || 400, H = 200, L = 34, B = 26;
+  const a = g.gap_hist[S.base], p = g.gap_hist.planner;
+  const ta = a.reduce((s, v) => s + v, 0) || 1, tp = p.reduce((s, v) => s + v, 0) || 1;
+  const sa = a.map((v) => v / ta), sp = p.map((v) => v / tp);
+  const max = Math.max(...sa, ...sp, 0.1);
+  const ymax = Math.ceil(max * 10) / 10;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `Share of students by weekly gap hours, ${NAMES[S.base]} vs planner: ` + sa.map((v, i) => `${i}h ${pct(v)} vs ${pct(sp[i])}`).join(', ') });
+  box.replaceChildren(svg);
+  const bw = (W - L) / 9, y = (v) => (H - B) - (H - B - 8) * v / ymax;
+  for (let t = 0; t <= ymax + 1e-9; t += ymax / 2) {
+    svg.append(el('line', { class: 'grid', x1: L, x2: W, y1: y(t), y2: y(t) }));
+    svg.append(el('text', { x: L - 6, y: y(t), dy: '.35em', 'text-anchor': 'end' }, pct(t)));
+  }
+  for (let i = 0; i < 9; i++) {
+    const x0 = L + i * bw + bw * 0.12, w = bw * 0.36;
+    [[sa[i], COL[S.base], NAMES[S.base]], [sp[i], COL.planner, 'Planner']].forEach(([v, c, n], k) => {
+      const r = el('rect', { x: x0 + k * w, y: y(v), width: w - 1, height: Math.max(0, (H - B) - y(v)), fill: c, rx: 1.5 });
+      r.addEventListener('pointermove', (e) => showTip(box, e, `${n}: ${pct(v)} of students have ${i === 8 ? '8+' : i} gap h/week`));
+      r.addEventListener('pointerleave', () => hideTip(box));
+      svg.append(r);
+    });
+    svg.append(el('text', { x: L + i * bw + bw / 2, y: H - 8, 'text-anchor': 'middle' }, i === 8 ? '8+' : String(i)));
+  }
+  document.getElementById('histTitle').textContent = `How many gap hours ${S.prog === 'All students' ? 'students' : S.prog + ' students'} have`;
+}
+
+function shape() {
+  const g = group(), box = document.getElementById('shape');
+  const W = box.clientWidth || 400;
+  const ms = [['Gap hours a week', 'gap', f2], ['Longest day (h)', 'long', f1], ['Days on campus', 'days', f1], ['Uneven week', 'uneven', f2], ['Class hours a week', 'hours', f1]];
+  const rowH = 38, H = ms.length * rowH + 4;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': ms.map(([n, k, f]) => `${n}: ${f(g[S.base][k])} to ${f(g.planner[k])}`).join('; ') });
+  box.replaceChildren(svg);
+  const left = Math.min(130, W * 0.4);
+  ms.forEach(([n, k, f], i) => {
+    const y0 = i * rowH + 4, max = Math.max(g[S.base][k], g.planner[k], 0.01) * 1.15;
+    const x = (v) => left + (W - left - 44) * v / max;
+    svg.append(el('text', { class: 'lbl', x: 0, y: y0 + 14, dy: '.35em' }, n));
+    [[S.base, 0], ['planner', 1]].forEach(([s, j]) => {
+      const v = g[s][k], yy = y0 + j * 15 + 2;
+      svg.append(el('rect', { x: left, y: yy, width: Math.max(1, x(v) - left), height: 12, fill: COL[s], rx: 2 }));
+      svg.append(el('text', { x: x(v) + 5, y: yy + 6, dy: '.35em' }, f(v)));
+    });
+  });
+}
+
+function week(ex, scen) {
+  const card = html('div', { class: 'card' });
+  const st = ex[scen];
+  const h3 = html('h3'); h3.append(NAMES[scen] === 'Today' ? 'Today (random picks)' : NAMES[scen] === 'First come' ? 'First come, best pick' : 'Planner',
+    html('span', { class: 'num' }, `${st.gap} gap h · longest day ${st.long} h · ${st.days} days`));
+  card.append(h3);
+  const blocks = st.blocks.filter((b) => b[1] >= 0);
+  const hours = blocks.flatMap((b) => [b[2], b[2] + b[3]]);
+  const h0 = Math.min(9, ...hours), h1 = Math.max(18, ...hours);
+  const grid = html('div', { class: 'week', role: 'img', 'aria-label': `${NAMES[scen]} week: ` + blocks.map((b) => `${b[0]} ${DAYS[b[1]]} ${b[2]}:00 for ${b[3]} h`).join(', ') });
+  grid.append(html('div'));
+  DAYS.forEach((d) => grid.append(html('div', { class: 'dh' }, d)));
+  for (let h = h0; h < h1; h++) {
+    grid.append(html('div', { class: 'hr' }, String(h).padStart(2, '0')));
+    for (let d = 0; d < 6; d++) grid.append(html('div', { class: 'cell' }));
+  }
+  card.append(grid);
+  requestAnimationFrame(() => {
+    const cells = grid.querySelectorAll('.dh');
+    if (!cells.length) return;
+    const gb = grid.getBoundingClientRect();
+    const top = cells[0].offsetHeight, rowH = 22;
+    const pos = (d) => { const c = cells[d].getBoundingClientRect(); return [c.left - gb.left, c.width]; };
+    const byDay = {};
+    blocks.forEach((b) => { (byDay[b[1]] ||= []).push(b); });
+    Object.entries(byDay).forEach(([d, bs]) => {
+      const [x, w] = pos(+d);
+      const busy = new Set(); bs.forEach((b) => { for (let h = b[2]; h < b[2] + b[3]; h++) busy.add(h); });
+      const lo = Math.min(...busy), hi = Math.max(...busy);
+      for (let h = lo; h <= hi; h++) if (!busy.has(h)) {
+        const g = html('div', { class: 'gapmark', title: 'Idle hour' });
+        Object.assign(g.style, { left: x + 2 + 'px', width: w - 4 + 'px', top: top + (h - h0) * rowH + 1 + 'px', height: rowH - 2 + 'px' });
+        grid.append(g);
+      }
+      bs.forEach((b) => {
+        const k = html('div', { class: 'blk' }, b[0]);
+        Object.assign(k.style, { left: x + 1 + 'px', width: w - 2 + 'px', top: top + (b[2] - h0) * rowH + 1 + 'px', height: b[3] * rowH - 2 + 'px' });
+        grid.append(k);
+      });
+    });
+  });
+  return card;
+}
+
+function examples() {
+  const g = S.prog === 'All students' ? D.programmes[names[0]] : D.programmes[S.prog];
+  const exs = g.examples || [];
+  const ex = exs[Math.min(S.ex, exs.length - 1)];
+  document.getElementById('exTitle').textContent = `Example ${S.prog === 'All students' ? names[0] : S.prog} student`;
+  document.getElementById('ex1').hidden = exs.length < 2;
+  const wrap = document.getElementById('exWeeks');
+  wrap.replaceChildren();
+  if (!ex) { document.getElementById('exCourses').textContent = 'No example in this group.'; return; }
+  document.getElementById('exCourses').textContent = 'Courses: ' + ex.courses.join(' · ') + (ex.real ? ' (a real student from the screenshots)' : ' (a simulated student)');
+  wrap.append(week(ex, S.base), week(ex, 'planner'));
+}
+
+function table() {
+  const t = document.getElementById('table');
+  t.replaceChildren();
+  const head = html('tr');
+  ['Programme', 'Students', `Gap h (${NAMES[S.base].toLowerCase()})`, 'Gap h (planner)', 'Change', '95% interval vs today', 'Longest day', 'Planner longest day', '3+ gap h (planner)']
+    .forEach((h) => head.append(html('th', {}, h)));
+  const thead = html('thead'); thead.append(head); t.append(thead);
+  const tb = html('tbody');
+  [['All students', D.overall], ...names.map((n) => [n, D.programmes[n]])].forEach(([n, g]) => {
+    const tr = html('tr', { class: n === S.prog ? 'sel' : '' });
+    [n, g.students.toLocaleString(), f2(g[S.base].gap), f2(g.planner.gap), f2(g.planner.gap - g[S.base].gap),
+      `${f2(g.ci_gap[1])} to ${f2(g.ci_gap[2])}`, f1(g[S.base].long), f1(g.planner.long), pct(g.planner.gap3_share)]
+      .forEach((v) => tr.append(html('td', {}, v)));
+    tr.style.cursor = 'pointer';
+    tr.addEventListener('click', () => pick(n));
+    tb.append(tr);
+  });
+  t.append(tb);
+}
+
+function pick(n) { S.prog = n; S.ex = 0; document.getElementById('prog').value = n; save(); render(); }
+
+function render() {
+  document.querySelectorAll('[data-base]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.base === S.base)));
+  document.querySelectorAll('[data-ex]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.ex === S.ex)));
+  document.getElementById('lg-base').style.background = COL[S.base];
+  document.getElementById('lg-base-t').textContent = S.base === 'random' ? 'Today (random picks)' : 'First come, best pick';
+  tiles(); ranking(); hist(); shape(); examples(); table();
+}
+
+const sel = document.getElementById('prog');
+sel.append(new Option('All students', 'All students'));
+names.forEach((n) => sel.append(new Option(`${n} (${D.programmes[n].students.toLocaleString()})`, n)));
+sel.value = S.prog;
+sel.addEventListener('change', () => pick(sel.value));
+document.querySelectorAll('[data-base]').forEach((b) => b.addEventListener('click', () => { S.base = b.dataset.base; save(); render(); }));
+document.querySelectorAll('[data-ex]').forEach((b) => b.addEventListener('click', () => { S.ex = +b.dataset.ex; render(); }));
+let rt, lastW = 0;
+new ResizeObserver((es) => {
+  const w = Math.round(es[0].contentRect.width);
+  if (w === lastW) return;
+  lastW = w; clearTimeout(rt); rt = setTimeout(() => { ranking(); hist(); shape(); examples(); }, 120);
+}).observe(document.querySelector('.wrap'));
+lede();
+render();
+</script>
